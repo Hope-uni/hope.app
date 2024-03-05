@@ -97,7 +97,7 @@ _inputPassword() {
         padding: const EdgeInsets.only(right: 15, top: 15),
         child: const Icon(
           Icons.key,
-          color: Color.fromARGB(255, 21, 83, 156),
+          color: $colorBlueGeneral,
         ),
       ),
       Expanded(
