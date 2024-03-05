@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../../utils/constants.dart';
-import '../../widgets/auth_background.dart';
+import 'package:hope_app/presentation/utils/utils.dart';
+import 'package:hope_app/presentation/widgets/widgets.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -49,7 +48,7 @@ class LoginForm extends StatelessWidget {
               child: Text($forgetPassword),
             ),
           ),
-          _buttonLogin()
+          _ButtonLogin()
         ],
       ),
     );
@@ -71,7 +70,7 @@ _titleApp(double height) {
 }
 
 _inputUserName() {
-  Row(
+  return Row(
     children: [
       Container(
         padding: const EdgeInsets.only(right: 15, top: 15),
@@ -92,7 +91,7 @@ _inputUserName() {
 }
 
 _inputPassword() {
-  Row(
+  return Row(
     children: [
       Container(
         padding: const EdgeInsets.only(right: 15, top: 15),
@@ -112,16 +111,19 @@ _inputPassword() {
   );
 }
 
-_buttonLogin() {
-  Container(
-    width: double.infinity,
-    margin: const EdgeInsets.only(bottom: 20),
-    child: const FilledButton(
-      onPressed: null,
-      style: ButtonStyle(
-          foregroundColor: MaterialStatePropertyAll(Colors.white),
-          backgroundColor: MaterialStatePropertyAll($colorBlueGeneral)),
-      child: Text($titleButtonLogin),
-    ),
-  );
+class _ButtonLogin extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.only(bottom: 20),
+      child: const FilledButton(
+        onPressed: null,
+        style: ButtonStyle(
+            foregroundColor: MaterialStatePropertyAll(Colors.white),
+            backgroundColor: MaterialStatePropertyAll($colorBlueGeneral)),
+        child: Text($titleButtonLogin),
+      ),
+    );
+  }
 }
