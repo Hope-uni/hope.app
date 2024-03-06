@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hope_app/presentation/pages/login/login_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hope_app/presentation/pages/routes.dart';
+
+import 'presentation/utils/utils.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -22,13 +24,14 @@ class MyApp extends StatelessWidget {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky,
         overlays: []);
 
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Hope App',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
-        home: const LoginPage());
+    return MaterialApp.router(
+      routerConfig: router,
+      debugShowCheckedModeBanner: false,
+      title: $titleAppMain,
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: $colorScheme),
+        useMaterial3: true,
+      ),
+    );
   }
 }
