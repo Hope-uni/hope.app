@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-import '../utils/constants.dart';
+import 'package:hope_app/presentation/utils/utils.dart';
 
 class AuthBackground extends StatelessWidget {
   final Widget formChild;
