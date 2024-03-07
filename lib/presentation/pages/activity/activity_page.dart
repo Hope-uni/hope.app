@@ -10,7 +10,7 @@ class ActivityPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Actividades'),
       ),
-      body: const Text('Activitys'),
+      body: const Text('Activities'),
       drawer: const SideMenu(),
     );
   }

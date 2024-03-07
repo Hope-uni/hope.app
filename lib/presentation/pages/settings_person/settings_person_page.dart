@@ -8,9 +8,9 @@ class SettingsPersonPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Configuracones personales'),
+        title: const Text('Configuraciones personales'),
       ),
-      body: const Text('Configuracion'),
+      body: const Text('Configuración'),
       drawer: const SideMenu(),
     );
   }
