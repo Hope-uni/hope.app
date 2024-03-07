@@ -18,5 +18,4 @@ const appMenuItems = <MenuItem>[
       subTitle: $subTitleMenuSettings,
       url: '/settings',
       icon: Icons.settings),
-  MenuItem(title: $titleMenuLogout, subTitle: '', url: '/', icon: Icons.logout),
 ];
