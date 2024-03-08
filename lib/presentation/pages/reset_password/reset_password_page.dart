@@ -1,27 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:hope_app/presentation/pages/pages.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class ResetPasswordPage extends StatelessWidget {
+  const ResetPasswordPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
       body: SingleChildScrollView(
         child: AuthBackground(
-          isLogin: true,
-          formChild: LoginForsm(),
+          isLogin: false,
+          formChild: ResetPasswordForm(),
         ),
       ),
     );
   }
 }
 
-class LoginForsm extends StatelessWidget {
-  const LoginForsm({super.key});
+class ResetPasswordForm extends StatelessWidget {
+  const ResetPasswordForm({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,57 +33,70 @@ class LoginForsm extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(top: 25, bottom: 25),
             child: const Text(
-              $titleLogin,
+              $titleResetPassword,
             ),
           ),
-          _inputUserName(),
-          _inputPassword(),
+          _inputUserEmail(),
           //Forget Password
           SizedBox(
             width: double.infinity,
-            child: TextButton(
-              onPressed: () {
-                Navigator.of(context)
-                    .push(buildPageRoute(const ResetPasswordPage()));
-              },
-              style: const ButtonStyle(
-                  alignment: Alignment.centerRight,
-                  padding: MaterialStatePropertyAll(EdgeInsets.zero)),
-              child: const Text($forgetPassword),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Expanded(
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    style: const ButtonStyle(
+                        padding: MaterialStatePropertyAll(EdgeInsets.zero)),
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text($titleEnterCredentials),
+                        Icon(Icons.arrow_forward),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-          _ButtonLogin()
+          _ButtonSendEmail()
         ],
       ),
     );
   }
 }
 
-Text _titleApp(double height) {
-  return const Text(
-    $titleNombreApp,
-    style: TextStyle(
-        color: $colorBlueGeneral,
-        fontSize: 50,
-        fontWeight: FontWeight.bold,
-        fontFamily: $fontFamilyAnton),
+Container _titleApp(double height) {
+  return Container(
+    margin: EdgeInsets.only(top: height * 0.1),
+    child: const Text(
+      $titleNombreApp,
+      style: TextStyle(
+          color: $colorBlueGeneral,
+          fontSize: 50,
+          fontWeight: FontWeight.bold,
+          fontFamily: $fontFamilyAnton),
+    ),
   );
 }
 
-Row _inputUserName() {
+Row _inputUserEmail() {
   return Row(
     children: [
       Container(
         padding: const EdgeInsets.only(right: 15, top: 15),
         child: const Icon(
-          Icons.person,
+          Icons.alternate_email,
           color: $colorBlueGeneral,
         ),
       ),
       Expanded(
         child: TextFormField(
           decoration: const InputDecoration(
-            hintText: $titlePlaceholderUser,
+            hintText: $titleUserEmail,
           ),
         ),
       ),
@@ -93,41 +104,22 @@ Row _inputUserName() {
   );
 }
 
-Row _inputPassword() {
-  return Row(
-    children: [
-      Container(
-        padding: const EdgeInsets.only(right: 15, top: 15),
-        child: const Icon(
-          Icons.key,
-          color: $colorBlueGeneral,
-        ),
-      ),
-      Expanded(
-        child: TextFormField(
-          decoration: const InputDecoration(
-            hintText: $titlePlaceholderPassword,
-          ),
-        ),
-      ),
-    ],
-  );
-}
-
-class _ButtonLogin extends StatelessWidget {
+class _ButtonSendEmail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       width: double.infinity,
+      margin: const EdgeInsets.only(bottom: 10),
       child: FilledButton(
         onPressed: () {
           // Simula un inicio de sesión exitoso
           // Puedes reemplazar esto con tu lógica de autenticación real
-          bool loginSuccessful = true;
+          bool loginSuccessful = false;
 
           // ignore: dead_code
           if (loginSuccessful) {
-            context.replace('/children');
+            // ignore: avoid_print
+            print('Se envio correo');
             // ignore: dead_code
           } else {
             // Manejar caso de inicio de sesión fallido
@@ -143,7 +135,7 @@ class _ButtonLogin extends StatelessWidget {
         },
         style: const ButtonStyle(
             backgroundColor: MaterialStatePropertyAll($colorBlueGeneral)),
-        child: const Text($titleButtonLogin),
+        child: const Text($titleSendEmail),
       ),
     );
   }
