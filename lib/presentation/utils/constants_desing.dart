@@ -16,4 +16,6 @@ const Color $colorTextAndIconFooterDrawer = Colors.black87;
 const Color $colorBorderFooterDrawer = Color.fromARGB(255, 172, 172, 172);
 const Color $colorTextWhite = Colors.white;
 
+const Color $colorAlert = Colors.red;
+
 const String $fontFamilyAnton = 'Anton';

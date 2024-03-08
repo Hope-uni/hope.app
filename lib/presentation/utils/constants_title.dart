@@ -15,3 +15,8 @@ const String $titleMenuLogout = 'Cerrar sesión ';
 const String $subTitleMenuChildren = 'Niños asignados';
 const String $subTitleMenuActivity = 'Actividades para los niños';
 const String $subTitleMenuSettings = 'Datos personales';
+
+const String $titleResetPassword = 'Restablecer contraseña';
+const String $titleEnterCredentials = 'Ingresar credenciales';
+const String $titleUserEmail = 'Correo o nombre de usuario';
+const String $titleSendEmail = 'Enviar correo';

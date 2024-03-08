@@ -1,82 +1,86 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
+import 'package:hope_app/presentation/widgets/widgets.dart';
 
 class AuthBackground extends StatelessWidget {
+  final bool isLogin;
   final Widget formChild;
 
-  const AuthBackground({super.key, required this.formChild});
+  const AuthBackground(
+      {super.key, required this.formChild, required this.isLogin});
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Row(
-      children: [
-        //Formulario login
-        Container(
-          width: size.width * 0.5,
-          height: size.height,
-          color: $colorWhiteGeneral,
-          child: Column(
-            children: [
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(children: [
-                    Center(
-                      child: formChild,
-                    ),
-                  ]),
-                ),
-              ),
-              Container(
-                  margin: const EdgeInsets.all(15),
-                  child: const Text($titleRightsReserved))
-            ],
-          ),
-        ),
-        //Panel derecho Login
-        Container(
-          color: Colors.amber,
-          width: size.width * 0.5,
-          height: size.height,
-          child: Stack(children: [
-            Container(color: $colorBlueGeneral),
-            _HeartCircle(),
-          ]),
-        ),
-      ],
+      children: _condicionalBackground(isLogin, size, formChild),
     );
   }
 }
 
-class _HeartCircle extends StatelessWidget {
+List<StatelessWidget> _condicionalBackground(bool islogin, size, formChild) {
+  if (islogin) {
+    return [
+      _FormInitial(size: size, formChild: formChild),
+      //Panel derecho Login
+      _HeartBackground(size: size)
+    ];
+  } else {
+    return [
+      _HeartBackground(size: size),
+      _FormInitial(size: size, formChild: formChild)
+    ];
+  }
+}
+
+class _HeartBackground extends StatelessWidget {
+  const _HeartBackground({
+    required this.size,
+  });
+
+  final Size size;
+
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return Center(
-      child: Container(
-        width: size.width * 0.25,
-        height: size.height * 0.5,
-        decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            gradient: LinearGradient(
-              colors: [
-                $colorGradientPrimary,
-                $colorGradientSecundary,
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            )),
-        child: Align(
-          alignment: Alignment.bottomCenter,
-          child: FractionallySizedBox(
-            widthFactor: 0.6, // Toma la mitad del ancho del padre
-            heightFactor: 0.6, // Toma la mitad del alto del padre
-            child: SvgPicture.asset(
-              'assets/svg/corazon_vectorizado.svg',
-            ),
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(width: 0, color: Colors.transparent),
+        color: $colorBlueGeneral,
+      ),
+      width: size.width * 0.5,
+      height: size.height,
+      child: const Stack(children: [
+        HeartCircle(),
+      ]),
+    );
+  }
+}
+
+class _FormInitial extends StatelessWidget {
+  const _FormInitial({
+    required this.size,
+    required this.formChild,
+  });
+
+  final Size size;
+  final Widget formChild;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(top: size.height * 0.1, left: 40, right: 40),
+      width: size.width * 0.5,
+      height: size.height,
+      child: Column(
+        children: [
+          SingleChildScrollView(
+            child: Container(alignment: Alignment.center, child: formChild),
           ),
-        ),
+          const Spacer(),
+          Container(
+              margin: const EdgeInsets.only(bottom: 10),
+              child: const Text($titleRightsReserved))
+        ],
       ),
     );
   }
