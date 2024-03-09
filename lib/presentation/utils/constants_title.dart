@@ -6,6 +6,7 @@ const String $titlePlaceholderUser = 'Usuario';
 const String $titlePlaceholderPassword = 'Contraseña';
 const String $forgetPassword = '¿Olvido su contraseña?';
 const String $titleButtonLogin = 'Entrar';
+const String $titleAlertInputsNull = 'Los campos no pueden estar vacios';
 
 const String $titleMenuChildren = 'Niños';
 const String $titleMenuActivity = 'Actividades';
@@ -17,6 +18,8 @@ const String $subTitleMenuActivity = 'Actividades para los niños';
 const String $subTitleMenuSettings = 'Datos personales';
 
 const String $titleResetPassword = 'Restablecer contraseña';
-const String $titleEnterCredentials = 'Ingresar credenciales';
+const String $titleIniciarSesion = 'Iniciar sesión';
 const String $titleUserEmail = 'Correo o nombre de usuario';
 const String $titleSendEmail = 'Enviar correo';
+const String $titleAlertEmailUserNull =
+    'Debe ingresar el nombre de usuario o correo';

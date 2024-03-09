@@ -12,10 +12,14 @@ const Color $colorGradientSecundary = Color.fromARGB(0, 31, 100, 158);
 
 const Color $colorBackgroundHeaderDrawer = Colors.black87;
 const Color $colorTextAndIconFooterDrawer = Colors.black87;
+const Color $colorTextForlightBackgrounds = Colors.black;
 
 const Color $colorBorderFooterDrawer = Color.fromARGB(255, 172, 172, 172);
 const Color $colorTextWhite = Colors.white;
 
-const Color $colorAlert = Colors.red;
+const Color $colorAlert = Colors.yellowAccent;
+const Color $colorError = Colors.redAccent;
+
+const Color $colorButtonDisable = Colors.grey;
 
 const String $fontFamilyAnton = 'Anton';
