@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
 
@@ -79,7 +80,7 @@ class _FormInitial extends StatelessWidget {
           const Spacer(),
           Container(
               margin: const EdgeInsets.only(bottom: 10),
-              child: const Text($titleRightsReserved))
+              child: Text(S.current.Derechos_reservados))
         ],
       ),
     );

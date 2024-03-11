@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/providers/providers.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
@@ -37,8 +38,8 @@ class ResetPasswordForm extends ConsumerWidget {
           //TitleLogin
           Container(
             margin: const EdgeInsets.only(top: 25, bottom: 25),
-            child: const Text(
-              $titleResetPassword,
+            child: Text(
+              S.current.Restablecer_contrasena,
             ),
           ),
           _InputUserEmail(),
@@ -56,11 +57,11 @@ class ResetPasswordForm extends ConsumerWidget {
                     },
                     style: const ButtonStyle(
                         padding: MaterialStatePropertyAll(EdgeInsets.zero)),
-                    child: const Row(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text($titleIniciarSesion),
-                        Icon(Icons.arrow_forward),
+                        Text(S.current.Iniciar_sesion),
+                        const Icon(Icons.arrow_forward),
                       ],
                     ),
                   ),
@@ -78,9 +79,9 @@ class ResetPasswordForm extends ConsumerWidget {
 Container _titleApp(double height) {
   return Container(
     margin: EdgeInsets.only(top: height * 0.1),
-    child: const Text(
-      $titleNombreApp,
-      style: TextStyle(
+    child: Text(
+      S.current.Hope_App,
+      style: const TextStyle(
           color: $colorBlueGeneral,
           fontSize: 50,
           fontWeight: FontWeight.bold,
@@ -109,8 +110,8 @@ class _InputUserEmail extends ConsumerWidget {
             ],
             onChanged: (String value) =>
                 ref.read(inputEmailUserProvider.notifier).state = value.trim(),
-            decoration: const InputDecoration(
-              hintText: $titleUserEmail,
+            decoration: InputDecoration(
+              hintText: S.current.Correo_o_nombre_de_usuario,
             ),
           ),
         ),
@@ -132,13 +133,14 @@ class _ButtonSendEmail extends ConsumerWidget {
             : () {
                 ref.read(isClicSendEmailResetProvider.notifier).state = true;
                 if (ref.read(inputEmailUserProvider.notifier).state.isEmpty) {
-                  const snackBar = SnackBar(
+                  final snackBar = SnackBar(
                     backgroundColor: $colorAlert,
                     content: Text(
-                      $titleAlertEmailUserNull,
-                      style: TextStyle(color: $colorTextForlightBackgrounds),
+                      S.current.Debe_ingresar_el_nombre_de_usuario_o_correo,
+                      style:
+                          const TextStyle(color: $colorTextForlightBackgrounds),
                     ),
-                    duration: Duration(seconds: 2),
+                    duration: const Duration(seconds: 2),
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   ref.read(isClicSendEmailResetProvider.notifier).state = false;
@@ -169,7 +171,7 @@ class _ButtonSendEmail extends ConsumerWidget {
           backgroundColor: MaterialStateProperty.resolveWith(
               (states) => isClic ? $colorButtonDisable : $colorBlueGeneral),
         ),
-        child: const Text($titleSendEmail),
+        child: Text(S.current.Enviar_correo),
       ),
     );
   }

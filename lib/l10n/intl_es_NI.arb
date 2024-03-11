@@ -1,0 +1,22 @@
+{
+  "Hope_App": "Hope App",
+  "hope": "hope",
+  "Iniciar_sesion": "Iniciar sesión",
+  "Derechos_reservados": "© 2023 Hope. All rights reserved",
+  "Usuario": "Usuario",
+  "Contrasena": "Contraseña",
+  "Olvido_su_contrasena": "¿Olvido su contraseña?",
+  "Entrar": "Entrar",
+  "Los_campos_no_pueden_estar_vacios": "Los campos no pueden estar vacios",
+  "Ninos": "Niños",
+  "Actividades": "Actividades",
+  "Configuracion": "Configuración",
+  "Cerrar_sesion": "Cerrar sesión",
+  "Ninos_asignados": "Niños asignados",
+  "Actividades_para_los_ninos": "Actividades para los niños",
+  "Datos_personales": "Datos personales",
+  "Restablecer_contrasena": "Restablecer contraseña",
+  "Correo_o_nombre_de_usuario": "Correo o nombre de usuario",
+  "Enviar_correo": "Enviar correo",
+  "Debe_ingresar_el_nombre_de_usuario_o_correo": "Debe ingresar el nombre de usuario o correo"
+}
