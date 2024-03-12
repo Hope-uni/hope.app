@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/providers/providers.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 
@@ -94,9 +95,9 @@ class SideMenu extends ConsumerWidget {
                   Icons.logout,
                   color: $colorTextAndIconFooterDrawer,
                 ), // Cambia 'Icons.add' al icono que desees
-                label: const Text(
-                  $titleMenuLogout,
-                  style: TextStyle(color: $colorTextAndIconFooterDrawer),
+                label: Text(
+                  S.current.Cerrar_sesion,
+                  style: const TextStyle(color: $colorTextAndIconFooterDrawer),
                 ),
               ),
             ),
@@ -104,7 +105,7 @@ class SideMenu extends ConsumerWidget {
                 color: $colorBackgroundDrawer,
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(15),
-                child: const Text($titleRightsReserved)),
+                child: Text(S.current.Derechos_reservados)),
           ],
         ),
       ),

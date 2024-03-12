@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/pages/pages.dart';
 import 'package:hope_app/presentation/providers/providers.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
@@ -37,8 +38,8 @@ class LoginForsm extends StatelessWidget {
           //TitleLogin
           Container(
             margin: const EdgeInsets.only(top: 25, bottom: 25),
-            child: const Text(
-              $titleLogin,
+            child: Text(
+              S.current.Iniciar_sesion,
             ),
           ),
           _InputUserName(),
@@ -54,7 +55,7 @@ class LoginForsm extends StatelessWidget {
               style: const ButtonStyle(
                   alignment: Alignment.centerRight,
                   padding: MaterialStatePropertyAll(EdgeInsets.zero)),
-              child: const Text($forgetPassword),
+              child: Text(S.current.Olvido_su_contrasena),
             ),
           ),
           _ButtonLogin()
@@ -65,9 +66,9 @@ class LoginForsm extends StatelessWidget {
 }
 
 Text _titleApp(double height) {
-  return const Text(
-    $titleNombreApp,
-    style: TextStyle(
+  return Text(
+    S.current.Hope_App,
+    style: const TextStyle(
         color: $colorBlueGeneral,
         fontSize: 50,
         fontWeight: FontWeight.bold,
@@ -96,8 +97,8 @@ class _InputUserName extends ConsumerWidget {
                   RegExp(r'\s')), // Denegar espacios
             ],
             onChanged: ref.read(loginFormProvider.notifier).onUserNameChange,
-            decoration: const InputDecoration(
-              hintText: $titlePlaceholderUser,
+            decoration: InputDecoration(
+              hintText: S.current.Usuario,
             ),
           ),
         ),
@@ -131,7 +132,7 @@ class _InputPassword extends ConsumerWidget {
             obscureText: isVisiblePassword,
             onChanged: ref.read(loginFormProvider.notifier).onPasswordChange,
             decoration: InputDecoration(
-                hintText: $titlePlaceholderPassword,
+                hintText: S.current.Contrasena,
                 suffixIcon: IconButton(
                   icon: isVisiblePassword
                       ? const Icon(Icons.visibility_off)
@@ -161,20 +162,21 @@ class _ButtonLogin extends ConsumerWidget {
             : () {
                 ref.read(isClicLoginProvider.notifier).state = true;
                 if (ref.read(loginFormProvider.notifier).validateInputs()) {
-                  const snackBar = SnackBar(
+                  final snackBar = SnackBar(
                     backgroundColor: $colorAlert,
                     content: Text(
-                      $titleAlertInputsNull,
-                      style: TextStyle(color: $colorTextForlightBackgrounds),
+                      S.current.Los_campos_no_pueden_estar_vacios,
+                      style:
+                          const TextStyle(color: $colorTextForlightBackgrounds),
                     ),
-                    duration: Duration(seconds: 2),
+                    duration: const Duration(seconds: 2),
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   ref.read(isClicLoginProvider.notifier).state = false;
                   return;
                 }
 
-                bool loginSuccessful = false;
+                bool loginSuccessful = true;
                 // ignore: dead_code
                 if (loginSuccessful) {
                   context.replace('/children');
@@ -194,7 +196,7 @@ class _ButtonLogin extends ConsumerWidget {
           backgroundColor: MaterialStateProperty.resolveWith(
               (states) => isClick ? $colorButtonDisable : $colorBlueGeneral),
         ),
-        child: const Text($titleButtonLogin),
+        child: Text(S.current.Iniciar_sesion),
       ),
     );
   }

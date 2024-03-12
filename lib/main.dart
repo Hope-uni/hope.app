@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/pages/routes.dart';
 
 import 'presentation/utils/utils.dart';
@@ -15,6 +17,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    S.delegate.load(const Locale('es', 'NI'));
     // Establecer la orientación por defecto como horizontal
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft,
@@ -27,11 +30,18 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       routerConfig: router,
       debugShowCheckedModeBanner: false,
-      title: $titleAppMain,
+      title: S.current.Hope_App,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: $colorScheme),
         useMaterial3: true,
       ),
+      localizationsDelegates: const [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
     );
   }
 }
