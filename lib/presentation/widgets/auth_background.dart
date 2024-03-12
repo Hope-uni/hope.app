@@ -69,6 +69,7 @@ class _FormInitial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.white,
       padding: EdgeInsets.only(top: size.height * 0.1, left: 40, right: 40),
       width: size.width * 0.5,
       height: size.height,
