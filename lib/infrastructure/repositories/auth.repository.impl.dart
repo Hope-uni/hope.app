@@ -20,7 +20,7 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<User> resetPassword(String emailUser) {
+  Future<User> resetPassword(String emailOrUserName) {
     // TODO: implement resetPassword
     throw UnimplementedError();
   }

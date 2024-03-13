@@ -14,7 +14,7 @@ class AuthDataSourceImpl extends AuthDataSource {
   }
 
   @override
-  Future<User> resetPassword(String emailUser) {
+  Future<User> resetPassword(String emailOrUserName) {
     // TODO: implement resetPassword
     throw UnimplementedError();
   }
