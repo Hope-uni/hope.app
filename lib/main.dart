@@ -7,7 +7,9 @@ import 'package:hope_app/presentation/pages/routes.dart';
 
 import 'presentation/utils/utils.dart';
 
-void main() {
+Future<void> main() async {
+  await Environment.initEnvitonment();
+  await S.delegate.load(const Locale('es', 'NI'));
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -17,7 +19,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    S.delegate.load(const Locale('es', 'NI'));
     // Establecer la orientación por defecto como horizontal
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft,

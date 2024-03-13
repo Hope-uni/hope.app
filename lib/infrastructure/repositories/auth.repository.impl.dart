@@ -4,7 +4,7 @@ import 'package:hope_app/infrastructure/infrastructure.dart';
 class AuthRepositoryImpl extends AuthRepository {
   final AuthDataSource dataSource;
 
-  AuthRepositoryImpl(AuthDataSource? dataSource)
+  AuthRepositoryImpl({AuthDataSource? dataSource})
       : dataSource = dataSource ?? AuthDataSourceImpl();
 
   @override
