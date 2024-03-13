@@ -21,7 +21,6 @@ class MyApp extends StatelessWidget {
     // Establecer la orientación por defecto como horizontal
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft,
-      DeviceOrientation.landscapeRight,
     ]);
     // Ocultar la barra de estado
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky,
