@@ -5,10 +5,18 @@ import 'package:hope_app/presentation/utils/enviroment.dart';
 
 class AuthDataSourceImpl extends AuthDataSource {
   final dio = Dio(BaseOptions(baseUrl: Environment.apiUrl));
+
   @override
-  Future<User> checkAuthStatus(String token) {
-    // TODO: implement checkAuthStatus
-    throw UnimplementedError();
+  Future<User> checkAuthStatus(String token) async {
+    try {
+      final response = await dio.get('path',
+          options: Options(headers: {'Authorization': 'Bearer $token'}));
+
+      final user = UserMapper.userJsonToEntity(response.data);
+      return user;
+    } catch (e) {
+      throw UnimplementedError();
+    }
   }
 
   @override
@@ -25,7 +33,6 @@ class AuthDataSourceImpl extends AuthDataSource {
 
   @override
   Future<User> resetPassword(String emailOrUserName) {
-    // TODO: implement resetPassword
     throw UnimplementedError();
   }
 }

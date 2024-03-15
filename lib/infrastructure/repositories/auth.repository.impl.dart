@@ -9,19 +9,16 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<User> checkAuthStatus(String token) {
-    // TODO: implement checkAuthStatus
-    throw UnimplementedError();
+    return dataSource.checkAuthStatus(token);
   }
 
   @override
   Future<User> login(String email, String password) {
-    // TODO: implement login
-    throw UnimplementedError();
+    return dataSource.login(email, password);
   }
 
   @override
   Future<User> resetPassword(String emailOrUserName) {
-    // TODO: implement resetPassword
-    throw UnimplementedError();
+    return dataSource.resetPassword(emailOrUserName);
   }
 }

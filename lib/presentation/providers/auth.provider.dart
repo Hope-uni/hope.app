@@ -4,12 +4,19 @@ import 'package:hope_app/infrastructure/infrastructure.dart';
 
 final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
   final authRepository = AuthRepositoryImpl();
-  return AuthNotifier(authRepository: authRepository);
+  final keyValueRepository = KeyValueStorageRepositoryImpl();
+  return AuthNotifier(
+      authRepository: authRepository, keyValueRepository: keyValueRepository);
 });
 
 class AuthNotifier extends StateNotifier<AuthState> {
   final AuthRepository authRepository;
-  AuthNotifier({required this.authRepository}) : super(AuthState());
+  final KeyValueStorageRepository keyValueRepository;
+
+  AuthNotifier({required this.keyValueRepository, required this.authRepository})
+      : super(AuthState()) {
+    checkAuthStatus();
+  }
 
   Future<void> loginUser(String email, String password) async {
     try {
@@ -19,16 +26,29 @@ class AuthNotifier extends StateNotifier<AuthState> {
     } catch (e) {}
   }
 
-  Future<void> checkAuthStatus() async {}
+  Future<void> checkAuthStatus() async {
+    final token = await keyValueRepository.getValueStorage<String>('token');
+
+    if (token == null) return logout();
+
+    try {
+      final user = await authRepository.checkAuthStatus(token);
+      _setLoggedUser(user);
+    } catch (e) {
+      logout();
+    }
+  }
 
   Future<void> logout() async {
+    await keyValueRepository.deleteKeyStorage('token');
     state = state.copyWith(
       authStatus: AuthStatus.notAuthenticated,
       user: null,
     );
   }
 
-  void _setLoggedUser(User user) {
+  void _setLoggedUser(User user) async {
+    await keyValueRepository.setValueStorage(user.token, 'token');
     state = state.copyWith(
       user: user,
       authStatus: AuthStatus.authenticated,
