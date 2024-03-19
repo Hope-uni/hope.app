@@ -12,11 +12,10 @@ class MenuItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-        color: Colors.white, //Color.fromARGB(255, 147, 143, 143),
         popUpAnimationStyle: AnimationStyle.noAnimation,
         icon: const Icon(Icons.more_vert),
         onSelected: (itemUrl) {
-          context.go(itemUrl);
+          context.push(itemUrl);
         },
         itemBuilder: (BuildContext context) => <PopupMenuEntry>[
               ...menuItems.map(

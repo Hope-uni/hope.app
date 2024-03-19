@@ -20,20 +20,20 @@ final appMenuItemsDrawer = <MenuItem>[
       icon: Icons.settings),
 ];
 
-const List<MenuItem> menuPacientTutor = [
+final List<MenuItem> menuPacientTutor = [
   MenuItem(
-      title: 'Ver Información',
-      subTitle: 'Información general del niño',
+      title: S.current.Ver_informacion,
+      subTitle: S.current.Informacion_general_del_nino,
       url: '/dataChildren',
       icon: Icons.visibility),
   MenuItem(
-      title: 'Agregar pictograma',
-      subTitle: 'Añadir nuevo pictograma personalizado',
-      url: '/addPictograma',
+      title: S.current.Agregar_pictograma,
+      subTitle: S.current.Anadir_nuevo_pictograma_personalizado,
+      url: '/addPictogram',
       icon: Icons.add),
   MenuItem(
-      title: 'Listar pictogramas',
-      subTitle: 'Pictogramas personalizados del niño',
-      url: '/pictogramasPersonalizados',
+      title: S.current.Listar_pictogramas,
+      subTitle: S.current.Pictogramas_personalizados_del_nino,
+      url: '/pictogram',
       icon: Icons.format_list_bulleted),
 ];
