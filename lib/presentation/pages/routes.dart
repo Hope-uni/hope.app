@@ -33,5 +33,9 @@ final GoRouter router = GoRouter(
         path: '/settings',
         builder: (BuildContext context, GoRouterState state) =>
             const SettingsPersonPage()),
+    GoRoute(
+        path: '/pictogram',
+        builder: (BuildContext context, GoRouterState state) =>
+            const PictogramPage()),
   ],
 );
