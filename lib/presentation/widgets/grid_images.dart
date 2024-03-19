@@ -1,11 +1,12 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:hope_app/generated/l10n.dart';
+import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/utils/constants_desing.dart';
 
 const List<String> list = <String>['Casa', 'Escuela', 'Comida', 'Animales'];
 
-class GridImages extends StatelessWidget {
+class GridImages extends StatefulWidget {
   final bool isCustomized;
   final List<String> images;
 
@@ -15,6 +16,31 @@ class GridImages extends StatelessWidget {
       required this.images,
       this.loadNextImages,
       required this.isCustomized});
+
+  @override
+  State<GridImages> createState() => _GridImagesState();
+}
+
+class _GridImagesState extends State<GridImages> {
+  final scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController.addListener(() {
+      if (widget.loadNextImages == null) return;
+      if ((scrollController.position.pixels + 500) >=
+          scrollController.position.maxScrollExtent) {
+        widget.loadNextImages!();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,17 +114,18 @@ class GridImages extends StatelessWidget {
           ),
           Expanded(
             child: GridView.builder(
+              controller: scrollController,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 5,
                 crossAxisSpacing: 8.0,
                 mainAxisExtent: 250,
                 mainAxisSpacing: 8.0,
               ),
-              itemCount: images.length,
+              itemCount: widget.images.length,
               itemBuilder: (context, index) {
                 return _ImageGrid(
-                  image: images[index],
-                  isCustomized: isCustomized,
+                  image: widget.images[index],
+                  isCustomized: widget.isCustomized,
                 );
               },
             ),
@@ -134,22 +161,16 @@ class _ImageGrid extends StatelessWidget {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: Image.network(
-                image,
-                height: 140,
-                width: 140,
-                fit: BoxFit.cover,
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress != null) {
-                    return const Center(
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                      ),
-                    );
-                  }
-                  return FadeIn(child: child);
-                },
-              ),
+              child: FadeInImage(
+                  height: 140,
+                  width: 140,
+                  fit: BoxFit.cover,
+                  placeholderFit: BoxFit.cover,
+                  imageErrorBuilder: (context, error, stackTrace) {
+                    return Image.asset('assets/img/no-image.png');
+                  },
+                  placeholder: const AssetImage('assets/gif/jar-loading.gif'),
+                  image: NetworkImage(image)),
             ),
           ),
           Container(
@@ -165,7 +186,8 @@ class _ImageGrid extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         TextButton.icon(
-                          onPressed: () => _dialogImage(context),
+                          onPressed: () =>
+                              _dialogImage(context: context, urlImage: image),
                           icon: const Icon(
                             Icons.edit,
                             color: $colorBlueGeneral,
@@ -188,7 +210,7 @@ class _ImageGrid extends StatelessWidget {
                       children: [
                         IconButton(
                           onPressed: () => {
-                            _dialogImage(context),
+                            _dialogImage(context: context, urlImage: image),
                           },
                           icon: const Icon(
                             Icons.edit,
@@ -216,7 +238,9 @@ bool isTablet(BuildContext context) {
   return size.width > 850;
 }
 
-Future<void> _dialogImage(BuildContext context) {
+Future<void> _dialogImage(
+    {required BuildContext context, required String urlImage}) {
+  final image = CameraGalleryDataSourceImpl();
   final size = MediaQuery.of(context).size;
   return showDialog<void>(
     context: context,
@@ -240,7 +264,7 @@ Future<void> _dialogImage(BuildContext context) {
               ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Image.network(
-                  'https://media.dev.to/cdn-cgi/image/width=1280,height=720,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fao2m2l1skh8xfic16o4a.jpg',
+                  urlImage,
                   height: 180,
                   width: 180,
                   fit: BoxFit.cover,
@@ -252,16 +276,27 @@ Future<void> _dialogImage(BuildContext context) {
                         ),
                       );
                     }
-                    return FadeIn(child: child);
+                    return child;
                   },
                 ),
               ),
               Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  IconButton(onPressed: () {}, icon: const Icon(Icons.photo)),
                   IconButton(
-                      onPressed: () {}, icon: const Icon(Icons.add_a_photo))
+                      onPressed: () async {
+                        // ignore: unused_local_variable
+                        final photo = await image.selectImage();
+                      },
+                      icon: const Icon(Icons.photo)),
+                  Text(S.current.Galeria),
+                  IconButton(
+                      onPressed: () async {
+                        // ignore: unused_local_variable
+                        final imagen = await image.takePhoto();
+                      },
+                      icon: const Icon(Icons.add_a_photo)),
+                  Text(S.current.Camara),
                 ],
               )
             ],

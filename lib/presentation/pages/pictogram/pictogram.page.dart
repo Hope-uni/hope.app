@@ -39,6 +39,8 @@ class PictogramPage extends StatelessWidget {
       body: GridImages(
         isCustomized: true,
         images: arregloImages,
+        // ignore: avoid_print
+        loadNextImages: () => print('cargando nuevas imagenes'),
       ),
     );
   }
