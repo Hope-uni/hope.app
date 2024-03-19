@@ -7,10 +7,15 @@ class ActivityPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Actividades'),
       ),
-      body: const Text('Activities'),
+      body: const DataTableDynamic(
+        data: [],
+        headersRows: [],
+      ),
       drawer: const SideMenu(),
     );
   }

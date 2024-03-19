@@ -17,7 +17,7 @@ class SideMenu extends ConsumerWidget {
         onDestinationSelected: (value) {
           //Aqui se asigna el nuevo valor el index del menu y se redirecciona a la pantalla
           ref.read(selectedOption.notifier).state = value;
-          final menuItem = appMenuItems[value];
+          final menuItem = appMenuItemsDrawer[value];
           context.replace(menuItem.url);
         },
         tilePadding: EdgeInsets.zero,
@@ -55,8 +55,8 @@ class SideMenu extends ConsumerWidget {
                   ],
                 )),
           ),
-          ...appMenuItems.sublist(0, appMenuItems.length).map((item) =>
-              NavigationDrawerDestination(
+          ...appMenuItemsDrawer.sublist(0, appMenuItemsDrawer.length).map(
+              (item) => NavigationDrawerDestination(
                   icon: Icon(item.icon), label: Text(item.title))),
           const SizedBox(
             height: 200,
