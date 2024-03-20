@@ -40,7 +40,7 @@ Iterable<DataRow> generatePatients() {
         DataCell(Text(item.fullName)),
         DataCell(Text(item.fase)),
         DataCell(Text(item.edad)),
-        const DataCell(MenuItems(
+        DataCell(MenuItems(
           menuItems: menuPacientTutor,
         )),
       ]));

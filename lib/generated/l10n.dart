@@ -249,6 +249,227 @@ class S {
       args: [],
     );
   }
+
+  /// ``
+  String get Pictogramas_personalizados {
+    return Intl.message(
+      '',
+      name: 'Pictogramas_personalizados',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get Ver_informacion {
+    return Intl.message(
+      '',
+      name: 'Ver_informacion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `o`
+  String get Informacion_general_del_nino {
+    return Intl.message(
+      'o',
+      name: 'Informacion_general_del_nino',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get Agregar_pictograma {
+    return Intl.message(
+      '',
+      name: 'Agregar_pictograma',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get Anadir_nuevo_pictograma_personalizado {
+    return Intl.message(
+      '',
+      name: 'Anadir_nuevo_pictograma_personalizado',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get Listar_pictogramas {
+    return Intl.message(
+      '',
+      name: 'Listar_pictogramas',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get Pictogramas_personalizados_del_nino {
+    return Intl.message(
+      '',
+      name: 'Pictogramas_personalizados_del_nino',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get Categoria_de_pictogramas {
+    return Intl.message(
+      '',
+      name: 'Categoria_de_pictogramas',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get Busqueda_por_nombre {
+    return Intl.message(
+      '',
+      name: 'Busqueda_por_nombre',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get Buscar {
+    return Intl.message(
+      '',
+      name: 'Buscar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get Limpiar_filtros {
+    return Intl.message(
+      '',
+      name: 'Limpiar_filtros',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get Editar {
+    return Intl.message(
+      '',
+      name: 'Editar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get Eliminar {
+    return Intl.message(
+      '',
+      name: 'Eliminar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get Editar_imagen {
+    return Intl.message(
+      '',
+      name: 'Editar_imagen',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get Guardar {
+    return Intl.message(
+      '',
+      name: 'Guardar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get Cancelar {
+    return Intl.message(
+      '',
+      name: 'Cancelar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get Actualizar {
+    return Intl.message(
+      '',
+      name: 'Actualizar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get Si_Eliminar {
+    return Intl.message(
+      '',
+      name: 'Si_Eliminar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get Aviso {
+    return Intl.message(
+      '',
+      name: 'Aviso',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Esta seguro que desea eliminar el pictograma '{nameImage}' de '{nameChild}'`
+  String Esta_seguro_que_desea_eliminar_el_pictograma(
+      Object nameImage, Object nameChild) {
+    return Intl.message(
+      'Esta seguro que desea eliminar el pictograma \'$nameImage\' de \'$nameChild\'',
+      name: 'Esta_seguro_que_desea_eliminar_el_pictograma',
+      desc: '',
+      args: [nameImage, nameChild],
+    );
+  }
+
+  /// ``
+  String get Galeria {
+    return Intl.message(
+      '',
+      name: 'Galeria',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get Camara {
+    return Intl.message(
+      '',
+      name: 'Camara',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
