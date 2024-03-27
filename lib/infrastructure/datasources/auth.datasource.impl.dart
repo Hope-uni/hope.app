@@ -3,6 +3,7 @@ import 'package:hope_app/domain/domain.dart';
 import 'package:hope_app/infrastructure/errors/auth_errors.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/utils/enviroment.dart';
+import 'package:hope_app/generated/l10n.dart';
 
 class AuthDataSourceImpl extends AuthDataSource {
   final dio = Dio(BaseOptions(baseUrl: Environment.apiUrl));
@@ -31,11 +32,10 @@ class AuthDataSourceImpl extends AuthDataSource {
           response.data, TokenMapper.tokenJsonToEntity);
       return token;
     } on DioException catch (e) {
-      throw CustomError(e.response?.data['message'] ??
-          'Lo sentimos, ha ocurrido un error al procesar tu solicitud. Por favor, intenta nuevamente más tarde.');
-    } catch (e) {
       throw CustomError(
-          'Lamentablemente, ocurrió un error inesperado. Por favor, intenta nuevamente más tarde.');
+          e.response?.data['message'] ?? S.current.Error_solicitud);
+    } catch (e) {
+      throw CustomError(S.current.Error_inesperado);
     }
   }
 
