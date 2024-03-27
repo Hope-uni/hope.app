@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:hope_app/domain/domain.dart';
-import 'package:hope_app/infrastructure/errors/auth_errors.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/utils/enviroment.dart';
 import 'package:hope_app/generated/l10n.dart';
@@ -10,7 +9,7 @@ class AuthDataSourceImpl extends AuthDataSource {
 
   @override
   // ignore: avoid_renaming_method_parameters
-  Future<ResponseData<Token>> checkAuthStatus(String tokenUser) async {
+  Future<ResponseDataObject<Token>> checkAuthStatus(String tokenUser) async {
     try {
       final response = await dio.get('path',
           options: Options(headers: {'Authorization': 'Bearer $tokenUser'}));
@@ -24,7 +23,7 @@ class AuthDataSourceImpl extends AuthDataSource {
   }
 
   @override
-  Future<ResponseData<Token>> login(String email, String password) async {
+  Future<ResponseDataObject<Token>> login(String email, String password) async {
     try {
       final response = await dio
           .post('/auth/login', data: {'username': email, 'password': password});
@@ -40,7 +39,7 @@ class AuthDataSourceImpl extends AuthDataSource {
   }
 
   @override
-  Future<ResponseData<Token>> resetPassword(String emailOrUserName) {
+  Future<ResponseDataObject<Token>> resetPassword(String emailOrUserName) {
     throw UnimplementedError();
   }
 }

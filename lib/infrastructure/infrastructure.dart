@@ -9,3 +9,5 @@ export 'repositories/camera_gallery.repository.impl.dart';
 
 export 'mappers/response_data.mapper.dart';
 export 'mappers/token.mapper.dart';
+
+export 'errors/auth_errors.dart';

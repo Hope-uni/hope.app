@@ -6,3 +6,5 @@ export 'settings_person/settings_person.page.dart';
 export 'reset_password/reset_password.page.dart';
 export 'check_auth_status/check_auth_status.page.dart';
 export 'pictogram/pictogram.page.dart';
+export 'router/app_router_notifier.dart';
+export 'router/routes.dart';

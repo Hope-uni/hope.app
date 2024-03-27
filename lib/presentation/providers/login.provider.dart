@@ -10,8 +10,10 @@ final loginFormProvider =
 class LoginFormState {
   final String userName;
   final String password;
+  final bool isFormPosted;
 
   LoginFormState({
+    this.isFormPosted = false,
     this.password = '',
     this.userName = '',
   });
@@ -19,14 +21,18 @@ class LoginFormState {
   LoginFormState copyWith({
     String? userName,
     String? password,
+    bool? isFormPosted,
   }) =>
       LoginFormState(
-          userName: userName ?? this.userName,
-          password: password ?? this.password);
+        userName: userName ?? this.userName,
+        password: password ?? this.password,
+        isFormPosted: isFormPosted ?? this.isFormPosted,
+      );
 }
 
 class LoginFormNotifier extends StateNotifier<LoginFormState> {
-  final Function(String, String) loginUserCallback;
+  final Future<void> Function(String, String) loginUserCallback;
+
   LoginFormNotifier({required this.loginUserCallback})
       : super(LoginFormState());
 
@@ -45,12 +51,13 @@ class LoginFormNotifier extends StateNotifier<LoginFormState> {
     return false;
   }
 
-  onFormSubmit() async {
+  void onFormSubmit() async {
+    state = state.copyWith(isFormPosted: true);
     await loginUserCallback(state.userName, state.password);
+    state = state.copyWith(isFormPosted: false);
   }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
-final isClicLoginProvider = StateProvider<bool>((ref) => false);
 final isVisiblePasswordProvider = StateProvider<bool>((ref) => true);

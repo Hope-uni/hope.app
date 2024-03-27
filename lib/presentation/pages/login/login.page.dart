@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/pages/pages.dart';
 import 'package:hope_app/presentation/providers/providers.dart';
@@ -152,16 +151,27 @@ class _InputPassword extends ConsumerWidget {
 }
 
 class _ButtonLogin extends ConsumerWidget {
+  void showSnackBar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final bool isClick = ref.watch(isClicLoginProvider);
+    final loginProvider = ref.watch(loginFormProvider);
+
+    ref.listen(authProvider, (previous, next) {
+      if (next.errorMessage.isEmpty) return;
+      showSnackBar(context, next.errorMessage);
+    });
+
     return SizedBox(
       width: double.infinity,
       child: FilledButton(
-        onPressed: isClick
+        onPressed: loginProvider.isFormPosted
             ? null
             : () {
-                ref.read(isClicLoginProvider.notifier).state = true;
                 if (ref.read(loginFormProvider.notifier).validateInputs()) {
                   final snackBar = SnackBar(
                     backgroundColor: $colorAlert,
@@ -173,29 +183,15 @@ class _ButtonLogin extends ConsumerWidget {
                     duration: const Duration(seconds: 2),
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  ref.read(isClicLoginProvider.notifier).state = false;
                   return;
                 }
-
-                bool loginSuccessful = true;
-                // ignore: dead_code
-                if (loginSuccessful) {
-                  context.replace('/children');
-                  // ignore: dead_code
-                } else {
-                  // Manejar caso de inicio de sesión fallido
-                  // ignore: avoid_print
-                  const snackBar = SnackBar(
-                    backgroundColor: $colorError,
-                    content: Text('El usuario no existe'),
-                    duration: Duration(seconds: 4),
-                  );
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                }
+                ref.read(loginFormProvider.notifier).onFormSubmit();
               },
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.resolveWith(
-              (states) => isClick ? $colorButtonDisable : $colorBlueGeneral),
+          backgroundColor: MaterialStateProperty.resolveWith((states) =>
+              loginProvider.isFormPosted
+                  ? $colorButtonDisable
+                  : $colorBlueGeneral),
         ),
         child: Text(S.current.Iniciar_sesion),
       ),
