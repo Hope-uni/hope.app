@@ -40,5 +40,7 @@
   "Aviso": "",
   "Esta_seguro_que_desea_eliminar_el_pictograma": "Esta seguro que desea eliminar el pictograma '{nameImage}' de '{nameChild}'",
   "Galeria": "",
-  "Camara": ""
+  "Camara": "",
+  "Error_solicitud": "",
+  "Error_inesperado": ""
 }

@@ -31,10 +31,11 @@ class AuthDataSourceImpl extends AuthDataSource {
           response.data, TokenMapper.tokenJsonToEntity);
       return token;
     } on DioException catch (e) {
-      throw CustomError(
-          e.response?.data['message'] ?? 'Error al enviar los datos');
+      throw CustomError(e.response?.data['message'] ??
+          'Lo sentimos, ha ocurrido un error al procesar tu solicitud. Por favor, intenta nuevamente más tarde.');
     } catch (e) {
-      throw CustomError('Error no controlado');
+      throw CustomError(
+          'Lamentablemente, ocurrió un error inesperado. Por favor, intenta nuevamente más tarde.');
     }
   }
 

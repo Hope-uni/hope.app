@@ -59,6 +59,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Eliminar": MessageLookupByLibrary.simpleMessage("Eliminar"),
         "Entrar": MessageLookupByLibrary.simpleMessage("Entrar"),
         "Enviar_correo": MessageLookupByLibrary.simpleMessage("Enviar correo"),
+        "Error_inesperado": MessageLookupByLibrary.simpleMessage(
+            "Lamentablemente, ocurrió un error inesperado. Por favor, intenta nuevamente más tarde."),
+        "Error_solicitud": MessageLookupByLibrary.simpleMessage(
+            "Lo sentimos, ha ocurrido un error al procesar tu solicitud. Por favor, intenta nuevamente más tarde."),
         "Esta_seguro_que_desea_eliminar_el_pictograma": m0,
         "Galeria": MessageLookupByLibrary.simpleMessage("Galeria"),
         "Guardar": MessageLookupByLibrary.simpleMessage("Guardar"),
