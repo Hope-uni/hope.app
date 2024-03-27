@@ -40,5 +40,7 @@
   "Aviso": "Aviso!!!",
   "Esta_seguro_que_desea_eliminar_el_pictograma": "Esta seguro que desea eliminar el pictograma '{nameImage}' de '{nameChild}'",
   "Galeria": "Galeria",
-  "Camara": "Camara"
+  "Camara": "Camara",
+  "Error_solicitud": "Lo sentimos, ha ocurrido un error al procesar tu solicitud. Por favor, intenta nuevamente más tarde.",
+  "Error_inesperado": "Lamentablemente, ocurrió un error inesperado. Por favor, intenta nuevamente más tarde."
 }

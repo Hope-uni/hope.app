@@ -3,8 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hope_app/generated/l10n.dart';
-import 'package:hope_app/presentation/pages/routes.dart';
-
+import 'package:hope_app/presentation/pages/pages.dart';
 import 'presentation/utils/utils.dart';
 
 Future<void> main() async {
@@ -13,12 +12,12 @@ Future<void> main() async {
   runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     // Establecer la orientación por defecto como horizontal
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft,
@@ -27,8 +26,10 @@ class MyApp extends StatelessWidget {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky,
         overlays: []);
 
+    final appRouter = ref.watch(goRouterProvider);
+
     return MaterialApp.router(
-      routerConfig: router,
+      routerConfig: appRouter,
       debugShowCheckedModeBanner: false,
       title: S.current.Hope_App,
       theme: ThemeData(

@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hope_app/domain/domain.dart';
+import 'package:hope_app/infrastructure/errors/auth_errors.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
 
 final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
@@ -18,41 +19,56 @@ class AuthNotifier extends StateNotifier<AuthState> {
     checkAuthStatus();
   }
 
+  void _setLoggedToken(Token token) async {
+    await keyValueRepository.setValueStorage(token.accessToken!, 'token');
+    state = state.copyWith(
+      token: token,
+      authStatus: AuthStatus.authenticated,
+    );
+  }
+
   Future<void> loginUser(String email, String password) async {
     try {
-      final user = await authRepository.login(email, password);
-      _setLoggedUser(user);
+      final token = await authRepository.login(email, password);
+      _setLoggedToken(token.data!);
       // ignore: empty_catches
-    } catch (e) {}
+    } on CustomError catch (e) {
+      settearError(e.message);
+    } catch (e) {
+      settearError('Error no controlado');
+    }
   }
 
   Future<void> checkAuthStatus() async {
     final token = await keyValueRepository.getValueStorage<String>('token');
-
     if (token == null) return logout();
 
-    try {
+    final itemToken = Token(accessToken: token, refreshToken: '');
+    state = state.copyWith(
+      token: itemToken,
+      authStatus: AuthStatus.authenticated,
+    );
+    /* try {
       final user = await authRepository.checkAuthStatus(token);
-      _setLoggedUser(user);
+      _setLoggedToken(user);
     } catch (e) {
       logout();
-    }
+    }*/
   }
 
   Future<void> logout() async {
     await keyValueRepository.deleteKeyStorage('token');
     state = state.copyWith(
       authStatus: AuthStatus.notAuthenticated,
-      user: null,
+      token: null,
     );
   }
 
-  void _setLoggedUser(User user) async {
-    await keyValueRepository.setValueStorage(user.token, 'token');
+  void settearError(String error) {
     state = state.copyWith(
-      user: user,
-      authStatus: AuthStatus.authenticated,
-    );
+        authStatus: AuthStatus.notAuthenticated,
+        token: null,
+        errorMessage: error);
   }
 }
 
@@ -60,18 +76,18 @@ enum AuthStatus { checking, authenticated, notAuthenticated }
 
 class AuthState {
   final AuthStatus authStatus;
-  final User? user;
+  final Token? token;
   final String errorMessage;
 
   AuthState(
-      {this.user,
+      {this.token,
       this.errorMessage = '',
       this.authStatus = AuthStatus.checking});
 
   AuthState copyWith(
-          {AuthStatus? authStatus, User? user, String? errorMessage}) =>
+          {AuthStatus? authStatus, Token? token, String? errorMessage}) =>
       AuthState(
           authStatus: authStatus ?? this.authStatus,
           errorMessage: errorMessage ?? this.errorMessage,
-          user: user ?? this.user);
+          token: token ?? this.token);
 }

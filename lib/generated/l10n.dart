@@ -470,6 +470,26 @@ class S {
       args: [],
     );
   }
+
+  /// ``
+  String get Error_solicitud {
+    return Intl.message(
+      '',
+      name: 'Error_solicitud',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get Error_inesperado {
+    return Intl.message(
+      '',
+      name: 'Error_inesperado',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

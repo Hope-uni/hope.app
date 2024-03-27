@@ -1,7 +1,7 @@
 import 'package:hope_app/domain/domain.dart';
 
 abstract class AuthRepository {
-  Future<User> login(String email, String password);
-  Future<User> resetPassword(String emailOrUserName);
-  Future<User> checkAuthStatus(String token);
+  Future<ResponseDataObject<Token>> login(String email, String password);
+  Future<ResponseDataObject<Token>> resetPassword(String emailOrUserName);
+  Future<ResponseDataObject<Token>> checkAuthStatus(String token);
 }
