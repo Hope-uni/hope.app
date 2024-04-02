@@ -490,6 +490,146 @@ class S {
       args: [],
     );
   }
+
+  /// ``
+  String get Perfil {
+    return Intl.message(
+      '',
+      name: 'Perfil',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get Datos_del_usuario {
+    return Intl.message(
+      '',
+      name: 'Datos_del_usuario',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get Primer_nombre {
+    return Intl.message(
+      '',
+      name: 'Primer_nombre',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get Segundo_nombre {
+    return Intl.message(
+      '',
+      name: 'Segundo_nombre',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get Primer_apellido {
+    return Intl.message(
+      '',
+      name: 'Primer_apellido',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get Segundo_apellido {
+    return Intl.message(
+      '',
+      name: 'Segundo_apellido',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get Cedula {
+    return Intl.message(
+      '',
+      name: 'Cedula',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get Edad {
+    return Intl.message(
+      '',
+      name: 'Edad',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get Telefono {
+    return Intl.message(
+      '',
+      name: 'Telefono',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get Celular {
+    return Intl.message(
+      '',
+      name: 'Celular',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get Direccion {
+    return Intl.message(
+      '',
+      name: 'Direccion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get Seleccione_foto_de_perfil {
+    return Intl.message(
+      '',
+      name: 'Seleccione_foto_de_perfil',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get Nombre_de_usuario {
+    return Intl.message(
+      '',
+      name: 'Nombre_de_usuario',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get Correo_electronico {
+    return Intl.message(
+      '',
+      name: 'Correo_electronico',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

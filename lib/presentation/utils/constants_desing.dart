@@ -19,6 +19,7 @@ const Color $colorTextWhite = Colors.white;
 
 const Color $colorAlert = Colors.yellowAccent;
 const Color $colorError = Colors.redAccent;
+const Color $colorSuccess = Color.fromARGB(255, 11, 123, 5);
 
 const Color $colorButtonDisable = Colors.grey;
 
