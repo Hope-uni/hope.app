@@ -4,61 +4,71 @@ import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
 
-bool isTablet(BuildContext context) {
-  final size = MediaQuery.of(context).size;
-  return size.width > 850;
-}
-
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    final CameraGalleryDataSourceImpl image = CameraGalleryDataSourceImpl();
-    final double sizeInputs = isTablet(context) ? 250 : 150;
-    bool enableInput = false;
+    const double sizeInputs = 150;
+    bool enableInput = true;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Perfil',
+        title: Text(
+          S.current.Perfil,
         ),
       ),
       body: Container(
         height: size.height,
         width: size.width,
-        margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+        margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(
+              Container(
                 width: size.width,
+                alignment: Alignment.centerLeft,
+                height: 50,
+                padding: const EdgeInsets.only(left: 20),
+                decoration: const BoxDecoration(
+                    color: $colorBlueGeneral,
+                    borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(20),
+                        topLeft: Radius.circular(20))),
                 child: Text(
                   S.current.Datos_del_usuario,
-                  style: const TextStyle(fontSize: 20),
+                  style: const TextStyle(fontSize: 20, color: $colorTextWhite),
                 ),
               ),
               const SizedBox(
                 height: 20,
               ),
               UserData(
-                  sizeInputs: sizeInputs,
-                  enableInput: enableInput,
-                  size: size,
-                  image: image),
+                sizeInputs: sizeInputs,
+                enableInput: enableInput,
+                size: size,
+              ),
               const SizedBox(
                 height: 20,
               ),
-              const Divider(),
+              //const Divider(),
               const SizedBox(
                 height: 20,
               ),
-              SizedBox(
+              Container(
                 width: size.width,
+                alignment: Alignment.centerLeft,
+                height: 50,
+                padding: const EdgeInsets.only(left: 20),
+                decoration: const BoxDecoration(
+                    color: $colorBlueGeneral,
+                    borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(20),
+                        topLeft: Radius.circular(20))),
                 child: Text(
                   S.current.Datos_personales,
-                  style: const TextStyle(fontSize: 20),
+                  style: const TextStyle(fontSize: 20, color: $colorTextWhite),
                 ),
               ),
               const SizedBox(
@@ -142,7 +152,7 @@ class ProfilePage extends StatelessWidget {
                 ],
               ),
               const SizedBox(
-                height: 40,
+                height: 50,
               )
             ],
           ),
@@ -186,16 +196,15 @@ class UserData extends StatelessWidget {
     required this.sizeInputs,
     required this.enableInput,
     required this.size,
-    required this.image,
   });
 
   final double sizeInputs;
   final bool enableInput;
   final Size size;
-  final CameraGalleryDataSourceImpl image;
 
   @override
   Widget build(BuildContext context) {
+    final CameraGalleryDataSourceImpl image = CameraGalleryDataSourceImpl();
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -207,16 +216,16 @@ class UserData extends StatelessWidget {
             child: Stack(children: [
               ClipOval(
                 child: Container(
-                  width: 250,
-                  height: sizeInputs,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                  ),
-                  child: Image.network(
-                    'https://static.wixstatic.com/media/4d02c4_8ea3fe5159c8431689f97f5cc973e34c~mv2.png/v1/fill/w_600,h_338,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/4d02c4_8ea3fe5159c8431689f97f5cc973e34c~mv2.png',
-                    fit: BoxFit.cover,
-                  ),
-                ),
+                    width: 150,
+                    height: sizeInputs,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                    ),
+                    child: const ImageLoad(
+                      height: 150,
+                      width: 150,
+                      urlImage: '',
+                    )),
               ),
               Visibility(
                 visible: enableInput,
@@ -224,7 +233,7 @@ class UserData extends StatelessWidget {
                   bottom: 0,
                   right: 0,
                   child: IconButton.filled(
-                      iconSize: isTablet(context) ? 40 : 30,
+                      iconSize: 30,
                       style: const ButtonStyle(
                           backgroundColor:
                               MaterialStatePropertyAll($colorBlueGeneral)),
