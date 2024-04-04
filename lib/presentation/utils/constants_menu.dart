@@ -24,7 +24,7 @@ final List<MenuItem> menuPacientTutor = [
   MenuItem(
       title: S.current.Ver_informacion,
       subTitle: S.current.Informacion_general_del_nino,
-      url: '/dataChildren',
+      url: '/child',
       icon: Icons.visibility),
   MenuItem(
       title: S.current.Agregar_pictograma,
@@ -36,4 +36,22 @@ final List<MenuItem> menuPacientTutor = [
       subTitle: S.current.Pictogramas_personalizados_del_nino,
       url: '/pictogram',
       icon: Icons.format_list_bulleted),
+];
+
+final List<MenuItem> menuPacientTherapist = [
+  MenuItem(
+      title: S.current.Ver_informacion,
+      subTitle: S.current.Informacion_general_del_nino,
+      url: '/child',
+      icon: Icons.visibility),
+  MenuItem(
+      title: S.current.Editar_observaciones,
+      subTitle: S.current.Editar_observaciones_del_nino,
+      url: '/child',
+      icon: Icons.edit),
+  MenuItem(
+      title: S.current.Quitar_actividad,
+      subTitle: S.current.Eliminar_actividad_asignada_del_nino,
+      url: '/deleteActivity',
+      icon: Icons.delete_forever),
 ];
