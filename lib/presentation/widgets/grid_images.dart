@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
-import 'package:hope_app/presentation/utils/constants_desing.dart';
+import 'package:hope_app/presentation/utils/utils.dart';
+import 'package:hope_app/presentation/widgets/widgets.dart';
 
 const List<String> list = <String>['Casa', 'Escuela', 'Comida', 'Animales'];
 
@@ -78,33 +79,21 @@ class _GridImagesState extends State<GridImages> {
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 15),
-                  child: TextButton.icon(
-                      style: const ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll($colorBlueGeneral)),
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.search,
-                        color: $colorTextWhite,
-                      ),
-                      label: Text(
-                        S.current.Buscar,
-                        style: const TextStyle(color: $colorTextWhite),
-                      )),
-                ),
-                TextButton.icon(
-                    style: const ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll($colorError)),
-                    onPressed: () {},
+                    margin: const EdgeInsets.symmetric(horizontal: 15),
+                    child: ButtonTextIcon(
+                        title: S.current.Buscar,
+                        icon: const Icon(
+                          Icons.search,
+                        ),
+                        buttonColor: $colorBlueGeneral,
+                        onClic: () {})),
+                ButtonTextIcon(
+                    title: S.current.Limpiar_filtros,
                     icon: const Icon(
                       Icons.clear_all,
-                      color: $colorTextWhite,
                     ),
-                    label: Text(
-                      S.current.Limpiar_filtros,
-                      style: const TextStyle(color: $colorTextWhite),
-                    ))
+                    buttonColor: $colorError,
+                    onClic: () {})
               ],
             ),
           ),
@@ -159,18 +148,12 @@ class _ImageGrid extends StatelessWidget {
               ],
             ),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: FadeInImage(
+                borderRadius: BorderRadius.circular(20),
+                child: const ImageLoad(
                   height: 140,
                   width: 140,
-                  fit: BoxFit.cover,
-                  placeholderFit: BoxFit.cover,
-                  imageErrorBuilder: (context, error, stackTrace) {
-                    return Image.asset('assets/img/no-image.png');
-                  },
-                  placeholder: const AssetImage('assets/gif/jar-loading.gif'),
-                  image: NetworkImage(image)),
-            ),
+                  urlImage: '', //TODO: Cambiar por url de los pictogramas
+                )),
           ),
           Container(
             margin: const EdgeInsets.only(top: 20),
@@ -193,15 +176,16 @@ class _ImageGrid extends StatelessWidget {
                           ),
                           label: Text(S.current.Editar),
                         ),
-                        isCustomized
-                            ? TextButton.icon(
-                                onPressed: () => _dialogConfirmation(context),
-                                label: Text(S.current.Eliminar),
-                                icon: const Icon(
-                                  Icons.delete,
-                                  color: $colorError,
-                                ))
-                            : Container(),
+                        Visibility(
+                          visible: isCustomized,
+                          child: TextButton.icon(
+                              onPressed: () => _dialogConfirmation(context),
+                              label: Text(S.current.Eliminar),
+                              icon: const Icon(
+                                Icons.delete,
+                                color: $colorError,
+                              )),
+                        )
                       ],
                     )
                   : Row(
@@ -216,12 +200,13 @@ class _ImageGrid extends StatelessWidget {
                             color: $colorBlueGeneral,
                           ),
                         ),
-                        isCustomized
-                            ? IconButton(
-                                onPressed: () => _dialogConfirmation(context),
-                                icon: const Icon(Icons.delete,
-                                    color: $colorError))
-                            : Container(),
+                        Visibility(
+                          visible: isCustomized,
+                          child: IconButton(
+                              onPressed: () => _dialogConfirmation(context),
+                              icon:
+                                  const Icon(Icons.delete, color: $colorError)),
+                        )
                       ],
                     );
             },
@@ -230,11 +215,6 @@ class _ImageGrid extends StatelessWidget {
       ),
     );
   }
-}
-
-bool isTablet(BuildContext context) {
-  final size = MediaQuery.of(context).size;
-  return size.width > 850;
 }
 
 Future<void> _dialogImage(
@@ -261,24 +241,12 @@ Future<void> _dialogImage(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image.network(
-                  urlImage,
-                  height: 180,
-                  width: 180,
-                  fit: BoxFit.cover,
-                  loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress != null) {
-                      return const Center(
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                        ),
-                      );
-                    }
-                    return child;
-                  },
-                ),
-              ),
+                  borderRadius: BorderRadius.circular(20),
+                  child: ImageLoad(
+                    height: 180,
+                    width: 180,
+                    urlImage: urlImage,
+                  )),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -301,36 +269,26 @@ Future<void> _dialogImage(
             ],
           ),
           actions: <Widget>[
-            TextButton.icon(
-              style: const ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll($colorBlueGeneral)),
+            ButtonTextIcon(
+              title: S.current.Actualizar,
               icon: const Icon(
                 Icons.save,
-                color: $colorTextWhite,
               ),
-              label: Text(
-                S.current.Actualizar,
-                style: const TextStyle(color: $colorTextWhite),
-              ),
-              onPressed: () {
+              buttonColor: $colorBlueGeneral,
+              onClic: () {
                 Navigator.of(context).pop();
               },
             ),
-            TextButton.icon(
-              style: const ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll($colorError)),
+            ButtonTextIcon(
+              title: S.current.Cancelar,
               icon: const Icon(
                 Icons.cancel,
-                color: $colorTextWhite,
               ),
-              label: Text(
-                S.current.Cancelar,
-                style: const TextStyle(color: $colorTextWhite),
-              ),
-              onPressed: () {
+              buttonColor: $colorError,
+              onClic: () {
                 Navigator.of(context).pop();
               },
-            ),
+            )
           ],
         ),
       );
@@ -339,46 +297,16 @@ Future<void> _dialogImage(
 }
 
 Future<void> _dialogConfirmation(BuildContext context) {
-  return showDialog<void>(
+  return modalDialogConfirmation(
     context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text(S.current.Aviso),
-        content: Text(S.current.Esta_seguro_que_desea_eliminar_el_pictograma(
-            'Manzana', 'Alejandra')),
-        actions: <Widget>[
-          TextButton.icon(
-            style: const ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll($colorBlueGeneral)),
-            icon: const Icon(
-              Icons.delete,
-              color: $colorTextWhite,
-            ),
-            label: Text(
-              S.current.Si_Eliminar,
-              style: const TextStyle(color: $colorTextWhite),
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-          TextButton.icon(
-            style: const ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll($colorError)),
-            icon: const Icon(
-              Icons.cancel,
-              color: $colorTextWhite,
-            ),
-            label: Text(
-              S.current.Cancelar,
-              style: const TextStyle(color: $colorTextWhite),
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      );
+    iconButtonConfirm: const Icon(
+      Icons.delete,
+    ),
+    question: S.current
+        .Esta_seguro_que_desea_eliminar_el_pictograma('Manzana', 'Alejandra'),
+    titleButtonConfirm: S.current.Si_Eliminar,
+    onClic: () {
+      Navigator.of(context).pop();
     },
   );
 }
