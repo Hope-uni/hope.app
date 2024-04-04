@@ -7,7 +7,7 @@ import 'package:hope_app/presentation/providers/providers.dart';
 final goRouterProvider = Provider<GoRouter>((ref) {
   final goRouterNotifier = ref.read(GoRouterNotifierProvider);
   return GoRouter(
-    initialLocation: '/splash',
+    initialLocation: '/children',
     refreshListenable: goRouterNotifier,
     routes: <RouteBase>[
       GoRoute(
@@ -27,13 +27,17 @@ final goRouterProvider = Provider<GoRouter>((ref) {
           builder: (BuildContext context, GoRouterState state) =>
               const ChildrenPage()),
       GoRoute(
+          path: '/child',
+          builder: (BuildContext context, GoRouterState state) =>
+              const ChildsDataPage()),
+      GoRoute(
           path: '/activity',
           builder: (BuildContext context, GoRouterState state) =>
               const ActivityPage()),
       GoRoute(
-          path: '/settings',
+          path: '/profile',
           builder: (BuildContext context, GoRouterState state) =>
-              const SettingsPersonPage()),
+              const ProfilePage()),
       GoRoute(
           path: '/pictogram',
           builder: (BuildContext context, GoRouterState state) =>

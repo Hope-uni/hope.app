@@ -23,7 +23,7 @@ class InputForm extends StatelessWidget {
     controller.selection = TextSelection.collapsed(offset: textLength);
     return Expanded(
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+        margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
         height: 75,
         child: TextField(
           maxLength: maxLength,

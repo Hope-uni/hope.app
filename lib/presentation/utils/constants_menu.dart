@@ -14,10 +14,10 @@ final appMenuItemsDrawer = <MenuItem>[
       url: '/activity',
       icon: Icons.sports_esports),
   MenuItem(
-      title: S.current.Configuracion,
+      title: S.current.Perfil,
       subTitle: S.current.Datos_personales,
-      url: '/settings',
-      icon: Icons.settings),
+      url: '/profile',
+      icon: Icons.account_circle),
 ];
 
 final List<MenuItem> menuPacientTutor = [

@@ -1,5 +1,5 @@
 export 'entities/response_data.entities.dart';
-export 'entities/pacient.entities.dart';
+export 'entities/patient.entities.dart';
 export 'entities/token.entities.dart';
 
 export 'datasources/auth.datasource.dart';
