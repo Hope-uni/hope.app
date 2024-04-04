@@ -42,5 +42,19 @@
   "Galeria": "Galeria",
   "Camara": "Camara",
   "Error_solicitud": "Lo sentimos, ha ocurrido un error al procesar tu solicitud. Por favor, intenta nuevamente más tarde.",
-  "Error_inesperado": "Lamentablemente, ocurrió un error inesperado. Por favor, intenta nuevamente más tarde."
+  "Error_inesperado": "Lamentablemente, ocurrió un error inesperado. Por favor, intenta nuevamente más tarde.",
+  "Perfil": "Perfil",
+  "Datos_del_usuario": "Datos del usuario",
+  "Primer_nombre": "Primer Nombre",
+  "Segundo_nombre": "Segundo Nombre",
+  "Primer_apellido": "Primer Apellido",
+  "Segundo_apellido": "Segundo Apellido",
+  "Cedula": "Cédula",
+  "Edad": "Edad",
+  "Telefono": "Teléfono",
+  "Celular": "Celular",
+  "Direccion": "Dirección",
+  "Seleccione_foto_de_perfil": "Seleccione foto de perfil",
+  "Nombre_de_usuario": "Nombre de usuario",
+  "Correo_electronico": "Correo electrónico"
 }

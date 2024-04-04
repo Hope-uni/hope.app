@@ -42,11 +42,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "Cancelar": MessageLookupByLibrary.simpleMessage("Cancelar"),
         "Categoria_de_pictogramas":
             MessageLookupByLibrary.simpleMessage("Categoria de pictogramas"),
+        "Cedula": MessageLookupByLibrary.simpleMessage("Cédula"),
+        "Celular": MessageLookupByLibrary.simpleMessage("Celular"),
         "Cerrar_sesion": MessageLookupByLibrary.simpleMessage("Cerrar sesión"),
         "Configuracion": MessageLookupByLibrary.simpleMessage("Configuración"),
         "Contrasena": MessageLookupByLibrary.simpleMessage("Contraseña"),
+        "Correo_electronico":
+            MessageLookupByLibrary.simpleMessage("Correo electrónico"),
         "Correo_o_nombre_de_usuario":
             MessageLookupByLibrary.simpleMessage("Correo o nombre de usuario"),
+        "Datos_del_usuario":
+            MessageLookupByLibrary.simpleMessage("Datos del usuario"),
         "Datos_personales":
             MessageLookupByLibrary.simpleMessage("Datos personales"),
         "Debe_ingresar_el_nombre_de_usuario_o_correo":
@@ -54,6 +60,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Debe ingresar el nombre de usuario o correo"),
         "Derechos_reservados": MessageLookupByLibrary.simpleMessage(
             "© 2023 Hope. All rights reserved"),
+        "Direccion": MessageLookupByLibrary.simpleMessage("Dirección"),
+        "Edad": MessageLookupByLibrary.simpleMessage("Edad"),
         "Editar": MessageLookupByLibrary.simpleMessage("Editar"),
         "Editar_imagen": MessageLookupByLibrary.simpleMessage("Editar Imagen"),
         "Eliminar": MessageLookupByLibrary.simpleMessage("Eliminar"),
@@ -81,16 +89,29 @@ class MessageLookup extends MessageLookupByLibrary {
         "Ninos": MessageLookupByLibrary.simpleMessage("Niños"),
         "Ninos_asignados":
             MessageLookupByLibrary.simpleMessage("Niños asignados"),
+        "Nombre_de_usuario":
+            MessageLookupByLibrary.simpleMessage("Nombre de usuario"),
         "Olvido_su_contrasena":
             MessageLookupByLibrary.simpleMessage("¿Olvido su contraseña?"),
+        "Perfil": MessageLookupByLibrary.simpleMessage("Perfil"),
         "Pictogramas_personalizados":
             MessageLookupByLibrary.simpleMessage("Pictogramas Personalizados"),
         "Pictogramas_personalizados_del_nino":
             MessageLookupByLibrary.simpleMessage(
                 "Pictogramas personalizados del niño"),
+        "Primer_apellido":
+            MessageLookupByLibrary.simpleMessage("Primer Apellido"),
+        "Primer_nombre": MessageLookupByLibrary.simpleMessage("Primer Nombre"),
         "Restablecer_contrasena":
             MessageLookupByLibrary.simpleMessage("Restablecer contraseña"),
+        "Segundo_apellido":
+            MessageLookupByLibrary.simpleMessage("Segundo Apellido"),
+        "Segundo_nombre":
+            MessageLookupByLibrary.simpleMessage("Segundo Nombre"),
+        "Seleccione_foto_de_perfil":
+            MessageLookupByLibrary.simpleMessage("Seleccione foto de perfil"),
         "Si_Eliminar": MessageLookupByLibrary.simpleMessage("Si, Eliminar"),
+        "Telefono": MessageLookupByLibrary.simpleMessage("Teléfono"),
         "Usuario": MessageLookupByLibrary.simpleMessage("Usuario"),
         "Ver_informacion":
             MessageLookupByLibrary.simpleMessage("Ver Información"),
