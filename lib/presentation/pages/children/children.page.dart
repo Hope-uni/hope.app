@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hope_app/domain/domain.dart';
+import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
 
@@ -12,7 +13,46 @@ class ChildrenPage extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Niños asignados'),
+        toolbarHeight: 70,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(S.current.Ninos_asignados),
+            Container(
+              margin: const EdgeInsets.only(bottom: 10, top: 5, right: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(35), // Ra ,
+                      color: Colors.white,
+                    ),
+                    width: 300,
+                    height: 40,
+                    child: TextFormField(
+                      textAlignVertical: TextAlignVertical.bottom,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(
+                                35), // Radio de los bordes
+                          ),
+                          suffixIcon:
+                              true //TODO: Habilitar condicionalmente con un provider cuando este consumiendo el endpont correspondiente
+                                  ? const Icon(
+                                      Icons.search,
+                                    )
+                                  : IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(Icons.clear)),
+                          hintText: S.current.Busqueda_por_nombre),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
       body: DataTableDynamic(
         headersRows: headersRows,
@@ -25,7 +65,7 @@ class ChildrenPage extends StatelessWidget {
 
 const List<String> headersRows = ['Nombre', 'Fase', 'Edad', 'Opciones'];
 
-Iterable<DataRow> generatePatients() {
+Iterable<TableRow> generatePatients() {
   List<Patient> patients = [];
   for (int i = 0; i < 10; i++) {
     patients.add(Patient(
@@ -36,13 +76,30 @@ Iterable<DataRow> generatePatients() {
     ));
   }
 
-  final listaDataRow = patients.map((item) => DataRow(cells: [
-        DataCell(Text(item.fullName)),
-        DataCell(Text(item.fase)),
-        DataCell(Text(item.edad)),
-        DataCell(MenuItems(
-          menuItems: menuPacientTutor,
-        )),
-      ]));
+  final listaDataRow = patients.map((item) => TableRow(
+        decoration: const BoxDecoration(
+          border: Border(bottom: BorderSide(width: 0.5)),
+        ),
+        children: <Widget>[
+          TableCell(
+            verticalAlignment: TableCellVerticalAlignment.middle,
+            child: Text(item.fullName),
+          ),
+          TableCell(
+            verticalAlignment: TableCellVerticalAlignment.middle,
+            child: Text(item.fase),
+          ),
+          TableCell(
+            verticalAlignment: TableCellVerticalAlignment.middle,
+            child: Text(item.edad),
+          ),
+          TableCell(
+            verticalAlignment: TableCellVerticalAlignment.middle,
+            child: MenuItems(
+              menuItems: menuPacientTutor,
+            ),
+          ),
+        ],
+      ));
   return listaDataRow;
 }

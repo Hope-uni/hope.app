@@ -1,6 +1,7 @@
 export 'login/login.page.dart';
 export 'dashboard/dashboard.page.dart';
 export 'children/children.page.dart';
+export 'children/childs_data.page.dart';
 export 'activity/activity.page.dart';
 export 'profile/profile.page.dart';
 export 'reset_password/reset_password.page.dart';

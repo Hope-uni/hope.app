@@ -33,7 +33,7 @@ class MyApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       title: S.current.Hope_App,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: $colorScheme),
+        colorSchemeSeed: $colorBlueGeneral,
         useMaterial3: true,
       ),
       localizationsDelegates: const [

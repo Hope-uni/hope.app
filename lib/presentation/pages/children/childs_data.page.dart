@@ -28,6 +28,9 @@ class ChildsDataPage extends StatelessWidget {
                 size: size,
                 sizeInputs: 150,
               ),
+              const SizedBox(
+                height: 12,
+              ),
               ..._childDataForm(enableInput: enableInput),
               Text(
                 S.current.Logros,

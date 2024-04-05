@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hope_app/presentation/utils/utils.dart';
 
 class DataTableDynamic extends StatelessWidget {
   final List<String> headersRows;
-  final Iterable<DataRow> data;
+  final Iterable<TableRow> data;
 
   const DataTableDynamic({
     super.key,
@@ -15,83 +16,90 @@ class DataTableDynamic extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     if (data.isNotEmpty &&
         headersRows.isNotEmpty &&
-        data.first.cells.length == headersRows.length) {
+        data.first.children.length == headersRows.length) {
       return Container(
-        color: Colors.white,
         margin: const EdgeInsets.only(bottom: 15, top: 5),
         width: size.width,
         height: size.height,
-        child: Stack(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SingleChildScrollView(
-              child: Container(
-                margin: const EdgeInsets.only(top: 60, left: 40, right: 40),
-                width: size.width,
-                child: DataTable(
-                  columns: [
-                    ...headersRows.map(
-                      (value) => DataColumn(label: Text(value)),
-                    ),
-                  ],
-                  rows: [
-                    ...data,
-                    const DataRow(cells: [
-                      DataCell(SizedBox(
-                        height: 250,
-                      )),
-                      DataCell(SizedBox(
-                        height: 250,
-                      )),
-                      DataCell(SizedBox(
-                        height: 250,
-                      )),
-                      DataCell(SizedBox(
-                        height: 250,
-                      )),
-                    ]),
-                  ],
-                ),
-              ),
-            ),
-            Positioned(
-              left: 0,
-              right: 0,
-              bottom: 0,
-              child: Container(
-                color: Colors.white,
-                margin: const EdgeInsets.symmetric(horizontal: 40),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    IconButton(
-                        onPressed: () {}, icon: const Icon(Icons.arrow_back)),
-                    const Text('1 - 100'),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.arrow_forward)),
-                  ],
-                ),
+            Container(
+              margin: const EdgeInsets.only(top: 10, left: 40, right: 40),
+              width: size.width,
+              child: Table(
+                columnWidths: const <int, TableColumnWidth>{
+                  0: FlexColumnWidth(),
+                  1: FlexColumnWidth(),
+                  2: FlexColumnWidth(),
+                  3: FixedColumnWidth(100),
+                },
+                children: [
+                  TableRow(
+                    decoration: const BoxDecoration(
+                        border: Border(bottom: BorderSide(width: 0.5))),
+                    children: <Widget>[
+                      ...headersRows.sublist(0, 3).map(
+                            (value) => TableCell(
+                              verticalAlignment:
+                                  TableCellVerticalAlignment.middle,
+                              child: Container(
+                                  alignment: Alignment.centerLeft,
+                                  height: 40,
+                                  child: Text(
+                                    value,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                            ),
+                          ),
+                      ...headersRows.sublist(3).map(
+                            (value) => TableCell(
+                              verticalAlignment:
+                                  TableCellVerticalAlignment.middle,
+                              child: Container(
+                                  alignment: Alignment.center,
+                                  height: 40,
+                                  child: Text(
+                                    value,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                            ),
+                          ),
+                    ],
+                  ),
+                ],
               ),
             ),
             Container(
+                margin: const EdgeInsets.only(
+                    top: 4, bottom: 10, left: 40, right: 40),
+                width: size.width,
+                height: size.height * (isTablet(context) ? 0.7 : 0.45),
+                child: SingleChildScrollView(
+                  child: Table(
+                    columnWidths: const <int, TableColumnWidth>{
+                      0: FlexColumnWidth(),
+                      1: FlexColumnWidth(),
+                      2: FlexColumnWidth(),
+                      3: FixedColumnWidth(100),
+                    },
+                    defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                    children: [...data],
+                  ),
+                )),
+            Container(
               color: Colors.white,
+              margin: const EdgeInsets.symmetric(horizontal: 40),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Container(
-                    width: 300,
-                    margin:
-                        const EdgeInsets.only(right: 40, left: 40, bottom: 20),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                          suffixIcon: IconButton(
-                              onPressed: () {}, icon: const Icon(Icons.clear)),
-                          icon: const Icon(
-                            Icons.search,
-                          ),
-                          hintText: 'Busqueda por nombre'),
-                    ),
-                  ),
+                  IconButton(
+                      onPressed: () {}, icon: const Icon(Icons.arrow_back)),
+                  const Text('1 - 100'),
+                  IconButton(
+                      onPressed: () {}, icon: const Icon(Icons.arrow_forward)),
                 ],
               ),
             ),
