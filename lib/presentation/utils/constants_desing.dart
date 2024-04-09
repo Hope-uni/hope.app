@@ -24,3 +24,4 @@ const Color $colorSuccess = Color.fromARGB(255, 11, 123, 5);
 const Color $colorButtonDisable = Colors.grey;
 
 const String $fontFamilyAnton = 'Anton';
+const TextStyle $fontFamilyPoppins = TextStyle(fontFamily: 'Poppins');
