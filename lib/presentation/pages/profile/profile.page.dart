@@ -4,14 +4,20 @@ import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  bool enableInput = false;
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     const double sizeInputs = 150;
-    bool enableInput = true;
 
     return Scaffold(
       appBar: AppBar(
@@ -144,6 +150,7 @@ class ProfilePage extends StatelessWidget {
                   InputForm(
                     label: S.current.Direccion,
                     maxLength: 100,
+                    maxLines: 5,
                     enable: enableInput,
                     onChanged: (value) {},
                     value:
@@ -167,7 +174,11 @@ class ProfilePage extends StatelessWidget {
                 title: S.current.Editar,
                 icon: const Icon(Icons.edit),
                 buttonColor: $colorBlueGeneral,
-                onClic: () {})),
+                onClic: () {
+                  setState(() {
+                    enableInput = true;
+                  });
+                })),
         Visibility(
             visible: enableInput,
             child: ButtonTextIcon(
@@ -184,7 +195,11 @@ class ProfilePage extends StatelessWidget {
                 title: S.current.Cancelar,
                 icon: const Icon(Icons.cancel),
                 buttonColor: $colorError,
-                onClic: () {})),
+                onClic: () {
+                  setState(() {
+                    enableInput = false;
+                  });
+                })),
       ]),
     );
   }

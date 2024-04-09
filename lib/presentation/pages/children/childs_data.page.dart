@@ -4,13 +4,18 @@ import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
 
-class ChildsDataPage extends StatelessWidget {
+class ChildsDataPage extends StatefulWidget {
   const ChildsDataPage({super.key});
 
   @override
+  State<ChildsDataPage> createState() => _ChildsDataPageState();
+}
+
+class _ChildsDataPageState extends State<ChildsDataPage> {
+  bool enableInput = false;
+  @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    bool enableInput = false;
 
     return Scaffold(
       appBar: AppBar(
@@ -77,7 +82,11 @@ class ChildsDataPage extends StatelessWidget {
                 title: S.current.Editar,
                 icon: const Icon(Icons.edit),
                 buttonColor: $colorBlueGeneral,
-                onClic: () {})),
+                onClic: () {
+                  setState(() {
+                    enableInput = true;
+                  });
+                })),
         const SizedBox(
           width: 10,
         ),
@@ -116,7 +125,11 @@ class ChildsDataPage extends StatelessWidget {
                 title: S.current.Cancelar,
                 icon: const Icon(Icons.cancel),
                 buttonColor: $colorError,
-                onClic: () {})),
+                onClic: () {
+                  setState(() {
+                    enableInput = false;
+                  });
+                })),
       ]),
     );
   }
@@ -348,6 +361,7 @@ List<Widget> _childDataForm({required bool enableInput}) {
         InputForm(
           label: S.current.Direccion,
           maxLength: 100,
+          maxLines: 5,
           enable: enableInput,
           onChanged: (value) {},
           value:
@@ -360,23 +374,20 @@ List<Widget> _childDataForm({required bool enableInput}) {
       children: [
         InputForm(
           label: S.current.Telefono_de_casa,
-          maxLength: 50,
           value: '54645566',
-          enable: enableInput,
+          enable: false,
           onChanged: (value) {},
         ),
         InputForm(
           label: S.current.Tutor,
-          maxLength: 50,
           value: 'Maria Alejandra Ramos Irigoyen',
-          enable: enableInput,
+          enable: false,
           onChanged: (value) {},
         ),
         InputForm(
           label: S.current.Contacto_tutor,
-          maxLength: 50,
           value: '121422112',
-          enable: enableInput,
+          enable: false,
           onChanged: (value) {},
         ),
       ],
@@ -386,16 +397,14 @@ List<Widget> _childDataForm({required bool enableInput}) {
       children: [
         InputForm(
           label: S.current.Terapeuta,
-          maxLength: 50,
           value: 'Anthony Alexander Rayo Mejia',
-          enable: enableInput,
+          enable: false,
           onChanged: (value) {},
         ),
         InputForm(
           label: S.current.Contacto_terapeuta,
-          maxLength: 50,
           value: '56564456',
-          enable: enableInput,
+          enable: false,
           onChanged: (value) {},
         ),
       ],
@@ -406,6 +415,7 @@ List<Widget> _childDataForm({required bool enableInput}) {
         InputForm(
           label: S.current.Observaciones,
           maxLength: 100,
+          maxLines: 15,
           enable: enableInput,
           onChanged: (value) {},
           value:
@@ -425,9 +435,8 @@ List<Widget> _childDataForm({required bool enableInput}) {
         ),
         InputForm(
           label: S.current.Actividad_Actual,
-          maxLength: 50,
           value: 'Selecciona 5 pictogramas de animales',
-          enable: enableInput,
+          enable: false,
           onChanged: (value) {},
         ),
       ],

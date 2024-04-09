@@ -5,6 +5,7 @@ class InputForm extends StatelessWidget {
   final String label;
   final String value;
   final int? maxLength;
+  final int? maxLines;
   final bool enable;
   final Function(String)? onChanged;
 
@@ -13,6 +14,7 @@ class InputForm extends StatelessWidget {
       required this.label,
       required this.value,
       required this.enable,
+      this.maxLines,
       this.maxLength,
       this.onChanged});
 
@@ -24,12 +26,14 @@ class InputForm extends StatelessWidget {
     return Expanded(
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
-        height: 75,
+        height: 66,
         child: TextField(
-          maxLength: maxLength,
+          maxLines: maxLines ?? 1,
+          maxLength: enable ? maxLength : null,
           controller: controller,
           decoration: InputDecoration(
-            counterText: maxLength != null ? '$textLength/ $maxLength' : null,
+            counterText:
+                maxLength != null && enable ? '$textLength/ $maxLength' : null,
             labelText: label,
             labelStyle: const TextStyle(color: $colorTextForlightBackgrounds),
             contentPadding: const EdgeInsets.symmetric(vertical: 0),

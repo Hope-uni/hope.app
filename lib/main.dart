@@ -34,6 +34,23 @@ class MyApp extends ConsumerWidget {
       title: S.current.Hope_App,
       theme: ThemeData(
         colorSchemeSeed: $colorBlueGeneral,
+        textTheme: const TextTheme(
+          bodyLarge: $fontFamilyPoppins,
+          bodyMedium: $fontFamilyPoppins,
+          bodySmall: $fontFamilyPoppins,
+          labelLarge: $fontFamilyPoppins,
+          displayLarge: $fontFamilyPoppins,
+          displayMedium: $fontFamilyPoppins,
+          displaySmall: $fontFamilyPoppins,
+          titleLarge: $fontFamilyPoppins,
+          titleMedium: $fontFamilyPoppins,
+          titleSmall: $fontFamilyPoppins,
+          headlineLarge: $fontFamilyPoppins,
+          headlineMedium: $fontFamilyPoppins,
+          headlineSmall: $fontFamilyPoppins,
+          labelSmall: $fontFamilyPoppins,
+          labelMedium: $fontFamilyPoppins,
+        ),
         useMaterial3: true,
       ),
       localizationsDelegates: const [

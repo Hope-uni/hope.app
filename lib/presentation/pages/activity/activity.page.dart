@@ -12,9 +12,13 @@ class ActivityPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Actividades'),
       ),
-      body: const DataTableDynamic(
-        data: [],
-        headersRows: [],
+      body: DataTableDynamic(
+        page: 0,
+        totalPage: 0,
+        getPreviousData: () {},
+        getNextData: () {},
+        data: const [],
+        headersRows: const [],
       ),
       drawer: const SideMenu(),
     );
