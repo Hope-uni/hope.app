@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 
 class DataTableDynamic extends StatelessWidget {
@@ -98,18 +99,25 @@ class DataTableDynamic extends StatelessWidget {
                   ),
                 )),
             Container(
-              color: Colors.white,
               margin: const EdgeInsets.symmetric(horizontal: 40),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  IconButton(
-                      onPressed: page <= 1 ? null : getPreviousData,
-                      icon: const Icon(Icons.arrow_back)),
-                  Text('$page - $totalPage'),
-                  IconButton(
-                      onPressed: page >= totalPage ? null : getNextData,
-                      icon: const Icon(Icons.arrow_forward)),
+                  Text(
+                    '${S.current.Total_de_resultados} 100', //TODO: Cambiar cuando este listo el endpoint
+                    style: const TextStyle(fontWeight: FontWeight.w600),
+                  ),
+                  Row(
+                    children: [
+                      IconButton(
+                          onPressed: page <= 1 ? null : getPreviousData,
+                          icon: const Icon(Icons.arrow_back)),
+                      Text('$page - $totalPage'),
+                      IconButton(
+                          onPressed: page >= totalPage ? null : getNextData,
+                          icon: const Icon(Icons.arrow_forward)),
+                    ],
+                  ),
                 ],
               ),
             ),

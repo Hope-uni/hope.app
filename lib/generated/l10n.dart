@@ -430,10 +430,10 @@ class S {
     );
   }
 
-  /// `Aviso!!!`
+  /// `Aviso!`
   String get Aviso {
     return Intl.message(
-      'Aviso!!!',
+      'Aviso!',
       name: 'Aviso',
       desc: '',
       args: [],
@@ -791,10 +791,10 @@ class S {
     );
   }
 
-  /// `¿Está seguro de avanzar de fase a '{nameChild}'?`
+  /// `¿ Está seguro de avanzar de fase a {nameChild} ?`
   String Esta_seguro_de_avanzar_de_fase_a(Object nameChild) {
     return Intl.message(
-      '¿Está seguro de avanzar de fase a \'$nameChild\'?',
+      '¿ Está seguro de avanzar de fase a $nameChild ?',
       name: 'Esta_seguro_de_avanzar_de_fase_a',
       desc: '',
       args: [nameChild],
@@ -836,6 +836,127 @@ class S {
     return Intl.message(
       'Eliminar actividad asignada del niño',
       name: 'Eliminar_actividad_asignada_del_nino',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Avance de fase exitosa!`
+  String get Avance_de_fase_exitosa {
+    return Intl.message(
+      'Avance de fase exitosa!',
+      name: 'Avance_de_fase_exitosa',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Se avanzó a la fase {numFase} a {nameChild}`
+  String Se_avanzo_a_la_fase(Object numFase, Object nameChild) {
+    return Intl.message(
+      'Se avanzó a la fase $numFase a $nameChild',
+      name: 'Se_avanzo_a_la_fase',
+      desc: '',
+      args: [numFase, nameChild],
+    );
+  }
+
+  /// `Si, actualizar`
+  String get Si_actualizar {
+    return Intl.message(
+      'Si, actualizar',
+      name: 'Si_actualizar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `¿Está seguro de actualizar los datos?`
+  String get Esta_Seguro_de_actualizar_los_datos {
+    return Intl.message(
+      '¿Está seguro de actualizar los datos?',
+      name: 'Esta_Seguro_de_actualizar_los_datos',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Actualizado con éxito!`
+  String get Actualizado_con_exito {
+    return Intl.message(
+      'Actualizado con éxito!',
+      name: 'Actualizado_con_exito',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Información del niño actualizada`
+  String get Informacion_del_nino_actualizada {
+    return Intl.message(
+      'Información del niño actualizada',
+      name: 'Informacion_del_nino_actualizada',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Si, Salir`
+  String get Si_salir {
+    return Intl.message(
+      'Si, Salir',
+      name: 'Si_salir',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `¿Está seguro de salir de la edición?`
+  String get Esta_seguro_de_salir_de_la_edicion {
+    return Intl.message(
+      '¿Está seguro de salir de la edición?',
+      name: 'Esta_seguro_de_salir_de_la_edicion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Información personal actualizada`
+  String get Informacion_personal_actualizada {
+    return Intl.message(
+      'Información personal actualizada',
+      name: 'Informacion_personal_actualizada',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `¿Está seguro de actualizar el pictograma {namePictogram}?`
+  String Esta_seguro_de_actualizar_el_pictograma(Object namePictogram) {
+    return Intl.message(
+      '¿Está seguro de actualizar el pictograma $namePictogram?',
+      name: 'Esta_seguro_de_actualizar_el_pictograma',
+      desc: '',
+      args: [namePictogram],
+    );
+  }
+
+  /// `Se actualizo correctamente el pictograma personalizado: {namePictogram}`
+  String Se_actualizo_correctamente_el_pictograma_personalizado(
+      Object namePictogram) {
+    return Intl.message(
+      'Se actualizo correctamente el pictograma personalizado: $namePictogram',
+      name: 'Se_actualizo_correctamente_el_pictograma_personalizado',
+      desc: '',
+      args: [namePictogram],
+    );
+  }
+
+  /// `Total de resultados:`
+  String get Total_de_resultados {
+    return Intl.message(
+      'Total de resultados:',
+      name: 'Total_de_resultados',
       desc: '',
       args: [],
     );
