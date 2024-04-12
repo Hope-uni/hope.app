@@ -5,7 +5,8 @@ import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
 
 class ChildsDataPage extends StatefulWidget {
-  const ChildsDataPage({super.key});
+  final int idChild;
+  const ChildsDataPage({super.key, required this.idChild});
 
   @override
   State<ChildsDataPage> createState() => _ChildsDataPageState();
@@ -13,10 +14,10 @@ class ChildsDataPage extends StatefulWidget {
 
 class _ChildsDataPageState extends State<ChildsDataPage> {
   bool enableInput = false;
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       appBar: AppBar(
         title: Text(S.current.Informacion_del_nino),
@@ -346,12 +347,12 @@ List<Widget> _childDataForm({required bool enableInput}) {
           value: '27 años, 10 meses y 15 dias',
           enable: false,
         ),
-        InputForm(
-          label: S.current.Sexo,
-          maxLength: 8,
-          value: 'Masculino',
+        SelectBox(
           enable: enableInput,
-          onChanged: (value) {},
+          valueInitial: 'Masculino',
+          label: S.current.Sexo,
+          onSelected: (value) {},
+          listItems: const ['Masculino', 'Femenino'],
         ),
       ],
     ),
@@ -426,12 +427,12 @@ List<Widget> _childDataForm({required bool enableInput}) {
     Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        InputForm(
-          label: S.current.Pictogramas_blanco_negro,
-          maxLength: 50,
-          value: 'Activado',
+        SelectBox(
           enable: enableInput,
-          onChanged: (value) {},
+          valueInitial: 'Activado',
+          label: S.current.Pictogramas_blanco_negro,
+          onSelected: (value) {},
+          listItems: const ['Activado', 'Inactivado'],
         ),
         InputForm(
           label: S.current.Actividad_Actual,

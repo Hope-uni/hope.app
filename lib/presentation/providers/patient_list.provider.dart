@@ -32,7 +32,7 @@ class PatientsNotifier extends StateNotifier<PatientsStatus> {
     final newPatients = List.generate(
       10,
       (index) => Patient(
-        id: 'ID${state.totalPatients.length + index}',
+        id: '${state.totalPatients.length + index}',
         fullName: 'Maria de Concepcion Ramos Mejia',
         edad: '${20 + index}',
         fase: '${(state.totalPatients.length + index) % 3}',

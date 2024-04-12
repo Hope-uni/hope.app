@@ -9,3 +9,4 @@ export 'check_auth_status/check_auth_status.page.dart';
 export 'pictogram/pictogram.page.dart';
 export 'router/app_router_notifier.dart';
 export 'router/routes.dart';
+export 'pictogram/custom_pictograms.page.dart';

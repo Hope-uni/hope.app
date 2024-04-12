@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
 
-class PictogramPage extends StatelessWidget {
+class CustomPictogramasPage extends StatelessWidget {
   final int idChild;
-  const PictogramPage({super.key, required this.idChild});
+  const CustomPictogramasPage({super.key, required this.idChild});
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +35,10 @@ class PictogramPage extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text(
-            'Lista de pictogramas generales'), //TODO : Cambiar con la internacionalizacion en el siguiente commit
+        title: Text(S.current.Pictogramas_personalizados),
       ),
       body: GridImages(
-        isCustomized: false,
+        isCustomized: true,
         images: arregloImages,
         // ignore: avoid_print
         loadNextImages: () => print('cargando nuevas imagenes'),

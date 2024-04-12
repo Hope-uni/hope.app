@@ -1,37 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
+import 'package:hope_app/presentation/providers/providers.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
 
-const List<String> list = <String>['Casa', 'Escuela', 'Comida', 'Animales'];
+const List<String> _list = <String>['Casa', 'Escuela', 'Comida', 'Animales'];
 
-class GridImages extends StatefulWidget {
-  final bool isCustomized;
+class GridImages extends ConsumerStatefulWidget {
+  //TODO : Cambiar por una entidad de Pictogramas cuando este listo el endpoint
   final List<String> images;
+  final bool isCustomized;
+  final VoidCallback loadNextImages;
 
-  final VoidCallback? loadNextImages;
   const GridImages(
       {super.key,
       required this.images,
-      this.loadNextImages,
+      required this.loadNextImages,
       required this.isCustomized});
 
   @override
-  State<GridImages> createState() => _GridImagesState();
+  GridImagesState createState() => GridImagesState();
 }
 
-class _GridImagesState extends State<GridImages> {
+class GridImagesState extends ConsumerState<GridImages> {
   final scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     scrollController.addListener(() {
-      if (widget.loadNextImages == null) return;
       if ((scrollController.position.pixels + 500) >=
           scrollController.position.maxScrollExtent) {
-        widget.loadNextImages!();
+        widget.loadNextImages();
       }
     });
   }
@@ -45,55 +47,62 @@ class _GridImagesState extends State<GridImages> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
+    final String? typePicto = ref.watch(pictogramsProvider).typePicto;
+    final String namePicto = ref.watch(pictogramsProvider).namePicto;
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),
       width: size.width,
       child: Column(
         children: [
           Container(
-            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 35),
+            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             width: size.width,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Expanded(
-                  child: Container(
-                    margin: const EdgeInsets.only(right: 15),
-                    child: DropdownButtonFormField(
-                      items: list.map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      hint: Text(S.current.Categoria_de_pictogramas),
-                      onChanged: (value) {},
-                    ),
-                  ),
+                SelectBox(
+                  valueInitial: typePicto,
+                  marginHorizontal: 5,
+                  hint: S.current.Categoria_de_pictogramas,
+                  enable: true,
+                  onSelected: (value) {
+                    ref
+                        .read(pictogramsProvider.notifier)
+                        .onTypePictoChange(value!);
+                  },
+                  listItems: _list,
                 ),
-                Expanded(
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      hintText: S.current.Busqueda_por_nombre,
-                    ),
-                  ),
+                InputForm(
+                  hint: S.current.Busqueda_por_nombre,
+                  value: namePicto,
+                  enable: true,
+                  onChanged: (value) {
+                    ref
+                        .read(pictogramsProvider.notifier)
+                        .onNamePictoChange(value);
+                  },
                 ),
-                Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 15),
-                    child: ButtonTextIcon(
-                        title: S.current.Buscar,
-                        icon: const Icon(
-                          Icons.search,
-                        ),
-                        buttonColor: $colorBlueGeneral,
-                        onClic: () {})),
+                ButtonTextIcon(
+                    title: S.current.Buscar,
+                    icon: const Icon(
+                      Icons.search,
+                    ),
+                    buttonColor: $colorBlueGeneral,
+                    onClic: () {}),
+                const SizedBox(
+                  width: 15,
+                ),
                 ButtonTextIcon(
                     title: S.current.Limpiar_filtros,
                     icon: const Icon(
                       Icons.clear_all,
                     ),
                     buttonColor: $colorError,
-                    onClic: () {})
+                    onClic: () {
+                      ref.read(pictogramsProvider.notifier).resetFilter();
+                    })
               ],
             ),
           ),

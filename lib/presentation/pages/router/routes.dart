@@ -29,7 +29,9 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
           path: '/child',
           builder: (BuildContext context, GoRouterState state) =>
-              const ChildsDataPage()),
+              ChildsDataPage(
+                idChild: state.extra as int,
+              )),
       GoRoute(
           path: '/activity',
           builder: (BuildContext context, GoRouterState state) =>
@@ -40,8 +42,15 @@ final goRouterProvider = Provider<GoRouter>((ref) {
               const ProfilePage()),
       GoRoute(
           path: '/pictogram',
-          builder: (BuildContext context, GoRouterState state) =>
-              const PictogramPage()),
+          builder: (BuildContext context, GoRouterState state) => PictogramPage(
+                idChild: state.extra as int,
+              )),
+      GoRoute(
+        path: '/customPictogram',
+        builder: (context, state) => CustomPictogramasPage(
+          idChild: state.extra as int,
+        ),
+      )
     ],
     redirect: (context, state) {
       final isGoingTo = state.matchedLocation;

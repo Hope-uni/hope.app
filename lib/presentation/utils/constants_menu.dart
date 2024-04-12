@@ -29,12 +29,12 @@ final List<MenuItem> menuPacientTutor = [
   MenuItem(
       title: S.current.Agregar_pictograma,
       subTitle: S.current.Anadir_nuevo_pictograma_personalizado,
-      url: '/addPictogram',
+      url: '/pictogram',
       icon: Icons.add),
   MenuItem(
       title: S.current.Listar_pictogramas,
       subTitle: S.current.Pictogramas_personalizados_del_nino,
-      url: '/pictogram',
+      url: '/customPictogram',
       icon: Icons.format_list_bulleted),
 ];
 
