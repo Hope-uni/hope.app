@@ -38,7 +38,7 @@
   "Actualizar": "Actualizar",
   "Si_Eliminar": "Si, Eliminar",
   "Aviso": "¡Aviso!",
-  "Esta_seguro_que_desea_eliminar_el_pictograma": "¿Esta seguro que desea eliminar el pictograma '{nameImage}' de '{nameChild}'?",
+  "Esta_seguro_que_desea_eliminar_el_pictograma": "¿Está seguro que desea eliminar el pictograma '{nameImage}' de '{nameChild}'?",
   "Galeria": "Galería",
   "Camara": "Cámara",
   "Error_solicitud": "Lo sentimos, ha ocurrido un error al procesar tu solicitud. Por favor, intenta nuevamente más tarde.",

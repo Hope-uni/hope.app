@@ -27,7 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "¿Está seguro de avanzar de fase a ${nameChild}?";
 
   static String m2(nameImage, nameChild) =>
-      "¿Esta seguro que desea eliminar el pictograma \'${nameImage}\' de \'${nameChild}\'?";
+      "¿Está seguro que desea eliminar el pictograma \'${nameImage}\' de \'${nameChild}\'?";
 
   static String m3(namePictogram) =>
       "Se actualizó correctamente el pictograma personalizado: ${namePictogram}";
