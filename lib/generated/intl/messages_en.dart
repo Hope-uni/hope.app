@@ -30,7 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "¿Esta seguro que desea eliminar el pictograma \'${nameImage}\' de \'${nameChild}\'?";
 
   static String m3(namePictogram) =>
-      "Se actualizo correctamente el pictograma personalizado: ${namePictogram}";
+      "Se actualizó correctamente el pictograma personalizado: ${namePictogram}";
 
   static String m4(numFase, nameChild) =>
       "Se avanzó a la fase ${numFase} a ${nameChild}";

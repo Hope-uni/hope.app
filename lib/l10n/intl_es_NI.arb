@@ -88,7 +88,7 @@
   "Esta_seguro_de_salir_de_la_edicion": "¿Está seguro de salir de la edición?",
   "Informacion_personal_actualizada": "Información personal actualizada",
   "Esta_seguro_de_actualizar_el_pictograma": "¿Está seguro de actualizar el pictograma {namePictogram}?",
-  "Se_actualizo_correctamente_el_pictograma_personalizado": "Se actualizo correctamente el pictograma personalizado: {namePictogram}",
+  "Se_actualizo_correctamente_el_pictograma_personalizado": "Se actualizó correctamente el pictograma personalizado: {namePictogram}",
   "Total_de_resultados": "Total de resultados:",
   "Lista_de_pictogramas_generales": "Lista de pictogramas generales"
 }

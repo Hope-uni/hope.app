@@ -941,11 +941,11 @@ class S {
     );
   }
 
-  /// `Se actualizo correctamente el pictograma personalizado: {namePictogram}`
+  /// `Se actualizó correctamente el pictograma personalizado: {namePictogram}`
   String Se_actualizo_correctamente_el_pictograma_personalizado(
       Object namePictogram) {
     return Intl.message(
-      'Se actualizo correctamente el pictograma personalizado: $namePictogram',
+      'Se actualizó correctamente el pictograma personalizado: $namePictogram',
       name: 'Se_actualizo_correctamente_el_pictograma_personalizado',
       desc: '',
       args: [namePictogram],
