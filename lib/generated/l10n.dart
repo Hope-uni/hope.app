@@ -430,21 +430,21 @@ class S {
     );
   }
 
-  /// `Aviso!`
+  /// `¡Aviso!`
   String get Aviso {
     return Intl.message(
-      'Aviso!',
+      '¡Aviso!',
       name: 'Aviso',
       desc: '',
       args: [],
     );
   }
 
-  /// `Esta seguro que desea eliminar el pictograma '{nameImage}' de '{nameChild}'`
+  /// `¿Esta seguro que desea eliminar el pictograma '{nameImage}' de '{nameChild}'?`
   String Esta_seguro_que_desea_eliminar_el_pictograma(
       Object nameImage, Object nameChild) {
     return Intl.message(
-      'Esta seguro que desea eliminar el pictograma \'$nameImage\' de \'$nameChild\'',
+      '¿Esta seguro que desea eliminar el pictograma \'$nameImage\' de \'$nameChild\'?',
       name: 'Esta_seguro_que_desea_eliminar_el_pictograma',
       desc: '',
       args: [nameImage, nameChild],
@@ -791,10 +791,10 @@ class S {
     );
   }
 
-  /// `¿ Está seguro de avanzar de fase a {nameChild} ?`
+  /// `¿Está seguro de avanzar de fase a {nameChild}?`
   String Esta_seguro_de_avanzar_de_fase_a(Object nameChild) {
     return Intl.message(
-      '¿ Está seguro de avanzar de fase a $nameChild ?',
+      '¿Está seguro de avanzar de fase a $nameChild?',
       name: 'Esta_seguro_de_avanzar_de_fase_a',
       desc: '',
       args: [nameChild],
@@ -841,10 +841,10 @@ class S {
     );
   }
 
-  /// `Avance de fase exitosa!`
+  /// `¡Avance de fase exitosa!`
   String get Avance_de_fase_exitosa {
     return Intl.message(
-      'Avance de fase exitosa!',
+      '¡Avance de fase exitosa!',
       name: 'Avance_de_fase_exitosa',
       desc: '',
       args: [],
@@ -881,10 +881,10 @@ class S {
     );
   }
 
-  /// `Actualizado con éxito!`
+  /// `¡Actualizado con éxito!`
   String get Actualizado_con_exito {
     return Intl.message(
-      'Actualizado con éxito!',
+      '¡Actualizado con éxito!',
       name: 'Actualizado_con_exito',
       desc: '',
       args: [],
@@ -957,6 +957,16 @@ class S {
     return Intl.message(
       'Total de resultados:',
       name: 'Total_de_resultados',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lista de pictogramas generales`
+  String get Lista_de_pictogramas_generales {
+    return Intl.message(
+      'Lista de pictogramas generales',
+      name: 'Lista_de_pictogramas_generales',
       desc: '',
       args: [],
     );

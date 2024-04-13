@@ -24,10 +24,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "¿Está seguro de actualizar el pictograma ${namePictogram}?";
 
   static String m1(nameChild) =>
-      "¿ Está seguro de avanzar de fase a ${nameChild} ?";
+      "¿Está seguro de avanzar de fase a ${nameChild}?";
 
   static String m2(nameImage, nameChild) =>
-      "Esta seguro que desea eliminar el pictograma \'${nameImage}\' de \'${nameChild}\'";
+      "¿Esta seguro que desea eliminar el pictograma \'${nameImage}\' de \'${nameChild}\'?";
 
   static String m3(namePictogram) =>
       "Se actualizo correctamente el pictograma personalizado: ${namePictogram}";
@@ -43,7 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Actividades_para_los_ninos":
             MessageLookupByLibrary.simpleMessage("Actividades para los niños"),
         "Actualizado_con_exito":
-            MessageLookupByLibrary.simpleMessage("Actualizado con éxito!"),
+            MessageLookupByLibrary.simpleMessage("¡Actualizado con éxito!"),
         "Actualizar": MessageLookupByLibrary.simpleMessage("Actualizar"),
         "Agregar_pictograma":
             MessageLookupByLibrary.simpleMessage("Agregar pictograma"),
@@ -51,10 +51,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Añadir nuevo pictograma personalizado"),
         "Avance_de_fase_exitosa":
-            MessageLookupByLibrary.simpleMessage("Avance de fase exitosa!"),
+            MessageLookupByLibrary.simpleMessage("¡Avance de fase exitosa!"),
         "Avanzar_de_fase":
             MessageLookupByLibrary.simpleMessage("Avanzar de fase"),
-        "Aviso": MessageLookupByLibrary.simpleMessage("Aviso!"),
+        "Aviso": MessageLookupByLibrary.simpleMessage("¡Aviso!"),
         "Buscar": MessageLookupByLibrary.simpleMessage("Buscar"),
         "Busqueda_por_nombre":
             MessageLookupByLibrary.simpleMessage("Búsqueda por nombre"),
@@ -131,6 +131,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Iniciar sesión"),
         "Limpiar_filtros":
             MessageLookupByLibrary.simpleMessage("Limpiar filtros"),
+        "Lista_de_pictogramas_generales": MessageLookupByLibrary.simpleMessage(
+            "Lista de pictogramas generales"),
         "Listar_pictogramas":
             MessageLookupByLibrary.simpleMessage("Listar pictogramas"),
         "Logros": MessageLookupByLibrary.simpleMessage("Logros"),
