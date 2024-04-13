@@ -4,15 +4,15 @@ import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
 
-class ChildsDataPage extends StatefulWidget {
+class ChildDataPage extends StatefulWidget {
   final int idChild;
-  const ChildsDataPage({super.key, required this.idChild});
+  const ChildDataPage({super.key, required this.idChild});
 
   @override
-  State<ChildsDataPage> createState() => _ChildsDataPageState();
+  State<ChildDataPage> createState() => _ChildDataPageState();
 }
 
-class _ChildsDataPageState extends State<ChildsDataPage> {
+class _ChildDataPageState extends State<ChildDataPage> {
   bool enableInput = false;
 
   @override
