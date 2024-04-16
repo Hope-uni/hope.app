@@ -35,13 +35,12 @@ class PictogramPage extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text(
-            'Lista de pictogramas generales'), //TODO : Cambiar con la internacionalizacion en el siguiente commit
+        title: Text(S.current.Lista_de_pictogramas_generales),
       ),
       body: GridImages(
         isCustomized: false,
         images: arregloImages,
-        // ignore: avoid_print
+        // ignore: avoid_print//TODO: Cambiar cuando este listo el endpoint
         loadNextImages: () => print('cargando nuevas imagenes'),
       ),
     );
