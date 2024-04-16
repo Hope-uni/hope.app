@@ -137,8 +137,7 @@ class _ButtonSendEmail extends ConsumerWidget {
                     backgroundColor: $colorAlert,
                     content: Text(
                       S.current.Debe_ingresar_el_nombre_de_usuario_o_correo,
-                      style:
-                          const TextStyle(color: $colorTextForlightBackgrounds),
+                      style: const TextStyle(color: $colorTextBlack),
                     ),
                     duration: const Duration(seconds: 2),
                   );
