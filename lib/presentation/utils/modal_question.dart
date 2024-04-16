@@ -5,21 +5,24 @@ import 'package:hope_app/presentation/widgets/widgets.dart';
 
 Future<void> modalDialogConfirmation(
     {required BuildContext context,
-    required String question,
+    required RichText question,
     required String titleButtonConfirm,
-    required Icon iconButtonConfirm,
     required VoidCallback onClic,
+    Icon? iconButtonConfirm,
     Color? buttonColorConfirm}) {
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text(S.current.Aviso),
-        content: Text(question),
+        title: Text(
+          S.current.Aviso,
+          style: const TextStyle(fontWeight: FontWeight.w600),
+        ),
+        content: question,
         actions: <Widget>[
           ButtonTextIcon(
             title: titleButtonConfirm,
-            icon: iconButtonConfirm,
+            icon: iconButtonConfirm ?? const Icon(Icons.check),
             buttonColor: buttonColorConfirm ?? $colorBlueGeneral,
             onClic: onClic,
           ),

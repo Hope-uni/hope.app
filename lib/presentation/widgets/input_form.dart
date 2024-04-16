@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 
 class InputForm extends StatelessWidget {
-  final String label;
   final String value;
+  final String? label;
+  final String? hint;
   final int? maxLength;
   final int? maxLines;
   final bool enable;
@@ -11,12 +12,13 @@ class InputForm extends StatelessWidget {
 
   const InputForm(
       {super.key,
-      required this.label,
       required this.value,
       required this.enable,
+      this.label,
       this.maxLines,
       this.maxLength,
-      this.onChanged});
+      this.onChanged,
+      this.hint});
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +34,15 @@ class InputForm extends StatelessWidget {
           maxLength: enable ? maxLength : null,
           controller: controller,
           decoration: InputDecoration(
+            hintText: hint,
             counterText:
                 maxLength != null && enable ? '$textLength/ $maxLength' : null,
             labelText: label,
-            labelStyle: const TextStyle(color: $colorTextForlightBackgrounds),
+            labelStyle: const TextStyle(color: $colorTextBlack),
             contentPadding: const EdgeInsets.symmetric(vertical: 0),
           ),
           textCapitalization: TextCapitalization.characters,
-          style: const TextStyle(color: $colorTextForlightBackgrounds),
+          style: const TextStyle(color: $colorTextBlack),
           enabled: enable,
           onChanged: onChanged,
         ),

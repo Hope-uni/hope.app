@@ -3,6 +3,7 @@ import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
+import 'package:toastification/toastification.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -182,10 +183,34 @@ class _ProfilePageState extends State<ProfilePage> {
         Visibility(
             visible: enableInput,
             child: ButtonTextIcon(
-                title: S.current.Guardar,
-                icon: const Icon(Icons.save),
+                title: S.current.Actualizar,
+                icon: const Icon(Icons.update),
                 buttonColor: $colorSuccess,
-                onClic: () {})),
+                onClic: () {
+                  modalDialogConfirmation(
+                    context: context,
+                    titleButtonConfirm: S.current.Si_actualizar,
+                    question: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        text: S.current.Esta_Seguro_de_actualizar_los_datos,
+                        style: const TextStyle(
+                            fontSize: 14, color: $colorTextBlack),
+                      ),
+                    ),
+                    buttonColorConfirm: $colorSuccess,
+                    onClic: () {
+                      Navigator.of(context).pop();
+                      toastAlert(
+                          iconAlert: const Icon(Icons.update),
+                          context: context,
+                          title: S.current.Actualizado_con_exito,
+                          description:
+                              S.current.Informacion_personal_actualizada,
+                          typeAlert: ToastificationType.info);
+                    },
+                  );
+                })),
         const SizedBox(
           width: 10,
         ),
@@ -196,9 +221,25 @@ class _ProfilePageState extends State<ProfilePage> {
                 icon: const Icon(Icons.cancel),
                 buttonColor: $colorError,
                 onClic: () {
-                  setState(() {
-                    enableInput = false;
-                  });
+                  modalDialogConfirmation(
+                    context: context,
+                    titleButtonConfirm: S.current.Si_salir,
+                    question: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        text: S.current.Esta_seguro_de_salir_de_la_edicion,
+                        style: const TextStyle(
+                            fontSize: 14, color: $colorTextBlack),
+                      ),
+                    ),
+                    buttonColorConfirm: $colorSuccess,
+                    onClic: () {
+                      Navigator.of(context).pop();
+                      setState(() {
+                        enableInput = false;
+                      });
+                    },
+                  );
                 })),
       ]),
     );

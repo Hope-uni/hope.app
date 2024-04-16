@@ -177,8 +177,7 @@ class _ButtonLogin extends ConsumerWidget {
                     backgroundColor: $colorAlert,
                     content: Text(
                       S.current.Los_campos_no_pueden_estar_vacios,
-                      style:
-                          const TextStyle(color: $colorTextForlightBackgrounds),
+                      style: const TextStyle(color: $colorTextBlack),
                     ),
                     duration: const Duration(seconds: 2),
                   );

@@ -4,9 +4,11 @@ import '../interfaces/interface.dart';
 
 class MenuItems extends StatelessWidget {
   final List<MenuItem> menuItems;
+  final int idChild;
   const MenuItems({
     super.key,
     required this.menuItems,
+    required this.idChild,
   });
 
   @override
@@ -15,7 +17,7 @@ class MenuItems extends StatelessWidget {
         popUpAnimationStyle: AnimationStyle.noAnimation,
         icon: const Icon(Icons.more_vert),
         onSelected: (itemUrl) {
-          context.push(itemUrl);
+          context.push(itemUrl, extra: idChild);
         },
         itemBuilder: (BuildContext context) => <PopupMenuEntry>[
               ...menuItems.map(

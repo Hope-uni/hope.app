@@ -120,6 +120,7 @@ Iterable<TableRow> generatePatients({required WidgetRef ref}) {
           TableCell(
             verticalAlignment: TableCellVerticalAlignment.middle,
             child: MenuItems(
+              idChild: int.parse(item.id),
               menuItems: menuPacientTutor,
             ),
           ),
