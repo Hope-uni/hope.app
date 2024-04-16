@@ -28,8 +28,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
               const ChildrenPage()),
       GoRoute(
           path: '/child',
-          builder: (BuildContext context, GoRouterState state) =>
-              ChildsDataPage(
+          builder: (BuildContext context, GoRouterState state) => ChildDataPage(
                 idChild: state.extra as int,
               )),
       GoRoute(

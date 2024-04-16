@@ -3,17 +3,16 @@ import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
-import 'package:toastification/toastification.dart';
 
-class ChildsDataPage extends StatefulWidget {
+class ChildDataPage extends StatefulWidget {
   final int idChild;
-  const ChildsDataPage({super.key, required this.idChild});
+  const ChildDataPage({super.key, required this.idChild});
 
   @override
-  State<ChildsDataPage> createState() => _ChildsDataPageState();
+  State<ChildDataPage> createState() => _ChildDataPageState();
 }
 
-class _ChildsDataPageState extends State<ChildsDataPage> {
+class _ChildDataPageState extends State<ChildDataPage> {
   bool enableInput = false;
 
   @override
@@ -102,69 +101,22 @@ class _ChildsDataPageState extends State<ChildsDataPage> {
                   modalDialogConfirmation(
                     context: context,
                     titleButtonConfirm: S.current.Si_avanzar,
-                    question: RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                        style: const TextStyle(
-                            fontSize: 16, color: $colorTextBlack),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: S.current.Esta_seguro_de_avanzar_de_fase_a(
-                                'Mario Jose Ramos Mejia'),
-                          ),
-                          const TextSpan(
-                            text:
-                                '\n\nFase 3 \u2192 Fase 4', //TODO: Cambiar cuando este listo el endpoint
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    question:
+                        '${S.current.Esta_seguro_de_avanzar_de_fase_a('Mario Ramos')} \n\nFase 3  =>  Fase 4',
+                    iconButtonConfirm: const Icon(Icons.check),
                     buttonColorConfirm: $colorSuccess,
                     onClic: () {
                       Navigator.of(context).pop();
-                      toastAlert(
-                          context: context,
-                          title: S.current.Avance_de_fase_exitosa,
-                          description: S.current.Se_avanzo_a_la_fase(4,
-                              'Mario Jose Ramos Mejia'), //TODO: Cambiar cuando este listo el endpoint
-                          typeAlert: ToastificationType.success);
                     },
                   );
                 })),
         Visibility(
             visible: enableInput,
             child: ButtonTextIcon(
-                title: S.current.Actualizar,
-                icon: const Icon(Icons.update),
-                buttonColor: $colorBlueGeneral,
-                onClic: () {
-                  modalDialogConfirmation(
-                    context: context,
-                    titleButtonConfirm: S.current.Si_actualizar,
-                    question: RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                        text: S.current.Esta_Seguro_de_actualizar_los_datos,
-                        style: const TextStyle(
-                            fontSize: 16, color: $colorTextBlack),
-                      ),
-                    ),
-                    buttonColorConfirm: $colorSuccess,
-                    onClic: () {
-                      Navigator.of(context).pop();
-                      toastAlert(
-                          iconAlert: const Icon(Icons.update),
-                          context: context,
-                          title: S.current.Actualizado_con_exito,
-                          description:
-                              S.current.Informacion_del_nino_actualizada,
-                          typeAlert: ToastificationType.info);
-                    },
-                  );
-                })),
+                title: S.current.Guardar,
+                icon: const Icon(Icons.save),
+                buttonColor: $colorSuccess,
+                onClic: () {})),
         const SizedBox(
           width: 10,
         ),
@@ -175,25 +127,9 @@ class _ChildsDataPageState extends State<ChildsDataPage> {
                 icon: const Icon(Icons.cancel),
                 buttonColor: $colorError,
                 onClic: () {
-                  modalDialogConfirmation(
-                    context: context,
-                    titleButtonConfirm: S.current.Si_salir,
-                    question: RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                        text: S.current.Esta_seguro_de_salir_de_la_edicion,
-                        style: const TextStyle(
-                            fontSize: 16, color: $colorTextBlack),
-                      ),
-                    ),
-                    buttonColorConfirm: $colorSuccess,
-                    onClic: () {
-                      Navigator.of(context).pop();
-                      setState(() {
-                        enableInput = false;
-                      });
-                    },
-                  );
+                  setState(() {
+                    enableInput = false;
+                  });
                 })),
       ]),
     );
