@@ -75,8 +75,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Correo electrónico"),
         "Correo_o_nombre_de_usuario":
             MessageLookupByLibrary.simpleMessage("Correo o nombre de usuario"),
+        "Datos_del_progreso":
+            MessageLookupByLibrary.simpleMessage("Datos del progreso"),
         "Datos_del_usuario":
             MessageLookupByLibrary.simpleMessage("Datos del usuario"),
+        "Datos_generales":
+            MessageLookupByLibrary.simpleMessage("Datos generales"),
         "Datos_personales":
             MessageLookupByLibrary.simpleMessage("Datos personales"),
         "Debe_ingresar_el_nombre_de_usuario_o_correo":
@@ -159,6 +163,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Primer Apellido"),
         "Primer_nombre": MessageLookupByLibrary.simpleMessage("Primer Nombre"),
         "Progreso": MessageLookupByLibrary.simpleMessage("Progreso"),
+        "Progreso_de_metodologia_PECS": MessageLookupByLibrary.simpleMessage(
+            "Progreso de Metodologia PECS"),
+        "Progreso_general":
+            MessageLookupByLibrary.simpleMessage("Progreso general"),
         "Quitar_actividad":
             MessageLookupByLibrary.simpleMessage("Quitar actividad"),
         "Restablecer_contrasena":
@@ -186,6 +194,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Usuario": MessageLookupByLibrary.simpleMessage("Usuario"),
         "Ver_informacion":
             MessageLookupByLibrary.simpleMessage("Ver Información"),
-        "hope": MessageLookupByLibrary.simpleMessage("hope")
+        "hope": MessageLookupByLibrary.simpleMessage("hope"),
+        "progreso_de_fase":
+            MessageLookupByLibrary.simpleMessage("Progreso de fase")
       };
 }

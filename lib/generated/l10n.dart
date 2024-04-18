@@ -971,6 +971,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Datos generales`
+  String get Datos_generales {
+    return Intl.message(
+      'Datos generales',
+      name: 'Datos_generales',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Datos del progreso`
+  String get Datos_del_progreso {
+    return Intl.message(
+      'Datos del progreso',
+      name: 'Datos_del_progreso',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Progreso de Metodologia PECS`
+  String get Progreso_de_metodologia_PECS {
+    return Intl.message(
+      'Progreso de Metodologia PECS',
+      name: 'Progreso_de_metodologia_PECS',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Progreso general`
+  String get Progreso_general {
+    return Intl.message(
+      'Progreso general',
+      name: 'Progreso_general',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Progreso de fase`
+  String get progreso_de_fase {
+    return Intl.message(
+      'Progreso de fase',
+      name: 'progreso_de_fase',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
