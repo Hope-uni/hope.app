@@ -283,32 +283,15 @@ Future<void> _dialogImage(
               ),
               buttonColor: $colorBlueGeneral,
               onClic: () {
-                modalDialogConfirmation(
-                  context: context,
-                  question: RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                      text: S.current
-                          .Esta_seguro_de_actualizar_el_pictograma('Manzana'),
-                      style:
-                          const TextStyle(fontSize: 16, color: $colorTextBlack),
-                    ),
-                  ),
-                  titleButtonConfirm: S.current.Si_actualizar,
-                  buttonColorConfirm: $colorSuccess,
-                  onClic: () {
-                    toastAlert(
-                        iconAlert: const Icon(Icons.update),
-                        context: context,
-                        title: S.current.Actualizado_con_exito,
-                        description: S.current
-                            .Se_actualizo_correctamente_el_pictograma_personalizado(
-                                'Manzana'), //TODO: Cambiar cuando este  listo el endpoint
-                        typeAlert: ToastificationType.info);
-                    Navigator.of(context).pop();
-                    Navigator.of(context).pop();
-                  },
-                );
+                Navigator.of(context).pop();
+                toastAlert(
+                    iconAlert: const Icon(Icons.update),
+                    context: context,
+                    title: S.current.Actualizado_con_exito,
+                    description: S.current
+                        .Se_actualizo_correctamente_el_pictograma_personalizado(
+                            'Manzana'), //TODO: Cambiar cuando este  listo el endpoint
+                    typeAlert: ToastificationType.info);
               },
             ),
             ButtonTextIcon(
@@ -318,23 +301,7 @@ Future<void> _dialogImage(
               ),
               buttonColor: $colorError,
               onClic: () {
-                modalDialogConfirmation(
-                  context: context,
-                  buttonColorConfirm: $colorSuccess,
-                  question: RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                      text: S.current.Esta_seguro_de_salir_de_la_edicion,
-                      style:
-                          const TextStyle(fontSize: 16, color: $colorTextBlack),
-                    ),
-                  ),
-                  titleButtonConfirm: S.current.Si_salir,
-                  onClic: () {
-                    Navigator.of(context).pop();
-                    Navigator.of(context).pop();
-                  },
-                );
+                Navigator.of(context).pop();
               },
             )
           ],

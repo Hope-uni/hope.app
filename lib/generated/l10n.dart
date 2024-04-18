@@ -921,16 +921,6 @@ class S {
     );
   }
 
-  /// `¿Está seguro de actualizar el pictograma {namePictogram}?`
-  String Esta_seguro_de_actualizar_el_pictograma(Object namePictogram) {
-    return Intl.message(
-      '¿Está seguro de actualizar el pictograma $namePictogram?',
-      name: 'Esta_seguro_de_actualizar_el_pictograma',
-      desc: '',
-      args: [namePictogram],
-    );
-  }
-
   /// `Se actualizó correctamente el pictograma personalizado: {namePictogram}`
   String Se_actualizo_correctamente_el_pictograma_personalizado(
       Object namePictogram) {
