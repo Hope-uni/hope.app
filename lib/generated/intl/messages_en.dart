@@ -122,8 +122,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "Informacion_del_nino_actualizada":
             MessageLookupByLibrary.simpleMessage(
                 "Información del niño actualizada"),
+        "Informacion_del_progreso":
+            MessageLookupByLibrary.simpleMessage("Información del progreso"),
+        "Informacion_general":
+            MessageLookupByLibrary.simpleMessage("Información general"),
         "Informacion_general_del_nino": MessageLookupByLibrary.simpleMessage(
             "Información general del niño"),
+        "Informacion_personal":
+            MessageLookupByLibrary.simpleMessage("Información personal"),
         "Informacion_personal_actualizada":
             MessageLookupByLibrary.simpleMessage(
                 "Información personal actualizada"),
@@ -158,7 +164,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Primer_apellido":
             MessageLookupByLibrary.simpleMessage("Primer Apellido"),
         "Primer_nombre": MessageLookupByLibrary.simpleMessage("Primer Nombre"),
-        "Progreso": MessageLookupByLibrary.simpleMessage("Progreso"),
+        "Progreso_general":
+            MessageLookupByLibrary.simpleMessage("Progreso general"),
+        "Progresos": MessageLookupByLibrary.simpleMessage("Progresos"),
         "Quitar_actividad":
             MessageLookupByLibrary.simpleMessage("Quitar actividad"),
         "Restablecer_contrasena":
@@ -186,6 +194,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Usuario": MessageLookupByLibrary.simpleMessage("Usuario"),
         "Ver_informacion":
             MessageLookupByLibrary.simpleMessage("Ver Información"),
-        "hope": MessageLookupByLibrary.simpleMessage("hope")
+        "hope": MessageLookupByLibrary.simpleMessage("hope"),
+        "progreso_de_fase":
+            MessageLookupByLibrary.simpleMessage("Progreso de fase")
       };
 }

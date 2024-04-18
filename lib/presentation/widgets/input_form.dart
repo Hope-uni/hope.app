@@ -3,11 +3,12 @@ import 'package:hope_app/presentation/utils/utils.dart';
 
 class InputForm extends StatelessWidget {
   final String value;
+  final bool enable;
+  final double? heigthInput;
   final String? label;
   final String? hint;
   final int? maxLength;
   final int? maxLines;
-  final bool enable;
   final Function(String)? onChanged;
 
   const InputForm(
@@ -18,7 +19,8 @@ class InputForm extends StatelessWidget {
       this.maxLines,
       this.maxLength,
       this.onChanged,
-      this.hint});
+      this.hint,
+      this.heigthInput});
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +30,9 @@ class InputForm extends StatelessWidget {
     return Expanded(
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
-        height: 66,
+        height: heigthInput ?? 66,
         child: TextField(
+          keyboardType: TextInputType.text,
           maxLines: maxLines ?? 1,
           maxLength: enable ? maxLength : null,
           controller: controller,

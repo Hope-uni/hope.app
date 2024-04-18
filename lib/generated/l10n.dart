@@ -731,16 +731,6 @@ class S {
     );
   }
 
-  /// `Progreso`
-  String get Progreso {
-    return Intl.message(
-      'Progreso',
-      name: 'Progreso',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Fases`
   String get Fases {
     return Intl.message(
@@ -967,6 +957,66 @@ class S {
     return Intl.message(
       'Lista de pictogramas generales',
       name: 'Lista_de_pictogramas_generales',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Información general`
+  String get Informacion_general {
+    return Intl.message(
+      'Información general',
+      name: 'Informacion_general',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Información del progreso`
+  String get Informacion_del_progreso {
+    return Intl.message(
+      'Información del progreso',
+      name: 'Informacion_del_progreso',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Información personal`
+  String get Informacion_personal {
+    return Intl.message(
+      'Información personal',
+      name: 'Informacion_personal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Progresos`
+  String get Progresos {
+    return Intl.message(
+      'Progresos',
+      name: 'Progresos',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Progreso general`
+  String get Progreso_general {
+    return Intl.message(
+      'Progreso general',
+      name: 'Progreso_general',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Progreso de fase`
+  String get progreso_de_fase {
+    return Intl.message(
+      'Progreso de fase',
+      name: 'progreso_de_fase',
       desc: '',
       args: [],
     );

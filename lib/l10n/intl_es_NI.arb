@@ -67,7 +67,6 @@
   "Observaciones": "Observaciones",
   "Pictogramas_blanco_negro": "Pictogramas Blanco/Negro",
   "Actividad_Actual": "Actividad actual",
-  "Progreso": "Progreso",
   "Fases": "Fases",
   "Avanzar_de_fase": "Avanzar de fase",
   "Logros": "Logros",
@@ -90,5 +89,11 @@
   "Esta_seguro_de_actualizar_el_pictograma": "¿Está seguro de actualizar el pictograma {namePictogram}?",
   "Se_actualizo_correctamente_el_pictograma_personalizado": "Se actualizó correctamente el pictograma personalizado: {namePictogram}",
   "Total_de_resultados": "Total de resultados:",
-  "Lista_de_pictogramas_generales": "Lista de pictogramas generales"
+  "Lista_de_pictogramas_generales": "Lista de pictogramas generales",
+  "Informacion_general": "Información general",
+  "Informacion_del_progreso": "Información del progreso",
+  "Informacion_personal": "Información personal",
+  "Progresos": "Progresos",
+  "Progreso_general": "Progreso general",
+  "progreso_de_fase": "Progreso de fase"
 }
