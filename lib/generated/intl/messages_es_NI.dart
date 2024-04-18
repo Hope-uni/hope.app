@@ -75,12 +75,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Correo electrónico"),
         "Correo_o_nombre_de_usuario":
             MessageLookupByLibrary.simpleMessage("Correo o nombre de usuario"),
-        "Datos_del_progreso":
-            MessageLookupByLibrary.simpleMessage("Datos del progreso"),
         "Datos_del_usuario":
             MessageLookupByLibrary.simpleMessage("Datos del usuario"),
-        "Datos_generales":
-            MessageLookupByLibrary.simpleMessage("Datos generales"),
         "Datos_personales":
             MessageLookupByLibrary.simpleMessage("Datos personales"),
         "Debe_ingresar_el_nombre_de_usuario_o_correo":
@@ -126,8 +122,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "Informacion_del_nino_actualizada":
             MessageLookupByLibrary.simpleMessage(
                 "Información del niño actualizada"),
+        "Informacion_del_progreso":
+            MessageLookupByLibrary.simpleMessage("Información del progreso"),
+        "Informacion_general":
+            MessageLookupByLibrary.simpleMessage("Información general"),
         "Informacion_general_del_nino": MessageLookupByLibrary.simpleMessage(
             "Información general del niño"),
+        "Informacion_personal":
+            MessageLookupByLibrary.simpleMessage("Información personal"),
         "Informacion_personal_actualizada":
             MessageLookupByLibrary.simpleMessage(
                 "Información personal actualizada"),
@@ -162,11 +164,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Primer_apellido":
             MessageLookupByLibrary.simpleMessage("Primer Apellido"),
         "Primer_nombre": MessageLookupByLibrary.simpleMessage("Primer Nombre"),
-        "Progreso": MessageLookupByLibrary.simpleMessage("Progreso"),
-        "Progreso_de_metodologia_PECS": MessageLookupByLibrary.simpleMessage(
-            "Progreso de Metodologia PECS"),
         "Progreso_general":
             MessageLookupByLibrary.simpleMessage("Progreso general"),
+        "Progresos": MessageLookupByLibrary.simpleMessage("Progresos"),
         "Quitar_actividad":
             MessageLookupByLibrary.simpleMessage("Quitar actividad"),
         "Restablecer_contrasena":

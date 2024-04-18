@@ -28,15 +28,15 @@ class _ChildDataPageState extends State<ChildDataPage> {
           bottom: TabBar(
             tabs: <Widget>[
               Tab(
-                text: S.current.Datos_personales,
+                text: S.current.Informacion_personal,
                 icon: const Icon(Icons.face_6),
               ),
               Tab(
-                text: S.current.Datos_generales,
+                text: S.current.Informacion_general,
                 icon: const Icon(Icons.description),
               ),
               Tab(
-                text: S.current.Datos_del_progreso,
+                text: S.current.Informacion_del_progreso,
                 icon: const Icon(Icons.pie_chart),
               ),
             ],
@@ -495,7 +495,7 @@ List<Widget> _childProgressData(
         children: [
           Container(
               margin: const EdgeInsets.symmetric(vertical: 15),
-              child: Text(S.current.Progreso_de_metodologia_PECS)),
+              child: Text(S.current.Progresos)),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [

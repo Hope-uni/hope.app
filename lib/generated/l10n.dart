@@ -731,16 +731,6 @@ class S {
     );
   }
 
-  /// `Progreso`
-  String get Progreso {
-    return Intl.message(
-      'Progreso',
-      name: 'Progreso',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Fases`
   String get Fases {
     return Intl.message(
@@ -972,31 +962,41 @@ class S {
     );
   }
 
-  /// `Datos generales`
-  String get Datos_generales {
+  /// `Información general`
+  String get Informacion_general {
     return Intl.message(
-      'Datos generales',
-      name: 'Datos_generales',
+      'Información general',
+      name: 'Informacion_general',
       desc: '',
       args: [],
     );
   }
 
-  /// `Datos del progreso`
-  String get Datos_del_progreso {
+  /// `Información del progreso`
+  String get Informacion_del_progreso {
     return Intl.message(
-      'Datos del progreso',
-      name: 'Datos_del_progreso',
+      'Información del progreso',
+      name: 'Informacion_del_progreso',
       desc: '',
       args: [],
     );
   }
 
-  /// `Progreso de Metodologia PECS`
-  String get Progreso_de_metodologia_PECS {
+  /// `Información personal`
+  String get Informacion_personal {
     return Intl.message(
-      'Progreso de Metodologia PECS',
-      name: 'Progreso_de_metodologia_PECS',
+      'Información personal',
+      name: 'Informacion_personal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Progresos`
+  String get Progresos {
+    return Intl.message(
+      'Progresos',
+      name: 'Progresos',
       desc: '',
       args: [],
     );
