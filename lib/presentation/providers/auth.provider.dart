@@ -21,16 +21,13 @@ class AuthNotifier extends StateNotifier<AuthState> {
   void _setLoggedToken(Token token) async {
     await keyValueRepository.setValueStorage(token.accessToken!, 'token');
     state = state.copyWith(
-      token: token,
-      authStatus: AuthStatus.authenticated,
-    );
+        token: token, authStatus: AuthStatus.authenticated, errorMessage: '');
   }
 
   Future<void> loginUser(String email, String password) async {
     try {
       final token = await authRepository.login(email, password);
       _setLoggedToken(token.data!);
-      // ignore: empty_catches
     } on CustomError catch (e) {
       settearError(e.message);
     } catch (e) {
@@ -76,17 +73,16 @@ enum AuthStatus { checking, authenticated, notAuthenticated }
 class AuthState {
   final AuthStatus authStatus;
   final Token? token;
-  final String errorMessage;
+  final String? errorMessage;
 
   AuthState(
-      {this.token,
-      this.errorMessage = '',
-      this.authStatus = AuthStatus.checking});
+      {this.token, this.errorMessage, this.authStatus = AuthStatus.checking});
 
   AuthState copyWith(
           {AuthStatus? authStatus, Token? token, String? errorMessage}) =>
       AuthState(
           authStatus: authStatus ?? this.authStatus,
-          errorMessage: errorMessage ?? this.errorMessage,
+          errorMessage:
+              errorMessage == '' ? null : errorMessage ?? this.errorMessage,
           token: token ?? this.token);
 }

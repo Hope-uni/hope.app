@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 
 class InputForm extends StatelessWidget {
   final String value;
   final bool enable;
-  final double? heigthInput;
   final String? label;
   final String? hint;
+  final String? errorText;
   final int? maxLength;
   final int? maxLines;
+  final double? marginVertical;
+  final bool? obscureText;
+  final Widget? suffixIcon;
+  final List<TextInputFormatter>? inputFormatters;
   final Function(String)? onChanged;
 
   const InputForm(
@@ -20,7 +25,11 @@ class InputForm extends StatelessWidget {
       this.maxLength,
       this.onChanged,
       this.hint,
-      this.heigthInput});
+      this.inputFormatters,
+      this.marginVertical,
+      this.obscureText,
+      this.suffixIcon,
+      this.errorText});
 
   @override
   Widget build(BuildContext context) {
@@ -29,22 +38,31 @@ class InputForm extends StatelessWidget {
     controller.selection = TextSelection.collapsed(offset: textLength);
     return Expanded(
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
-        height: heigthInput ?? 66,
+        margin: const EdgeInsets.symmetric(
+          horizontal: 15,
+        ),
         child: TextField(
-          keyboardType: TextInputType.text,
+          obscureText: obscureText ?? false,
+          inputFormatters: inputFormatters,
+          keyboardType: TextInputType.emailAddress,
           maxLines: maxLines ?? 1,
           maxLength: enable ? maxLength : null,
           controller: controller,
           decoration: InputDecoration(
+            errorText: errorText,
+            errorMaxLines: 2,
             hintText: hint,
-            counterText:
-                maxLength != null && enable ? '$textLength/ $maxLength' : null,
+            counterText: maxLength != null && enable
+                ? '$textLength/ $maxLength'
+                : ' ', //Dejar el espacio en blanco para que no se descuadre el contenido cuando no tiene counterText
             labelText: label,
             labelStyle: const TextStyle(color: $colorTextBlack),
-            contentPadding: const EdgeInsets.symmetric(vertical: 0),
+            contentPadding: suffixIcon == null
+                ? const EdgeInsets.symmetric(vertical: 0)
+                : null,
+            suffixIcon: suffixIcon,
           ),
-          textCapitalization: TextCapitalization.characters,
+          textCapitalization: TextCapitalization.sentences,
           style: const TextStyle(color: $colorTextBlack),
           enabled: enable,
           onChanged: onChanged,

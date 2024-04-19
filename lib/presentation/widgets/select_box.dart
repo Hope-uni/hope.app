@@ -26,7 +26,6 @@ class SelectBox extends StatelessWidget {
         TextEditingController(text: valueInitial);
     return Expanded(
       child: Container(
-          height: 66,
           margin: EdgeInsets.symmetric(
               horizontal: marginHorizontal ?? 15, vertical: 7),
           child: DropdownMenu<String>(
@@ -42,9 +41,13 @@ class SelectBox extends StatelessWidget {
                   )
                 : null,
             hintText: hint,
+            helperText:
+                ' ', //Dejar el espacio en blanco para que no se descuadre el contenido cuando no tiene counterText,
             inputDecorationTheme: const InputDecorationTheme(
                 border: UnderlineInputBorder(),
-                constraints: BoxConstraints.expand(height: 48.5),
+                constraints: BoxConstraints.expand(
+                    height:
+                        68), //Ese tamaño se ajusta al tamaño por defecto de los inputs
                 contentPadding: EdgeInsets.zero),
             dropdownMenuEntries:
                 listItems.map<DropdownMenuEntry<String>>((String value) {
