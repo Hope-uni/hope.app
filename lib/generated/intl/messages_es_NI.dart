@@ -20,19 +20,16 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'es_NI';
 
-  static String m0(namePictogram) =>
-      "¿Está seguro de actualizar el pictograma ${namePictogram}?";
-
-  static String m1(nameChild) =>
+  static String m0(nameChild) =>
       "¿Está seguro de avanzar de fase a ${nameChild}?";
 
-  static String m2(nameImage, nameChild) =>
+  static String m1(nameImage, nameChild) =>
       "¿Está seguro que desea eliminar el pictograma \'${nameImage}\' de \'${nameChild}\'?";
 
-  static String m3(namePictogram) =>
+  static String m2(namePictogram) =>
       "Se actualizó correctamente el pictograma personalizado: ${namePictogram}";
 
-  static String m4(numFase, nameChild) =>
+  static String m3(numFase, nameChild) =>
       "Se avanzó a la fase ${numFase} a ${nameChild}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -105,12 +102,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "Esta_Seguro_de_actualizar_los_datos":
             MessageLookupByLibrary.simpleMessage(
                 "¿Está seguro de actualizar los datos?"),
-        "Esta_seguro_de_actualizar_el_pictograma": m0,
-        "Esta_seguro_de_avanzar_de_fase_a": m1,
+        "Esta_seguro_de_avanzar_de_fase_a": m0,
         "Esta_seguro_de_salir_de_la_edicion":
             MessageLookupByLibrary.simpleMessage(
                 "¿Está seguro de salir de la edición?"),
-        "Esta_seguro_que_desea_eliminar_el_pictograma": m2,
+        "Esta_seguro_que_desea_eliminar_el_pictograma": m1,
         "Fases": MessageLookupByLibrary.simpleMessage("Fases"),
         "Fecha_de_nacimiento":
             MessageLookupByLibrary.simpleMessage("Fecha de nacimiento"),
@@ -171,8 +167,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Quitar actividad"),
         "Restablecer_contrasena":
             MessageLookupByLibrary.simpleMessage("Restablecer contraseña"),
-        "Se_actualizo_correctamente_el_pictograma_personalizado": m3,
-        "Se_avanzo_a_la_fase": m4,
+        "Se_actualizo_correctamente_el_pictograma_personalizado": m2,
+        "Se_avanzo_a_la_fase": m3,
         "Segundo_apellido":
             MessageLookupByLibrary.simpleMessage("Segundo Apellido"),
         "Segundo_nombre":

@@ -49,7 +49,6 @@ void toastAlert(
       showProgressBar: true,
       closeButtonShowType: CloseButtonShowType.none,
       closeOnClick: false,
-      applyBlurEffect: true,
       pauseOnHover: true,
       progressBarTheme: ProgressIndicatorThemeData(
         color: colorProgressBar[typeAlert],
