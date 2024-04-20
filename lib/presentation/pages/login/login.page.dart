@@ -70,17 +70,17 @@ Text _titleApp(double height) {
   return Text(
     S.current.Hope_App,
     style: const TextStyle(
-        color: $colorBlueGeneral,
-        fontSize: 50,
-        fontWeight: FontWeight.bold,
-        fontFamily: $fontFamilyAnton),
+      color: $colorBlueGeneral,
+      fontSize: 50,
+      fontWeight: FontWeight.bold,
+      fontFamily: $fontFamilyAnton,
+    ),
   );
 }
 
 class _InputUserName extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // ignore: unused_local_variable
     final loginForm = ref.watch(loginFormProvider);
     return Row(
       children: [
@@ -107,7 +107,6 @@ class _InputUserName extends ConsumerWidget {
 class _InputPassword extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // ignore: unused_local_variable
     final loginForm = ref.watch(loginFormProvider);
     final isVisiblePassword = ref.watch(isVisiblePasswordProvider);
 
