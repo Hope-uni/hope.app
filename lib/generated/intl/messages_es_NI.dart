@@ -47,6 +47,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Anadir_nuevo_pictograma_personalizado":
             MessageLookupByLibrary.simpleMessage(
                 "Añadir nuevo pictograma personalizado"),
+        "Asignar_actividad_a_los_ninos": MessageLookupByLibrary.simpleMessage(
+            "Asignar actividad a los niños"),
         "Avance_de_fase_exitosa":
             MessageLookupByLibrary.simpleMessage("¡Avance de fase exitosa!"),
         "Avanzar_de_fase":
@@ -72,10 +74,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Correo electrónico"),
         "Correo_o_nombre_de_usuario":
             MessageLookupByLibrary.simpleMessage("Correo o nombre de usuario"),
+        "Crear_nuevas_actividades":
+            MessageLookupByLibrary.simpleMessage("Crear nuevas actividades"),
         "Datos_del_usuario":
             MessageLookupByLibrary.simpleMessage("Datos del usuario"),
         "Datos_personales":
             MessageLookupByLibrary.simpleMessage("Datos personales"),
+        "De": MessageLookupByLibrary.simpleMessage("de"),
         "Debe_ingresar_el_nombre_de_usuario_o_correo":
             MessageLookupByLibrary.simpleMessage(
                 "Debe ingresar el nombre de usuario o correo"),
@@ -85,10 +90,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "Edad": MessageLookupByLibrary.simpleMessage("Edad"),
         "Editar": MessageLookupByLibrary.simpleMessage("Editar"),
         "Editar_imagen": MessageLookupByLibrary.simpleMessage("Editar Imagen"),
+        "Editar_la_informacion_general_de_la_actividad":
+            MessageLookupByLibrary.simpleMessage(
+                "Editar la Información general de la actividad"),
         "Editar_observaciones":
             MessageLookupByLibrary.simpleMessage("Editar observaciones"),
         "Editar_observaciones_del_nino": MessageLookupByLibrary.simpleMessage(
             "Editar observaciones del niño"),
+        "Eliminacion_permanente_de_la_actividad":
+            MessageLookupByLibrary.simpleMessage(
+                "Eliminación permanente de la actividad"),
         "Eliminar": MessageLookupByLibrary.simpleMessage("Eliminar"),
         "Eliminar_actividad_asignada_del_nino":
             MessageLookupByLibrary.simpleMessage(
@@ -107,6 +118,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "¿Está seguro de salir de la edición?"),
         "Esta_seguro_que_desea_eliminar_el_pictograma": m1,
+        "Fase": MessageLookupByLibrary.simpleMessage("Fase"),
         "Fases": MessageLookupByLibrary.simpleMessage("Fases"),
         "Fecha_de_nacimiento":
             MessageLookupByLibrary.simpleMessage("Fecha de nacimiento"),
@@ -144,11 +156,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "Ninos": MessageLookupByLibrary.simpleMessage("Niños"),
         "Ninos_asignados":
             MessageLookupByLibrary.simpleMessage("Niños asignados"),
+        "Nombre": MessageLookupByLibrary.simpleMessage("Nombre"),
         "Nombre_de_usuario":
             MessageLookupByLibrary.simpleMessage("Nombre de usuario"),
         "Observaciones": MessageLookupByLibrary.simpleMessage("Observaciones"),
         "Olvido_su_contrasena":
             MessageLookupByLibrary.simpleMessage("¿Olvido su contraseña?"),
+        "Opciones": MessageLookupByLibrary.simpleMessage("Opciones"),
+        "Pagina": MessageLookupByLibrary.simpleMessage("Pagina"),
         "Perfil": MessageLookupByLibrary.simpleMessage("Perfil"),
         "Pictogramas_blanco_negro":
             MessageLookupByLibrary.simpleMessage("Pictogramas Blanco/Negro"),
@@ -163,8 +178,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "Progreso_general":
             MessageLookupByLibrary.simpleMessage("Progreso general"),
         "Progresos": MessageLookupByLibrary.simpleMessage("Progresos"),
+        "Puntos": MessageLookupByLibrary.simpleMessage("Puntos"),
         "Quitar_actividad":
             MessageLookupByLibrary.simpleMessage("Quitar actividad"),
+        "Quitar_actividad_a_los_nino": MessageLookupByLibrary.simpleMessage(
+            "Quitar actividad a los niños"),
         "Restablecer_contrasena":
             MessageLookupByLibrary.simpleMessage("Restablecer contraseña"),
         "Se_actualizo_correctamente_el_pictograma_personalizado": m2,
@@ -190,6 +208,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Usuario": MessageLookupByLibrary.simpleMessage("Usuario"),
         "Ver_informacion":
             MessageLookupByLibrary.simpleMessage("Ver Información"),
+        "Ver_informacion_detallada_de_la_actividad":
+            MessageLookupByLibrary.simpleMessage(
+                "Ver Información detallada de la actividad"),
         "hope": MessageLookupByLibrary.simpleMessage("hope"),
         "progreso_de_fase":
             MessageLookupByLibrary.simpleMessage("Progreso de fase")

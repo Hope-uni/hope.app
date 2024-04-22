@@ -112,7 +112,35 @@ class DataTableDynamic extends StatelessWidget {
                       IconButton(
                           onPressed: page <= 1 ? null : getPreviousData,
                           icon: const Icon(Icons.arrow_back)),
-                      Text('$page - $totalPage'),
+                      RichText(
+                        text: TextSpan(children: [
+                          TextSpan(
+                              text:
+                                  '${S.current.Pagina}  ', //Dejar espacio en blanco
+                              style: const TextStyle(
+                                color: $colorTextBlack,
+                              )),
+                          TextSpan(
+                              text: '$page',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: $colorTextBlack,
+                                fontSize: 18,
+                              )),
+                          TextSpan(
+                              text:
+                                  '  ${S.current.De}  ', //Dejar espacio en blanco
+                              style: const TextStyle(
+                                color: $colorTextBlack,
+                              )),
+                          TextSpan(
+                              text: '$totalPage',
+                              style: const TextStyle(
+                                color: $colorTextBlack,
+                                fontSize: 18,
+                              )),
+                        ]),
+                      ),
                       IconButton(
                           onPressed: page >= totalPage ? null : getNextData,
                           icon: const Icon(Icons.arrow_forward)),

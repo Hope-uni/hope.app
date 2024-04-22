@@ -94,5 +94,17 @@
   "Informacion_personal": "Información personal",
   "Progresos": "Progresos",
   "Progreso_general": "Progreso general",
-  "progreso_de_fase": "Progreso de fase"
+  "progreso_de_fase": "Progreso de fase",
+  "Crear_nuevas_actividades": "Crear nuevas actividades",
+  "Nombre": "Nombre",
+  "Fase": "Fase",
+  "Puntos": "Puntos",
+  "Opciones": "Opciones",
+  "Pagina": "Pagina",
+  "De": "de",
+  "Ver_informacion_detallada_de_la_actividad": "Ver Información detallada de la actividad",
+  "Editar_la_informacion_general_de_la_actividad": "Editar la Información general de la actividad",
+  "Asignar_actividad_a_los_ninos": "Asignar actividad a los niños",
+  "Quitar_actividad_a_los_nino": "Quitar actividad a los niños",
+  "Eliminacion_permanente_de_la_actividad": "Eliminación permanente de la actividad"
 }

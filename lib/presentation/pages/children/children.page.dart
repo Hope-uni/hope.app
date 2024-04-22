@@ -83,7 +83,12 @@ class ChildrenPage extends ConsumerWidget {
   }
 }
 
-const List<String> headersRows = ['Nombre', 'Fase', 'Edad', 'Opciones'];
+List<String> headersRows = [
+  S.current.Nombre,
+  S.current.Fase,
+  S.current.Edad,
+  S.current.Opciones
+];
 
 Iterable<TableRow> generatePatients({required WidgetRef ref}) {
   final listaPacientes = ref.watch(patientsProvider);
