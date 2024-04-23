@@ -42,6 +42,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Actualizado_con_exito":
             MessageLookupByLibrary.simpleMessage("¡Actualizado con éxito!"),
         "Actualizar": MessageLookupByLibrary.simpleMessage("Actualizar"),
+        "Agregar_actividad":
+            MessageLookupByLibrary.simpleMessage("Agregar actividad"),
         "Agregar_pictograma":
             MessageLookupByLibrary.simpleMessage("Agregar pictograma"),
         "Anadir_nuevo_pictograma_personalizado":
@@ -74,8 +76,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Correo electrónico"),
         "Correo_o_nombre_de_usuario":
             MessageLookupByLibrary.simpleMessage("Correo o nombre de usuario"),
-        "Crear_nuevas_actividades":
-            MessageLookupByLibrary.simpleMessage("Crear nuevas actividades"),
         "Datos_del_usuario":
             MessageLookupByLibrary.simpleMessage("Datos del usuario"),
         "Datos_personales":
@@ -163,7 +163,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Olvido_su_contrasena":
             MessageLookupByLibrary.simpleMessage("¿Olvido su contraseña?"),
         "Opciones": MessageLookupByLibrary.simpleMessage("Opciones"),
-        "Pagina": MessageLookupByLibrary.simpleMessage("Pagina"),
+        "Pagina": MessageLookupByLibrary.simpleMessage("Página"),
         "Perfil": MessageLookupByLibrary.simpleMessage("Perfil"),
         "Pictogramas_blanco_negro":
             MessageLookupByLibrary.simpleMessage("Pictogramas Blanco/Negro"),

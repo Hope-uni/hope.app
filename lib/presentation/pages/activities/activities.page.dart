@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/providers/providers.dart';
+import 'package:hope_app/presentation/utils/constants_desing.dart';
 import 'package:hope_app/presentation/utils/constants_menu.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
 
@@ -25,28 +26,9 @@ class ActivityPage extends ConsumerWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                Text(S.current.Actividades),
-                const SizedBox(
-                  width: 10,
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  width: 35,
-                  height: 35,
-                  child: IconButton(
-                    iconSize: 20,
-                    onPressed: () {},
-                    icon: const Icon(Icons.add),
-                    color: Colors.white,
-                    tooltip: S.current.Crear_nuevas_actividades,
-                    style: const ButtonStyle(
-                        backgroundColor:
-                            MaterialStatePropertyAll(Colors.green)),
-                  ),
-                )
-              ],
+            Text(S.current.Actividades),
+            const SizedBox(
+              width: 10,
             ),
             Container(
               decoration: BoxDecoration(
@@ -93,6 +75,14 @@ class ActivityPage extends ConsumerWidget {
         data: generateActivity(ref: ref),
       ),
       drawer: const SideMenu(),
+      floatingActionButtonLocation:
+          FloatingActionButtonLocation.miniCenterFloat,
+      floatingActionButton: ButtonTextIcon(
+        title: S.current.Agregar_actividad,
+        icon: const Icon(Icons.add),
+        buttonColor: $colorSuccess,
+        onClic: () {},
+      ),
     );
   }
 }

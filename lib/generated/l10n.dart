@@ -1012,11 +1012,11 @@ class S {
     );
   }
 
-  /// `Crear nuevas actividades`
-  String get Crear_nuevas_actividades {
+  /// `Agregar actividad`
+  String get Agregar_actividad {
     return Intl.message(
-      'Crear nuevas actividades',
-      name: 'Crear_nuevas_actividades',
+      'Agregar actividad',
+      name: 'Agregar_actividad',
       desc: '',
       args: [],
     );
@@ -1062,10 +1062,10 @@ class S {
     );
   }
 
-  /// `Pagina`
+  /// `Página`
   String get Pagina {
     return Intl.message(
-      'Pagina',
+      'Página',
       name: 'Pagina',
       desc: '',
       args: [],
