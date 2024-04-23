@@ -1011,6 +1011,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Error`
+  String get Error {
+    return Intl.message(
+      'Error',
+      name: 'Error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `La contraseña debe contener entre 8 y 30 caracteres`
+  String get La_contrasena_debe_contener_entre_8_y_30_caracteres {
+    return Intl.message(
+      'La contraseña debe contener entre 8 y 30 caracteres',
+      name: 'La_contrasena_debe_contener_entre_8_y_30_caracteres',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `La contraseña es requerida`
+  String get La_contrasena_es_requerida {
+    return Intl.message(
+      'La contraseña es requerida',
+      name: 'La_contrasena_es_requerida',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `El usuario es requerido`
+  String get El_usuario_es_requerido {
+    return Intl.message(
+      'El usuario es requerido',
+      name: 'El_usuario_es_requerido',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

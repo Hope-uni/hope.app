@@ -94,5 +94,9 @@
   "Informacion_personal": "Información personal",
   "Progresos": "Progresos",
   "Progreso_general": "Progreso general",
-  "progreso_de_fase": "Progreso de fase"
+  "progreso_de_fase": "Progreso de fase",
+  "Error": "Error",
+  "La_contrasena_debe_contener_entre_8_y_30_caracteres": "La contraseña debe contener entre 8 y 30 caracteres",
+  "La_contrasena_es_requerida": "La contraseña es requerida",
+  "El_usuario_es_requerido": "El usuario es requerido"
 }

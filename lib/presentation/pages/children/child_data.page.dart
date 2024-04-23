@@ -410,7 +410,6 @@ List<Widget> _childPersonalData(
         InputForm(
           label: S.current.Direccion,
           maxLength: 100,
-          heigthInput: 100,
           maxLines: 5,
           enable: enableInput,
           onChanged: (value) {},
@@ -549,8 +548,7 @@ List<Widget> _childProgressData(
         InputForm(
           label: S.current.Observaciones,
           maxLength: 100,
-          maxLines: 15,
-          heigthInput: 100,
+          maxLines: 6,
           enable: enableInput,
           onChanged: (value) {},
           value:

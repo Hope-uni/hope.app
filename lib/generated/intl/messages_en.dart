@@ -89,12 +89,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Editar observaciones"),
         "Editar_observaciones_del_nino": MessageLookupByLibrary.simpleMessage(
             "Editar observaciones del niño"),
+        "El_usuario_es_requerido":
+            MessageLookupByLibrary.simpleMessage("El usuario es requerido"),
         "Eliminar": MessageLookupByLibrary.simpleMessage("Eliminar"),
         "Eliminar_actividad_asignada_del_nino":
             MessageLookupByLibrary.simpleMessage(
                 "Eliminar actividad asignada del niño"),
         "Entrar": MessageLookupByLibrary.simpleMessage("Entrar"),
         "Enviar_correo": MessageLookupByLibrary.simpleMessage("Enviar correo"),
+        "Error": MessageLookupByLibrary.simpleMessage("Error"),
         "Error_inesperado": MessageLookupByLibrary.simpleMessage(
             "Lamentablemente, ocurrió un error inesperado. Por favor, intenta nuevamente más tarde."),
         "Error_solicitud": MessageLookupByLibrary.simpleMessage(
@@ -131,6 +134,11 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Información personal actualizada"),
         "Iniciar_sesion":
             MessageLookupByLibrary.simpleMessage("Iniciar sesión"),
+        "La_contrasena_debe_contener_entre_8_y_30_caracteres":
+            MessageLookupByLibrary.simpleMessage(
+                "La contraseña debe contener entre 8 y 30 caracteres"),
+        "La_contrasena_es_requerida":
+            MessageLookupByLibrary.simpleMessage("La contraseña es requerida"),
         "Limpiar_filtros":
             MessageLookupByLibrary.simpleMessage("Limpiar filtros"),
         "Lista_de_pictogramas_generales": MessageLookupByLibrary.simpleMessage(

@@ -70,17 +70,17 @@ class _FormInitial extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      padding: EdgeInsets.only(top: size.height * 0.1, left: 40, right: 40),
+      padding: const EdgeInsets.only(left: 40, right: 40),
       width: size.width * 0.5,
       height: size.height,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           SingleChildScrollView(
             child: Container(alignment: Alignment.center, child: formChild),
           ),
-          const Spacer(),
           Container(
-              margin: const EdgeInsets.only(bottom: 10),
+              margin: const EdgeInsets.only(bottom: 15),
               child: Text(S.current.Derechos_reservados))
         ],
       ),
