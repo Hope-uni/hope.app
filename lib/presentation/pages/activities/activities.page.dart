@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/providers/providers.dart';
-import 'package:hope_app/presentation/utils/constants_desing.dart';
-import 'package:hope_app/presentation/utils/constants_menu.dart';
+import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
 
 class ActivityPage extends ConsumerWidget {
@@ -11,6 +10,7 @@ class ActivityPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final size = MediaQuery.of(context).size;
     final searchActivity = ref.watch(searchNameActivity);
     final listPatients = ref.watch(activitiesProvider.notifier);
     final TextEditingController controller =
@@ -62,27 +62,37 @@ class ActivityPage extends ConsumerWidget {
           ],
         ),
       ),
-      body: DataTableDynamic(
-        page: ref.read(activitiesProvider).indexPage + 1,
-        totalPage: ref.read(activitiesProvider).pageCount,
-        getNextData: () {
-          listPatients.getNextActivities();
-        },
-        getPreviousData: () {
-          listPatients.getPreviusActivities();
-        },
-        headersRows: headersRowsActivity,
-        data: generateActivity(ref: ref),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            margin: const EdgeInsets.only(bottom: 5, left: 40, right: 40),
+            alignment: Alignment.centerRight,
+            child: ButtonTextIcon(
+              title: S.current.Crear_actividad,
+              icon: const Icon(Icons.add),
+              buttonColor: $colorSuccess,
+              onClic: () {},
+            ),
+          ),
+          SizedBox(
+            height: size.height * (isTablet(context) ? 0.75 : 0.65),
+            child: DataTableDynamic(
+              page: ref.read(activitiesProvider).indexPage + 1,
+              totalPage: ref.read(activitiesProvider).pageCount,
+              getNextData: () {
+                listPatients.getNextActivities();
+              },
+              getPreviousData: () {
+                listPatients.getPreviusActivities();
+              },
+              headersRows: headersRowsActivity,
+              data: generateActivity(ref: ref),
+            ),
+          ),
+        ],
       ),
       drawer: const SideMenu(),
-      floatingActionButtonLocation:
-          FloatingActionButtonLocation.miniCenterFloat,
-      floatingActionButton: ButtonTextIcon(
-        title: S.current.Agregar_actividad,
-        icon: const Icon(Icons.add),
-        buttonColor: $colorSuccess,
-        onClic: () {},
-      ),
     );
   }
 }

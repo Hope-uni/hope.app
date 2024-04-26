@@ -1012,11 +1012,11 @@ class S {
     );
   }
 
-  /// `Agregar actividad`
-  String get Agregar_actividad {
+  /// `Crear actividad`
+  String get Crear_actividad {
     return Intl.message(
-      'Agregar actividad',
-      name: 'Agregar_actividad',
+      'Crear actividad',
+      name: 'Crear_actividad',
       desc: '',
       args: [],
     );
