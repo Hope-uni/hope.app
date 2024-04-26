@@ -3,13 +3,14 @@ import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
 
-Future<void> modalDialogConfirmation(
-    {required BuildContext context,
-    required RichText question,
-    required String titleButtonConfirm,
-    required VoidCallback onClic,
-    Icon? iconButtonConfirm,
-    Color? buttonColorConfirm}) {
+Future<void> modalDialogConfirmation({
+  required BuildContext context,
+  required RichText question,
+  required String titleButtonConfirm,
+  required VoidCallback onClic,
+  Icon? iconButtonConfirm,
+  Color? buttonColorConfirm,
+}) {
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {

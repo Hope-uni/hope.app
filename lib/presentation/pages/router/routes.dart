@@ -32,9 +32,9 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                 idChild: state.extra as int,
               )),
       GoRoute(
-          path: '/activity',
+          path: '/activities',
           builder: (BuildContext context, GoRouterState state) =>
-              const ActivityPage()),
+              const ActivitiesPage()),
       GoRoute(
           path: '/profile',
           builder: (BuildContext context, GoRouterState state) =>

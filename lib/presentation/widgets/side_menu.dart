@@ -18,7 +18,7 @@ class SideMenu extends ConsumerWidget {
           //Aqui se asigna el nuevo valor el index del menu y se redirecciona a la pantalla
           ref.read(selectedOption.notifier).state = value;
           final menuItem = appMenuItemsDrawer[value];
-          context.replace(menuItem.url);
+          context.replace(menuItem.url!);
         },
         tilePadding: EdgeInsets.zero,
         indicatorShape: const BeveledRectangleBorder(),
@@ -38,6 +38,7 @@ class SideMenu extends ConsumerWidget {
                         height: 75,
                         decoration: const BoxDecoration(shape: BoxShape.circle),
                         child: Image.network(
+                          //TODO: Cambiar cuando este listo el endpoint
                           'https://static.wixstatic.com/media/4d02c4_8ea3fe5159c8431689f97f5cc973e34c~mv2.png/v1/fill/w_600,h_338,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/4d02c4_8ea3fe5159c8431689f97f5cc973e34c~mv2.png',
                           fit: BoxFit.cover,
                         ),
@@ -47,10 +48,11 @@ class SideMenu extends ConsumerWidget {
                       height: 10,
                     ),
                     const Text(
-                      'Mario Ramos',
+                      'Mario Ramos', //TODO: Cambiar cuando este listo el endpoint
                       style: TextStyle(color: $colorTextWhite, fontSize: 15),
                     ),
-                    const Text('marioramosmejia2243@gmail.com',
+                    const Text(
+                        'marioramosmejia2243@gmail.com', //TODO: Cambiar cuando este listo el endpoint
                         style: TextStyle(color: $colorTextWhite, fontSize: 10)),
                   ],
                 )),

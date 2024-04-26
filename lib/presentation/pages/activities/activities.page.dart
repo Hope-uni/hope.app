@@ -5,8 +5,8 @@ import 'package:hope_app/presentation/providers/providers.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
 
-class ActivityPage extends ConsumerWidget {
-  const ActivityPage({super.key});
+class ActivitiesPage extends ConsumerWidget {
+  const ActivitiesPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -20,7 +20,6 @@ class ActivityPage extends ConsumerWidget {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.white,
       appBar: AppBar(
         toolbarHeight: 70,
         title: Row(
@@ -33,7 +32,6 @@ class ActivityPage extends ConsumerWidget {
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(35),
-                color: Colors.white,
               ),
               width: 300,
               height: 40,
@@ -86,8 +84,8 @@ class ActivityPage extends ConsumerWidget {
               getPreviousData: () {
                 listPatients.getPreviusActivities();
               },
-              headersRows: headersRowsActivity,
-              data: generateActivity(ref: ref),
+              headersRows: headersRowsActivities,
+              data: generateActivities(ref: ref),
             ),
           ),
         ],
@@ -97,14 +95,14 @@ class ActivityPage extends ConsumerWidget {
   }
 }
 
-List<String> headersRowsActivity = [
+List<String> headersRowsActivities = [
   S.current.Nombre,
   S.current.Fase,
   S.current.Puntos,
   S.current.Opciones,
 ];
 
-Iterable<TableRow> generateActivity({required WidgetRef ref}) {
+Iterable<TableRow> generateActivities({required WidgetRef ref}) {
   final listaActividades = ref.watch(activitiesProvider);
 
   final listaDataRow = listaActividades.newActivities.map((item) => TableRow(

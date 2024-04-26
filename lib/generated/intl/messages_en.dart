@@ -47,6 +47,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Anadir_nuevo_pictograma_personalizado":
             MessageLookupByLibrary.simpleMessage(
                 "Añadir nuevo pictograma personalizado"),
+        "Asignar_actividad":
+            MessageLookupByLibrary.simpleMessage("Asignar actividad"),
         "Asignar_actividad_a_los_ninos": MessageLookupByLibrary.simpleMessage(
             "Asignar actividad a los niños"),
         "Avance_de_fase_exitosa":
@@ -97,11 +99,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Editar observaciones"),
         "Editar_observaciones_del_nino": MessageLookupByLibrary.simpleMessage(
             "Editar observaciones del niño"),
+        "El_usuario_es_requerido":
+            MessageLookupByLibrary.simpleMessage("El usuario es requerido"),
         "Eliminacion_permanente_de_la_actividad":
             MessageLookupByLibrary.simpleMessage(
                 "Eliminación permanente de la actividad"),
-        "El_usuario_es_requerido":
-            MessageLookupByLibrary.simpleMessage("El usuario es requerido"),
         "Eliminar": MessageLookupByLibrary.simpleMessage("Eliminar"),
         "Eliminar_actividad_asignada_del_nino":
             MessageLookupByLibrary.simpleMessage(
@@ -117,6 +119,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "¿Está seguro de actualizar los datos?"),
         "Esta_seguro_de_avanzar_de_fase_a": m0,
+        "Esta_seguro_de_eliminar_permanentemente_la_actividad":
+            MessageLookupByLibrary.simpleMessage(
+                "¿Esta seguro de eliminar permanentemente la actividad?"),
         "Esta_seguro_de_salir_de_la_edicion":
             MessageLookupByLibrary.simpleMessage(
                 "¿Está seguro de salir de la edición?"),
@@ -189,7 +194,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Puntos": MessageLookupByLibrary.simpleMessage("Puntos"),
         "Quitar_actividad":
             MessageLookupByLibrary.simpleMessage("Quitar actividad"),
-        "Quitar_actividad_a_los_nino": MessageLookupByLibrary.simpleMessage(
+        "Quitar_actividad_a_los_ninos": MessageLookupByLibrary.simpleMessage(
             "Quitar actividad a los niños"),
         "Restablecer_contrasena":
             MessageLookupByLibrary.simpleMessage("Restablecer contraseña"),

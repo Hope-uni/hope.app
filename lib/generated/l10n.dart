@@ -1012,34 +1012,11 @@ class S {
     );
   }
 
-
-  /// `Error`
-  String get Error {
-    return Intl.message(
-      'Error',
-      name: 'Error',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Crear actividad`
   String get Crear_actividad {
     return Intl.message(
       'Crear actividad',
       name: 'Crear_actividad',
-      desc: '',
-      args: [],
-    );
-  }
-
-
-
-  /// `La contraseña debe contener entre 8 y 30 caracteres`
-  String get La_contrasena_debe_contener_entre_8_y_30_caracteres {
-    return Intl.message(
-      'La contraseña debe contener entre 8 y 30 caracteres',
-      name: 'La_contrasena_debe_contener_entre_8_y_30_caracteres',
       desc: '',
       args: [],
     );
@@ -1055,20 +1032,6 @@ class S {
     );
   }
 
-
-
-
-  /// `La contraseña es requerida`
-  String get La_contrasena_es_requerida {
-    return Intl.message(
-      'La contraseña es requerida',
-      name: 'La_contrasena_es_requerida',
-      desc: '',
-      args: [],
-    );
-  }
-      
- 
   /// `Fase`
   String get Fase {
     return Intl.message(
@@ -1078,8 +1041,7 @@ class S {
       args: [],
     );
   }
-      
-      
+
   /// `Puntos`
   String get Puntos {
     return Intl.message(
@@ -1151,10 +1113,10 @@ class S {
   }
 
   /// `Quitar actividad a los niños`
-  String get Quitar_actividad_a_los_nino {
+  String get Quitar_actividad_a_los_ninos {
     return Intl.message(
       'Quitar actividad a los niños',
-      name: 'Quitar_actividad_a_los_nino',
+      name: 'Quitar_actividad_a_los_ninos',
       desc: '',
       args: [],
     );
@@ -1169,13 +1131,62 @@ class S {
       args: [],
     );
   }
-      
-      
-   /// `El usuario es requerido`
+
+  /// `Error`
+  String get Error {
+    return Intl.message(
+      'Error',
+      name: 'Error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `La contraseña debe contener entre 8 y 30 caracteres`
+  String get La_contrasena_debe_contener_entre_8_y_30_caracteres {
+    return Intl.message(
+      'La contraseña debe contener entre 8 y 30 caracteres',
+      name: 'La_contrasena_debe_contener_entre_8_y_30_caracteres',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `La contraseña es requerida`
+  String get La_contrasena_es_requerida {
+    return Intl.message(
+      'La contraseña es requerida',
+      name: 'La_contrasena_es_requerida',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `El usuario es requerido`
   String get El_usuario_es_requerido {
     return Intl.message(
       'El usuario es requerido',
       name: 'El_usuario_es_requerido',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Asignar actividad`
+  String get Asignar_actividad {
+    return Intl.message(
+      'Asignar actividad',
+      name: 'Asignar_actividad',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `¿Esta seguro de eliminar permanentemente la actividad?`
+  String get Esta_seguro_de_eliminar_permanentemente_la_actividad {
+    return Intl.message(
+      '¿Esta seguro de eliminar permanentemente la actividad?',
+      name: 'Esta_seguro_de_eliminar_permanentemente_la_actividad',
       desc: '',
       args: [],
     );
