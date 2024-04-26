@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hope_app/generated/l10n.dart';
+import 'package:hope_app/presentation/providers/password.provider.dart';
 import 'package:hope_app/presentation/providers/providers.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
+import 'package:toastification/toastification.dart';
 
 class ResetPasswordPage extends StatelessWidget {
   const ResetPasswordPage({super.key});
@@ -22,13 +24,11 @@ class ResetPasswordPage extends StatelessWidget {
   }
 }
 
-class ResetPasswordForm extends ConsumerWidget {
+class ResetPasswordForm extends StatelessWidget {
   const ResetPasswordForm({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // ignore: unused_local_variable
-    final inputEmailUser = ref.watch(inputEmailUserProvider);
+  Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 25),
@@ -52,7 +52,6 @@ class ResetPasswordForm extends ConsumerWidget {
                 Expanded(
                   child: TextButton(
                     onPressed: () {
-                      ref.read(inputEmailUserProvider.notifier).state = '';
                       Navigator.pop(context);
                     },
                     style: const ButtonStyle(
@@ -93,27 +92,22 @@ Container _titleApp(double height) {
 class _InputUserEmail extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final resetPasswordProvider = ref.watch(resetPasswordFormProvider);
     return Row(
       children: [
-        Container(
-          padding: const EdgeInsets.only(right: 15, top: 15),
-          child: const Icon(
-            Icons.alternate_email,
-            color: $colorBlueGeneral,
-          ),
+        const Icon(
+          Icons.alternate_email,
+          color: $colorBlueGeneral,
         ),
-        Expanded(
-          child: TextFormField(
-            inputFormatters: [
-              FilteringTextInputFormatter.deny(
-                  RegExp(r'\s')), // Denegar espacios
-            ],
-            onChanged: (String value) =>
-                ref.read(inputEmailUserProvider.notifier).state = value.trim(),
-            decoration: InputDecoration(
-              hintText: S.current.Correo_o_nombre_de_usuario,
-            ),
-          ),
+        InputForm(
+          value: resetPasswordProvider.emailOrUser,
+          enable: true,
+          hint: S.current.Correo_o_nombre_de_usuario,
+          inputFormatters: [
+            FilteringTextInputFormatter.deny(RegExp(r'\s')), // Denegar espacios
+          ],
+          onChanged: ref.read(resetPasswordFormProvider.notifier).onEmailOrUser,
+          errorText: resetPasswordProvider.errorEmailOrUser,
         ),
       ],
     );
@@ -123,52 +117,38 @@ class _InputUserEmail extends ConsumerWidget {
 class _ButtonSendEmail extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isClic = ref.watch(isClicSendEmailResetProvider);
+    final isFormPosted = ref.watch(resetPasswordFormProvider).isFormPosted;
+
+    ref.listen(passwordProvider, (previous, next) {
+      if (next.message == null) return;
+      //TODO: Agregar validaciones y textos cuando el endpoint este listo dependiendo del statusCode de la respuesta
+      toastAlert(
+        context: context,
+        title: 'Correo enviado',
+        description: next.message!,
+        typeAlert: ToastificationType.success,
+      );
+    });
+
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(bottom: 10),
       child: FilledButton(
-        onPressed: isClic
+        onPressed: isFormPosted
             ? null
             : () {
-                ref.read(isClicSendEmailResetProvider.notifier).state = true;
-                if (ref.read(inputEmailUserProvider.notifier).state.isEmpty) {
-                  final snackBar = SnackBar(
-                    backgroundColor: $colorAlert,
-                    content: Text(
-                      S.current.Debe_ingresar_el_nombre_de_usuario_o_correo,
-                      style: const TextStyle(color: $colorTextBlack),
-                    ),
-                    duration: const Duration(seconds: 2),
-                  );
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  ref.read(isClicSendEmailResetProvider.notifier).state = false;
+                if (!ref
+                    .read(resetPasswordFormProvider.notifier)
+                    .validInput()) {
                   return;
                 }
-                // Simula un inicio de sesión exitoso
-                // Puedes reemplazar esto con tu lógica de autenticación real
-                bool loginSuccessful = false;
-
-                // ignore: dead_code
-                if (loginSuccessful) {
-                  // ignore: avoid_print
-                  print('Se envio correo');
-                  // ignore: dead_code
-                } else {
-                  // Manejar caso de inicio de sesión fallido
-                  // ignore: avoid_print
-                  const snackBar = SnackBar(
-                    backgroundColor: $colorError,
-                    content: Text('El usuario no existe'),
-                    duration: Duration(seconds: 4),
-                  );
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  // print('Inicio de sesión fallido');
-                }
+                ref
+                    .read(resetPasswordFormProvider.notifier)
+                    .sendResetPassword();
               },
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.resolveWith(
-              (states) => isClic ? $colorButtonDisable : $colorBlueGeneral),
+          backgroundColor: MaterialStateProperty.resolveWith((states) =>
+              isFormPosted ? $colorButtonDisable : $colorBlueGeneral),
         ),
         child: Text(S.current.Enviar_correo),
       ),
