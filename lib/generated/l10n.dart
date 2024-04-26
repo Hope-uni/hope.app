@@ -1012,6 +1012,7 @@ class S {
     );
   }
 
+
   /// `Error`
   String get Error {
     return Intl.message(
@@ -1021,6 +1022,18 @@ class S {
       args: [],
     );
   }
+
+  /// `Crear actividad`
+  String get Crear_actividad {
+    return Intl.message(
+      'Crear actividad',
+      name: 'Crear_actividad',
+      desc: '',
+      args: [],
+    );
+  }
+
+
 
   /// `La contraseña debe contener entre 8 y 30 caracteres`
   String get La_contrasena_debe_contener_entre_8_y_30_caracteres {
@@ -1032,6 +1045,19 @@ class S {
     );
   }
 
+  /// `Nombre`
+  String get Nombre {
+    return Intl.message(
+      'Nombre',
+      name: 'Nombre',
+      desc: '',
+      args: [],
+    );
+  }
+
+
+
+
   /// `La contraseña es requerida`
   String get La_contrasena_es_requerida {
     return Intl.message(
@@ -1041,8 +1067,111 @@ class S {
       args: [],
     );
   }
+      
+ 
+  /// `Fase`
+  String get Fase {
+    return Intl.message(
+      'Fase',
+      name: 'Fase',
+      desc: '',
+      args: [],
+    );
+  }
+      
+      
+  /// `Puntos`
+  String get Puntos {
+    return Intl.message(
+      'Puntos',
+      name: 'Puntos',
+      desc: '',
+      args: [],
+    );
+  }
 
-  /// `El usuario es requerido`
+  /// `Opciones`
+  String get Opciones {
+    return Intl.message(
+      'Opciones',
+      name: 'Opciones',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Página`
+  String get Pagina {
+    return Intl.message(
+      'Página',
+      name: 'Pagina',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `de`
+  String get De {
+    return Intl.message(
+      'de',
+      name: 'De',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ver Información detallada de la actividad`
+  String get Ver_informacion_detallada_de_la_actividad {
+    return Intl.message(
+      'Ver Información detallada de la actividad',
+      name: 'Ver_informacion_detallada_de_la_actividad',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Editar la Información general de la actividad`
+  String get Editar_la_informacion_general_de_la_actividad {
+    return Intl.message(
+      'Editar la Información general de la actividad',
+      name: 'Editar_la_informacion_general_de_la_actividad',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Asignar actividad a los niños`
+  String get Asignar_actividad_a_los_ninos {
+    return Intl.message(
+      'Asignar actividad a los niños',
+      name: 'Asignar_actividad_a_los_ninos',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Quitar actividad a los niños`
+  String get Quitar_actividad_a_los_nino {
+    return Intl.message(
+      'Quitar actividad a los niños',
+      name: 'Quitar_actividad_a_los_nino',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Eliminación permanente de la actividad`
+  String get Eliminacion_permanente_de_la_actividad {
+    return Intl.message(
+      'Eliminación permanente de la actividad',
+      name: 'Eliminacion_permanente_de_la_actividad',
+      desc: '',
+      args: [],
+    );
+  }
+      
+      
+   /// `El usuario es requerido`
   String get El_usuario_es_requerido {
     return Intl.message(
       'El usuario es requerido',

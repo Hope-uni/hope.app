@@ -55,3 +55,31 @@ final List<MenuItem> menuPacientTherapist = [
       url: '/deleteActivity',
       icon: Icons.delete_forever),
 ];
+
+final List<MenuItem> menuActivity = [
+  MenuItem(
+      title: S.current.Ver_informacion,
+      subTitle: S.current.Ver_informacion_detallada_de_la_actividad,
+      url: '/activity',
+      icon: Icons.visibility),
+  MenuItem(
+      title: S.current.Editar,
+      subTitle: S.current.Editar_la_informacion_general_de_la_actividad,
+      url: '/activity',
+      icon: Icons.edit),
+  MenuItem(
+      title: 'Asignar actividad',
+      subTitle: S.current.Asignar_actividad_a_los_ninos,
+      url: '/addActivity',
+      icon: Icons.add),
+  MenuItem(
+      title: S.current.Quitar_actividad,
+      subTitle: S.current.Quitar_actividad_a_los_nino,
+      url: '/removeActivity',
+      icon: Icons.remove),
+  MenuItem(
+      title: S.current.Eliminar,
+      subTitle: S.current.Eliminacion_permanente_de_la_actividad,
+      url: '/deleteActivity',
+      icon: Icons.delete_forever),
+];

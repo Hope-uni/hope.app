@@ -10,6 +10,7 @@ class ChildrenPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final size = MediaQuery.of(context).size;
     final searchsPatients = ref.watch(searchPatients);
     final listPatients = ref.watch(patientsProvider.notifier);
     final TextEditingController controller =
@@ -66,24 +67,34 @@ class ChildrenPage extends ConsumerWidget {
           ],
         ),
       ),
-      body: DataTableDynamic(
-        page: ref.read(patientsProvider).indexPage + 1,
-        totalPage: ref.read(patientsProvider).pageCount,
-        getNextData: () {
-          listPatients.getNextPatients();
-        },
-        getPreviousData: () {
-          listPatients.getPreviusPatients();
-        },
-        headersRows: headersRows,
-        data: generatePatients(ref: ref),
+      body: Center(
+        child: SizedBox(
+          height: size.height * 0.75,
+          child: DataTableDynamic(
+            page: ref.read(patientsProvider).indexPage + 1,
+            totalPage: ref.read(patientsProvider).pageCount,
+            getNextData: () {
+              listPatients.getNextPatients();
+            },
+            getPreviousData: () {
+              listPatients.getPreviusPatients();
+            },
+            headersRows: headersRows,
+            data: generatePatients(ref: ref),
+          ),
+        ),
       ),
       drawer: const SideMenu(),
     );
   }
 }
 
-const List<String> headersRows = ['Nombre', 'Fase', 'Edad', 'Opciones'];
+List<String> headersRows = [
+  S.current.Nombre,
+  S.current.Fase,
+  S.current.Edad,
+  S.current.Opciones
+];
 
 Iterable<TableRow> generatePatients({required WidgetRef ref}) {
   final listaPacientes = ref.watch(patientsProvider);

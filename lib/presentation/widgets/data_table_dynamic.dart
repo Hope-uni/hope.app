@@ -26,66 +26,61 @@ class DataTableDynamic extends StatelessWidget {
     if (data.isNotEmpty &&
         headersRows.isNotEmpty &&
         data.first.children.length == headersRows.length) {
-      return Container(
-        margin: const EdgeInsets.only(bottom: 15, top: 5),
-        width: size.width,
-        height: size.height,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              margin: const EdgeInsets.only(top: 10, left: 40, right: 40),
-              width: size.width,
-              child: Table(
-                columnWidths: const <int, TableColumnWidth>{
-                  0: FlexColumnWidth(),
-                  1: FixedColumnWidth(150),
-                  2: FixedColumnWidth(150),
-                  3: FixedColumnWidth(100),
-                },
-                children: [
-                  TableRow(
-                    decoration: const BoxDecoration(
-                        border: Border(bottom: BorderSide(width: 0.5))),
-                    children: <Widget>[
-                      ...headersRows.sublist(0, 1).map(
-                            (value) => TableCell(
-                              verticalAlignment:
-                                  TableCellVerticalAlignment.middle,
-                              child: Container(
-                                  alignment: Alignment.centerLeft,
-                                  height: 40,
-                                  child: Text(
-                                    value,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                            ),
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            margin: const EdgeInsets.only(top: 10, left: 40, right: 40),
+            width: size.width,
+            child: Table(
+              columnWidths: const <int, TableColumnWidth>{
+                0: FlexColumnWidth(),
+                1: FixedColumnWidth(150),
+                2: FixedColumnWidth(150),
+                3: FixedColumnWidth(100),
+              },
+              children: [
+                TableRow(
+                  decoration: const BoxDecoration(
+                      border: Border(bottom: BorderSide(width: 0.5))),
+                  children: <Widget>[
+                    ...headersRows.sublist(0, 1).map(
+                          (value) => TableCell(
+                            verticalAlignment:
+                                TableCellVerticalAlignment.middle,
+                            child: Container(
+                                alignment: Alignment.centerLeft,
+                                height: 40,
+                                child: Text(
+                                  value,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                )),
                           ),
-                      ...headersRows.sublist(1).map(
-                            (value) => TableCell(
-                              verticalAlignment:
-                                  TableCellVerticalAlignment.middle,
-                              child: Container(
-                                  alignment: Alignment.center,
-                                  height: 40,
-                                  child: Text(
-                                    value,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                            ),
+                        ),
+                    ...headersRows.sublist(1).map(
+                          (value) => TableCell(
+                            verticalAlignment:
+                                TableCellVerticalAlignment.middle,
+                            child: Container(
+                                alignment: Alignment.center,
+                                height: 40,
+                                child: Text(
+                                  value,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                )),
                           ),
-                    ],
-                  ),
-                ],
-              ),
+                        ),
+                  ],
+                ),
+              ],
             ),
-            Container(
+          ),
+          Expanded(
+            child: Container(
                 margin: const EdgeInsets.only(
                     top: 4, bottom: 10, left: 40, right: 40),
-                width: size.width,
-                height: size.height * (isTablet(context) ? 0.7 : 0.45),
                 child: SingleChildScrollView(
                   child: Table(
                     columnWidths: const <int, TableColumnWidth>{
@@ -98,31 +93,59 @@ class DataTableDynamic extends StatelessWidget {
                     children: [...data],
                   ),
                 )),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 40),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '${S.current.Total_de_resultados} 100', //TODO: Cambiar cuando este listo el endpoint
-                    style: const TextStyle(fontWeight: FontWeight.w600),
-                  ),
-                  Row(
-                    children: [
-                      IconButton(
-                          onPressed: page <= 1 ? null : getPreviousData,
-                          icon: const Icon(Icons.arrow_back)),
-                      Text('$page - $totalPage'),
-                      IconButton(
-                          onPressed: page >= totalPage ? null : getNextData,
-                          icon: const Icon(Icons.arrow_forward)),
-                    ],
-                  ),
-                ],
-              ),
+          ),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 40),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '${S.current.Total_de_resultados} 100', //TODO: Cambiar cuando este listo el endpoint
+                  style: const TextStyle(fontWeight: FontWeight.w600),
+                ),
+                Row(
+                  children: [
+                    IconButton(
+                        onPressed: page <= 1 ? null : getPreviousData,
+                        icon: const Icon(Icons.arrow_back)),
+                    RichText(
+                      text: TextSpan(children: [
+                        TextSpan(
+                            text:
+                                '${S.current.Pagina}  ', //Dejar espacio en blanco
+                            style: const TextStyle(
+                              color: $colorTextBlack,
+                            )),
+                        TextSpan(
+                            text: '$page',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: $colorTextBlack,
+                              fontSize: 17,
+                            )),
+                        TextSpan(
+                            text:
+                                '  ${S.current.De}  ', //Dejar espacio en blanco
+                            style: const TextStyle(
+                              color: $colorTextBlack,
+                            )),
+                        TextSpan(
+                            text: '$totalPage',
+                            style: const TextStyle(
+                              color: $colorTextBlack,
+                              fontSize: 17,
+                            )),
+                      ]),
+                    ),
+                    IconButton(
+                        onPressed: page >= totalPage ? null : getNextData,
+                        icon: const Icon(Icons.arrow_forward)),
+                  ],
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       );
     } else {
       return Container();
