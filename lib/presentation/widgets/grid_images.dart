@@ -57,45 +57,50 @@ class GridImagesState extends ConsumerState<GridImages> {
       width: size.width,
       child: Column(
         children: [
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 10),
-            width: size.width,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                SelectBox(
-                  valueInitial: typePicto,
-                  marginHorizontal: 5,
-                  hint: S.current.Categoria_de_pictogramas,
-                  enable: true,
-                  onSelected: (value) {
-                    ref
-                        .read(pictogramsProvider.notifier)
-                        .onTypePictoChange(value!);
-                  },
-                  listItems: _list,
-                ),
-                InputForm(
-                  hint: S.current.Busqueda_por_nombre,
-                  value: namePicto,
-                  enable: true,
-                  onChanged: (value) {
-                    ref
-                        .read(pictogramsProvider.notifier)
-                        .onNamePictoChange(value);
-                  },
-                ),
-                ButtonTextIcon(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              SelectBox(
+                valueInitial: typePicto,
+                marginHorizontal: 5,
+                hint: S.current.Categoria_de_pictogramas,
+                enable: true,
+                onSelected: (value) {
+                  ref
+                      .read(pictogramsProvider.notifier)
+                      .onTypePictoChange(value!);
+                },
+                listItems: _list,
+              ),
+              InputForm(
+                hint: S.current.Busqueda_por_nombre,
+                value: namePicto,
+                enable: true,
+                onChanged: (value) {
+                  ref
+                      .read(pictogramsProvider.notifier)
+                      .onNamePictoChange(value);
+                },
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Expanded(
+                child: ButtonTextIcon(
                     title: S.current.Buscar,
                     icon: const Icon(
                       Icons.search,
                     ),
                     buttonColor: $colorBlueGeneral,
                     onClic: () {}),
-                const SizedBox(
-                  width: 15,
-                ),
-                ButtonTextIcon(
+              ),
+              const SizedBox(
+                width: 15,
+              ),
+              Expanded(
+                child: ButtonTextIcon(
                     title: S.current.Limpiar_filtros,
                     icon: const Icon(
                       Icons.clear_all,
@@ -103,15 +108,18 @@ class GridImagesState extends ConsumerState<GridImages> {
                     buttonColor: $colorError,
                     onClic: () {
                       ref.read(pictogramsProvider.notifier).resetFilter();
-                    })
-              ],
-            ),
+                    }),
+              )
+            ],
+          ),
+          const SizedBox(
+            height: 15,
           ),
           Expanded(
             child: GridView.builder(
               controller: scrollController,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 5,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: isTablet(context) ? 3 : 2,
                 crossAxisSpacing: 8.0,
                 mainAxisExtent: 250,
                 mainAxisSpacing: 8.0,
@@ -169,7 +177,7 @@ class _ImageGrid extends StatelessWidget {
           LayoutBuilder(
             builder: (context, constraints) {
               // Verificar si el botón se desborda horizontalmente
-              bool isOverflowing = constraints.maxWidth > 154;
+              bool isOverflowing = constraints.maxWidth > 173;
               return isOverflowing
                   ? Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -202,6 +210,7 @@ class _ImageGrid extends StatelessWidget {
                           onPressed: () => {
                             _dialogImage(context: context, urlImage: image),
                           },
+                          tooltip: S.current.Editar,
                           icon: const Icon(
                             Icons.edit,
                             color: $colorBlueGeneral,
@@ -210,6 +219,7 @@ class _ImageGrid extends StatelessWidget {
                         Visibility(
                           visible: isCustomized,
                           child: IconButton(
+                              tooltip: S.current.Eliminar,
                               onPressed: () => _dialogConfirmation(context),
                               icon:
                                   const Icon(Icons.delete, color: $colorError)),
@@ -227,34 +237,33 @@ class _ImageGrid extends StatelessWidget {
 Future<void> _dialogImage(
     {required BuildContext context, required String urlImage}) {
   final image = CameraGalleryDataSourceImpl();
-  final size = MediaQuery.of(context).size;
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
-      return Container(
-        margin: EdgeInsets.symmetric(
-            vertical: size.height > 420 ? size.height * 0.25 : 10),
-        child: AlertDialog(
-          title: Row(
-            children: [
-              const Icon(Icons.edit),
-              const SizedBox(
-                width: 10,
-              ),
-              Text('${S.current.Editar_imagen} - Manzana'),
-            ],
-          ),
-          content: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: ImageLoad(
-                    height: 180,
-                    width: 180,
-                    urlImage: urlImage,
-                  )),
-              Column(
+      return AlertDialog(
+        title: Text(
+          '${S.current.Editar_imagen} - Manzana',
+          maxLines: 3,
+          overflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.center,
+        ),
+        icon: const Icon(Icons.edit),
+        content: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: ImageLoad(
+                  height: 180,
+                  width: 180,
+                  urlImage: urlImage,
+                )),
+            const SizedBox(
+              width: 20,
+            ),
+            SizedBox(
+              height: 200,
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   IconButton(
@@ -272,40 +281,40 @@ Future<void> _dialogImage(
                       icon: const Icon(Icons.add_a_photo)),
                   Text(S.current.Camara),
                 ],
-              )
-            ],
-          ),
-          actions: <Widget>[
-            ButtonTextIcon(
-              title: S.current.Actualizar,
-              icon: const Icon(
-                Icons.update,
               ),
-              buttonColor: $colorBlueGeneral,
-              onClic: () {
-                Navigator.of(context).pop();
-                toastAlert(
-                    iconAlert: const Icon(Icons.update),
-                    context: context,
-                    title: S.current.Actualizado_con_exito,
-                    description: S.current
-                        .Se_actualizo_correctamente_el_pictograma_personalizado(
-                            'Manzana'), //TODO: Cambiar cuando este  listo el endpoint
-                    typeAlert: ToastificationType.info);
-              },
-            ),
-            ButtonTextIcon(
-              title: S.current.Cancelar,
-              icon: const Icon(
-                Icons.cancel,
-              ),
-              buttonColor: $colorError,
-              onClic: () {
-                Navigator.of(context).pop();
-              },
             )
           ],
         ),
+        actions: <Widget>[
+          ButtonTextIcon(
+            title: S.current.Actualizar,
+            icon: const Icon(
+              Icons.update,
+            ),
+            buttonColor: $colorBlueGeneral,
+            onClic: () {
+              Navigator.of(context).pop();
+              toastAlert(
+                  iconAlert: const Icon(Icons.update),
+                  context: context,
+                  title: S.current.Actualizado_con_exito,
+                  description: S.current
+                      .Se_actualizo_correctamente_el_pictograma_personalizado(
+                          'Manzana'), //TODO: Cambiar cuando este  listo el endpoint
+                  typeAlert: ToastificationType.info);
+            },
+          ),
+          ButtonTextIcon(
+            title: S.current.Cancelar,
+            icon: const Icon(
+              Icons.cancel,
+            ),
+            buttonColor: $colorError,
+            onClic: () {
+              Navigator.of(context).pop();
+            },
+          )
+        ],
       );
     },
   );

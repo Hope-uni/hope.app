@@ -20,68 +20,58 @@ class ChildrenPage extends ConsumerWidget {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.white,
       appBar: AppBar(
         toolbarHeight: 70,
-        title: Row(
+        title: Text(S.current.Ninos_asignados),
+      ),
+      body: SizedBox(
+        height: size.height,
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Text(S.current.Ninos_asignados),
             Container(
-              margin: const EdgeInsets.only(bottom: 10, top: 5, right: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
+              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              width: 250,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(35),
+              ),
+              height: 40,
+              child: TextFormField(
+                controller: controller,
+                textAlignVertical: TextAlignVertical.bottom,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(35),
-                      color: Colors.white,
                     ),
-                    width: 300,
-                    height: 40,
-                    child: TextFormField(
-                      controller: controller,
-                      textAlignVertical: TextAlignVertical.bottom,
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(35),
-                          ),
-                          suffixIcon: searchsPatients.isEmpty
-                              ? const Icon(
-                                  Icons.search,
-                                )
-                              : IconButton(
-                                  onPressed: () {
-                                    ref.read(searchPatients.notifier).state =
-                                        '';
-                                  },
-                                  icon: const Icon(Icons.clear)),
-                          hintText: S.current.Busqueda_por_nombre),
-                      onChanged: (value) =>
-                          ref.read(searchPatients.notifier).state = value,
-                    ),
-                  ),
-                ],
+                    suffixIcon: searchsPatients.isEmpty
+                        ? const Icon(
+                            Icons.search,
+                          )
+                        : IconButton(
+                            onPressed: () {
+                              ref.read(searchPatients.notifier).state = '';
+                            },
+                            icon: const Icon(Icons.clear)),
+                    hintText: S.current.Busqueda_por_nombre),
+                onChanged: (value) =>
+                    ref.read(searchPatients.notifier).state = value,
               ),
             ),
+            DataTableDynamic(
+              page: ref.read(patientsProvider).indexPage + 1,
+              totalPage: ref.read(patientsProvider).pageCount,
+              getNextData: () {
+                listPatients.getNextPatients();
+              },
+              getPreviousData: () {
+                listPatients.getPreviusPatients();
+              },
+              headersRows: headersRows,
+              data: generatePatients(ref: ref),
+            ),
+            const Spacer(),
           ],
-        ),
-      ),
-      body: Center(
-        child: SizedBox(
-          height: size.height * 0.75,
-          child: DataTableDynamic(
-            page: ref.read(patientsProvider).indexPage + 1,
-            totalPage: ref.read(patientsProvider).pageCount,
-            getNextData: () {
-              listPatients.getNextPatients();
-            },
-            getPreviousData: () {
-              listPatients.getPreviusPatients();
-            },
-            headersRows: headersRows,
-            data: generatePatients(ref: ref),
-          ),
         ),
       ),
       drawer: const SideMenu(),

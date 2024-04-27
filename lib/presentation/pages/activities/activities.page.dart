@@ -22,72 +22,70 @@ class ActivitiesPage extends ConsumerWidget {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         toolbarHeight: 70,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(S.current.Actividades),
-            const SizedBox(
-              width: 10,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(35),
-              ),
-              width: 300,
-              height: 40,
-              margin: const EdgeInsets.only(bottom: 10, top: 5, right: 20),
-              child: TextFormField(
-                controller: controller,
-                textAlignVertical: TextAlignVertical.bottom,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(35),
-                    ),
-                    suffixIcon: searchActivity.isEmpty
-                        ? const Icon(
-                            Icons.search,
-                          )
-                        : IconButton(
-                            onPressed: () {
-                              ref.read(searchPatients.notifier).state = '';
-                            },
-                            icon: const Icon(Icons.clear)),
-                    hintText: S.current.Busqueda_por_nombre),
-                onChanged: (value) =>
-                    ref.read(searchPatients.notifier).state = value,
-              ),
-            ),
-          ],
-        ),
+        title: Text(S.current.Actividades),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            margin: const EdgeInsets.only(bottom: 5, left: 40, right: 40),
-            alignment: Alignment.centerRight,
-            child: ButtonTextIcon(
-              title: S.current.Crear_actividad,
-              icon: const Icon(Icons.add),
-              buttonColor: $colorSuccess,
-              onClic: () {},
+            margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(bottom: 5, left: 10, right: 10),
+                  alignment: Alignment.centerRight,
+                  child: ButtonTextIcon(
+                    title: S.current.Crear_actividad,
+                    icon: const Icon(Icons.add),
+                    buttonColor: $colorSuccess,
+                    onClic: () {},
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(35),
+                  ),
+                  height: 40,
+                  width: 250,
+                  margin: const EdgeInsets.only(bottom: 10, top: 5, right: 10),
+                  child: TextFormField(
+                    controller: controller,
+                    textAlignVertical: TextAlignVertical.bottom,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(35),
+                        ),
+                        suffixIcon: searchActivity.isEmpty
+                            ? const Icon(
+                                Icons.search,
+                              )
+                            : IconButton(
+                                onPressed: () {
+                                  ref.read(searchPatients.notifier).state = '';
+                                },
+                                icon: const Icon(Icons.clear)),
+                        hintText: S.current.Busqueda_por_nombre),
+                    onChanged: (value) =>
+                        ref.read(searchPatients.notifier).state = value,
+                  ),
+                ),
+              ],
             ),
           ),
-          SizedBox(
-            height: size.height * (isTablet(context) ? 0.75 : 0.65),
-            child: DataTableDynamic(
-              page: ref.read(activitiesProvider).indexPage + 1,
-              totalPage: ref.read(activitiesProvider).pageCount,
-              getNextData: () {
-                listPatients.getNextActivities();
-              },
-              getPreviousData: () {
-                listPatients.getPreviusActivities();
-              },
-              headersRows: headersRowsActivities,
-              data: generateActivities(ref: ref),
-            ),
+          DataTableDynamic(
+            page: ref.read(activitiesProvider).indexPage + 1,
+            totalPage: ref.read(activitiesProvider).pageCount,
+            getNextData: () {
+              listPatients.getNextActivities();
+            },
+            getPreviousData: () {
+              listPatients.getPreviusActivities();
+            },
+            headersRows: headersRowsActivities,
+            data: generateActivities(ref: ref),
           ),
+          const Spacer(),
         ],
       ),
       drawer: const SideMenu(),

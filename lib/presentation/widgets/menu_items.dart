@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hope_app/presentation/interfaces/interface.dart';
+import 'package:hope_app/presentation/utils/modal_password.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 
 class MenuItems extends StatelessWidget {
@@ -22,13 +23,18 @@ class MenuItems extends StatelessWidget {
 
           if (menuItem.url != null) {
             context.push(menuItem.url!, extra: idChild);
-          } else {
-            modalDialogConfirmation(
-                onClic: () {},
-                context: context,
-                question: menuItem.modalMenu!.textDescription,
-                titleButtonConfirm: menuItem.modalMenu!.titleButtonModal);
+            return;
           }
+          if (menuItem.modalMenu != null) {
+            modalDialogConfirmation(
+              onClic: () {},
+              context: context,
+              question: menuItem.modalMenu!.textDescription,
+              titleButtonConfirm: menuItem.modalMenu!.titleButtonModal,
+            );
+            return;
+          }
+          modalPassword(context: context);
         },
         itemBuilder: (BuildContext context) => <PopupMenuEntry>[
               ...menuItems.map(

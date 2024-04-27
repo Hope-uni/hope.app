@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/interfaces/interface.dart';
 import 'package:hope_app/presentation/utils/constants_desing.dart';
+import 'package:hope_app/presentation/widgets/widgets.dart';
 
 final appMenuItemsDrawer = <MenuItem>[
   MenuItem(
@@ -42,6 +43,11 @@ final List<MenuItem> menuPacientTutor = [
     subTitle: S.current.Pictogramas_personalizados_del_nino,
     url: '/customPictogram',
     icon: Icons.format_list_bulleted,
+  ),
+  const MenuItem(
+    title: 'Cambiar contraseña',
+    subTitle: 'Cambio de contraseña del niño',
+    icon: Icons.key,
   ),
 ];
 
@@ -98,19 +104,21 @@ List<MenuItem> menuActivity = [
     modalMenu: ModalMenuItem(
       textDescription: RichText(
           textAlign: TextAlign.center,
-          text: TextSpan(style: TextStyle(color: $colorTextBlack), children: [
-            TextSpan(
-              text:
-                  '${S.current.Esta_seguro_de_eliminar_permanentemente_la_actividad}\n\n',
-            ),
-            const TextSpan(
-              text:
-                  '"Formar oraciones con animales"', //TODO: Cambiar dinamicamente cuando este listo el endpoint
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ])),
+          text: TextSpan(
+              style: const TextStyle(color: $colorTextBlack),
+              children: [
+                TextSpan(
+                  text:
+                      '${S.current.Esta_seguro_de_eliminar_permanentemente_la_actividad}\n\n',
+                ),
+                const TextSpan(
+                  text:
+                      '"Formar oraciones con animales"', //TODO: Cambiar dinamicamente cuando este listo el endpoint
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ])),
       titleButtonModal: S.current.Si_Eliminar,
     ),
   ),

@@ -13,24 +13,17 @@ class AuthBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Row(
-      children: _condicionalBackground(isLogin, size, formChild),
+    return Column(
+      children: [
+        _HeartBackground(
+          size: size,
+        ),
+        _FormInitial(
+          formChild: formChild,
+          size: size,
+        ),
+      ],
     );
-  }
-}
-
-List<StatelessWidget> _condicionalBackground(bool islogin, size, formChild) {
-  if (islogin) {
-    return [
-      _FormInitial(size: size, formChild: formChild),
-      //Panel derecho Login
-      _HeartBackground(size: size)
-    ];
-  } else {
-    return [
-      _HeartBackground(size: size),
-      _FormInitial(size: size, formChild: formChild)
-    ];
   }
 }
 
@@ -43,17 +36,13 @@ class _HeartBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(width: 0, color: Colors.transparent),
-        color: $colorBlueGeneral,
-      ),
-      width: size.width * 0.5,
-      height: size.height,
-      child: const Stack(children: [
-        HeartCircle(),
-      ]),
-    );
+    return SizedBox(
+        height: size.height * 0.4,
+        width: size.width,
+        child: CustomPaint(
+          painter: _HeaderPaintWaves(),
+          child: const HeartCircle(),
+        ));
   }
 }
 
@@ -69,21 +58,56 @@ class _FormInitial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
       padding: const EdgeInsets.only(left: 40, right: 40),
-      width: size.width * 0.5,
-      height: size.height,
+      width: size.width,
+      height: size.height * 0.6,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SingleChildScrollView(
             child: Container(alignment: Alignment.center, child: formChild),
           ),
           Container(
-              margin: const EdgeInsets.only(bottom: 15),
-              child: Text(S.current.Derechos_reservados))
+            margin: const EdgeInsets.only(bottom: 15),
+            child: Text(S.current.Derechos_reservados),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
         ],
       ),
     );
+  }
+}
+
+class _HeaderPaintWaves extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = $colorBlueGeneral
+      ..style = PaintingStyle.fill
+      ..strokeWidth = 10;
+
+    final path = Path();
+    path.lineTo(0, size.height * 0.80);
+    path.quadraticBezierTo(
+      size.width * 0.25,
+      size.height,
+      size.width * 0.5,
+      size.height * 0.80,
+    );
+    path.quadraticBezierTo(
+      size.width * 0.75,
+      size.height * 0.62,
+      size.width,
+      size.height * 0.7,
+    );
+    path.lineTo(size.width, 0);
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return false;
   }
 }

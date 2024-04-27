@@ -29,63 +29,59 @@ class ResetPasswordForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 25),
-      child: Column(
-        children: [
-          _titleApp(size.height),
-          //TitleLogin
-          Container(
-            margin: const EdgeInsets.only(top: 25, bottom: 25),
-            child: Text(
-              S.current.Restablecer_contrasena,
-            ),
+    return Column(
+      children: [
+        _titleApp(),
+        //TitleLogin
+        Container(
+          margin: const EdgeInsets.only(top: 25, bottom: 25),
+          child: Text(
+            S.current.Restablecer_contrasena,
+            style: const TextStyle(fontSize: 22),
           ),
-          _InputUserEmail(),
-          //Forget Password
-          SizedBox(
-            width: double.infinity,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Expanded(
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    style: const ButtonStyle(
-                        padding: MaterialStatePropertyAll(EdgeInsets.zero)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(S.current.Iniciar_sesion),
-                        const Icon(Icons.arrow_forward),
-                      ],
-                    ),
+        ),
+        const SizedBox(height: 20),
+        _InputUserEmail(),
+        //Forget Password
+        SizedBox(
+          width: double.infinity,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Expanded(
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  style: const ButtonStyle(
+                      padding: MaterialStatePropertyAll(EdgeInsets.zero)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(S.current.Iniciar_sesion),
+                      const Icon(Icons.arrow_forward),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-          _ButtonSendEmail()
-        ],
-      ),
+        ),
+        const SizedBox(height: 10),
+        _ButtonSendEmail()
+      ],
     );
   }
 }
 
-Container _titleApp(double height) {
-  return Container(
-    margin: EdgeInsets.only(top: height * 0.1),
-    child: Text(
-      S.current.Hope_App,
-      style: const TextStyle(
-          color: $colorBlueGeneral,
-          fontSize: 50,
-          fontWeight: FontWeight.bold,
-          fontFamily: $fontFamilyAnton),
-    ),
+Text _titleApp() {
+  return Text(
+    S.current.Hope_App,
+    style: const TextStyle(
+        color: $colorBlueGeneral,
+        fontSize: 50,
+        fontWeight: FontWeight.bold,
+        fontFamily: $fontFamilyAnton),
   );
 }
 

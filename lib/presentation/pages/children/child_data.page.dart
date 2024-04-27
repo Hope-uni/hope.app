@@ -28,16 +28,25 @@ class _ChildDataPageState extends State<ChildDataPage> {
           bottom: TabBar(
             tabs: <Widget>[
               Tab(
-                text: S.current.Informacion_personal,
                 icon: const Icon(Icons.face_6),
+                child: Text(
+                  S.current.Informacion_personal,
+                  textAlign: TextAlign.center,
+                ),
               ),
               Tab(
-                text: S.current.Informacion_general,
                 icon: const Icon(Icons.description),
+                child: Text(
+                  S.current.Informacion_general,
+                  textAlign: TextAlign.center,
+                ),
               ),
               Tab(
-                text: S.current.Informacion_del_progreso,
                 icon: const Icon(Icons.pie_chart),
+                child: Text(
+                  S.current.Informacion_del_progreso,
+                  textAlign: TextAlign.center,
+                ),
               ),
             ],
           ),
@@ -46,7 +55,7 @@ class _ChildDataPageState extends State<ChildDataPage> {
           // physics: const NeverScrollableScrollPhysics(),
           children: <Widget>[
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -60,7 +69,7 @@ class _ChildDataPageState extends State<ChildDataPage> {
               ),
             ),
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
               child: SingleChildScrollView(
                 child: Column(
                   children: [..._generalInformation(enableInput: enableInput)],
@@ -68,7 +77,7 @@ class _ChildDataPageState extends State<ChildDataPage> {
               ),
             ),
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -214,167 +223,150 @@ List<Widget> _childPersonalData(
   final CameraGalleryDataSourceImpl image = CameraGalleryDataSourceImpl();
 
   return [
-    Row(
-      children: [
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
-          width: sizeInputs,
-          child: Center(
-            child: Stack(children: [
-              ClipOval(
-                child: Container(
-                    width: 250,
-                    height: 145,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                    ),
-                    child: FadeInImage(
-                        height: 140,
-                        width: 140,
-                        fit: BoxFit.cover,
-                        placeholderFit: BoxFit.cover,
-                        imageErrorBuilder: (context, error, stackTrace) {
-                          return Image.asset('assets/img/no-image.png');
-                        },
-                        placeholder:
-                            const AssetImage('assets/gif/jar-loading.gif'),
-                        image: const AssetImage(
-                            //TODO : Cambiar por url de la imagen del niño
-                            'assets/img/no-image.png')) /* const NetworkImage(
+    Container(
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      width: sizeInputs,
+      child: Center(
+        child: Stack(children: [
+          ClipOval(
+            child: Container(
+                width: 250,
+                height: 145,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                ),
+                child: FadeInImage(
+                    height: 140,
+                    width: 140,
+                    fit: BoxFit.cover,
+                    placeholderFit: BoxFit.cover,
+                    imageErrorBuilder: (context, error, stackTrace) {
+                      return Image.asset('assets/img/no-image.png');
+                    },
+                    placeholder: const AssetImage('assets/gif/jar-loading.gif'),
+                    image: const AssetImage(
+                        //TODO : Cambiar por url de la imagen del niño
+                        'assets/img/no-image.png')) /* const NetworkImage(
                               'https://static.wixstatic.com/media/4d02c4_8ea3fe5159c8431689f97f5cc973e34c~mv2.png/v1/fill/w_600,h_338,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/4d02c4_8ea3fe5159c8431689f97f5cc973e34c~mv2.png')),*/
-                    ),
-              ),
-              Visibility(
-                visible: enableInput,
-                child: Positioned(
-                  bottom: 0,
-                  right: 0,
-                  child: IconButton.filled(
-                      iconSize: isTablet(context) ? 40 : 30,
-                      style: const ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll($colorBlueGeneral)),
-                      onPressed: () {
-                        bottomSheetModal(
-                            context: context,
-                            width: size.width,
-                            arrayWidgets: [
-                              Container(
-                                margin:
-                                    const EdgeInsets.symmetric(vertical: 15),
-                                width: 40,
-                                height: 7,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: $colorButtonDisable,
-                                ),
+                ),
+          ),
+          Visibility(
+            visible: enableInput,
+            child: Positioned(
+              bottom: 0,
+              right: 0,
+              child: IconButton.filled(
+                  iconSize: isTablet(context) ? 40 : 30,
+                  style: const ButtonStyle(
+                      backgroundColor:
+                          MaterialStatePropertyAll($colorBlueGeneral)),
+                  onPressed: () {
+                    bottomSheetModal(
+                        context: context,
+                        width: size.width,
+                        arrayWidgets: [
+                          Container(
+                            margin: const EdgeInsets.symmetric(vertical: 15),
+                            width: 40,
+                            height: 7,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: $colorButtonDisable,
+                            ),
+                          ),
+                          Container(
+                              margin: const EdgeInsets.symmetric(
+                                horizontal: 20,
                               ),
-                              Container(
-                                  margin: const EdgeInsets.symmetric(
-                                      horizontal: 20),
-                                  width: size.width,
-                                  child: Text(
-                                      S.current.Seleccione_foto_de_perfil)),
-                              Container(
-                                width: size.width,
-                                margin:
-                                    const EdgeInsets.symmetric(horizontal: 20),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                              width: size.width,
+                              child: Text(
+                                S.current.Seleccione_foto_de_perfil,
+                              )),
+                          Container(
+                            width: size.width,
+                            margin: const EdgeInsets.symmetric(
+                              horizontal: 20,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Column(
                                   children: [
-                                    Column(
-                                      children: [
-                                        IconButton(
-                                            onPressed: () async {
-                                              // ignore: unused_local_variable
-                                              final photo =
-                                                  await image.selectImage();
-                                            },
-                                            icon: const Icon(Icons.photo)),
-                                        Text(S.current.Galeria),
-                                      ],
-                                    ),
-                                    Column(
-                                      children: [
-                                        IconButton(
-                                            onPressed: () async {
-                                              // ignore: unused_local_variable
-                                              final imagen =
-                                                  await image.takePhoto();
-                                            },
-                                            icon:
-                                                const Icon(Icons.add_a_photo)),
-                                        Text(S.current.Camara),
-                                      ],
-                                    )
+                                    IconButton(
+                                        onPressed: () async {
+                                          // ignore: unused_local_variable
+                                          final photo =
+                                              await image.selectImage();
+                                        },
+                                        icon: const Icon(Icons.photo)),
+                                    Text(S.current.Galeria),
                                   ],
                                 ),
-                              )
-                            ]);
-                      },
-                      icon: const Icon(Icons.camera_alt)),
-                ),
-              )
-            ]),
-          ),
+                                Column(
+                                  children: [
+                                    IconButton(
+                                        onPressed: () async {
+                                          // ignore: unused_local_variable
+                                          final imagen =
+                                              await image.takePhoto();
+                                        },
+                                        icon: const Icon(Icons.add_a_photo)),
+                                    Text(S.current.Camara),
+                                  ],
+                                )
+                              ],
+                            ),
+                          )
+                        ]);
+                  },
+                  icon: const Icon(Icons.camera_alt)),
+            ),
+          )
+        ]),
+      ),
+    ),
+    const SizedBox(
+      height: 10,
+    ),
+    Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        InputForm(
+          label: S.current.Primer_nombre,
+          maxLength: 50,
+          value: 'Mario',
+          enable: enableInput,
+          onChanged: (value) {},
         ),
-        const SizedBox(
-          width: 7,
-        ),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const SizedBox(
-                height: 15,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  InputForm(
-                    label: S.current.Primer_nombre,
-                    maxLength: 50,
-                    value: 'Mario',
-                    enable: enableInput,
-                    onChanged: (value) {},
-                  ),
-                  InputForm(
-                    label: S.current.Segundo_nombre,
-                    maxLength: 50,
-                    value: 'Jose',
-                    enable: enableInput,
-                    onChanged: (value) {},
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  InputForm(
-                    label: S.current.Primer_apellido,
-                    maxLength: 50,
-                    value: 'Ramos',
-                    enable: enableInput,
-                    onChanged: (value) {},
-                  ),
-                  InputForm(
-                    label: S.current.Segundo_apellido,
-                    maxLength: 50,
-                    value: 'Mejia',
-                    enable: enableInput,
-                    onChanged: (value) {},
-                  ),
-                ],
-              ),
-            ],
-          ),
+        InputForm(
+          label: S.current.Segundo_nombre,
+          maxLength: 50,
+          value: 'Jose',
+          enable: enableInput,
+          onChanged: (value) {},
         ),
       ],
     ),
     Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        InputForm(
+          label: S.current.Primer_apellido,
+          maxLength: 50,
+          value: 'Ramos',
+          enable: enableInput,
+          onChanged: (value) {},
+        ),
+        InputForm(
+          label: S.current.Segundo_apellido,
+          maxLength: 50,
+          value: 'Mejia',
+          enable: enableInput,
+          onChanged: (value) {},
+        ),
+      ],
+    ),
+    Row(
       children: [
         InputForm(
           label: S.current.Nombre_de_usuario,
@@ -383,6 +375,18 @@ List<Widget> _childPersonalData(
           enable: enableInput,
           onChanged: (value) {},
         ),
+        SelectBox(
+          enable: enableInput,
+          valueInitial: 'Masculino',
+          label: S.current.Sexo,
+          onSelected: (value) {},
+          listItems: const ['Masculino', 'Femenino'],
+        ),
+      ],
+    ),
+    Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
         InputForm(
           label: S.current.Fecha_de_nacimiento,
           maxLength: 14,
@@ -394,13 +398,6 @@ List<Widget> _childPersonalData(
           label: S.current.Edad,
           value: '27 años, 10 meses y 15 dias',
           enable: false,
-        ),
-        SelectBox(
-          enable: enableInput,
-          valueInitial: 'Masculino',
-          label: S.current.Sexo,
-          onSelected: (value) {},
-          listItems: const ['Masculino', 'Femenino'],
         ),
       ],
     ),
@@ -439,7 +436,6 @@ List<Widget> _generalInformation({required bool enableInput}) {
       ],
     ),
     Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         InputForm(
           label: S.current.Tutor,
@@ -447,6 +443,11 @@ List<Widget> _generalInformation({required bool enableInput}) {
           enable: false,
           onChanged: (value) {},
         ),
+      ],
+    ),
+    Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
         InputForm(
           label: S.current.Contacto_tutor,
           value: '121422112',
@@ -462,7 +463,6 @@ List<Widget> _generalInformation({required bool enableInput}) {
       ],
     ),
     Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         InputForm(
           label: S.current.Terapeuta,
@@ -470,6 +470,11 @@ List<Widget> _generalInformation({required bool enableInput}) {
           enable: false,
           onChanged: (value) {},
         ),
+      ],
+    ),
+    Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
         InputForm(
           label: S.current.Contacto_terapeuta,
           value: '56564456',
@@ -492,13 +497,11 @@ List<Widget> _childProgressData(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-              margin: const EdgeInsets.symmetric(vertical: 15),
-              child: Text(S.current.Progresos)),
+          Text(S.current.Progresos),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Row(
+              Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Container(
@@ -518,7 +521,7 @@ List<Widget> _childProgressData(
                   ),
                 ],
               ),
-              Row(
+              Column(
                 children: [
                   Container(
                       margin: const EdgeInsets.symmetric(vertical: 15),
@@ -541,6 +544,9 @@ List<Widget> _childProgressData(
           ),
         ],
       ),
+    ),
+    const SizedBox(
+      height: 20,
     ),
     Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
