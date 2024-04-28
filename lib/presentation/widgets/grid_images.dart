@@ -60,27 +60,31 @@ class GridImagesState extends ConsumerState<GridImages> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              SelectBox(
-                valueInitial: typePicto,
-                marginHorizontal: 5,
-                hint: S.current.Categoria_de_pictogramas,
-                enable: true,
-                onSelected: (value) {
-                  ref
-                      .read(pictogramsProvider.notifier)
-                      .onTypePictoChange(value!);
-                },
-                listItems: _list,
+              Expanded(
+                child: SelectBox(
+                  valueInitial: typePicto,
+                  marginHorizontal: 5,
+                  hint: S.current.Categoria_de_pictogramas,
+                  enable: true,
+                  onSelected: (value) {
+                    ref
+                        .read(pictogramsProvider.notifier)
+                        .onTypePictoChange(value!);
+                  },
+                  listItems: _list,
+                ),
               ),
-              InputForm(
-                hint: S.current.Busqueda_por_nombre,
-                value: namePicto,
-                enable: true,
-                onChanged: (value) {
-                  ref
-                      .read(pictogramsProvider.notifier)
-                      .onNamePictoChange(value);
-                },
+              Expanded(
+                child: InputForm(
+                  hint: S.current.Busqueda_por_nombre,
+                  value: namePicto,
+                  enable: true,
+                  onChanged: (value) {
+                    ref
+                        .read(pictogramsProvider.notifier)
+                        .onNamePictoChange(value);
+                  },
+                ),
               ),
             ],
           ),
@@ -112,9 +116,7 @@ class GridImagesState extends ConsumerState<GridImages> {
               )
             ],
           ),
-          const SizedBox(
-            height: 15,
-          ),
+          const SizedBox(height: 15),
           Expanded(
             child: GridView.builder(
               controller: scrollController,
@@ -162,13 +164,11 @@ class _ImageGrid extends StatelessWidget {
                 ),
               ],
             ),
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: const ImageLoad(
-                  height: 140,
-                  width: 140,
-                  urlImage: '', //TODO: Cambiar por url de los pictogramas
-                )),
+            child: const ImageLoad(
+              height: 140,
+              width: 140,
+              urlImage: '', //TODO: Cambiar por url de los pictogramas
+            ),
           ),
           Container(
             margin: const EdgeInsets.only(top: 20),

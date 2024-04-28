@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-void bottomSheetModal(
-    {required BuildContext context,
-    required double width,
-    required List<Widget> arrayWidgets}) {
+void bottomSheetModal({
+  required BuildContext context,
+  required List<Widget> arrayWidgets,
+}) {
+  final Size size = MediaQuery.of(context).size;
   showModalBottomSheet<void>(
-    constraints: BoxConstraints.loose(Size(width, 150)),
+    constraints: BoxConstraints.loose(Size(size.width, 150)),
     context: context,
     builder: (BuildContext context) {
       return Column(

@@ -95,15 +95,19 @@ class _InputUserEmail extends ConsumerWidget {
           Icons.alternate_email,
           color: $colorBlueGeneral,
         ),
-        InputForm(
-          value: resetPasswordProvider.emailOrUser,
-          enable: true,
-          hint: S.current.Correo_o_nombre_de_usuario,
-          inputFormatters: [
-            FilteringTextInputFormatter.deny(RegExp(r'\s')), // Denegar espacios
-          ],
-          onChanged: ref.read(resetPasswordFormProvider.notifier).onEmailOrUser,
-          errorText: resetPasswordProvider.errorEmailOrUser,
+        Expanded(
+          child: InputForm(
+            value: resetPasswordProvider.emailOrUser,
+            enable: true,
+            hint: S.current.Correo_o_nombre_de_usuario,
+            inputFormatters: [
+              FilteringTextInputFormatter.deny(
+                  RegExp(r'\s')), // Denegar espacios
+            ],
+            onChanged:
+                ref.read(resetPasswordFormProvider.notifier).onEmailOrUser,
+            errorText: resetPasswordProvider.errorEmailOrUser,
+          ),
         ),
       ],
     );

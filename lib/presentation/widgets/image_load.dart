@@ -2,20 +2,23 @@ import 'package:flutter/material.dart';
 
 class ImageLoad extends StatelessWidget {
   final String urlImage;
-  final double height;
-  final double width;
+  final double? height;
+  final double? width;
 
-  const ImageLoad(
-      {super.key,
-      required this.urlImage,
-      required this.height,
-      required this.width});
+  const ImageLoad({
+    super.key,
+    required this.urlImage,
+    this.height,
+    this.width,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return FadeInImage(
-        height: height,
-        width: width,
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: FadeInImage(
+        height: height ?? 100,
+        width: width ?? 100,
         fit: BoxFit.cover,
         placeholderFit: BoxFit.cover,
         imageErrorBuilder: (context, error, stackTrace) {
@@ -23,7 +26,8 @@ class ImageLoad extends StatelessWidget {
         },
         placeholder: const AssetImage('assets/gif/jar-loading.gif'),
         //TODO : Reemplazar luego por networImage
-        image: const AssetImage(
-            'assets/img/no-image.png')); //NetworkImage(urlImage) ;
+        image: const AssetImage('assets/img/no-image.png'),
+      ),
+    ); //NetworkImage(urlImage) ;
   }
 }
