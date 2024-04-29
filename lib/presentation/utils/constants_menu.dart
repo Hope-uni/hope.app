@@ -3,7 +3,7 @@ import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/interfaces/interface.dart';
 import 'package:hope_app/presentation/utils/constants_desing.dart';
 
-final appMenuItemsDrawer = <MenuItem>[
+final List<MenuItem> appMenuItemsDrawer = <MenuItem>[
   MenuItem(
     title: S.current.Ninos,
     subTitle: S.current.Ninos_asignados,
@@ -27,7 +27,7 @@ final appMenuItemsDrawer = <MenuItem>[
   ),
 ];
 
-final List<MenuItem> menuPacientTutor = [
+final List<MenuItem> menuPacientTutor = <MenuItem>[
   MenuItem(
     title: S.current.Ver_informacion,
     subTitle: S.current.Informacion_general_del_nino,
@@ -57,7 +57,7 @@ final List<MenuItem> menuPacientTutor = [
   ),
 ];
 
-final List<MenuItem> menuPacientTherapist = [
+final List<MenuItem> menuPacientTherapist = <MenuItem>[
   MenuItem(
     title: S.current.Ver_informacion,
     subTitle: S.current.Informacion_general_del_nino,
@@ -81,7 +81,7 @@ final List<MenuItem> menuPacientTherapist = [
   ),
 ];
 
-List<MenuItem> menuActivity = [
+List<MenuItem> menuActivity = <MenuItem>[
   MenuItem(
     title: S.current.Ver_informacion,
     subTitle: S.current.Ver_informacion_detallada_de_la_actividad,

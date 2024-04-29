@@ -35,9 +35,9 @@ class NewActivityPage extends StatelessWidget {
                 toastAlert(
                   context: context,
                   //TODO: Aplicar internacionalizacion luego
-                  title: '¡Guardado con exito!',
+                  title: '¡Guardado con éxito!',
                   //TODO: Aplicar internacionalizacion luego
-                  description: 'La actividad se guardo correctamente',
+                  description: 'La actividad se guardó correctamente',
                   typeAlert: ToastificationType.success,
                 );
               },
@@ -59,7 +59,7 @@ class NewActivityPage extends StatelessWidget {
                     text: const TextSpan(
                       //TODO: Crear variable de internacionalizacion,
                       text:
-                          'Esta seguro de salir de la creacion de la actividad',
+                          'Está seguro de salir de la creación de la actividad',
                       style: TextStyle(fontSize: 16, color: $colorTextBlack),
                     ),
                   ),
