@@ -11,3 +11,4 @@ export 'router/app_router_notifier.dart';
 export 'router/routes.dart';
 export 'pictogram/custom_pictograms.page.dart';
 export 'activities/activity.page.dart';
+export 'activities/new_activity.page.dart';
