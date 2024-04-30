@@ -1182,10 +1182,10 @@ class S {
     );
   }
 
-  /// `¿Esta seguro de eliminar permanentemente la actividad?`
+  /// `¿Está seguro de eliminar permanentemente la actividad?`
   String get Esta_seguro_de_eliminar_permanentemente_la_actividad {
     return Intl.message(
-      '¿Esta seguro de eliminar permanentemente la actividad?',
+      '¿Está seguro de eliminar permanentemente la actividad?',
       name: 'Esta_seguro_de_eliminar_permanentemente_la_actividad',
       desc: '',
       args: [],

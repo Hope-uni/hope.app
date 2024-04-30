@@ -22,7 +22,6 @@ class DataTableDynamic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     if (data.isNotEmpty &&
         headersRows.isNotEmpty &&
         data.first.children.length == headersRows.length) {
@@ -30,45 +29,82 @@ class DataTableDynamic extends StatelessWidget {
         children: [
           Container(
             margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
-            width: size.width,
             child: Table(
               columnWidths: const <int, TableColumnWidth>{
                 0: FlexColumnWidth(),
-                1: FlexColumnWidth(),
-                2: FlexColumnWidth(),
-                3: FlexColumnWidth(),
+                1: MaxColumnWidth(
+                  FixedColumnWidth(50.0),
+                  FractionColumnWidth(0.15),
+                ),
+                2: MaxColumnWidth(
+                  FixedColumnWidth(50.0),
+                  FractionColumnWidth(0.15),
+                ),
+                3: MaxColumnWidth(
+                  FixedColumnWidth(80.0),
+                  FractionColumnWidth(0.15),
+                ),
               },
               children: [
                 TableRow(
                   decoration: const BoxDecoration(
-                      border: Border(bottom: BorderSide(width: 0.5))),
+                    color: $colorBlueGeneral,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15),
+                    ),
+                  ),
                   children: <Widget>[
                     ...headersRows.sublist(0, 1).map(
                           (value) => TableCell(
                             verticalAlignment:
                                 TableCellVerticalAlignment.middle,
                             child: Container(
+                                margin: const EdgeInsets.only(left: 15),
                                 alignment: Alignment.centerLeft,
-                                height: 40,
+                                height: 50,
                                 child: Text(
                                   value,
                                   style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
+                                    color: $colorTextWhite,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 )),
                           ),
                         ),
-                    ...headersRows.sublist(1).map(
+                    ...headersRows.sublist(1, 3).map(
                           (value) => TableCell(
                             verticalAlignment:
                                 TableCellVerticalAlignment.middle,
                             child: Container(
-                                alignment: Alignment.center,
-                                height: 40,
-                                child: Text(
-                                  value,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
-                                )),
+                              alignment: Alignment.center,
+                              height: 50,
+                              child: Text(
+                                value,
+                                style: const TextStyle(
+                                  color: $colorTextWhite,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                    ...headersRows.sublist(3).map(
+                          (value) => TableCell(
+                            verticalAlignment:
+                                TableCellVerticalAlignment.middle,
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 15),
+                              alignment: Alignment.center,
+                              height: 50,
+                              child: Text(
+                                value,
+                                style: const TextStyle(
+                                  color: $colorTextWhite,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                   ],
@@ -77,15 +113,28 @@ class DataTableDynamic extends StatelessWidget {
             ),
           ),
           Container(
-            margin:
-                const EdgeInsets.only(top: 4, bottom: 10, left: 20, right: 20),
+            margin: const EdgeInsets.only(
+              top: 4,
+              bottom: 10,
+              left: 20,
+              right: 20,
+            ),
             child: SingleChildScrollView(
               child: Table(
                 columnWidths: const <int, TableColumnWidth>{
                   0: FlexColumnWidth(),
-                  1: FlexColumnWidth(),
-                  2: FlexColumnWidth(),
-                  3: FlexColumnWidth(),
+                  1: MaxColumnWidth(
+                    FixedColumnWidth(50.0),
+                    FractionColumnWidth(0.15),
+                  ),
+                  2: MaxColumnWidth(
+                    FixedColumnWidth(50.0),
+                    FractionColumnWidth(0.15),
+                  ),
+                  3: MaxColumnWidth(
+                    FixedColumnWidth(80.0),
+                    FractionColumnWidth(0.15),
+                  ),
                 },
                 defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                 children: [...data],
@@ -95,8 +144,11 @@ class DataTableDynamic extends StatelessWidget {
           Container(
             margin: const EdgeInsets.symmetric(vertical: 10),
             child: Text(
-              '${S.current.Total_de_resultados} 100', //TODO: Cambiar cuando este listo el endpoint
-              style: const TextStyle(fontWeight: FontWeight.w600),
+              //TODO: Cambiar cuando este listo el endpoint
+              '${S.current.Total_de_resultados} 100',
+              style: const TextStyle(
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
           Container(
@@ -105,38 +157,44 @@ class DataTableDynamic extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 IconButton(
-                    onPressed: page <= 1 ? null : getPreviousData,
-                    icon: const Icon(Icons.arrow_back)),
+                  onPressed: page <= 1 ? null : getPreviousData,
+                  icon: const Icon(Icons.arrow_back),
+                ),
                 RichText(
                   text: TextSpan(children: [
                     TextSpan(
-                        text: '${S.current.Pagina}  ', //Dejar espacio en blanco
-                        style: const TextStyle(
-                          color: $colorTextBlack,
-                        )),
+                      text: '${S.current.Pagina}  ', //Dejar espacio en blanco
+                      style: const TextStyle(
+                        color: $colorTextBlack,
+                      ),
+                    ),
                     TextSpan(
-                        text: '$page',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: $colorTextBlack,
-                          fontSize: 17,
-                        )),
+                      text: '$page',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: $colorTextBlack,
+                        fontSize: 17,
+                      ),
+                    ),
                     TextSpan(
-                        text: '  ${S.current.De}  ', //Dejar espacio en blanco
-                        style: const TextStyle(
-                          color: $colorTextBlack,
-                        )),
+                      text: '  ${S.current.De}  ', //Dejar espacio en blanco
+                      style: const TextStyle(
+                        color: $colorTextBlack,
+                      ),
+                    ),
                     TextSpan(
-                        text: '$totalPage',
-                        style: const TextStyle(
-                          color: $colorTextBlack,
-                          fontSize: 17,
-                        )),
+                      text: '$totalPage',
+                      style: const TextStyle(
+                        color: $colorTextBlack,
+                        fontSize: 17,
+                      ),
+                    ),
                   ]),
                 ),
                 IconButton(
-                    onPressed: page >= totalPage ? null : getNextData,
-                    icon: const Icon(Icons.arrow_forward)),
+                  onPressed: page >= totalPage ? null : getNextData,
+                  icon: const Icon(Icons.arrow_forward),
+                ),
               ],
             ),
           ),

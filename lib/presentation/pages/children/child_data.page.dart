@@ -18,7 +18,6 @@ class _ChildDataPageState extends State<ChildDataPage> {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     return DefaultTabController(
       initialIndex: 0,
       length: 3,
@@ -52,7 +51,6 @@ class _ChildDataPageState extends State<ChildDataPage> {
           ),
         ),
         body: TabBarView(
-          // physics: const NeverScrollableScrollPhysics(),
           children: <Widget>[
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
@@ -60,10 +58,9 @@ class _ChildDataPageState extends State<ChildDataPage> {
                 child: Column(
                   children: [
                     ..._childPersonalData(
-                        enableInput: enableInput,
-                        size: size,
-                        sizeInputs: 150,
-                        context: context)
+                      enableInput: enableInput,
+                      context: context,
+                    )
                   ],
                 ),
               ),
@@ -80,244 +77,232 @@ class _ChildDataPageState extends State<ChildDataPage> {
               margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
               child: SingleChildScrollView(
                 child: Column(
-                  children: [
-                    ..._childProgressData(enableInput: enableInput, size: size)
-                  ],
+                  children: [..._childProgressData(enableInput: enableInput)],
                 ),
               ),
             ),
           ],
         ),
-        floatingActionButton: Visibility(
-          visible: true,
-          child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+        floatingActionButton: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
             Visibility(
-                visible: !enableInput,
-                child: ButtonTextIcon(
-                    title: S.current.Editar,
-                    icon: const Icon(Icons.edit),
-                    buttonColor: $colorBlueGeneral,
+              visible: !enableInput,
+              child: ButtonTextIcon(
+                title: S.current.Editar,
+                icon: const Icon(Icons.edit),
+                buttonColor: $colorBlueGeneral,
+                onClic: () {
+                  setState(() {
+                    enableInput = true;
+                  });
+                },
+              ),
+            ),
+            const SizedBox(width: 10),
+            Visibility(
+              visible: !enableInput,
+              child: ButtonTextIcon(
+                title: S.current.Avanzar_de_fase,
+                icon: const Icon(Icons.show_chart),
+                buttonColor: $colorSuccess,
+                onClic: () {
+                  modalDialogConfirmation(
+                    context: context,
+                    titleButtonConfirm: S.current.Si_avanzar,
+                    question: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        style: const TextStyle(
+                            fontSize: 16, color: $colorTextBlack),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: S.current.Esta_seguro_de_avanzar_de_fase_a(
+                                'Mario Jose Ramos Mejia'), //TODO: Cambiar cuando este listo el endpoint
+                          ),
+                          const TextSpan(
+                            //TODO: Cambiar cuando este listo el endpoint
+                            text: '\n\nFase 3 \u2192 Fase 4',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                    buttonColorConfirm: $colorSuccess,
                     onClic: () {
+                      Navigator.of(context).pop();
+                      toastAlert(
+                        context: context,
+                        title: S.current.Avance_de_fase_exitosa,
+                        description: S.current.Se_avanzo_a_la_fase(4,
+                            'Mario Jose Ramos Mejia'), //TODO: Cambiar cuando este listo el endpoint
+                        typeAlert: ToastificationType.success,
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+            Visibility(
+              visible: enableInput,
+              child: ButtonTextIcon(
+                title: S.current.Actualizar,
+                icon: const Icon(Icons.update),
+                buttonColor: $colorBlueGeneral,
+                onClic: () {
+                  modalDialogConfirmation(
+                    context: context,
+                    titleButtonConfirm: S.current.Si_actualizar,
+                    question: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        text: S.current.Esta_Seguro_de_actualizar_los_datos,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: $colorTextBlack,
+                        ),
+                      ),
+                    ),
+                    buttonColorConfirm: $colorSuccess,
+                    onClic: () {
+                      Navigator.of(context).pop();
+                      toastAlert(
+                        iconAlert: const Icon(Icons.update),
+                        context: context,
+                        title: S.current.Actualizado_con_exito,
+                        description: S.current.Informacion_del_nino_actualizada,
+                        typeAlert: ToastificationType.info,
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+            const SizedBox(width: 10),
+            Visibility(
+              visible: enableInput,
+              child: ButtonTextIcon(
+                title: S.current.Cancelar,
+                icon: const Icon(Icons.cancel),
+                buttonColor: $colorError,
+                onClic: () {
+                  modalDialogConfirmation(
+                    context: context,
+                    titleButtonConfirm: S.current.Si_salir,
+                    question: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        text: S.current.Esta_seguro_de_salir_de_la_edicion,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: $colorTextBlack,
+                        ),
+                      ),
+                    ),
+                    buttonColorConfirm: $colorSuccess,
+                    onClic: () {
+                      Navigator.of(context).pop();
                       setState(() {
-                        enableInput = true;
+                        enableInput = false;
                       });
-                    })),
-            const SizedBox(
-              width: 10,
+                    },
+                  );
+                },
+              ),
             ),
-            Visibility(
-                visible: !enableInput,
-                child: ButtonTextIcon(
-                    title: S.current.Avanzar_de_fase,
-                    icon: const Icon(Icons.show_chart),
-                    buttonColor: $colorSuccess,
-                    onClic: () {
-                      modalDialogConfirmation(
-                        context: context,
-                        titleButtonConfirm: S.current.Si_avanzar,
-                        question: RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            style: const TextStyle(
-                                fontSize: 16, color: $colorTextBlack),
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: S.current.Esta_seguro_de_avanzar_de_fase_a(
-                                    'Mario Jose Ramos Mejia'), //TODO: Cambiar cuando este listo el endpoint
-                              ),
-                              const TextSpan(
-                                text:
-                                    '\n\nFase 3 \u2192 Fase 4', //TODO: Cambiar cuando este listo el endpoint
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        buttonColorConfirm: $colorSuccess,
-                        onClic: () {
-                          Navigator.of(context).pop();
-                          toastAlert(
-                              context: context,
-                              title: S.current.Avance_de_fase_exitosa,
-                              description: S.current.Se_avanzo_a_la_fase(4,
-                                  'Mario Jose Ramos Mejia'), //TODO: Cambiar cuando este listo el endpoint
-                              typeAlert: ToastificationType.success);
-                        },
-                      );
-                    })),
-            Visibility(
-                visible: enableInput,
-                child: ButtonTextIcon(
-                    title: S.current.Actualizar,
-                    icon: const Icon(Icons.update),
-                    buttonColor: $colorBlueGeneral,
-                    onClic: () {
-                      modalDialogConfirmation(
-                        context: context,
-                        titleButtonConfirm: S.current.Si_actualizar,
-                        question: RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            text: S.current.Esta_Seguro_de_actualizar_los_datos,
-                            style: const TextStyle(
-                                fontSize: 16, color: $colorTextBlack),
-                          ),
-                        ),
-                        buttonColorConfirm: $colorSuccess,
-                        onClic: () {
-                          Navigator.of(context).pop();
-                          toastAlert(
-                              iconAlert: const Icon(Icons.update),
-                              context: context,
-                              title: S.current.Actualizado_con_exito,
-                              description:
-                                  S.current.Informacion_del_nino_actualizada,
-                              typeAlert: ToastificationType.info);
-                        },
-                      );
-                    })),
-            const SizedBox(
-              width: 10,
-            ),
-            Visibility(
-                visible: enableInput,
-                child: ButtonTextIcon(
-                    title: S.current.Cancelar,
-                    icon: const Icon(Icons.cancel),
-                    buttonColor: $colorError,
-                    onClic: () {
-                      modalDialogConfirmation(
-                        context: context,
-                        titleButtonConfirm: S.current.Si_salir,
-                        question: RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            text: S.current.Esta_seguro_de_salir_de_la_edicion,
-                            style: const TextStyle(
-                                fontSize: 16, color: $colorTextBlack),
-                          ),
-                        ),
-                        buttonColorConfirm: $colorSuccess,
-                        onClic: () {
-                          Navigator.of(context).pop();
-                          setState(() {
-                            enableInput = false;
-                          });
-                        },
-                      );
-                    })),
-          ]),
+          ],
         ),
       ),
     );
   }
 }
 
-List<Widget> _childPersonalData(
-    {required bool enableInput,
-    required double sizeInputs,
-    required Size size,
-    required BuildContext context}) {
+List<Widget> _childPersonalData({
+  required bool enableInput,
+  required BuildContext context,
+}) {
   final CameraGalleryDataSourceImpl image = CameraGalleryDataSourceImpl();
 
   return [
     Container(
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      width: sizeInputs,
+      width: 150,
       child: Center(
         child: Stack(children: [
           ClipOval(
-            child: Container(
-                width: 250,
-                height: 145,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                ),
-                child: FadeInImage(
-                    height: 140,
-                    width: 140,
-                    fit: BoxFit.cover,
-                    placeholderFit: BoxFit.cover,
-                    imageErrorBuilder: (context, error, stackTrace) {
-                      return Image.asset('assets/img/no-image.png');
-                    },
-                    placeholder: const AssetImage('assets/gif/jar-loading.gif'),
-                    image: const AssetImage(
-                        //TODO : Cambiar por url de la imagen del niño
-                        'assets/img/no-image.png')) /* const NetworkImage(
-                              'https://static.wixstatic.com/media/4d02c4_8ea3fe5159c8431689f97f5cc973e34c~mv2.png/v1/fill/w_600,h_338,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/4d02c4_8ea3fe5159c8431689f97f5cc973e34c~mv2.png')),*/
-                ),
-          ),
+              child: Container(
+            width: 250,
+            height: 145,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+            ),
+            child: const ImageLoad(urlImage: ''),
+          )),
           Visibility(
             visible: enableInput,
             child: Positioned(
               bottom: 0,
               right: 0,
               child: IconButton.filled(
-                  iconSize: isTablet(context) ? 40 : 30,
                   style: const ButtonStyle(
                       backgroundColor:
                           MaterialStatePropertyAll($colorBlueGeneral)),
                   onPressed: () {
                     bottomSheetModal(
-                        context: context,
-                        width: size.width,
-                        arrayWidgets: [
-                          Container(
-                            margin: const EdgeInsets.symmetric(vertical: 15),
-                            width: 40,
-                            height: 7,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: $colorButtonDisable,
-                            ),
+                      context: context,
+                      arrayWidgets: [
+                        Container(
+                          margin: const EdgeInsets.symmetric(vertical: 15),
+                          width: 40,
+                          height: 7,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: $colorButtonDisable,
                           ),
-                          Container(
-                              margin: const EdgeInsets.symmetric(
-                                horizontal: 20,
+                        ),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          margin: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                          ),
+                          child: Text(
+                            S.current.Seleccione_foto_de_perfil,
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Column(
+                                children: [
+                                  IconButton(
+                                      onPressed: () async {
+                                        // ignore: unused_local_variable
+                                        final photo = await image.selectImage();
+                                      },
+                                      icon: const Icon(Icons.photo)),
+                                  Text(S.current.Galeria),
+                                ],
                               ),
-                              width: size.width,
-                              child: Text(
-                                S.current.Seleccione_foto_de_perfil,
-                              )),
-                          Container(
-                            width: size.width,
-                            margin: const EdgeInsets.symmetric(
-                              horizontal: 20,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Column(
-                                  children: [
-                                    IconButton(
-                                        onPressed: () async {
-                                          // ignore: unused_local_variable
-                                          final photo =
-                                              await image.selectImage();
-                                        },
-                                        icon: const Icon(Icons.photo)),
-                                    Text(S.current.Galeria),
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    IconButton(
-                                        onPressed: () async {
-                                          // ignore: unused_local_variable
-                                          final imagen =
-                                              await image.takePhoto();
-                                        },
-                                        icon: const Icon(Icons.add_a_photo)),
-                                    Text(S.current.Camara),
-                                  ],
-                                )
-                              ],
-                            ),
-                          )
-                        ]);
+                              Column(
+                                children: [
+                                  IconButton(
+                                      onPressed: () async {
+                                        // ignore: unused_local_variable
+                                        final imagen = await image.takePhoto();
+                                      },
+                                      icon: const Icon(Icons.add_a_photo)),
+                                  Text(S.current.Camara),
+                                ],
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    );
                   },
                   icon: const Icon(Icons.camera_alt)),
             ),
@@ -325,163 +310,162 @@ List<Widget> _childPersonalData(
         ]),
       ),
     ),
-    const SizedBox(
-      height: 10,
-    ),
+    const SizedBox(height: 10),
     Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        InputForm(
-          label: S.current.Primer_nombre,
-          maxLength: 50,
-          value: 'Mario',
-          enable: enableInput,
-          onChanged: (value) {},
+        Expanded(
+          child: InputForm(
+            label: S.current.Primer_nombre,
+            maxLength: 50,
+            value: 'Mario', //TODO: Cambiar cuando este listo el endpoint
+            enable: enableInput,
+            onChanged: (value) {},
+          ),
         ),
-        InputForm(
-          label: S.current.Segundo_nombre,
-          maxLength: 50,
-          value: 'Jose',
-          enable: enableInput,
-          onChanged: (value) {},
-        ),
-      ],
-    ),
-    Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        InputForm(
-          label: S.current.Primer_apellido,
-          maxLength: 50,
-          value: 'Ramos',
-          enable: enableInput,
-          onChanged: (value) {},
-        ),
-        InputForm(
-          label: S.current.Segundo_apellido,
-          maxLength: 50,
-          value: 'Mejia',
-          enable: enableInput,
-          onChanged: (value) {},
-        ),
-      ],
-    ),
-    Row(
-      children: [
-        InputForm(
-          label: S.current.Nombre_de_usuario,
-          maxLength: 8,
-          value: 'mramos',
-          enable: enableInput,
-          onChanged: (value) {},
-        ),
-        SelectBox(
-          enable: enableInput,
-          valueInitial: 'Masculino',
-          label: S.current.Sexo,
-          onSelected: (value) {},
-          listItems: const ['Masculino', 'Femenino'],
+        Expanded(
+          child: InputForm(
+            label: S.current.Segundo_nombre,
+            maxLength: 50,
+            value: 'Jose', //TODO: Cambiar cuando este listo el endpoint
+            enable: enableInput,
+            onChanged: (value) {},
+          ),
         ),
       ],
     ),
     Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        InputForm(
-          label: S.current.Fecha_de_nacimiento,
-          maxLength: 14,
-          value: '22/10/1997',
-          enable: enableInput,
-          onChanged: (value) {},
+        Expanded(
+          child: InputForm(
+            label: S.current.Primer_apellido,
+            maxLength: 50,
+            value: 'Ramos', //TODO: Cambiar cuando este listo el endpoint
+            enable: enableInput,
+            onChanged: (value) {},
+          ),
         ),
-        InputForm(
-          label: S.current.Edad,
-          value: '27 años, 10 meses y 15 dias',
-          enable: false,
+        Expanded(
+          child: InputForm(
+            label: S.current.Segundo_apellido,
+            maxLength: 50,
+            value: 'Mejia', //TODO: Cambiar cuando este listo el endpoint
+            enable: enableInput,
+            onChanged: (value) {},
+          ),
+        ),
+      ],
+    ),
+    Row(
+      children: [
+        Expanded(
+          child: InputForm(
+            label: S.current.Nombre_de_usuario,
+            maxLength: 8,
+            value: 'mramos', //TODO: Cambiar cuando este listo el endpoint
+            enable: enableInput,
+            onChanged: (value) {},
+          ),
+        ),
+        Expanded(
+          //TODO: Cambiar cuando este listo el endpoint
+          child: SelectBox(
+            enable: enableInput,
+            valueInitial: 'Masculino',
+            label: S.current.Sexo,
+            onSelected: (value) {},
+            listItems: const ['Masculino', 'Femenino'],
+          ),
         ),
       ],
     ),
     Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        InputForm(
-          label: S.current.Direccion,
-          maxLength: 100,
-          maxLines: 5,
-          enable: enableInput,
-          onChanged: (value) {},
-          value:
-              'Del pali de san judas 3 c al sur 1/2 c abajo , 5ta casa mano izquierda',
+        Expanded(
+          child: InputForm(
+            label: S.current.Fecha_de_nacimiento,
+            maxLength: 14,
+            value: '22/10/1997', //TODO: Cambiar cuando este listo el endpoint
+            enable: enableInput,
+            onChanged: (value) {},
+          ),
+        ),
+        Expanded(
+          child: InputForm(
+            label: S.current.Edad,
+            //TODO: Cambiar cuando este listo el endpoint
+            value: '27 años, 10 meses y 15 dias',
+            enable: false,
+          ),
         ),
       ],
     ),
-    const SizedBox(
-      height: 55,
+    InputForm(
+      label: S.current.Direccion,
+      maxLength: 100,
+      maxLines: 5,
+      enable: enableInput,
+      onChanged: (value) {},
+      //TODO: Cambiar cuando este listo el endpoint
+      value:
+          'Del pali de san judas 3 c al sur 1/2 c abajo , 5ta casa mano izquierda',
     ),
+    const SizedBox(height: 55),
   ];
 }
 
 List<Widget> _generalInformation({required bool enableInput}) {
   return [
-    Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        SelectBox(
-          enable: enableInput,
-          valueInitial: 'Activado',
-          label: S.current.Pictogramas_blanco_negro,
-          onSelected: (value) {},
-          listItems: const ['Activado', 'Inactivado'],
-        ),
-      ],
+    //TODO: Cambiar cuando este listo el endpoint
+    SelectBox(
+      enable: enableInput,
+      valueInitial: 'Activado',
+      label: S.current.Pictogramas_blanco_negro,
+      onSelected: (value) {},
+      listItems: const ['Activado', 'Inactivado'],
     ),
-    Row(
-      children: [
-        InputForm(
-          label: S.current.Tutor,
-          value: 'Maria Alejandra Ramos Irigoyen',
-          enable: false,
-          onChanged: (value) {},
-        ),
-      ],
+    InputForm(
+      label: S.current.Tutor,
+      //TODO: Cambiar cuando este listo el endpoint
+      value: 'Maria Alejandra Ramos Irigoyen',
+      enable: false,
+      onChanged: (value) {},
     ),
     Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        InputForm(
-          label: S.current.Contacto_tutor,
-          value: '121422112',
-          enable: false,
-          onChanged: (value) {},
+        Expanded(
+          child: InputForm(
+            label: S.current.Contacto_tutor,
+            value: '121422112', //TODO: Cambiar cuando este listo el endpoint
+            enable: false,
+            onChanged: (value) {},
+          ),
         ),
-        InputForm(
-          label: S.current.Telefono_de_casa,
-          value: '54645566',
-          enable: false,
-          onChanged: (value) {},
-        ),
-      ],
-    ),
-    Row(
-      children: [
-        InputForm(
-          label: S.current.Terapeuta,
-          value: 'Anthony Alexander Rayo Mejia',
-          enable: false,
-          onChanged: (value) {},
+        Expanded(
+          child: InputForm(
+            label: S.current.Telefono_de_casa,
+            value: '54645566', //TODO: Cambiar cuando este listo el endpoint
+            enable: false,
+            onChanged: (value) {},
+          ),
         ),
       ],
     ),
-    Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        InputForm(
-          label: S.current.Contacto_terapeuta,
-          value: '56564456',
-          enable: false,
-          onChanged: (value) {},
-        ),
-      ],
+    InputForm(
+      label: S.current.Terapeuta,
+      //TODO: Cambiar cuando este listo el endpoint
+      value: 'Anthony Alexander Rayo Mejia',
+      enable: false,
+      onChanged: (value) {},
+    ),
+    InputForm(
+      label: S.current.Contacto_terapeuta,
+      value: '56564456', //TODO: Cambiar cuando este listo el endpoint
+      enable: false,
+      onChanged: (value) {},
     ),
     const SizedBox(
       height: 55,
@@ -489,8 +473,7 @@ List<Widget> _generalInformation({required bool enableInput}) {
   ];
 }
 
-List<Widget> _childProgressData(
-    {required bool enableInput, required Size size}) {
+List<Widget> _childProgressData({required bool enableInput}) {
   return [
     Container(
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
@@ -506,6 +489,7 @@ List<Widget> _childProgressData(
                 children: [
                   Container(
                       margin: const EdgeInsets.symmetric(vertical: 15),
+                      //TODO: Cambiar cuando este listo el endpoint
                       child: Text('${S.current.Progreso_general} | 50%')),
                   const SizedBox(
                     width: 20,
@@ -525,6 +509,7 @@ List<Widget> _childProgressData(
                 children: [
                   Container(
                       margin: const EdgeInsets.symmetric(vertical: 15),
+                      //TODO: Cambiar cuando este listo el endpoint
                       child: Text('${S.current.progreso_de_fase} 3 | 80%')),
                   const SizedBox(
                     width: 20,
@@ -548,62 +533,31 @@ List<Widget> _childProgressData(
     const SizedBox(
       height: 20,
     ),
-    Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        InputForm(
-          label: S.current.Observaciones,
-          maxLength: 100,
-          maxLines: 6,
-          enable: enableInput,
-          onChanged: (value) {},
-          value:
-              'Al niño le gusta mucho la manzana, no le gusta que le toquen el cabello, se lleva muy bien con sus compañeros y odia los gatos,',
-        ),
-      ],
+    InputForm(
+      label: S.current.Observaciones,
+      maxLength: 100,
+      maxLines: 6,
+      enable: enableInput,
+      onChanged: (value) {},
+      //TODO: Cambiar cuando este listo el endpoint
+      value:
+          'Al niño le gusta mucho la manzana, no le gusta que le toquen el cabello, se lleva muy bien con sus compañeros y odia los gatos,',
     ),
-    Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        InputForm(
-          label: S.current.Actividad_Actual,
-          value: 'Selecciona 5 pictogramas de animales',
-          enable: false,
-          onChanged: (value) {},
-        ),
-      ],
+    InputForm(
+      label: S.current.Actividad_Actual,
+      //TODO: Cambiar cuando este listo el endpoint
+      value: 'Selecciona 5 pictogramas de animales',
+      enable: false,
+      onChanged: (value) {},
     ),
     Text(
       S.current.Logros,
       style: const TextStyle(fontSize: 20),
     ),
-    SizedBox(
-      width: size.width,
-      height: 200,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: 10,
-        itemBuilder: (context, index) {
-          return Column(
-            children: [
-              Container(
-                  width: 150,
-                  height: 150,
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  child: const ImageLoad(
-                    height: 140,
-                    width: 140,
-                    urlImage: '', //TODO: Agregar url de logros de los niños
-                  )),
-              const Text('Buen Comportamiento')
-            ],
-          );
-        },
-      ),
+    const ImageListVIew(
+      isDecoration: false,
+      isSelect: false,
     ),
-    const SizedBox(
-      height: 55,
-    ),
+    const SizedBox(height: 55),
   ];
 }
