@@ -57,13 +57,11 @@ class GridImagesState extends ConsumerState<GridImages> {
       width: size.width,
       child: Column(
         children: [
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 10),
-            width: size.width,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                SelectBox(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Expanded(
+                child: SelectBox(
                   valueInitial: typePicto,
                   marginHorizontal: 5,
                   hint: S.current.Categoria_de_pictogramas,
@@ -75,7 +73,9 @@ class GridImagesState extends ConsumerState<GridImages> {
                   },
                   listItems: _list,
                 ),
-                InputForm(
+              ),
+              Expanded(
+                child: InputForm(
                   hint: S.current.Busqueda_por_nombre,
                   value: namePicto,
                   enable: true,
@@ -85,17 +85,26 @@ class GridImagesState extends ConsumerState<GridImages> {
                         .onNamePictoChange(value);
                   },
                 ),
-                ButtonTextIcon(
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Expanded(
+                child: ButtonTextIcon(
                     title: S.current.Buscar,
                     icon: const Icon(
                       Icons.search,
                     ),
                     buttonColor: $colorBlueGeneral,
                     onClic: () {}),
-                const SizedBox(
-                  width: 15,
-                ),
-                ButtonTextIcon(
+              ),
+              const SizedBox(
+                width: 15,
+              ),
+              Expanded(
+                child: ButtonTextIcon(
                     title: S.current.Limpiar_filtros,
                     icon: const Icon(
                       Icons.clear_all,
@@ -103,18 +112,19 @@ class GridImagesState extends ConsumerState<GridImages> {
                     buttonColor: $colorError,
                     onClic: () {
                       ref.read(pictogramsProvider.notifier).resetFilter();
-                    })
-              ],
-            ),
+                    }),
+              )
+            ],
           ),
+          const SizedBox(height: 15),
           Expanded(
             child: GridView.builder(
               controller: scrollController,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 5,
-                crossAxisSpacing: 8.0,
-                mainAxisExtent: 250,
-                mainAxisSpacing: 8.0,
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 150,
+                childAspectRatio: 0.6,
+                crossAxisSpacing: 10.0,
+                mainAxisSpacing: 10.0,
               ),
               itemCount: widget.images.length,
               itemBuilder: (context, index) {
@@ -140,86 +150,49 @@ class _ImageGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(top: 7),
-      child: Column(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.3),
-                  spreadRadius: 3,
-                  blurRadius: 8,
-                  offset: const Offset(0, 5),
-                ),
-              ],
+      child: Column(children: [
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: $colorShadow,
+                spreadRadius: 3,
+                blurRadius: 8,
+                offset: const Offset(0, 5),
+              ),
+            ],
+          ),
+          //TODO: Cambiar por url de los pictogramas
+          child: const ImageLoad(urlImage: ''),
+        ),
+        Container(
+          margin: const EdgeInsets.only(top: 10),
+          child: const Text('Manzana'),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            IconButton(
+              onPressed: () => {
+                _dialogImage(context: context, urlImage: image),
+              },
+              tooltip: S.current.Editar,
+              icon: const Icon(
+                Icons.edit,
+                color: $colorBlueGeneral,
+              ),
             ),
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: const ImageLoad(
-                  height: 140,
-                  width: 140,
-                  urlImage: '', //TODO: Cambiar por url de los pictogramas
-                )),
-          ),
-          Container(
-            margin: const EdgeInsets.only(top: 20),
-            child: const Text('Manzana'),
-          ),
-          LayoutBuilder(
-            builder: (context, constraints) {
-              // Verificar si el botón se desborda horizontalmente
-              bool isOverflowing = constraints.maxWidth > 154;
-              return isOverflowing
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        TextButton.icon(
-                          onPressed: () =>
-                              _dialogImage(context: context, urlImage: image),
-                          icon: const Icon(
-                            Icons.edit,
-                            color: $colorBlueGeneral,
-                          ),
-                          label: Text(S.current.Editar),
-                        ),
-                        Visibility(
-                          visible: isCustomized,
-                          child: TextButton.icon(
-                              onPressed: () => _dialogConfirmation(context),
-                              label: Text(S.current.Eliminar),
-                              icon: const Icon(
-                                Icons.delete,
-                                color: $colorError,
-                              )),
-                        )
-                      ],
-                    )
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        IconButton(
-                          onPressed: () => {
-                            _dialogImage(context: context, urlImage: image),
-                          },
-                          icon: const Icon(
-                            Icons.edit,
-                            color: $colorBlueGeneral,
-                          ),
-                        ),
-                        Visibility(
-                          visible: isCustomized,
-                          child: IconButton(
-                              onPressed: () => _dialogConfirmation(context),
-                              icon:
-                                  const Icon(Icons.delete, color: $colorError)),
-                        )
-                      ],
-                    );
-            },
-          ),
-        ],
-      ),
+            Visibility(
+              visible: isCustomized,
+              child: IconButton(
+                  tooltip: S.current.Eliminar,
+                  onPressed: () => _dialogConfirmation(context),
+                  icon: const Icon(Icons.delete, color: $colorError)),
+            )
+          ],
+        )
+      ]),
     );
   }
 }
@@ -227,34 +200,35 @@ class _ImageGrid extends StatelessWidget {
 Future<void> _dialogImage(
     {required BuildContext context, required String urlImage}) {
   final image = CameraGalleryDataSourceImpl();
-  final size = MediaQuery.of(context).size;
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
-      return Container(
-        margin: EdgeInsets.symmetric(
-            vertical: size.height > 420 ? size.height * 0.25 : 10),
-        child: AlertDialog(
-          title: Row(
-            children: [
-              const Icon(Icons.edit),
-              const SizedBox(
-                width: 10,
+      return AlertDialog(
+        title: Text(
+          '${S.current.Editar_imagen} - Manzana',
+          maxLines: 3,
+          overflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.center,
+        ),
+        icon: const Icon(Icons.edit),
+        content: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: ImageLoad(
+                height: 180,
+                width: 180,
+                urlImage: urlImage,
+                isDoubleTap: false,
               ),
-              Text('${S.current.Editar_imagen} - Manzana'),
-            ],
-          ),
-          content: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: ImageLoad(
-                    height: 180,
-                    width: 180,
-                    urlImage: urlImage,
-                  )),
-              Column(
+            ),
+            const SizedBox(
+              width: 20,
+            ),
+            SizedBox(
+              height: 200,
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   IconButton(
@@ -272,40 +246,40 @@ Future<void> _dialogImage(
                       icon: const Icon(Icons.add_a_photo)),
                   Text(S.current.Camara),
                 ],
-              )
-            ],
-          ),
-          actions: <Widget>[
-            ButtonTextIcon(
-              title: S.current.Actualizar,
-              icon: const Icon(
-                Icons.update,
               ),
-              buttonColor: $colorBlueGeneral,
-              onClic: () {
-                Navigator.of(context).pop();
-                toastAlert(
-                    iconAlert: const Icon(Icons.update),
-                    context: context,
-                    title: S.current.Actualizado_con_exito,
-                    description: S.current
-                        .Se_actualizo_correctamente_el_pictograma_personalizado(
-                            'Manzana'), //TODO: Cambiar cuando este  listo el endpoint
-                    typeAlert: ToastificationType.info);
-              },
-            ),
-            ButtonTextIcon(
-              title: S.current.Cancelar,
-              icon: const Icon(
-                Icons.cancel,
-              ),
-              buttonColor: $colorError,
-              onClic: () {
-                Navigator.of(context).pop();
-              },
             )
           ],
         ),
+        actions: <Widget>[
+          ButtonTextIcon(
+            title: S.current.Actualizar,
+            icon: const Icon(
+              Icons.update,
+            ),
+            buttonColor: $colorBlueGeneral,
+            onClic: () {
+              Navigator.of(context).pop();
+              toastAlert(
+                  iconAlert: const Icon(Icons.update),
+                  context: context,
+                  title: S.current.Actualizado_con_exito,
+                  description: S.current
+                      .Se_actualizo_correctamente_el_pictograma_personalizado(
+                          'Manzana'), //TODO: Cambiar cuando este  listo el endpoint
+                  typeAlert: ToastificationType.info);
+            },
+          ),
+          ButtonTextIcon(
+            title: S.current.Cancelar,
+            icon: const Icon(
+              Icons.cancel,
+            ),
+            buttonColor: $colorError,
+            onClic: () {
+              Navigator.of(context).pop();
+            },
+          )
+        ],
       );
     },
   );

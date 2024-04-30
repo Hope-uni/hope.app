@@ -24,36 +24,38 @@ class SelectBox extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextEditingController controller =
         TextEditingController(text: valueInitial);
-    return Expanded(
-      child: Container(
-          margin: EdgeInsets.symmetric(
-              horizontal: marginHorizontal ?? 15, vertical: 7),
-          child: DropdownMenu<String>(
-            initialSelection: valueInitial,
-            controller: controller,
-            expandedInsets: const EdgeInsets.all(1),
-            onSelected: onSelected,
-            enabled: enable,
-            label: label != null
-                ? Text(
-                    label!,
-                    style: const TextStyle(color: $colorTextBlack),
-                  )
-                : null,
-            hintText: hint,
-            helperText:
-                ' ', //Dejar el espacio en blanco para que no se descuadre el contenido cuando no tiene counterText,
-            inputDecorationTheme: const InputDecorationTheme(
-                border: UnderlineInputBorder(),
-                constraints: BoxConstraints.expand(
-                    height:
-                        68), //Ese tamaño se ajusta al tamaño por defecto de los inputs
-                contentPadding: EdgeInsets.zero),
-            dropdownMenuEntries:
-                listItems.map<DropdownMenuEntry<String>>((String value) {
-              return DropdownMenuEntry<String>(value: value, label: value);
-            }).toList(),
-          )),
+    return Container(
+      margin:
+          EdgeInsets.symmetric(horizontal: marginHorizontal ?? 15, vertical: 7),
+      child: DropdownMenu<String>(
+        initialSelection: valueInitial,
+        controller: controller,
+        expandedInsets: const EdgeInsets.all(1),
+        onSelected: onSelected,
+        enabled: enable,
+        label: label != null
+            ? Text(
+                label!,
+                style: const TextStyle(
+                  color: $colorTextBlack,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              )
+            : null,
+        hintText: hint,
+        //Dejar el espacio en blanco para que no se descuadre el contenido cuando no tiene counterText,
+        helperText: ' ',
+        inputDecorationTheme: const InputDecorationTheme(
+          border: UnderlineInputBorder(),
+          //Ese tamaño se ajusta al tamaño por defecto de los inputs
+          constraints: BoxConstraints(maxHeight: 68),
+          contentPadding: EdgeInsets.zero,
+        ),
+        dropdownMenuEntries:
+            listItems.map<DropdownMenuEntry<String>>((String value) {
+          return DropdownMenuEntry<String>(value: value, label: value);
+        }).toList(),
+      ),
     );
   }
 }

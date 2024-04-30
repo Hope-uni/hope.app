@@ -121,7 +121,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Esta_seguro_de_avanzar_de_fase_a": m0,
         "Esta_seguro_de_eliminar_permanentemente_la_actividad":
             MessageLookupByLibrary.simpleMessage(
-                "¿Esta seguro de eliminar permanentemente la actividad?"),
+                "¿Está seguro de eliminar permanentemente la actividad?"),
         "Esta_seguro_de_salir_de_la_edicion":
             MessageLookupByLibrary.simpleMessage(
                 "¿Está seguro de salir de la edición?"),

@@ -10,7 +10,6 @@ class ChildrenPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final size = MediaQuery.of(context).size;
     final searchsPatients = ref.watch(searchPatients);
     final listPatients = ref.watch(patientsProvider.notifier);
     final TextEditingController controller =
@@ -19,26 +18,25 @@ class ChildrenPage extends ConsumerWidget {
     controller.selection = TextSelection.collapsed(offset: textLength);
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        toolbarHeight: 70,
-        title: Row(
+      appBar: AppBar(title: Text(S.current.Ninos_asignados)),
+      body: SingleChildScrollView(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(S.current.Ninos_asignados),
-            Container(
-              margin: const EdgeInsets.only(bottom: 10, top: 5, right: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
+            const SizedBox(height: 13),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                const Expanded(child: SizedBox()),
+                Expanded(
+                  child: Container(
+                    margin:
+                        const EdgeInsets.only(bottom: 10, top: 10, right: 20),
+                    width: 250,
+                    height: 40,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(35),
-                      color: Colors.white,
                     ),
-                    width: 300,
-                    height: 40,
                     child: TextFormField(
                       controller: controller,
                       textAlignVertical: TextAlignVertical.bottom,
@@ -61,27 +59,22 @@ class ChildrenPage extends ConsumerWidget {
                           ref.read(searchPatients.notifier).state = value,
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
+            ),
+            DataTableDynamic(
+              page: ref.read(patientsProvider).indexPage + 1,
+              totalPage: ref.read(patientsProvider).pageCount,
+              getNextData: () {
+                listPatients.getNextPatients();
+              },
+              getPreviousData: () {
+                listPatients.getPreviusPatients();
+              },
+              headersRows: headersRows,
+              data: generatePatients(ref: ref),
             ),
           ],
-        ),
-      ),
-      body: Center(
-        child: SizedBox(
-          height: size.height * 0.75,
-          child: DataTableDynamic(
-            page: ref.read(patientsProvider).indexPage + 1,
-            totalPage: ref.read(patientsProvider).pageCount,
-            getNextData: () {
-              listPatients.getNextPatients();
-            },
-            getPreviousData: () {
-              listPatients.getPreviusPatients();
-            },
-            headersRows: headersRows,
-            data: generatePatients(ref: ref),
-          ),
         ),
       ),
       drawer: const SideMenu(),
@@ -98,44 +91,53 @@ List<String> headersRows = [
 
 Iterable<TableRow> generatePatients({required WidgetRef ref}) {
   final listaPacientes = ref.watch(patientsProvider);
+  bool isColor = false;
+  final listaDataRow = listaPacientes.newPatients.map((item) {
+    isColor = !isColor;
 
-  final listaDataRow = listaPacientes.newPatients.map((item) => TableRow(
-        decoration: const BoxDecoration(
-          border: Border(bottom: BorderSide(width: 0.5)),
-        ),
-        children: <Widget>[
-          TableCell(
-            verticalAlignment: TableCellVerticalAlignment.middle,
+    return TableRow(
+      decoration: BoxDecoration(color: isColor ? null : $colorRowTable),
+      children: <Widget>[
+        TableCell(
+          verticalAlignment: TableCellVerticalAlignment.middle,
+          child: Container(
+            margin: const EdgeInsets.only(left: 15),
             child: Text(
               item.fullName,
             ),
           ),
-          TableCell(
-            verticalAlignment: TableCellVerticalAlignment.middle,
-            child: Container(
-              alignment: Alignment.center,
-              child: Text(
-                item.fase,
-              ),
+        ),
+        TableCell(
+          verticalAlignment: TableCellVerticalAlignment.middle,
+          child: Container(
+            alignment: Alignment.center,
+            child: Text(
+              item.fase,
             ),
           ),
-          TableCell(
-            verticalAlignment: TableCellVerticalAlignment.middle,
-            child: Container(
-              alignment: Alignment.center,
-              child: Text(
-                item.edad,
-              ),
+        ),
+        TableCell(
+          verticalAlignment: TableCellVerticalAlignment.middle,
+          child: Container(
+            alignment: Alignment.center,
+            child: Text(
+              item.edad,
             ),
           ),
-          TableCell(
-            verticalAlignment: TableCellVerticalAlignment.middle,
+        ),
+        TableCell(
+          verticalAlignment: TableCellVerticalAlignment.middle,
+          child: Container(
+            margin: const EdgeInsets.only(right: 15),
             child: MenuItems(
               idChild: int.parse(item.id),
               menuItems: menuPacientTutor,
             ),
           ),
-        ],
-      ));
+        ),
+      ],
+    );
+  });
+
   return listaDataRow;
 }
