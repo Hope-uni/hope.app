@@ -230,27 +230,14 @@ List<Widget> _childPersonalData({
       child: Center(
         child: Stack(children: [
           ClipOval(
-            child: Container(
-                width: 250,
-                height: 145,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                ),
-                child: FadeInImage(
-                    height: 140,
-                    width: 140,
-                    fit: BoxFit.cover,
-                    placeholderFit: BoxFit.cover,
-                    imageErrorBuilder: (context, error, stackTrace) {
-                      return Image.asset('assets/img/no-image.png');
-                    },
-                    placeholder: const AssetImage('assets/gif/jar-loading.gif'),
-                    image: const AssetImage(
-                        //TODO : Cambiar por url de la imagen del niño
-                        'assets/img/no-image.png')) /* const NetworkImage(
-                              'https://static.wixstatic.com/media/4d02c4_8ea3fe5159c8431689f97f5cc973e34c~mv2.png/v1/fill/w_600,h_338,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/4d02c4_8ea3fe5159c8431689f97f5cc973e34c~mv2.png')),*/
-                ),
-          ),
+              child: Container(
+            width: 250,
+            height: 145,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+            ),
+            child: const ImageLoad(urlImage: ''),
+          )),
           Visibility(
             visible: enableInput,
             child: Positioned(
@@ -567,30 +554,9 @@ List<Widget> _childProgressData({required bool enableInput}) {
       S.current.Logros,
       style: const TextStyle(fontSize: 20),
     ),
-    SizedBox(
-      height: 200,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: 10,
-        itemBuilder: (context, index) {
-          return Column(
-            children: [
-              Container(
-                  width: 150,
-                  height: 150,
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  child: const ImageLoad(
-                    height: 140,
-                    width: 140,
-                    urlImage: '', //TODO: Agregar url de logros de los niños
-                  )),
-              //TODO: Cambiar cuando este listo el endpoint
-              const Text('Buen Comportamiento')
-            ],
-          );
-        },
-      ),
+    const ImageListVIew(
+      isDecoration: false,
+      isSelect: false,
     ),
     const SizedBox(height: 55),
   ];

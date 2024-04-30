@@ -35,11 +35,12 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             const ChildrenPage(),
       ),
       GoRoute(
-          path: '/child/:idChild',
-          name: 'child',
-          builder: (BuildContext context, GoRouterState state) => ChildDataPage(
-                idChild: int.parse(state.pathParameters['idChild']!),
-              )),
+        path: '/child/:idChild',
+        name: 'child',
+        builder: (BuildContext context, GoRouterState state) => ChildDataPage(
+          idChild: int.parse(state.pathParameters['idChild']!),
+        ),
+      ),
       GoRoute(
         path: '/activities',
         name: 'activities',
@@ -67,16 +68,18 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             const ProfilePage(),
       ),
       GoRoute(
-        path: '/pictogram',
+        path: '/pictogram/:idChild',
         name: 'pictogram',
-        builder: (BuildContext context, GoRouterState state) =>
-            PictogramPage(idChild: state.extra as int),
+        builder: (BuildContext context, GoRouterState state) => PictogramPage(
+          idChild: int.parse(state.pathParameters['idChild']!),
+        ),
       ),
       GoRoute(
-        path: '/customPictogram',
+        path: '/customPictogram/:idChild',
         name: 'customPictogram',
-        builder: (context, state) => CustomPictogramasPage(
-          idChild: state.extra as int,
+        builder: (BuildContext context, GoRouterState state) =>
+            CustomPictogramasPage(
+          idChild: int.parse(state.pathParameters['idChild']!),
         ),
       ),
     ],
