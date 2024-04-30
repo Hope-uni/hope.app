@@ -2,79 +2,50 @@ import 'package:flutter/material.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/pages/activities/form_activity.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
-import 'package:hope_app/presentation/widgets/widgets.dart';
+import 'package:hope_app/presentation/widgets/button_text_icon.dart';
 import 'package:toastification/toastification.dart';
 
-class ActivityPage extends StatefulWidget {
-  final bool isGoEdit;
-  final int idItem;
-  const ActivityPage({super.key, required this.isGoEdit, required this.idItem});
-
-  @override
-  State<ActivityPage> createState() => _ActivityPageState();
-}
-
-class _ActivityPageState extends State<ActivityPage> {
-  late bool isEdit;
-
-  @override
-  void initState() {
-    super.initState();
-    isEdit = widget.isGoEdit;
-  }
+class NewActivityPage extends StatelessWidget {
+  const NewActivityPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        //TODO: Crear variable de internacionalizacion,
-        title: const Text('Actividad'),
+        //TODO: Aplicar internacionalizacion luego
+        title: const Text('Crear actividad'),
       ),
       body: Container(
         margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-        child: FormActivity(
-          isEdit: isEdit,
-          isVisibleSeleccion: false,
+        child: const FormActivity(
+          isEdit: true,
+          isVisibleSeleccion: true,
         ),
       ),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Visibility(
-            visible: !isEdit,
+            visible: true,
             child: ButtonTextIcon(
-              buttonColor: $colorBlueGeneral,
-              title: S.current.Editar,
-              icon: const Icon(Icons.edit),
-              onClic: () {
-                setState(() {
-                  isEdit = !isEdit;
-                });
-              },
-            ),
-          ),
-          Visibility(
-            visible: isEdit,
-            child: ButtonTextIcon(
-              title: S.current.Actualizar,
-              icon: const Icon(Icons.update),
-              buttonColor: $colorBlueGeneral,
+              title: S.current.Guardar,
+              icon: const Icon(Icons.save),
+              buttonColor: $colorSuccess,
               onClic: () {
                 toastAlert(
-                  iconAlert: const Icon(Icons.update),
                   context: context,
-                  title: S.current.Actualizado_con_exito,
-                  //TODO: Crear variable de internacionalizacion
-                  description:
-                      'Se actualizo correctamente la informacion de la actividad',
-                  typeAlert: ToastificationType.info,
+                  //TODO: Aplicar internacionalizacion luego
+                  title: '¡Guardado con éxito!',
+                  //TODO: Aplicar internacionalizacion luego
+                  description: 'La actividad se guardó correctamente',
+                  typeAlert: ToastificationType.success,
                 );
               },
             ),
           ),
           const SizedBox(width: 10),
           Visibility(
-            visible: isEdit,
+            visible: true,
             child: ButtonTextIcon(
               title: S.current.Cancelar,
               icon: const Icon(Icons.cancel),
@@ -88,15 +59,13 @@ class _ActivityPageState extends State<ActivityPage> {
                     text: const TextSpan(
                       //TODO: Crear variable de internacionalizacion,
                       text:
-                          'Esta seguro de salir de la edicion de la actividad',
+                          'Está seguro de salir de la creación de la actividad',
                       style: TextStyle(fontSize: 16, color: $colorTextBlack),
                     ),
                   ),
                   buttonColorConfirm: $colorSuccess,
                   onClic: () {
-                    setState(() {
-                      isEdit = !isEdit;
-                    });
+                    Navigator.of(context).pop();
                     Navigator.of(context).pop();
                   },
                 );

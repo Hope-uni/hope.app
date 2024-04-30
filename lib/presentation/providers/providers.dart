@@ -5,3 +5,4 @@ export 'auth.provider.dart';
 export 'patient_list.provider.dart';
 export 'pictogram_list.provider.dart';
 export 'activities.provider.dart';
+export 'password.provider.dart';

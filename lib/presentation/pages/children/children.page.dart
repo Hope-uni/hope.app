@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/providers/providers.dart';
@@ -20,24 +18,20 @@ class ChildrenPage extends ConsumerWidget {
     controller.selection = TextSelection.collapsed(offset: textLength);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(S.current.Ninos_asignados),
-      ),
+      appBar: AppBar(title: Text(S.current.Ninos_asignados)),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            const SizedBox(height: 13),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 const Expanded(child: SizedBox()),
                 Expanded(
                   child: Container(
-                    margin: const EdgeInsets.only(
-                      bottom: 10,
-                      top: 10,
-                      right: 20,
-                    ),
+                    margin:
+                        const EdgeInsets.only(bottom: 10, top: 10, right: 20),
                     width: 250,
                     height: 40,
                     decoration: BoxDecoration(
@@ -97,44 +91,53 @@ List<String> headersRows = [
 
 Iterable<TableRow> generatePatients({required WidgetRef ref}) {
   final listaPacientes = ref.watch(patientsProvider);
+  bool isColor = false;
+  final listaDataRow = listaPacientes.newPatients.map((item) {
+    isColor = !isColor;
 
-  final listaDataRow = listaPacientes.newPatients.map((item) => TableRow(
-        decoration: const BoxDecoration(
-          border: Border(bottom: BorderSide(width: 0.5)),
-        ),
-        children: <Widget>[
-          TableCell(
-            verticalAlignment: TableCellVerticalAlignment.middle,
+    return TableRow(
+      decoration: BoxDecoration(color: isColor ? null : $colorRowTable),
+      children: <Widget>[
+        TableCell(
+          verticalAlignment: TableCellVerticalAlignment.middle,
+          child: Container(
+            margin: const EdgeInsets.only(left: 15),
             child: Text(
               item.fullName,
             ),
           ),
-          TableCell(
-            verticalAlignment: TableCellVerticalAlignment.middle,
-            child: Container(
-              alignment: Alignment.center,
-              child: Text(
-                item.fase,
-              ),
+        ),
+        TableCell(
+          verticalAlignment: TableCellVerticalAlignment.middle,
+          child: Container(
+            alignment: Alignment.center,
+            child: Text(
+              item.fase,
             ),
           ),
-          TableCell(
-            verticalAlignment: TableCellVerticalAlignment.middle,
-            child: Container(
-              alignment: Alignment.center,
-              child: Text(
-                item.edad,
-              ),
+        ),
+        TableCell(
+          verticalAlignment: TableCellVerticalAlignment.middle,
+          child: Container(
+            alignment: Alignment.center,
+            child: Text(
+              item.edad,
             ),
           ),
-          TableCell(
-            verticalAlignment: TableCellVerticalAlignment.middle,
+        ),
+        TableCell(
+          verticalAlignment: TableCellVerticalAlignment.middle,
+          child: Container(
+            margin: const EdgeInsets.only(right: 15),
             child: MenuItems(
               idChild: int.parse(item.id),
               menuItems: menuPacientTutor,
             ),
           ),
-        ],
-      ));
+        ),
+      ],
+    );
+  });
+
   return listaDataRow;
 }

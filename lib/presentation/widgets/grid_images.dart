@@ -120,11 +120,11 @@ class GridImagesState extends ConsumerState<GridImages> {
           Expanded(
             child: GridView.builder(
               controller: scrollController,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: isTablet(context) ? 3 : 2,
-                crossAxisSpacing: 8.0,
-                mainAxisExtent: 250,
-                mainAxisSpacing: 8.0,
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 150,
+                childAspectRatio: 0.6,
+                crossAxisSpacing: 10.0,
+                mainAxisSpacing: 10.0,
               ),
               itemCount: widget.images.length,
               itemBuilder: (context, index) {
@@ -150,86 +150,49 @@ class _ImageGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(top: 7),
-      child: Column(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.3),
-                  spreadRadius: 3,
-                  blurRadius: 8,
-                  offset: const Offset(0, 5),
-                ),
-              ],
+      child: Column(children: [
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: $colorShadow,
+                spreadRadius: 3,
+                blurRadius: 8,
+                offset: const Offset(0, 5),
+              ),
+            ],
+          ),
+          //TODO: Cambiar por url de los pictogramas
+          child: const ImageLoad(urlImage: ''),
+        ),
+        Container(
+          margin: const EdgeInsets.only(top: 10),
+          child: const Text('Manzana'),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            IconButton(
+              onPressed: () => {
+                _dialogImage(context: context, urlImage: image),
+              },
+              tooltip: S.current.Editar,
+              icon: const Icon(
+                Icons.edit,
+                color: $colorBlueGeneral,
+              ),
             ),
-            child: const ImageLoad(
-              height: 140,
-              width: 140,
-              urlImage: '', //TODO: Cambiar por url de los pictogramas
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(top: 20),
-            child: const Text('Manzana'),
-          ),
-          LayoutBuilder(
-            builder: (context, constraints) {
-              // Verificar si el botón se desborda horizontalmente
-              bool isOverflowing = constraints.maxWidth > 173;
-              return isOverflowing
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        TextButton.icon(
-                          onPressed: () =>
-                              _dialogImage(context: context, urlImage: image),
-                          icon: const Icon(
-                            Icons.edit,
-                            color: $colorBlueGeneral,
-                          ),
-                          label: Text(S.current.Editar),
-                        ),
-                        Visibility(
-                          visible: isCustomized,
-                          child: TextButton.icon(
-                              onPressed: () => _dialogConfirmation(context),
-                              label: Text(S.current.Eliminar),
-                              icon: const Icon(
-                                Icons.delete,
-                                color: $colorError,
-                              )),
-                        )
-                      ],
-                    )
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        IconButton(
-                          onPressed: () => {
-                            _dialogImage(context: context, urlImage: image),
-                          },
-                          tooltip: S.current.Editar,
-                          icon: const Icon(
-                            Icons.edit,
-                            color: $colorBlueGeneral,
-                          ),
-                        ),
-                        Visibility(
-                          visible: isCustomized,
-                          child: IconButton(
-                              tooltip: S.current.Eliminar,
-                              onPressed: () => _dialogConfirmation(context),
-                              icon:
-                                  const Icon(Icons.delete, color: $colorError)),
-                        )
-                      ],
-                    );
-            },
-          ),
-        ],
-      ),
+            Visibility(
+              visible: isCustomized,
+              child: IconButton(
+                  tooltip: S.current.Eliminar,
+                  onPressed: () => _dialogConfirmation(context),
+                  icon: const Icon(Icons.delete, color: $colorError)),
+            )
+          ],
+        )
+      ]),
     );
   }
 }
@@ -252,12 +215,14 @@ Future<void> _dialogImage(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: ImageLoad(
-                  height: 180,
-                  width: 180,
-                  urlImage: urlImage,
-                )),
+              borderRadius: BorderRadius.circular(20),
+              child: ImageLoad(
+                height: 180,
+                width: 180,
+                urlImage: urlImage,
+                isDoubleTap: false,
+              ),
+            ),
             const SizedBox(
               width: 20,
             ),
