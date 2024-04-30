@@ -41,40 +41,66 @@ class DataTableDynamic extends StatelessWidget {
                   FractionColumnWidth(0.15),
                 ),
                 3: MaxColumnWidth(
-                  FixedColumnWidth(70.0),
+                  FixedColumnWidth(80.0),
                   FractionColumnWidth(0.15),
                 ),
               },
               children: [
                 TableRow(
                   decoration: const BoxDecoration(
-                      border: Border(bottom: BorderSide(width: 0.5))),
+                    color: $colorBlueGeneral,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15),
+                    ),
+                  ),
                   children: <Widget>[
                     ...headersRows.sublist(0, 1).map(
                           (value) => TableCell(
                             verticalAlignment:
                                 TableCellVerticalAlignment.middle,
                             child: Container(
+                                margin: const EdgeInsets.only(left: 15),
                                 alignment: Alignment.centerLeft,
-                                height: 40,
+                                height: 50,
                                 child: Text(
                                   value,
                                   style: const TextStyle(
+                                    color: $colorTextWhite,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 )),
                           ),
                         ),
-                    ...headersRows.sublist(1).map(
+                    ...headersRows.sublist(1, 3).map(
                           (value) => TableCell(
                             verticalAlignment:
                                 TableCellVerticalAlignment.middle,
                             child: Container(
                               alignment: Alignment.center,
-                              height: 40,
+                              height: 50,
                               child: Text(
                                 value,
                                 style: const TextStyle(
+                                  color: $colorTextWhite,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                    ...headersRows.sublist(3).map(
+                          (value) => TableCell(
+                            verticalAlignment:
+                                TableCellVerticalAlignment.middle,
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 15),
+                              alignment: Alignment.center,
+                              height: 50,
+                              child: Text(
+                                value,
+                                style: const TextStyle(
+                                  color: $colorTextWhite,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -106,7 +132,7 @@ class DataTableDynamic extends StatelessWidget {
                     FractionColumnWidth(0.15),
                   ),
                   3: MaxColumnWidth(
-                    FixedColumnWidth(70.0),
+                    FixedColumnWidth(80.0),
                     FractionColumnWidth(0.15),
                   ),
                 },

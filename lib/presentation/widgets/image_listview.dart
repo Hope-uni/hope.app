@@ -40,34 +40,14 @@ class ImageListVIew extends StatelessWidget {
               Stack(
                 alignment: Alignment.topRight,
                 children: [
-                  GestureDetector(
-                    onDoubleTap: () {
-                      showDialog<void>(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return const AlertDialog(
-                            contentPadding: EdgeInsets.zero,
-                            //TODO: Agregar url de logros de los niños cuando el endpoint este listo
-                            content: ImageLoad(
-                              urlImage: '',
-                              width: 300,
-                              height: 280,
-                            ),
-                          );
-                        },
-                      );
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 7,
-                        vertical: 10,
-                      ),
-                      //TODO: Agregar url de logros de los niños cuando el endpoint este listo
-                      child: const ImageLoad(urlImage: ''),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
                     ),
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 7, vertical: 10),
+                    //TODO: Agregar url de logros de los niños cuando el endpoint este listo
+                    child: const ImageLoad(urlImage: ''),
                   ),
                   Visibility(
                     visible: isSelect,

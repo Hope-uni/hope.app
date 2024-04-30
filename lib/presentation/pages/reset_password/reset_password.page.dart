@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hope_app/generated/l10n.dart';
-import 'package:hope_app/presentation/providers/password.provider.dart';
 import 'package:hope_app/presentation/providers/providers.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
@@ -42,7 +41,7 @@ class ResetPasswordForm extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         _InputUserEmail(),
-        //Forget Password
+        _ButtonSendEmail(),
         SizedBox(
           width: double.infinity,
           child: Row(
@@ -67,8 +66,6 @@ class ResetPasswordForm extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(height: 10),
-        _ButtonSendEmail()
       ],
     );
   }
