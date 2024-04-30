@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/providers/providers.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
+import 'package:hope_app/presentation/widgets/widgets.dart';
 
 class SideMenu extends ConsumerWidget {
   const SideMenu({super.key});
@@ -18,39 +19,39 @@ class SideMenu extends ConsumerWidget {
           //Aqui se asigna el nuevo valor el index del menu y se redirecciona a la pantalla
           ref.read(selectedOption.notifier).state = value;
           final menuItem = appMenuItemsDrawer[value];
-          context.replace(menuItem.url);
+          context.replace(menuItem.url!);
         },
         tilePadding: EdgeInsets.zero,
         indicatorShape: const BeveledRectangleBorder(),
         children: [
           DrawerHeader(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage('assets/img/background-drawer-header.png'),
+              ),
+            ),
+            margin: EdgeInsets.zero,
             padding: EdgeInsets.zero,
             child: Container(
-                padding: const EdgeInsets.only(left: 17, right: 17, top: 10),
-                color: $colorBackgroundHeaderDrawer,
-                alignment: Alignment.centerLeft,
-                child: Column(
+                padding: const EdgeInsets.only(top: 10, right: 17, left: 17),
+                child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ClipOval(
-                      child: Container(
-                        width: 75,
-                        height: 75,
-                        decoration: const BoxDecoration(shape: BoxShape.circle),
-                        child: Image.network(
-                          'https://static.wixstatic.com/media/4d02c4_8ea3fe5159c8431689f97f5cc973e34c~mv2.png/v1/fill/w_600,h_338,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/4d02c4_8ea3fe5159c8431689f97f5cc973e34c~mv2.png',
-                          fit: BoxFit.cover,
-                        ),
+                      child: SizedBox(
+                        width: 100,
+                        height: 100,
+                        child: ImageLoad(urlImage: '', isDoubleTap: false),
                       ),
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const Text(
-                      'Mario Ramos',
+                    SizedBox(height: 10),
+                    Text(
+                      'Mario Ramos', //TODO: Cambiar cuando este listo el endpoint
                       style: TextStyle(color: $colorTextWhite, fontSize: 15),
                     ),
-                    const Text('marioramosmejia2243@gmail.com',
+                    Text(
+                        'marioramosmejia2243@gmail.com', //TODO: Cambiar cuando este listo el endpoint
                         style: TextStyle(color: $colorTextWhite, fontSize: 10)),
                   ],
                 )),

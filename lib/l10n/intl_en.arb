@@ -105,10 +105,12 @@
   "Ver_informacion_detallada_de_la_actividad": "Ver Información detallada de la actividad",
   "Editar_la_informacion_general_de_la_actividad": "Editar la Información general de la actividad",
   "Asignar_actividad_a_los_ninos": "Asignar actividad a los niños",
-  "Quitar_actividad_a_los_nino": "Quitar actividad a los niños",
+  "Quitar_actividad_a_los_ninos": "Quitar actividad a los niños",
   "Eliminacion_permanente_de_la_actividad": "Eliminación permanente de la actividad",
   "Error": "Error",
   "La_contrasena_debe_contener_entre_8_y_30_caracteres": "La contraseña debe contener entre 8 y 30 caracteres",
   "La_contrasena_es_requerida": "La contraseña es requerida",
-  "El_usuario_es_requerido": "El usuario es requerido"
+  "El_usuario_es_requerido": "El usuario es requerido",
+  "Asignar_actividad": "Asignar actividad",
+  "Esta_seguro_de_eliminar_permanentemente_la_actividad": "¿Está seguro de eliminar permanentemente la actividad?"
 }

@@ -14,7 +14,6 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      backgroundColor: $colorBlueGeneral,
       body: SingleChildScrollView(
         child: AuthBackground(
           isLogin: true,
@@ -31,37 +30,37 @@ class LoginForsm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25),
-      child: Column(
-        children: [
-          _titleApp(size.height),
-          //TitleLogin
-          Container(
-            margin: const EdgeInsets.only(top: 15, bottom: 5),
-            child: Text(
-              S.current.Iniciar_sesion,
-            ),
+    return Column(
+      children: [
+        _titleApp(size.height),
+        //TitleLogin
+        Container(
+          margin: const EdgeInsets.only(top: 15, bottom: 5),
+          child: Text(
+            S.current.Iniciar_sesion,
+            style: const TextStyle(fontSize: 22),
           ),
-          _InputUserName(),
-          _InputPassword(),
-          //Forget Password
-          SizedBox(
-            width: double.infinity,
-            child: TextButton(
-              onPressed: () {
-                Navigator.of(context)
-                    .push(buildPageRoute(const ResetPasswordPage()));
-              },
-              style: const ButtonStyle(
-                  alignment: Alignment.centerRight,
-                  padding: MaterialStatePropertyAll(EdgeInsets.zero)),
-              child: Text(S.current.Olvido_su_contrasena),
-            ),
+        ),
+        const SizedBox(height: 15),
+        _InputUserName(),
+        _InputPassword(),
+        //Forget Password
+        SizedBox(
+          width: double.infinity,
+          child: TextButton(
+            onPressed: () {
+              Navigator.of(context)
+                  .push(buildPageRoute(const ResetPasswordPage()));
+            },
+            style: const ButtonStyle(
+                alignment: Alignment.centerRight,
+                padding: MaterialStatePropertyAll(EdgeInsets.zero)),
+            child: Text(S.current.Olvido_su_contrasena),
           ),
-          _ButtonLogin()
-        ],
-      ),
+        ),
+        const SizedBox(height: 10),
+        _ButtonLogin()
+      ],
     );
   }
 }
@@ -88,16 +87,19 @@ class _InputUserName extends ConsumerWidget {
           Icons.person,
           color: $colorBlueGeneral,
         ),
-        InputForm(
-          errorText: loginForm.errorUserName,
-          marginVertical: 0,
-          enable: true,
-          value: loginForm.userName,
-          hint: S.current.Usuario,
-          inputFormatters: [
-            FilteringTextInputFormatter.deny(RegExp(r'\s')), // Denegar espacios
-          ],
-          onChanged: ref.read(loginFormProvider.notifier).onUserNameChange,
+        Expanded(
+          child: InputForm(
+            errorText: loginForm.errorUserName,
+            marginVertical: 0,
+            enable: true,
+            value: loginForm.userName,
+            hint: S.current.Usuario,
+            inputFormatters: [
+              FilteringTextInputFormatter.deny(
+                  RegExp(r'\s')), // Denegar espacios
+            ],
+            onChanged: ref.read(loginFormProvider.notifier).onUserNameChange,
+          ),
         ),
       ],
     );
@@ -116,26 +118,29 @@ class _InputPassword extends ConsumerWidget {
           Icons.key,
           color: $colorBlueGeneral,
         ),
-        InputForm(
-          errorText: loginForm.errorPassword,
-          marginVertical: 0,
-          enable: true,
-          value: loginForm.password,
-          obscureText: isVisiblePassword,
-          hint: S.current.Contrasena,
-          inputFormatters: [
-            FilteringTextInputFormatter.deny(RegExp(r'\s')), // Denegar espacios
-          ],
-          onChanged: ref.read(loginFormProvider.notifier).onPasswordChange,
-          suffixIcon: IconButton(
-            icon: isVisiblePassword
-                ? const Icon(Icons.visibility_off)
-                : const Icon(Icons.visibility),
-            onPressed: () {
-              ref
-                  .read(isVisiblePasswordProvider.notifier)
-                  .update((state) => !state);
-            },
+        Expanded(
+          child: InputForm(
+            errorText: loginForm.errorPassword,
+            marginVertical: 0,
+            enable: true,
+            value: loginForm.password,
+            obscureText: isVisiblePassword,
+            hint: S.current.Contrasena,
+            inputFormatters: [
+              FilteringTextInputFormatter.deny(
+                  RegExp(r'\s')), // Denegar espacios
+            ],
+            onChanged: ref.read(loginFormProvider.notifier).onPasswordChange,
+            suffixIcon: IconButton(
+              icon: isVisiblePassword
+                  ? const Icon(Icons.visibility_off)
+                  : const Icon(Icons.visibility),
+              onPressed: () {
+                ref
+                    .read(isVisiblePasswordProvider.notifier)
+                    .update((state) => !state);
+              },
+            ),
           ),
         ),
       ],

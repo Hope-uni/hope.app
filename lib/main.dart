@@ -18,10 +18,6 @@ class MyApp extends ConsumerWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // Establecer la orientación por defecto como horizontal
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeLeft,
-    ]);
     // Ocultar la barra de estado
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky,
         overlays: []);
@@ -33,26 +29,35 @@ class MyApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       title: S.current.Hope_App,
       theme: ThemeData(
-        colorSchemeSeed: $colorBlueGeneral,
-        textTheme: const TextTheme(
-          bodyLarge: $fontFamilyPoppins,
-          bodyMedium: $fontFamilyPoppins,
-          bodySmall: $fontFamilyPoppins,
-          labelLarge: $fontFamilyPoppins,
-          displayLarge: $fontFamilyPoppins,
-          displayMedium: $fontFamilyPoppins,
-          displaySmall: $fontFamilyPoppins,
-          titleLarge: $fontFamilyPoppins,
-          titleMedium: $fontFamilyPoppins,
-          titleSmall: $fontFamilyPoppins,
-          headlineLarge: $fontFamilyPoppins,
-          headlineMedium: $fontFamilyPoppins,
-          headlineSmall: $fontFamilyPoppins,
-          labelSmall: $fontFamilyPoppins,
-          labelMedium: $fontFamilyPoppins,
-        ),
-        useMaterial3: true,
-      ),
+          colorSchemeSeed: $colorBlueGeneral,
+          textTheme: const TextTheme(
+            bodyLarge: $fontFamilyPoppins,
+            bodyMedium: $fontFamilyPoppins,
+            bodySmall: $fontFamilyPoppins,
+            labelLarge: $fontFamilyPoppins,
+            displayLarge: $fontFamilyPoppins,
+            displayMedium: $fontFamilyPoppins,
+            displaySmall: $fontFamilyPoppins,
+            titleLarge: $fontFamilyPoppins,
+            titleMedium: $fontFamilyPoppins,
+            titleSmall: $fontFamilyPoppins,
+            headlineLarge: $fontFamilyPoppins,
+            headlineMedium: $fontFamilyPoppins,
+            headlineSmall: $fontFamilyPoppins,
+            labelSmall: $fontFamilyPoppins,
+            labelMedium: $fontFamilyPoppins,
+          ),
+          useMaterial3: true,
+          appBarTheme: const AppBarTheme(
+            backgroundColor: $colorBlueGeneral,
+            iconTheme: IconThemeData(color: $colorTextWhite),
+            titleTextStyle: TextStyle(color: $colorTextWhite, fontSize: 22),
+          ),
+          tabBarTheme: const TabBarTheme(
+            indicatorColor: $colorIndicadorTabBar,
+            labelColor: $colorTextWhite,
+            unselectedLabelColor: $colorUnSelectTabBar,
+          )),
       localizationsDelegates: const [
         S.delegate,
         GlobalMaterialLocalizations.delegate,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hope_app/presentation/pages/pages.dart';
-import 'package:hope_app/presentation/providers/providers.dart';
+//import 'package:hope_app/presentation/providers/providers.dart';
 
 final goRouterProvider = Provider<GoRouter>((ref) {
   final goRouterNotifier = ref.read(GoRouterNotifierProvider);
@@ -11,47 +11,79 @@ final goRouterProvider = Provider<GoRouter>((ref) {
     refreshListenable: goRouterNotifier,
     routes: <RouteBase>[
       GoRoute(
-          path: '/splash',
-          builder: (BuildContext context, GoRouterState state) =>
-              const CheckAuthStatusPage()),
+        path: '/splash',
+        name: 'splash',
+        builder: (BuildContext context, GoRouterState state) =>
+            const CheckAuthStatusPage(),
+      ),
       GoRoute(
-          path: '/login',
-          builder: (BuildContext context, GoRouterState state) =>
-              const LoginPage()),
+        path: '/login',
+        name: 'login',
+        builder: (BuildContext context, GoRouterState state) =>
+            const LoginPage(),
+      ),
       GoRoute(
-          path: '/resetpassword',
-          builder: (BuildContext context, GoRouterState state) =>
-              const ResetPasswordPage()),
+        path: '/resetpassword',
+        name: 'resetpassword',
+        builder: (BuildContext context, GoRouterState state) =>
+            const ResetPasswordPage(),
+      ),
       GoRoute(
-          path: '/children',
-          builder: (BuildContext context, GoRouterState state) =>
-              const ChildrenPage()),
+        path: '/children',
+        name: 'children',
+        builder: (BuildContext context, GoRouterState state) =>
+            const ChildrenPage(),
+      ),
       GoRoute(
-          path: '/child',
-          builder: (BuildContext context, GoRouterState state) => ChildDataPage(
-                idChild: state.extra as int,
-              )),
-      GoRoute(
-          path: '/activity',
-          builder: (BuildContext context, GoRouterState state) =>
-              const ActivityPage()),
-      GoRoute(
-          path: '/profile',
-          builder: (BuildContext context, GoRouterState state) =>
-              const ProfilePage()),
-      GoRoute(
-          path: '/pictogram',
-          builder: (BuildContext context, GoRouterState state) => PictogramPage(
-                idChild: state.extra as int,
-              )),
-      GoRoute(
-        path: '/customPictogram',
-        builder: (context, state) => CustomPictogramasPage(
-          idChild: state.extra as int,
+        path: '/child/:idChild',
+        name: 'child',
+        builder: (BuildContext context, GoRouterState state) => ChildDataPage(
+          idChild: int.parse(state.pathParameters['idChild']!),
         ),
-      )
+      ),
+      GoRoute(
+        path: '/activities',
+        name: 'activities',
+        builder: (BuildContext context, GoRouterState state) =>
+            const ActivitiesPage(),
+      ),
+      GoRoute(
+        path: '/activity/:idActivity/:isEdit',
+        name: 'activity',
+        builder: (BuildContext context, GoRouterState state) => ActivityPage(
+          isGoEdit: bool.parse(state.pathParameters['isEdit']!),
+          idItem: int.parse(state.pathParameters['idActivity']!),
+        ),
+      ),
+      GoRoute(
+        path: '/newActivity',
+        name: 'newActivity',
+        builder: (BuildContext context, GoRouterState state) =>
+            const NewActivityPage(),
+      ),
+      GoRoute(
+        path: '/profile',
+        name: 'profile',
+        builder: (BuildContext context, GoRouterState state) =>
+            const ProfilePage(),
+      ),
+      GoRoute(
+        path: '/pictogram/:idChild',
+        name: 'pictogram',
+        builder: (BuildContext context, GoRouterState state) => PictogramPage(
+          idChild: int.parse(state.pathParameters['idChild']!),
+        ),
+      ),
+      GoRoute(
+        path: '/customPictogram/:idChild',
+        name: 'customPictogram',
+        builder: (BuildContext context, GoRouterState state) =>
+            CustomPictogramasPage(
+          idChild: int.parse(state.pathParameters['idChild']!),
+        ),
+      ),
     ],
-    redirect: (context, state) {
+    /*redirect: (context, state) {
       final isGoingTo = state.matchedLocation;
       final authStatus = goRouterNotifier.authStatus;
 
@@ -73,6 +105,6 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       //if(user.role =='tutor')
 
       return null;
-    },
+    },*/
   );
 });
