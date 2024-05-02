@@ -87,7 +87,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Debe ingresar el nombre de usuario o correo"),
         "Derechos_reservados": MessageLookupByLibrary.simpleMessage(
-            "© 2023 Hope. All rights reserved"),
+            "© 2024 Hope. All rights reserved"),
         "Direccion": MessageLookupByLibrary.simpleMessage("Dirección"),
         "Edad": MessageLookupByLibrary.simpleMessage("Edad"),
         "Editar": MessageLookupByLibrary.simpleMessage("Editar"),
@@ -132,7 +132,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Fecha de nacimiento"),
         "Galeria": MessageLookupByLibrary.simpleMessage("Galería"),
         "Guardar": MessageLookupByLibrary.simpleMessage("Guardar"),
-        "Hope_App": MessageLookupByLibrary.simpleMessage("Hope App"),
+        "Hope": MessageLookupByLibrary.simpleMessage("hope"),
         "Informacion_del_nino":
             MessageLookupByLibrary.simpleMessage("Información del niño"),
         "Informacion_del_nino_actualizada":
@@ -224,7 +224,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "Ver_informacion_detallada_de_la_actividad":
             MessageLookupByLibrary.simpleMessage(
                 "Ver Información detallada de la actividad"),
-        "hope": MessageLookupByLibrary.simpleMessage("hope"),
         "progreso_de_fase":
             MessageLookupByLibrary.simpleMessage("Progreso de fase")
       };

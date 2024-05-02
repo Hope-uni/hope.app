@@ -10,7 +10,7 @@ class CheckAuthStatusPage extends StatelessWidget {
     return Scaffold(
       body: Center(
           child: Text(
-        S.current.Hope_App,
+        S.current.Hope,
         style: const TextStyle(
             color: $colorBlueGeneral,
             fontSize: 100,

@@ -50,21 +50,11 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Hope App`
-  String get Hope_App {
+  /// `Hope`
+  String get Hope {
     return Intl.message(
-      'Hope App',
-      name: 'Hope_App',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `hope`
-  String get hope {
-    return Intl.message(
-      'hope',
-      name: 'hope',
+      'Hope',
+      name: 'Hope',
       desc: '',
       args: [],
     );
@@ -80,10 +70,10 @@ class S {
     );
   }
 
-  /// `© 2023 Hope. All rights reserved`
+  /// `© 2024 Hope. All rights reserved`
   String get Derechos_reservados {
     return Intl.message(
-      '© 2023 Hope. All rights reserved',
+      '© 2024 Hope. All rights reserved',
       name: 'Derechos_reservados',
       desc: '',
       args: [],

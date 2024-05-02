@@ -45,7 +45,8 @@ class LoginForsm extends StatelessWidget {
         _InputUserName(),
         _InputPassword(),
         //Forget Password
-        SizedBox(
+        Container(
+          margin: const EdgeInsets.only(right: 15, left: 10),
           width: double.infinity,
           child: TextButton(
             onPressed: () {
@@ -54,7 +55,7 @@ class LoginForsm extends StatelessWidget {
             },
             style: const ButtonStyle(
                 alignment: Alignment.centerRight,
-                padding: MaterialStatePropertyAll(EdgeInsets.zero)),
+                padding: MaterialStatePropertyAll(EdgeInsets.only(right: 5))),
             child: Text(S.current.Olvido_su_contrasena),
           ),
         ),
@@ -67,7 +68,7 @@ class LoginForsm extends StatelessWidget {
 
 Text _titleApp(double height) {
   return Text(
-    S.current.Hope_App,
+    S.current.Hope,
     style: const TextStyle(
       color: $colorBlueGeneral,
       fontSize: 50,
@@ -162,7 +163,8 @@ class _ButtonLogin extends ConsumerWidget {
           typeAlert: ToastificationType.error);
     });
 
-    return SizedBox(
+    return Container(
+      margin: const EdgeInsets.only(right: 15, left: 10),
       width: double.infinity,
       child: FilledButton(
         onPressed: loginProvider.isFormPosted

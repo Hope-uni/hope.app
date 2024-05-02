@@ -27,7 +27,7 @@ class MyApp extends ConsumerWidget {
     return MaterialApp.router(
       routerConfig: appRouter,
       debugShowCheckedModeBanner: false,
-      title: S.current.Hope_App,
+      title: S.current.Hope,
       theme: ThemeData(
           colorSchemeSeed: $colorBlueGeneral,
           textTheme: const TextTheme(

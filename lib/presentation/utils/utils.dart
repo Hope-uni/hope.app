@@ -5,4 +5,5 @@ export 'enviroment.dart';
 export 'bottom_sheet_modal.dart';
 export 'is_tablet.dart';
 export 'modal_question.dart';
+export 'modal_password.dart';
 export 'toast_alert.dart';

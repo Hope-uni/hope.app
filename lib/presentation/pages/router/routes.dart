@@ -62,6 +62,12 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             const NewActivityPage(),
       ),
       GoRoute(
+        path: '/addActivity',
+        name: 'addActivity',
+        builder: (BuildContext context, GoRouterState state) =>
+            const AddActivityPage(),
+      ),
+      GoRoute(
         path: '/profile',
         name: 'profile',
         builder: (BuildContext context, GoRouterState state) =>

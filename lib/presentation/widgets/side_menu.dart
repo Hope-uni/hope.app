@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/providers/providers.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
@@ -19,7 +18,7 @@ class SideMenu extends ConsumerWidget {
           //Aqui se asigna el nuevo valor el index del menu y se redirecciona a la pantalla
           ref.read(selectedOption.notifier).state = value;
           final menuItem = appMenuItemsDrawer[value];
-          context.replace(menuItem.url!);
+          menuItem.onClick(context: context);
         },
         tilePadding: EdgeInsets.zero,
         indicatorShape: const BeveledRectangleBorder(),
