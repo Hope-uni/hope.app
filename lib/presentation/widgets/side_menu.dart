@@ -10,6 +10,7 @@ class SideMenu extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final DateTime dateNow = DateTime.now();
     final selectedOpcion = ref.watch(selectedOption);
     return Stack(children: [
       NavigationDrawer(
@@ -105,7 +106,7 @@ class SideMenu extends ConsumerWidget {
                 color: $colorBackgroundDrawer,
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(15),
-                child: Text(S.current.Derechos_reservados)),
+                child: Text(S.current.Derechos_reservados(dateNow.year))),
           ],
         ),
       ),
