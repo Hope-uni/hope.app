@@ -38,16 +38,20 @@ class ListTileCustom extends StatelessWidget {
       ),
       padding: const EdgeInsets.symmetric(vertical: 7),
       child: ListTile(
+        minLeadingWidth: 3,
         leading: image != null
             ? SizedBox(
                 height: 55,
                 width: 55,
                 child: ClipOval(child: ImageLoad(urlImage: image!)),
               )
+            : Container(width: 3, color: $colorBlueGeneral),
+        title: Text(title, style: const TextStyle(fontWeight: FontWeight.w500)),
+        subtitle: subTitle != null
+            ? Text(subTitle!, style: const TextStyle(fontSize: 15))
             : null,
-        title: Text(title),
-        subtitle: subTitle != null ? Text(subTitle!) : null,
         trailing: iconButton,
+        contentPadding: const EdgeInsets.only(right: 5, left: 15),
       ),
     );
   }

@@ -5,13 +5,38 @@ import 'package:hope_app/presentation/providers/providers.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
 
-class ChildrenPage extends ConsumerWidget {
+class ChildrenPage extends ConsumerStatefulWidget {
   const ChildrenPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ChildrenPageState createState() => ChildrenPageState();
+}
+
+class ChildrenPageState extends ConsumerState<ChildrenPage> {
+  final scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    final activities = ref.read(patientsProvider.notifier);
+    scrollController.addListener(() {
+      if ((scrollController.position.pixels + 150) >=
+          scrollController.position.maxScrollExtent) {
+        activities.getNextPatients();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final searchsPatients = ref.watch(searchPatients);
-    final listPatients = ref.watch(patientsProvider.notifier);
+    final listPatients = ref.watch(patientsProvider);
     final TextEditingController controller =
         TextEditingController(text: searchsPatients);
     final textLength = controller.value.text.length;
@@ -19,125 +44,60 @@ class ChildrenPage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(title: Text(S.current.Ninos_asignados)),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const SizedBox(height: 13),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                const Expanded(child: SizedBox()),
-                Expanded(
-                  child: Container(
-                    margin:
-                        const EdgeInsets.only(bottom: 10, top: 10, right: 20),
-                    width: 250,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(35),
-                    ),
-                    child: TextFormField(
-                      controller: controller,
-                      textAlignVertical: TextAlignVertical.bottom,
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(35),
-                          ),
-                          suffixIcon: searchsPatients.isEmpty
-                              ? const Icon(
-                                  Icons.search,
-                                )
-                              : IconButton(
-                                  onPressed: () {
-                                    ref.read(searchPatients.notifier).state =
-                                        '';
-                                  },
-                                  icon: const Icon(Icons.clear)),
-                          hintText: S.current.Busqueda_por_nombre),
-                      onChanged: (value) =>
-                          ref.read(searchPatients.notifier).state = value,
-                    ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const SizedBox(height: 20),
+          InputForm(
+            value: searchsPatients,
+            enable: true,
+            //TODO: Crear variable Intl
+            label: 'Buscar por primer nombre',
+            marginBottom: 0,
+            onChanged: (value) =>
+                ref.read(searchPatients.notifier).state = value,
+            isSearch: true,
+            suffixIcon: searchsPatients.isEmpty
+                ? const Icon(
+                    Icons.search,
+                  )
+                : IconButton(
+                    onPressed: () {
+                      ref.read(searchPatients.notifier).state = '';
+                    },
+                    icon: const Icon(Icons.clear),
                   ),
-                ),
-              ],
-            ),
-            DataTableDynamic(
-              page: ref.read(patientsProvider).indexPage + 1,
-              totalPage: ref.read(patientsProvider).pageCount,
-              getNextData: () {
-                listPatients.getNextPatients();
+          ),
+          Expanded(
+            child: ListView.builder(
+              controller: scrollController,
+              //TODO: Cambiar cuando este listo el endpoint
+              itemCount: listPatients.totalPatients.length + 1,
+              itemBuilder: (context, index) {
+                //TODO: Cambiar el 14 cuando este listo el endpoint
+                if (index < listPatients.totalPatients.length) {
+                  return ListTileCustom(
+                    //TODO: Cambiar cuando este listo el endpoint
+                    title: 'Mario Jose Ramos Mejia',
+                    //TODO: Cambiar cuando este listo el endpoint
+                    subTitle: 'Fase 4 | 20 años',
+                    //TODO: Cambiar cuando este listo el endpoint
+                    image: '',
+                    //TODO: Cambiar cuando este listo el endpoint
+                    iconButton: MenuItems(
+                      idChild: int.parse(listPatients.totalPatients[index].id),
+                      menuItems: menuPacientTutor,
+                    ),
+                  );
+                } else {
+                  return const SizedBox(height: 75);
+                }
               },
-              getPreviousData: () {
-                listPatients.getPreviusPatients();
-              },
-              headersRows: headersRows,
-              data: generatePatients(ref: ref),
             ),
-          ],
-        ),
+          )
+        ],
       ),
       drawer: const SideMenu(),
     );
   }
-}
-
-List<String> headersRows = [
-  S.current.Nombre,
-  S.current.Fase,
-  S.current.Edad,
-  S.current.Opciones
-];
-
-Iterable<TableRow> generatePatients({required WidgetRef ref}) {
-  final listaPacientes = ref.watch(patientsProvider);
-  bool isColor = false;
-  final listaDataRow = listaPacientes.newPatients.map((item) {
-    isColor = !isColor;
-
-    return TableRow(
-      decoration: BoxDecoration(color: isColor ? null : $colorRowTable),
-      children: <Widget>[
-        TableCell(
-          verticalAlignment: TableCellVerticalAlignment.middle,
-          child: Container(
-            margin: const EdgeInsets.only(left: 15),
-            child: Text(
-              item.fullName,
-            ),
-          ),
-        ),
-        TableCell(
-          verticalAlignment: TableCellVerticalAlignment.middle,
-          child: Container(
-            alignment: Alignment.center,
-            child: Text(
-              item.fase,
-            ),
-          ),
-        ),
-        TableCell(
-          verticalAlignment: TableCellVerticalAlignment.middle,
-          child: Container(
-            alignment: Alignment.center,
-            child: Text(
-              item.edad,
-            ),
-          ),
-        ),
-        TableCell(
-          verticalAlignment: TableCellVerticalAlignment.middle,
-          child: Container(
-            margin: const EdgeInsets.only(right: 15),
-            child: MenuItems(
-              idChild: int.parse(item.id),
-              menuItems: menuPacientTutor,
-            ),
-          ),
-        ),
-      ],
-    );
-  });
-
-  return listaDataRow;
 }
