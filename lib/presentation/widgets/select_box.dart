@@ -47,9 +47,9 @@ class _SelectBoxState extends State<SelectBox> {
           widget.onSelected;
         },
         trailingIcon: controller.value.text.isNotEmpty
-            ? IconButton(
-                onPressed: () => setState(() => controller.clear()),
-                icon: const Icon(Icons.clear),
+            ? GestureDetector(
+                onTap: () => setState(() => controller.clear()),
+                child: const Icon(Icons.clear),
               )
             : null,
         enableSearch: true,

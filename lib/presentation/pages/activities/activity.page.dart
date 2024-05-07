@@ -26,16 +26,10 @@ class _ActivityPageState extends State<ActivityPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        //TODO: Crear variable de internacionalizacion,
-        title: const Text('Actividad'),
-      ),
+      appBar: AppBar(title: Text(S.current.Actividad)),
       body: Container(
         margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-        child: FormActivity(
-          isEdit: isEdit,
-          isVisibleSeleccion: false,
-        ),
+        child: FormActivity(isEdit: isEdit, isVisibleSeleccion: false),
       ),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -64,9 +58,8 @@ class _ActivityPageState extends State<ActivityPage> {
                   iconAlert: const Icon(Icons.update),
                   context: context,
                   title: S.current.Actualizado_con_exito,
-                  //TODO: Crear variable de internacionalizacion
-                  description:
-                      'Se actualizo correctamente la informacion de la actividad',
+                  description: S.current
+                      .Se_actualizo_correctamente_la_informacion_de_la_actividad,
                   typeAlert: ToastificationType.info,
                 );
               },
@@ -85,11 +78,11 @@ class _ActivityPageState extends State<ActivityPage> {
                   titleButtonConfirm: S.current.Si_salir,
                   question: RichText(
                     textAlign: TextAlign.center,
-                    text: const TextSpan(
-                      //TODO: Crear variable de internacionalizacion,
-                      text:
-                          'Esta seguro de salir de la edicion de la actividad',
-                      style: TextStyle(fontSize: 16, color: $colorTextBlack),
+                    text: TextSpan(
+                      text: S.current
+                          .Esta_seguro_de_salir_de_la_edicion_de_la_actividad,
+                      style:
+                          const TextStyle(fontSize: 16, color: $colorTextBlack),
                     ),
                   ),
                   buttonColorConfirm: $colorSuccess,
