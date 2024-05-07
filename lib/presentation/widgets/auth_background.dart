@@ -57,6 +57,7 @@ class _FormInitial extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final DateTime dateNow = DateTime.now();
     return Container(
       padding: const EdgeInsets.only(left: 40, right: 40),
       width: size.width,
@@ -69,7 +70,7 @@ class _FormInitial extends StatelessWidget {
           ),
           Container(
             margin: const EdgeInsets.only(bottom: 15),
-            child: Text(S.current.Derechos_reservados),
+            child: Text(S.current.Derechos_reservados(dateNow.year)),
           ),
           const SizedBox(
             height: 10,

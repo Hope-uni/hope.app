@@ -10,7 +10,7 @@ class InputForm extends StatelessWidget {
   final String? errorText;
   final int? maxLength;
   final int? maxLines;
-  final double? marginVertical;
+  final double? marginBottom;
   final bool? obscureText;
   final Widget? suffixIcon;
   final bool? isNumber;
@@ -28,7 +28,7 @@ class InputForm extends StatelessWidget {
     this.onChanged,
     this.hint,
     this.inputFormatters,
-    this.marginVertical,
+    this.marginBottom,
     this.obscureText,
     this.suffixIcon,
     this.errorText,
@@ -42,9 +42,20 @@ class InputForm extends StatelessWidget {
     final textLength = controller.value.text.length;
     controller.selection = TextSelection.collapsed(offset: textLength);
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 15),
+      margin: EdgeInsets.only(
+        left: 15,
+        right: 15,
+        bottom: marginBottom == null ? 12.5 : marginBottom!,
+      ),
       child: TextField(
+        controller: controller,
+        onChanged: onChanged,
+        enabled: enable,
+        maxLines: maxLines ?? 1,
         obscureText: obscureText ?? false,
+        maxLength: enable ? maxLength : null,
+        style: const TextStyle(color: $colorTextBlack),
+        textCapitalization: TextCapitalization.sentences,
         textInputAction:
             isSearch == true ? TextInputAction.search : TextInputAction.done,
         inputFormatters: isNumber == true
@@ -53,27 +64,22 @@ class InputForm extends StatelessWidget {
         keyboardType: isNumber == true
             ? TextInputType.number
             : TextInputType.emailAddress,
-        maxLines: maxLines ?? 1,
-        maxLength: enable ? maxLength : null,
-        controller: controller,
         decoration: InputDecoration(
+          labelText: label,
+          suffixIcon: suffixIcon,
           errorText: errorText,
           errorMaxLines: 2,
           hintText: hint,
+          labelStyle: const TextStyle(color: $colorTextBlack),
+          border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(20),
+            ),
+          ),
           counterText: maxLength != null && enable
               ? '$textLength/ $maxLength'
               : ' ', //Dejar el espacio en blanco para que no se descuadre el contenido cuando no tiene counterText
-          labelText: label,
-          labelStyle: const TextStyle(color: $colorTextBlack),
-          contentPadding: suffixIcon == null
-              ? const EdgeInsets.symmetric(vertical: 0)
-              : null,
-          suffixIcon: suffixIcon,
         ),
-        textCapitalization: TextCapitalization.sentences,
-        style: const TextStyle(color: $colorTextBlack),
-        enabled: enable,
-        onChanged: onChanged,
       ),
     );
   }

@@ -20,16 +20,18 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(nameChild) =>
+  static String m0(year) => "© ${year} Hope. All rights reserved";
+
+  static String m1(nameChild) =>
       "¿Está seguro de avanzar de fase a ${nameChild}?";
 
-  static String m1(nameImage, nameChild) =>
+  static String m2(nameImage, nameChild) =>
       "¿Está seguro que desea eliminar el pictograma \'${nameImage}\' de \'${nameChild}\'?";
 
-  static String m2(namePictogram) =>
+  static String m3(namePictogram) =>
       "Se actualizó correctamente el pictograma personalizado: ${namePictogram}";
 
-  static String m3(numFase, nameChild) =>
+  static String m4(numFase, nameChild) =>
       "Se avanzó a la fase ${numFase} a ${nameChild}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -86,8 +88,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Debe_ingresar_el_nombre_de_usuario_o_correo":
             MessageLookupByLibrary.simpleMessage(
                 "Debe ingresar el nombre de usuario o correo"),
-        "Derechos_reservados": MessageLookupByLibrary.simpleMessage(
-            "© 2023 Hope. All rights reserved"),
+        "Derechos_reservados": m0,
         "Direccion": MessageLookupByLibrary.simpleMessage("Dirección"),
         "Edad": MessageLookupByLibrary.simpleMessage("Edad"),
         "Editar": MessageLookupByLibrary.simpleMessage("Editar"),
@@ -118,21 +119,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "Esta_Seguro_de_actualizar_los_datos":
             MessageLookupByLibrary.simpleMessage(
                 "¿Está seguro de actualizar los datos?"),
-        "Esta_seguro_de_avanzar_de_fase_a": m0,
+        "Esta_seguro_de_avanzar_de_fase_a": m1,
         "Esta_seguro_de_eliminar_permanentemente_la_actividad":
             MessageLookupByLibrary.simpleMessage(
                 "¿Está seguro de eliminar permanentemente la actividad?"),
         "Esta_seguro_de_salir_de_la_edicion":
             MessageLookupByLibrary.simpleMessage(
                 "¿Está seguro de salir de la edición?"),
-        "Esta_seguro_que_desea_eliminar_el_pictograma": m1,
+        "Esta_seguro_que_desea_eliminar_el_pictograma": m2,
         "Fase": MessageLookupByLibrary.simpleMessage("Fase"),
         "Fases": MessageLookupByLibrary.simpleMessage("Fases"),
         "Fecha_de_nacimiento":
             MessageLookupByLibrary.simpleMessage("Fecha de nacimiento"),
         "Galeria": MessageLookupByLibrary.simpleMessage("Galería"),
         "Guardar": MessageLookupByLibrary.simpleMessage("Guardar"),
-        "Hope_App": MessageLookupByLibrary.simpleMessage("Hope App"),
+        "Hope": MessageLookupByLibrary.simpleMessage("Hope"),
         "Informacion_del_nino":
             MessageLookupByLibrary.simpleMessage("Información del niño"),
         "Informacion_del_nino_actualizada":
@@ -198,8 +199,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Quitar actividad a los niños"),
         "Restablecer_contrasena":
             MessageLookupByLibrary.simpleMessage("Restablecer contraseña"),
-        "Se_actualizo_correctamente_el_pictograma_personalizado": m2,
-        "Se_avanzo_a_la_fase": m3,
+        "Se_actualizo_correctamente_el_pictograma_personalizado": m3,
+        "Se_avanzo_a_la_fase": m4,
         "Segundo_apellido":
             MessageLookupByLibrary.simpleMessage("Segundo Apellido"),
         "Segundo_nombre":
@@ -224,7 +225,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "Ver_informacion_detallada_de_la_actividad":
             MessageLookupByLibrary.simpleMessage(
                 "Ver Información detallada de la actividad"),
-        "hope": MessageLookupByLibrary.simpleMessage("hope"),
         "progreso_de_fase":
             MessageLookupByLibrary.simpleMessage("Progreso de fase")
       };

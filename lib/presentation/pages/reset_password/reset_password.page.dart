@@ -42,7 +42,8 @@ class ResetPasswordForm extends StatelessWidget {
         const SizedBox(height: 20),
         _InputUserEmail(),
         _ButtonSendEmail(),
-        SizedBox(
+        Container(
+          margin: const EdgeInsets.only(bottom: 10, left: 10, right: 15),
           width: double.infinity,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -53,7 +54,8 @@ class ResetPasswordForm extends StatelessWidget {
                     Navigator.pop(context);
                   },
                   style: const ButtonStyle(
-                      padding: MaterialStatePropertyAll(EdgeInsets.zero)),
+                      padding:
+                          MaterialStatePropertyAll(EdgeInsets.only(right: 5))),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -73,7 +75,7 @@ class ResetPasswordForm extends StatelessWidget {
 
 Text _titleApp() {
   return Text(
-    S.current.Hope_App,
+    S.current.Hope,
     style: const TextStyle(
         color: $colorBlueGeneral,
         fontSize: 50,
@@ -87,10 +89,14 @@ class _InputUserEmail extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final resetPasswordProvider = ref.watch(resetPasswordFormProvider);
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Icon(
-          Icons.alternate_email,
-          color: $colorBlueGeneral,
+        Container(
+          margin: const EdgeInsets.only(top: 20),
+          child: const Icon(
+            Icons.alternate_email,
+            color: $colorBlueGeneral,
+          ),
         ),
         Expanded(
           child: InputForm(
@@ -129,7 +135,7 @@ class _ButtonSendEmail extends ConsumerWidget {
 
     return Container(
       width: double.infinity,
-      margin: const EdgeInsets.only(bottom: 10),
+      margin: const EdgeInsets.only(bottom: 10, left: 10, right: 15),
       child: FilledButton(
         onPressed: isFormPosted
             ? null
