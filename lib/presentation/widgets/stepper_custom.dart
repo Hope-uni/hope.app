@@ -47,12 +47,12 @@ class StepperCustom extends StatelessWidget {
       list.add(
         SizedBox(
           width: 130.0,
-          height: 70.0,
+          height: 80.0,
           child: Column(
             children: [
               Container(
                 alignment: Alignment.center,
-                height: 35,
+                height: 45,
                 margin: const EdgeInsets.symmetric(vertical: 5),
                 child: Text(
                   labelSteps[i],
