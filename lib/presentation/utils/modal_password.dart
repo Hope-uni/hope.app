@@ -16,40 +16,44 @@ modalPassword({required BuildContext context}) {
           //TODO: Cambiar cuando este listo el endpoint
         ),
         icon: const Icon(Icons.edit),
+        contentPadding:
+            const EdgeInsets.only(bottom: 0, left: 10, right: 10, top: 15),
         content: SingleChildScrollView(
-          child: SizedBox(
-            height: 250,
-            child: Column(
-              children: [
-                const InputForm(
-                  value: '',
-                  enable: true,
-                  label: 'Contraseña actual',
+          child: Column(
+            children: [
+              const InputForm(
+                value: '',
+                enable: true,
+                //TODO: Pendiente de agregar variable Intl
+                label: 'Contraseña actual',
+              ),
+              InputForm(
+                value: '',
+                enable: true,
+                //TODO: Pendiente de agregar variable Intl
+                label: 'Nueva contraseña',
+                suffixIcon: IconButton(
+                  //TODO: Agregar validacion cuando este listo el endpoint
+                  icon: true
+                      ? const Icon(Icons.visibility_off)
+                      : const Icon(Icons.visibility),
+                  onPressed: () {},
                 ),
-                InputForm(
-                  value: '',
-                  enable: true,
-                  label: 'Nueva contraseña',
-                  suffixIcon: IconButton(
-                    icon: true
-                        ? const Icon(Icons.visibility_off)
-                        : const Icon(Icons.visibility),
-                    onPressed: () {},
-                  ),
+              ),
+              InputForm(
+                value: '',
+                enable: true,
+                //TODO: Pendiente de agregar variable Intl
+                label: 'Confirmar nueva contraseña',
+                suffixIcon: IconButton(
+                  //TODO: Agregar validacion cuando este listo el endpoint
+                  icon: false
+                      ? const Icon(Icons.visibility_off)
+                      : const Icon(Icons.visibility),
+                  onPressed: () {},
                 ),
-                InputForm(
-                  value: '',
-                  enable: true,
-                  label: 'Confirmar nueva contraseña',
-                  suffixIcon: IconButton(
-                    icon: false
-                        ? const Icon(Icons.visibility_off)
-                        : const Icon(Icons.visibility),
-                    onPressed: () {},
-                  ),
-                )
-              ],
-            ),
+              )
+            ],
           ),
         ),
         actions: <Widget>[

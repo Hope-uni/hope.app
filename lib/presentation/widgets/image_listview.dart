@@ -7,23 +7,25 @@ class ImageListVIew extends StatelessWidget {
   final Icon? iconSelect;
   final Color? backgroundColorIcon;
   final bool isDecoration;
+  final Color? backgroundDecoration;
 
   const ImageListVIew({
     super.key,
     required this.isSelect,
+    required this.isDecoration,
     this.iconSelect,
     this.backgroundColorIcon,
-    required this.isDecoration,
+    this.backgroundDecoration,
   });
 
 //TODO: Cuando este listo el endpoint ajustar widget pare recibir data
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      margin: const EdgeInsets.only(left: 15, right: 15, bottom: 12.5),
       decoration: isDecoration
           ? BoxDecoration(
-              color: $colorBackgroundDrawer,
+              color: backgroundDecoration ?? $colorSuccess100,
               borderRadius: BorderRadius.circular(20),
               border: Border.all(width: 0.5),
             )

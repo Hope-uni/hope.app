@@ -18,6 +18,7 @@ const Color $colorError = Colors.redAccent;
 const Color $colorSuccess = Color.fromARGB(255, 11, 123, 5);
 const Color $colorPrimary = Colors.blue;
 final Color $colorPrimary50 = Colors.blue[50]!;
+final Color $colorSuccess100 = Colors.green[100]!;
 
 const Color $colorButtonDisable = Colors.grey;
 

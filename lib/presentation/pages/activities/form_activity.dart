@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
-import 'package:hope_app/presentation/widgets/image_listview.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
 
 class FormActivity extends StatelessWidget {
@@ -17,6 +16,7 @@ class FormActivity extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          const SizedBox(height: 15),
           InputForm(
             //TODO: Cambiar cuando este listo el endpoint
             value: 'Actividad con animales',
@@ -33,29 +33,21 @@ class FormActivity extends StatelessWidget {
             maxLines: 5,
             maxLength: 100,
           ),
-          Row(
-            children: [
-              Expanded(
-                child: SelectBox(
-                  //TODO: Cambiar cuando este listo el endpoint
-                  listItems: ['Fase 1', 'Fase 2', 'Fase 3', 'Fase 4'],
-                  enable: isEdit,
-                  valueInitial: 'Fase 3',
-                  //TODO: Crear variable de internacionalizacion,
-                  label: 'Fase del autismo',
-                ),
-              ),
-              Expanded(
-                child: InputForm(
-                  //TODO: Cambiar cuando este listo el endpoint
-                  value: '10',
-                  enable: isEdit,
-                  //TODO: Crear variable de internacionalizacion,
-                  label: 'Puntaje',
-                  isNumber: true,
-                ),
-              ),
-            ],
+          SelectBox(
+            //TODO: Cambiar cuando este listo el endpoint
+            listItems: ['Fase 1', 'Fase 2', 'Fase 3', 'Fase 4'],
+            enable: isEdit,
+            valueInitial: 'Fase 3',
+            //TODO: Crear variable de internacionalizacion,
+            label: 'Fase del autismo',
+          ),
+          InputForm(
+            //TODO: Cambiar cuando este listo el endpoint
+            value: '10',
+            enable: isEdit,
+            //TODO: Crear variable de internacionalizacion,
+            label: 'Puntaje',
+            isNumber: true,
           ),
           Visibility(
             visible: isVisibleSeleccion || isEdit,
@@ -63,78 +55,50 @@ class FormActivity extends StatelessWidget {
               children: [
                 Container(
                   alignment: Alignment.centerLeft,
-                  margin: const EdgeInsets.symmetric(
-                    vertical: 10,
-                    horizontal: 15,
+                  margin: const EdgeInsets.only(
+                    left: 30,
+                    right: 15,
+                    bottom: 20,
                   ),
                   child: const Text(
                     //TODO: Crear variable de internacionalizacion,
                     'Seleccione pictogramas de la solucion',
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(fontSize: 14.5),
                   ),
                 ),
-                Row(
-                  children: [
-                    Expanded(
-                      //TODO: Cambiar cuando este listo el endpoint
-                      child: SelectBox(
-                        valueInitial: 'Casa',
-                        label: S.current.Categoria_de_pictogramas,
-                        enable: true,
-                        onSelected: (value) {},
-                        listItems: const ['Casa', 'Escuela'],
-                      ),
-                    ),
-                    Expanded(
-                      child: InputForm(
-                        isSearch: true,
-                        label: S.current.Busqueda_por_nombre,
-                        value: '',
-                        enable: true,
-                        onChanged: (value) {},
-                      ),
-                    ),
-                  ],
+                SelectBox(
+                  valueInitial: 'Casa',
+                  label: S.current.Categoria_de_pictogramas,
+                  enable: true,
+                  onSelected: (value) {},
+                  listItems: const ['Casa', 'Escuela'],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(
-                          bottom: 15, left: 15, right: 10),
-                      child: ButtonTextIcon(
-                          buttonColor: $colorError,
-                          title: S.current.Limpiar_filtros,
-                          icon: const Icon(Icons.delete),
-                          onClic: () {}),
-                    ),
-                  ],
+                InputForm(
+                  isSearch: true,
+                  label: S.current.Busqueda_por_nombre,
+                  value: '',
+                  enable: true,
+                  onChanged: (value) {},
                 ),
-                ImageListVIew(
+                const ImageListVIew(
                   isDecoration: true,
                   isSelect: true,
-                  //TODO Agregar constante al archivo de desing
-                  backgroundColorIcon: Colors.lightBlue[800],
-                  iconSelect: const Icon(Icons.check),
+                  backgroundColorIcon: $colorSuccess,
+                  iconSelect: Icon(Icons.check),
                 ),
+                const SizedBox(height: 14.5),
               ],
             ),
           ),
-          const SizedBox(height: 15),
           Container(
             alignment: Alignment.centerLeft,
-            margin: const EdgeInsets.symmetric(
-              vertical: 10,
-              horizontal: 10,
-            ),
+            margin: const EdgeInsets.only(left: 30, right: 15, bottom: 12.5),
             //TODO: Crear variable de internacionalizacion,
-            child: const Text(
-              'Solucion',
-              style: TextStyle(fontSize: 16),
-            ),
+            child: const Text('Solucion', style: TextStyle(fontSize: 15)),
           ),
           ImageListVIew(
-            isDecoration: false,
+            backgroundDecoration: $colorPrimary50,
+            isDecoration: true,
             isSelect: isVisibleSeleccion || isEdit,
             backgroundColorIcon: $colorError,
             iconSelect: const Icon(Icons.delete),

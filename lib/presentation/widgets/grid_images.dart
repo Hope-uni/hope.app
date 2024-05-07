@@ -47,92 +47,50 @@ class GridImagesState extends ConsumerState<GridImages> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
     final String? typePicto = ref.watch(pictogramsProvider).typePicto;
     final String namePicto = ref.watch(pictogramsProvider).namePicto;
 
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20),
-      width: size.width,
+      margin: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Expanded(
-                child: SelectBox(
-                  valueInitial: typePicto,
-                  marginHorizontal: 5,
-                  hint: S.current.Categoria_de_pictogramas,
-                  enable: true,
-                  onSelected: (value) {
-                    ref
-                        .read(pictogramsProvider.notifier)
-                        .onTypePictoChange(value!);
-                  },
-                  listItems: _list,
-                ),
-              ),
-              Expanded(
-                child: InputForm(
-                  hint: S.current.Busqueda_por_nombre,
-                  value: namePicto,
-                  enable: true,
-                  onChanged: (value) {
-                    ref
-                        .read(pictogramsProvider.notifier)
-                        .onNamePictoChange(value);
-                  },
-                ),
-              ),
-            ],
+          const SizedBox(height: 20),
+          SelectBox(
+            valueInitial: typePicto,
+            hint: S.current.Categoria_de_pictogramas,
+            enable: true,
+            onSelected: (value) {
+              ref.read(pictogramsProvider.notifier).onTypePictoChange(value!);
+            },
+            listItems: _list,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Expanded(
-                child: ButtonTextIcon(
-                    title: S.current.Buscar,
-                    icon: const Icon(
-                      Icons.search,
-                    ),
-                    buttonColor: $colorBlueGeneral,
-                    onClic: () {}),
-              ),
-              const SizedBox(
-                width: 15,
-              ),
-              Expanded(
-                child: ButtonTextIcon(
-                    title: S.current.Limpiar_filtros,
-                    icon: const Icon(
-                      Icons.clear_all,
-                    ),
-                    buttonColor: $colorError,
-                    onClic: () {
-                      ref.read(pictogramsProvider.notifier).resetFilter();
-                    }),
-              )
-            ],
+          InputForm(
+            hint: S.current.Busqueda_por_nombre,
+            value: namePicto,
+            enable: true,
+            onChanged: (value) {
+              ref.read(pictogramsProvider.notifier).onNamePictoChange(value);
+            },
           ),
-          const SizedBox(height: 15),
           Expanded(
-            child: GridView.builder(
-              controller: scrollController,
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 150,
-                childAspectRatio: 0.6,
-                crossAxisSpacing: 10.0,
-                mainAxisSpacing: 10.0,
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 10),
+              child: GridView.builder(
+                controller: scrollController,
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 150,
+                  childAspectRatio: 0.6,
+                  crossAxisSpacing: 10.0,
+                  mainAxisSpacing: 10.0,
+                ),
+                itemCount: widget.images.length,
+                itemBuilder: (context, index) {
+                  return _ImageGrid(
+                    image: widget.images[index],
+                    isCustomized: widget.isCustomized,
+                  );
+                },
               ),
-              itemCount: widget.images.length,
-              itemBuilder: (context, index) {
-                return _ImageGrid(
-                  image: widget.images[index],
-                  isCustomized: widget.isCustomized,
-                );
-              },
             ),
           ),
         ],
@@ -158,8 +116,8 @@ class _ImageGrid extends StatelessWidget {
               BoxShadow(
                 color: $colorShadow,
                 spreadRadius: 3,
-                blurRadius: 8,
-                offset: const Offset(0, 5),
+                blurRadius: 3,
+                offset: const Offset(0, 2),
               ),
             ],
           ),

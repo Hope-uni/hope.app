@@ -48,68 +48,71 @@ class ActivitiesPageState extends ConsumerState<ActivitiesPage> {
       appBar: AppBar(
         title: Text(S.current.Actividades),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const SizedBox(height: 20),
-          InputForm(
-            value: searchActivity,
-            enable: true,
-            //TODO: Crear variable Intl
-            label: 'Buscar por nombre de actividad',
-            marginBottom: 0,
-            onChanged: (value) =>
-                ref.read(searchNameActivity.notifier).state = value,
-            isSearch: true,
-            suffixIcon: searchActivity.isEmpty
-                ? const Icon(
-                    Icons.search,
-                  )
-                : IconButton(
-                    onPressed: () {
-                      ref.read(searchNameActivity.notifier).state = '';
-                    },
-                    icon: const Icon(Icons.clear),
-                  ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(bottom: 15, right: 15),
-            alignment: Alignment.centerRight,
-            child: ButtonTextIcon(
-              title: S.current.Crear_actividad,
-              icon: const Icon(Icons.add),
-              buttonColor: $colorSuccess,
-              onClic: () => context.push('/newActivity'),
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              controller: scrollController,
-              //TODO: Cambiar cuando este listo el endpoint
-              itemCount: listaActividades.totalActivities.length + 1,
-              itemBuilder: (context, index) {
-                //TODO: Cambiar el 14 cuando este listo el endpoint
-                if (index < listaActividades.totalActivities.length) {
-                  return ListTileCustom(
-                    //TODO: Cambiar cuando este listo el endpoint
-                    title: 'Seleccionar 5 pictogramas de animales',
-                    //TODO: Cambiar cuando este listo el endpoint
-                    subTitle: 'Fase 4 | 20 puntos',
-                    //TODO: Cambiar cuando este listo el endpoint
-                    iconButton: MenuItems(
-                      idChild:
-                          int.parse(listaActividades.totalActivities[index].id),
-                      menuItems: menuActivity,
+      body: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 7.5),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const SizedBox(height: 20),
+            InputForm(
+              value: searchActivity,
+              enable: true,
+              //TODO: Crear variable Intl
+              label: 'Buscar por nombre de actividad',
+              marginBottom: 0,
+              onChanged: (value) =>
+                  ref.read(searchNameActivity.notifier).state = value,
+              isSearch: true,
+              suffixIcon: searchActivity.isEmpty
+                  ? const Icon(
+                      Icons.search,
+                    )
+                  : IconButton(
+                      onPressed: () {
+                        ref.read(searchNameActivity.notifier).state = '';
+                      },
+                      icon: const Icon(Icons.clear),
                     ),
-                  );
-                } else {
-                  return const SizedBox(height: 75);
-                }
-              },
             ),
-          )
-        ],
+            Container(
+              margin: const EdgeInsets.only(bottom: 15, right: 15),
+              alignment: Alignment.centerRight,
+              child: ButtonTextIcon(
+                title: S.current.Crear_actividad,
+                icon: const Icon(Icons.add),
+                buttonColor: $colorSuccess,
+                onClic: () => context.push('/newActivity'),
+              ),
+            ),
+            Expanded(
+              child: ListView.builder(
+                controller: scrollController,
+                //TODO: Cambiar cuando este listo el endpoint
+                itemCount: listaActividades.totalActivities.length + 1,
+                itemBuilder: (context, index) {
+                  //TODO: Cambiar el 14 cuando este listo el endpoint
+                  if (index < listaActividades.totalActivities.length) {
+                    return ListTileCustom(
+                      //TODO: Cambiar cuando este listo el endpoint
+                      title: 'Seleccionar 5 pictogramas de animales',
+                      //TODO: Cambiar cuando este listo el endpoint
+                      subTitle: 'Fase 4 | 20 puntos',
+                      //TODO: Cambiar cuando este listo el endpoint
+                      iconButton: MenuItems(
+                        idChild: int.parse(
+                            listaActividades.totalActivities[index].id),
+                        menuItems: menuActivity,
+                      ),
+                    );
+                  } else {
+                    return const SizedBox(height: 75);
+                  }
+                },
+              ),
+            )
+          ],
+        ),
       ),
       drawer: const SideMenu(),
     );

@@ -21,7 +21,8 @@ class _AddActivityPageState extends State<AddActivityPage> {
     return Scaffold(
       //TODO: Agregar Intl para la configuracion de idiomas
       appBar: AppBar(title: const Text('Asignar actividad')),
-      body: SizedBox(
+      body: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 7.5),
         height: size.height,
         child: Column(
           children: [
