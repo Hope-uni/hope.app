@@ -70,13 +70,13 @@ class S {
     );
   }
 
-  /// `© 2024 Hope. All rights reserved`
-  String get Derechos_reservados {
+  /// `© {year} Hope. All rights reserved`
+  String Derechos_reservados(Object year) {
     return Intl.message(
-      '© 2024 Hope. All rights reserved',
+      '© $year Hope. All rights reserved',
       name: 'Derechos_reservados',
       desc: '',
-      args: [],
+      args: [year],
     );
   }
 

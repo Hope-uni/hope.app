@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/interfaces/interface.dart';
+import 'package:hope_app/presentation/utils/utils.dart';
 
 class MenuItems extends StatelessWidget {
   final List<MenuItem> menuItems;
@@ -15,7 +16,10 @@ class MenuItems extends StatelessWidget {
   Widget build(BuildContext context) {
     return PopupMenuButton(
         popUpAnimationStyle: AnimationStyle.noAnimation,
-        icon: const Icon(Icons.more_vert),
+        icon: const Icon(
+          Icons.more_vert,
+          color: $colorBlueGeneral,
+        ),
         tooltip: S.current.Opciones,
         onSelected: (item) {
           final MenuItem menuItem = item;

@@ -89,10 +89,14 @@ class _InputUserEmail extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final resetPasswordProvider = ref.watch(resetPasswordFormProvider);
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Icon(
-          Icons.alternate_email,
-          color: $colorBlueGeneral,
+        Container(
+          margin: const EdgeInsets.only(top: 20),
+          child: const Icon(
+            Icons.alternate_email,
+            color: $colorBlueGeneral,
+          ),
         ),
         Expanded(
           child: InputForm(

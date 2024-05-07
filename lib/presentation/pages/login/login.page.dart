@@ -83,15 +83,19 @@ class _InputUserName extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final loginForm = ref.watch(loginFormProvider);
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Icon(
-          Icons.person,
-          color: $colorBlueGeneral,
+        Container(
+          margin: const EdgeInsets.only(top: 20),
+          child: const Icon(
+            Icons.person,
+            color: $colorBlueGeneral,
+          ),
         ),
         Expanded(
           child: InputForm(
             errorText: loginForm.errorUserName,
-            marginVertical: 0,
+            marginBottom: 0,
             enable: true,
             value: loginForm.userName,
             hint: S.current.Usuario,
@@ -114,15 +118,19 @@ class _InputPassword extends ConsumerWidget {
     final isVisiblePassword = ref.watch(isVisiblePasswordProvider);
 
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Icon(
-          Icons.key,
-          color: $colorBlueGeneral,
+        Container(
+          margin: const EdgeInsets.only(top: 20),
+          child: const Icon(
+            Icons.key,
+            color: $colorBlueGeneral,
+          ),
         ),
         Expanded(
           child: InputForm(
             errorText: loginForm.errorPassword,
-            marginVertical: 0,
+            marginBottom: 0,
             enable: true,
             value: loginForm.password,
             obscureText: isVisiblePassword,
