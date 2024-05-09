@@ -20,16 +20,18 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(nameChild) =>
+  static String m0(year) => "© ${year} Hope. All rights reserved";
+
+  static String m1(nameChild) =>
       "¿Está seguro de avanzar de fase a ${nameChild}?";
 
-  static String m1(nameImage, nameChild) =>
+  static String m2(nameImage, nameChild) =>
       "¿Está seguro que desea eliminar el pictograma \'${nameImage}\' de \'${nameChild}\'?";
 
-  static String m2(namePictogram) =>
+  static String m3(namePictogram) =>
       "Se actualizó correctamente el pictograma personalizado: ${namePictogram}";
 
-  static String m3(numFase, nameChild) =>
+  static String m4(numFase, nameChild) =>
       "Se avanzó a la fase ${numFase} a ${nameChild}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -102,9 +104,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Debe_ingresar_el_nombre_de_usuario_o_correo":
             MessageLookupByLibrary.simpleMessage(
                 "Debe ingresar el nombre de usuario o correo"),
-        "Derechos_reservados": MessageLookupByLibrary.simpleMessage(
-            "© 2024 Hope. All rights reserved"),
         "Descripcion": MessageLookupByLibrary.simpleMessage("Descripción"),
+        "Derechos_reservados": m0,
         "Direccion": MessageLookupByLibrary.simpleMessage("Dirección"),
         "Edad": MessageLookupByLibrary.simpleMessage("Edad"),
         "Editar": MessageLookupByLibrary.simpleMessage("Editar"),
@@ -135,7 +136,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Esta_Seguro_de_actualizar_los_datos":
             MessageLookupByLibrary.simpleMessage(
                 "¿Está seguro de actualizar los datos?"),
-        "Esta_seguro_de_avanzar_de_fase_a": m0,
+        "Esta_seguro_de_avanzar_de_fase_a": m1,
         "Esta_seguro_de_eliminar_permanentemente_la_actividad":
             MessageLookupByLibrary.simpleMessage(
                 "¿Está seguro de eliminar permanentemente la actividad?"),
