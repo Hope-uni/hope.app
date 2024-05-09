@@ -58,8 +58,7 @@ class ActivitiesPageState extends ConsumerState<ActivitiesPage> {
             InputForm(
               value: searchActivity,
               enable: true,
-              //TODO: Crear variable Intl
-              label: 'Buscar por nombre de actividad',
+              label: S.current.Buscar_por_nombre_de_actividad,
               marginBottom: 0,
               onChanged: (value) =>
                   ref.read(searchNameActivity.notifier).state = value,

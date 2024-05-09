@@ -32,6 +32,7 @@ class StepperCustom extends StatelessWidget {
       padding:
           const EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0, bottom: 10),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: _steps(),
       ),
@@ -45,28 +46,29 @@ class StepperCustom extends StatelessWidget {
       var lineColor = _getLineColor(i);
       // step circles
       list.add(
-        SizedBox(
-          width: 130.0,
-          height: 80.0,
-          child: Column(
-            children: [
-              Container(
-                alignment: Alignment.center,
-                height: 45,
-                margin: const EdgeInsets.symmetric(vertical: 5),
-                child: Text(
-                  labelSteps[i],
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 16,
+        Expanded(
+          child: SizedBox(
+            height: 100.0,
+            child: Column(
+              children: [
+                Container(
+                  alignment: Alignment.center,
+                  height: 55,
+                  margin: const EdgeInsets.symmetric(vertical: 5),
+                  child: Text(
+                    labelSteps[i],
+                    textAlign: TextAlign.center,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                    ),
                   ),
                 ),
-              ),
-              _getInnerElementOfStepper(i)
-            ],
+                _getInnerElementOfStepper(i)
+              ],
+            ),
           ),
         ),
       );
@@ -75,7 +77,7 @@ class StepperCustom extends StatelessWidget {
         list.add(
           Expanded(
             child: Container(
-              height: 70.0,
+              height: 90.0,
               padding: const EdgeInsets.only(bottom: 12.5),
               alignment: Alignment.bottomCenter,
               child: Container(
@@ -96,8 +98,8 @@ class StepperCustom extends StatelessWidget {
     var borderColor = _getBorderColor(index);
     if (index + 1 < curStep) {
       return Container(
-        width: 25.0,
-        height: 25.0,
+        width: 35.0,
+        height: 35.0,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: circleColor,
@@ -115,8 +117,8 @@ class StepperCustom extends StatelessWidget {
       );
     } else {
       return Container(
-        width: 25.0,
-        height: 25.0,
+        width: 35.0,
+        height: 35.0,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: circleColor,

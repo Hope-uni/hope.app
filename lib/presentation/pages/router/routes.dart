@@ -68,6 +68,12 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             const AddActivityPage(),
       ),
       GoRoute(
+        path: '/removeActivity',
+        name: 'removeActivity',
+        builder: (BuildContext context, GoRouterState state) =>
+            const RemoveAcivityPage(),
+      ),
+      GoRoute(
         path: '/profile',
         name: 'profile',
         builder: (BuildContext context, GoRouterState state) =>

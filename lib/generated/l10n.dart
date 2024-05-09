@@ -50,10 +50,10 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Hope`
+  /// `hope`
   String get Hope {
     return Intl.message(
-      'Hope',
+      'hope',
       name: 'Hope',
       desc: '',
       args: [],
@@ -120,10 +120,10 @@ class S {
     );
   }
 
-  /// `Los campos no pueden estar vacios`
+  /// `Los campos no pueden estar vacíos`
   String get Los_campos_no_pueden_estar_vacios {
     return Intl.message(
-      'Los campos no pueden estar vacios',
+      'Los campos no pueden estar vacíos',
       name: 'Los_campos_no_pueden_estar_vacios',
       desc: '',
       args: [],
@@ -1177,6 +1177,286 @@ class S {
     return Intl.message(
       '¿Está seguro de eliminar permanentemente la actividad?',
       name: 'Esta_seguro_de_eliminar_permanentemente_la_actividad',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Quitar asignación de actividad`
+  String get Quitar_asignacion_de_actividad {
+    return Intl.message(
+      'Quitar asignación de actividad',
+      name: 'Quitar_asignacion_de_actividad',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `¿Está seguro de quitarle la actividad?`
+  String get Esta_seguro_de_quitarle_la_actividad {
+    return Intl.message(
+      '¿Está seguro de quitarle la actividad?',
+      name: 'Esta_seguro_de_quitarle_la_actividad',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `a`
+  String get A {
+    return Intl.message(
+      'a',
+      name: 'A',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Si, Quitar`
+  String get Si_Quitar {
+    return Intl.message(
+      'Si, Quitar',
+      name: 'Si_Quitar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Selección de niños para actividad`
+  String get Seleccion_de_ninos_para_actividad {
+    return Intl.message(
+      'Selección de niños para actividad',
+      name: 'Seleccion_de_ninos_para_actividad',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirmación`
+  String get Confirmacion {
+    return Intl.message(
+      'Confirmación',
+      name: 'Confirmacion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Atrás`
+  String get Atras {
+    return Intl.message(
+      'Atrás',
+      name: 'Atras',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Siguiente`
+  String get Siguiente {
+    return Intl.message(
+      'Siguiente',
+      name: 'Siguiente',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Asignación exitosa`
+  String get Asignacion_exitosa {
+    return Intl.message(
+      'Asignación exitosa',
+      name: 'Asignacion_exitosa',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Se asignó correctamente la actividad a los niños seleccionados`
+  String get Se_asigno_correctamente_la_actividad_a_los_ninos_seleccionados {
+    return Intl.message(
+      'Se asignó correctamente la actividad a los niños seleccionados',
+      name: 'Se_asigno_correctamente_la_actividad_a_los_ninos_seleccionados',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cambio de contraseña de`
+  String get Cambio_de_contrasena_de {
+    return Intl.message(
+      'Cambio de contraseña de',
+      name: 'Cambio_de_contrasena_de',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Contraseña actual`
+  String get Contrasena_actual {
+    return Intl.message(
+      'Contraseña actual',
+      name: 'Contrasena_actual',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nueva contraseña`
+  String get Nueva_contrasena {
+    return Intl.message(
+      'Nueva contraseña',
+      name: 'Nueva_contrasena',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirmar nueva contraseña`
+  String get Confirmar_nueva_contrasena {
+    return Intl.message(
+      'Confirmar nueva contraseña',
+      name: 'Confirmar_nueva_contrasena',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Actividad`
+  String get Actividad {
+    return Intl.message(
+      'Actividad',
+      name: 'Actividad',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Se actualizo correctamente la información de la actividad`
+  String get Se_actualizo_correctamente_la_informacion_de_la_actividad {
+    return Intl.message(
+      'Se actualizo correctamente la información de la actividad',
+      name: 'Se_actualizo_correctamente_la_informacion_de_la_actividad',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Esta seguro de salir de la edición de la actividad`
+  String get Esta_seguro_de_salir_de_la_edicion_de_la_actividad {
+    return Intl.message(
+      'Esta seguro de salir de la edición de la actividad',
+      name: 'Esta_seguro_de_salir_de_la_edicion_de_la_actividad',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Buscar por nombre de actividad`
+  String get Buscar_por_nombre_de_actividad {
+    return Intl.message(
+      'Buscar por nombre de actividad',
+      name: 'Buscar_por_nombre_de_actividad',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Descripción`
+  String get Descripcion {
+    return Intl.message(
+      'Descripción',
+      name: 'Descripcion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fase del autismo`
+  String get Fase_del_autismo {
+    return Intl.message(
+      'Fase del autismo',
+      name: 'Fase_del_autismo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Puntaje`
+  String get Puntaje {
+    return Intl.message(
+      'Puntaje',
+      name: 'Puntaje',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Seleccione pictogramas de la solución`
+  String get Seleccione_pictogramas_de_la_solucion {
+    return Intl.message(
+      'Seleccione pictogramas de la solución',
+      name: 'Seleccione_pictogramas_de_la_solucion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Solución`
+  String get Solucion {
+    return Intl.message(
+      'Solución',
+      name: 'Solucion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Oración`
+  String get Oracion {
+    return Intl.message(
+      'Oración',
+      name: 'Oracion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `¡Guardado con éxito!`
+  String get Guardado_con_exito {
+    return Intl.message(
+      '¡Guardado con éxito!',
+      name: 'Guardado_con_exito',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `La actividad se guardó correctamente`
+  String get La_actividad_se_guardo_correctamente {
+    return Intl.message(
+      'La actividad se guardó correctamente',
+      name: 'La_actividad_se_guardo_correctamente',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `¿Está seguro de salir de la creación de la actividad?`
+  String get Esta_seguro_de_salir_de_la_creacion_de_la_actividad {
+    return Intl.message(
+      '¿Está seguro de salir de la creación de la actividad?',
+      name: 'Esta_seguro_de_salir_de_la_creacion_de_la_actividad',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Buscar por primer nombre`
+  String get Buscar_por_primer_nombre {
+    return Intl.message(
+      'Buscar por primer nombre',
+      name: 'Buscar_por_primer_nombre',
       desc: '',
       args: [],
     );

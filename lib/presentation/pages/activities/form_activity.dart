@@ -28,25 +28,22 @@ class FormActivity extends StatelessWidget {
             value:
                 'El niño debe de seleccionar al menos 7 pictogramas de animales',
             enable: isEdit,
-            //TODO: Crear variable de internacionalizacion,
-            label: 'Descripcion',
+            label: S.current.Descripcion,
             maxLines: 5,
             maxLength: 100,
           ),
           SelectBox(
             //TODO: Cambiar cuando este listo el endpoint
-            listItems: ['Fase 1', 'Fase 2', 'Fase 3', 'Fase 4'],
+            listItems: const ['Fase 1', 'Fase 2', 'Fase 3', 'Fase 4'],
             enable: isEdit,
             valueInitial: 'Fase 3',
-            //TODO: Crear variable de internacionalizacion,
-            label: 'Fase del autismo',
+            label: S.current.Fase_del_autismo,
           ),
           InputForm(
             //TODO: Cambiar cuando este listo el endpoint
             value: '10',
             enable: isEdit,
-            //TODO: Crear variable de internacionalizacion,
-            label: 'Puntaje',
+            label: S.current.Puntaje,
             isNumber: true,
           ),
           Visibility(
@@ -60,12 +57,12 @@ class FormActivity extends StatelessWidget {
                     right: 15,
                     bottom: 20,
                   ),
-                  child: const Text(
-                    //TODO: Crear variable de internacionalizacion,
-                    'Seleccione pictogramas de la solucion',
-                    style: TextStyle(fontSize: 14.5),
+                  child: Text(
+                    S.current.Seleccione_pictogramas_de_la_solucion,
+                    style: const TextStyle(fontSize: 14.5),
                   ),
                 ),
+                //TODO: Cambiar cuando este listo el endpoint
                 SelectBox(
                   valueInitial: 'Casa',
                   label: S.current.Categoria_de_pictogramas,
@@ -93,8 +90,8 @@ class FormActivity extends StatelessWidget {
           Container(
             alignment: Alignment.centerLeft,
             margin: const EdgeInsets.only(left: 30, right: 15, bottom: 12.5),
-            //TODO: Crear variable de internacionalizacion,
-            child: const Text('Solucion', style: TextStyle(fontSize: 15)),
+            child:
+                Text(S.current.Solucion, style: const TextStyle(fontSize: 15)),
           ),
           ImageListVIew(
             backgroundDecoration: $colorPrimary50,
@@ -104,12 +101,11 @@ class FormActivity extends StatelessWidget {
             iconSelect: const Icon(Icons.delete),
           ),
           const SizedBox(height: 15),
-          const InputForm(
+          InputForm(
             //TODO: Cambiar cuando este listo el endpoint
             value: 'Yo quiero una manzana',
             enable: false,
-            //TODO: Crear variable de internacionalizacion,
-            label: 'Oracion',
+            label: S.current.Oracion,
           ),
           const SizedBox(height: 50),
         ],

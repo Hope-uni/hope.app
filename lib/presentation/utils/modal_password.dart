@@ -8,8 +8,8 @@ modalPassword({required BuildContext context}) {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: const Text(
-          'Cambio de contraseña de\nAlejandra Maria Ramos Tellez',
+        title: Text(
+          '${S.current.Cambio_de_contrasena_de}\nAlejandra Maria Ramos Tellez',
           maxLines: 3,
           overflow: TextOverflow.ellipsis,
           textAlign: TextAlign.center,
@@ -21,17 +21,15 @@ modalPassword({required BuildContext context}) {
         content: SingleChildScrollView(
           child: Column(
             children: [
-              const InputForm(
+              InputForm(
                 value: '',
                 enable: true,
-                //TODO: Pendiente de agregar variable Intl
-                label: 'Contraseña actual',
+                label: S.current.Contrasena_actual,
               ),
               InputForm(
                 value: '',
                 enable: true,
-                //TODO: Pendiente de agregar variable Intl
-                label: 'Nueva contraseña',
+                label: S.current.Nueva_contrasena,
                 suffixIcon: IconButton(
                   //TODO: Agregar validacion cuando este listo el endpoint
                   icon: true
@@ -43,8 +41,7 @@ modalPassword({required BuildContext context}) {
               InputForm(
                 value: '',
                 enable: true,
-                //TODO: Pendiente de agregar variable Intl
-                label: 'Confirmar nueva contraseña',
+                label: S.current.Confirmar_nueva_contrasena,
                 suffixIcon: IconButton(
                   //TODO: Agregar validacion cuando este listo el endpoint
                   icon: false
