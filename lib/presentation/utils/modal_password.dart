@@ -8,48 +8,49 @@ modalPassword({required BuildContext context}) {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: const Text(
-          'Cambio de contraseña de\nAlejandra Maria Ramos Tellez',
+        title: Text(
+          '${S.current.Cambio_de_contrasena_de}\nAlejandra Maria Ramos Tellez',
           maxLines: 3,
           overflow: TextOverflow.ellipsis,
           textAlign: TextAlign.center,
           //TODO: Cambiar cuando este listo el endpoint
         ),
         icon: const Icon(Icons.edit),
+        contentPadding:
+            const EdgeInsets.only(bottom: 0, left: 10, right: 10, top: 15),
         content: SingleChildScrollView(
-          child: SizedBox(
-            height: 250,
-            child: Column(
-              children: [
-                const InputForm(
-                  value: '',
-                  enable: true,
-                  label: 'Contraseña actual',
+          child: Column(
+            children: [
+              InputForm(
+                value: '',
+                enable: true,
+                label: S.current.Contrasena_actual,
+              ),
+              InputForm(
+                value: '',
+                enable: true,
+                label: S.current.Nueva_contrasena,
+                suffixIcon: IconButton(
+                  //TODO: Agregar validacion cuando este listo el endpoint
+                  icon: true
+                      ? const Icon(Icons.visibility_off)
+                      : const Icon(Icons.visibility),
+                  onPressed: () {},
                 ),
-                InputForm(
-                  value: '',
-                  enable: true,
-                  label: 'Nueva contraseña',
-                  suffixIcon: IconButton(
-                    icon: true
-                        ? const Icon(Icons.visibility_off)
-                        : const Icon(Icons.visibility),
-                    onPressed: () {},
-                  ),
+              ),
+              InputForm(
+                value: '',
+                enable: true,
+                label: S.current.Confirmar_nueva_contrasena,
+                suffixIcon: IconButton(
+                  //TODO: Agregar validacion cuando este listo el endpoint
+                  icon: false
+                      ? const Icon(Icons.visibility_off)
+                      : const Icon(Icons.visibility),
+                  onPressed: () {},
                 ),
-                InputForm(
-                  value: '',
-                  enable: true,
-                  label: 'Confirmar nueva contraseña',
-                  suffixIcon: IconButton(
-                    icon: false
-                        ? const Icon(Icons.visibility_off)
-                        : const Icon(Icons.visibility),
-                    onPressed: () {},
-                  ),
-                )
-              ],
-            ),
+              )
+            ],
           ),
         ),
         actions: <Widget>[

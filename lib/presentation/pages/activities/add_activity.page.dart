@@ -19,17 +19,16 @@ class _AddActivityPageState extends State<AddActivityPage> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      //TODO: Agregar Intl para la configuracion de idiomas
-      appBar: AppBar(title: const Text('Asignar actividad')),
-      body: SizedBox(
+      appBar: AppBar(title: Text(S.current.Asignar_actividad)),
+      body: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 7.5),
         height: size.height,
         child: Column(
           children: [
             StepperCustom(
-              //TODO: Agregar Intl para la configuracion de idiomas
-              labelSteps: const [
-                'Seleccion de niños para actividad',
-                'Confirmacion',
+              labelSteps: [
+                S.current.Seleccion_de_ninos_para_actividad,
+                S.current.Confirmacion
               ],
               totalSteps: totalSteps,
               width: size.width,
@@ -134,10 +133,9 @@ class _AddActivityPageState extends State<AddActivityPage> {
               style: const ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll($colorError),
               ),
-              child: const Text(
-                //TODO: Agregar Intl para la configuracion de idiomas
-                'Atras',
-                style: TextStyle(color: $colorTextWhite),
+              child: Text(
+                S.current.Atras,
+                style: const TextStyle(color: $colorTextWhite),
               ),
               onPressed: () {
                 if (currentStep <= totalSteps && currentStep > 1) {
@@ -153,10 +151,9 @@ class _AddActivityPageState extends State<AddActivityPage> {
               style: const ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll($colorBlueGeneral),
               ),
-              child: const Text(
-                //TODO: Agregar Intl para la configuracion de idiomas
-                'Siguiente',
-                style: TextStyle(color: $colorTextWhite),
+              child: Text(
+                S.current.Siguiente,
+                style: const TextStyle(color: $colorTextWhite),
               ),
               onPressed: () {
                 if (currentStep < totalSteps) {
@@ -179,11 +176,9 @@ class _AddActivityPageState extends State<AddActivityPage> {
                 toastAlert(
                   iconAlert: const Icon(Icons.update),
                   context: context,
-                  //TODO: Agregar Intl para la configuracion de idiomas
-                  title: 'Asignación exitosa',
-                  description:
-                      //TODO: Agregar Intl para la configuracion de idiomas
-                      'Se asigno correctamente la actividad a los niños seleccionados',
+                  title: S.current.Asignacion_exitosa,
+                  description: S.current
+                      .Se_asigno_correctamente_la_actividad_a_los_ninos_seleccionados,
                   typeAlert: ToastificationType.info,
                 );
               },

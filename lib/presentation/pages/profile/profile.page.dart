@@ -47,9 +47,11 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Column(
                 children: [
                   Container(
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 15,
+                    margin: const EdgeInsets.only(
+                      bottom: 30,
+                      left: 10,
+                      right: 10,
+                      top: 15,
                     ),
                     width: sizeInputs,
                     child: Center(
@@ -168,101 +170,67 @@ class _ProfilePageState extends State<ProfilePage> {
                     enable: enableInput,
                     onChanged: (value) {},
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Expanded(
-                        child: InputForm(
-                          label: S.current.Primer_nombre,
-                          maxLength: 50,
-                          //TODO: Cambiar cuando este listo el endpoint
-                          value: 'Mario',
-                          enable: enableInput,
-                          onChanged: (value) {},
-                        ),
-                      ),
-                      Expanded(
-                        child: InputForm(
-                          label: S.current.Segundo_nombre,
-                          maxLength: 50,
-                          //TODO: Cambiar cuando este listo el endpoint
-                          value: 'Jose',
-                          enable: enableInput,
-                          onChanged: (value) {},
-                        ),
-                      ),
-                    ],
+                  InputForm(
+                    label: S.current.Primer_nombre,
+                    maxLength: 50,
+                    //TODO: Cambiar cuando este listo el endpoint
+                    value: 'Mario',
+                    enable: enableInput,
+                    onChanged: (value) {},
                   ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: InputForm(
-                          label: S.current.Primer_apellido,
-                          maxLength: 50,
-                          //TODO: Cambiar cuando este listo el endpoint
-                          value: 'Ramos',
-                          enable: enableInput,
-                          onChanged: (value) {},
-                        ),
-                      ),
-                      Expanded(
-                        child: InputForm(
-                          label: S.current.Segundo_apellido,
-                          maxLength: 50,
-                          //TODO: Cambiar cuando este listo el endpoint
-                          value: 'Mejia',
-                          enable: enableInput,
-                          onChanged: (value) {},
-                        ),
-                      ),
-                    ],
+                  InputForm(
+                    label: S.current.Segundo_nombre,
+                    maxLength: 50,
+                    //TODO: Cambiar cuando este listo el endpoint
+                    value: 'Jose',
+                    enable: enableInput,
+                    onChanged: (value) {},
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Expanded(
-                        child: InputForm(
-                          label: S.current.Cedula,
-                          maxLength: 14,
-                          //TODO: Cambiar cuando este listo el endpoint
-                          value: '0012210970007L',
-                          enable: enableInput,
-                          onChanged: (value) {},
-                        ),
-                      ),
-                      Expanded(
-                        child: InputForm(
-                          label: S.current.Edad,
-                          //TODO: Cambiar cuando este listo el endpoint
-                          value: '27 años, 10 meses y 15 dias',
-                          enable: false,
-                        ),
-                      ),
-                    ],
+                  InputForm(
+                    label: S.current.Primer_apellido,
+                    maxLength: 50,
+                    //TODO: Cambiar cuando este listo el endpoint
+                    value: 'Ramos',
+                    enable: enableInput,
+                    onChanged: (value) {},
                   ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: InputForm(
-                          label: S.current.Telefono,
-                          maxLength: 8,
-                          //TODO: Cambiar cuando este listo el endpoint
-                          value: '57144515',
-                          enable: enableInput,
-                          onChanged: (value) {},
-                        ),
-                      ),
-                      Expanded(
-                        child: InputForm(
-                          label: S.current.Celular,
-                          maxLength: 8,
-                          //TODO: Cambiar cuando este listo el endpoint
-                          value: '81524091',
-                          enable: enableInput,
-                          onChanged: (value) {},
-                        ),
-                      ),
-                    ],
+                  InputForm(
+                    label: S.current.Segundo_apellido,
+                    maxLength: 50,
+                    //TODO: Cambiar cuando este listo el endpoint
+                    value: 'Mejia',
+                    enable: enableInput,
+                    onChanged: (value) {},
+                  ),
+                  InputForm(
+                    label: S.current.Cedula,
+                    maxLength: 14,
+                    //TODO: Cambiar cuando este listo el endpoint
+                    value: '0012210970007L',
+                    enable: enableInput,
+                    onChanged: (value) {},
+                  ),
+                  InputForm(
+                    label: S.current.Edad,
+                    //TODO: Cambiar cuando este listo el endpoint
+                    value: '27 años, 10 meses y 15 dias',
+                    enable: false,
+                  ),
+                  InputForm(
+                    label: S.current.Telefono,
+                    maxLength: 8,
+                    //TODO: Cambiar cuando este listo el endpoint
+                    value: '57144515',
+                    enable: enableInput,
+                    onChanged: (value) {},
+                  ),
+                  InputForm(
+                    label: S.current.Celular,
+                    maxLength: 8,
+                    //TODO: Cambiar cuando este listo el endpoint
+                    value: '81524091',
+                    enable: enableInput,
+                    onChanged: (value) {},
                   ),
                   InputForm(
                     label: S.current.Direccion,

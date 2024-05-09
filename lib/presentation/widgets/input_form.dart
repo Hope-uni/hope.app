@@ -72,9 +72,7 @@ class InputForm extends StatelessWidget {
           hintText: hint,
           labelStyle: const TextStyle(color: $colorTextBlack),
           border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(20),
-            ),
+            borderRadius: BorderRadius.all(Radius.circular(15)),
           ),
           counterText: maxLength != null && enable
               ? '$textLength/ $maxLength'

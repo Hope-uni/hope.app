@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/pages/activities/form_activity.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
-import 'package:hope_app/presentation/widgets/button_text_icon.dart';
+import 'package:hope_app/presentation/widgets/widgets.dart';
 import 'package:toastification/toastification.dart';
 
 class NewActivityPage extends StatelessWidget {
@@ -11,16 +11,10 @@ class NewActivityPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        //TODO: Aplicar internacionalizacion luego
-        title: const Text('Crear actividad'),
-      ),
+      appBar: AppBar(title: Text(S.current.Crear_actividad)),
       body: Container(
         margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-        child: const FormActivity(
-          isEdit: true,
-          isVisibleSeleccion: true,
-        ),
+        child: const FormActivity(isEdit: true, isVisibleSeleccion: true),
       ),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -34,10 +28,8 @@ class NewActivityPage extends StatelessWidget {
               onClic: () {
                 toastAlert(
                   context: context,
-                  //TODO: Aplicar internacionalizacion luego
-                  title: '¡Guardado con éxito!',
-                  //TODO: Aplicar internacionalizacion luego
-                  description: 'La actividad se guardó correctamente',
+                  title: S.current.Guardado_con_exito,
+                  description: S.current.La_actividad_se_guardo_correctamente,
                   typeAlert: ToastificationType.success,
                 );
               },
@@ -56,11 +48,11 @@ class NewActivityPage extends StatelessWidget {
                   titleButtonConfirm: S.current.Si_salir,
                   question: RichText(
                     textAlign: TextAlign.center,
-                    text: const TextSpan(
-                      //TODO: Crear variable de internacionalizacion,
-                      text:
-                          'Está seguro de salir de la creación de la actividad',
-                      style: TextStyle(fontSize: 16, color: $colorTextBlack),
+                    text: TextSpan(
+                      text: S.current
+                          .Esta_seguro_de_salir_de_la_creacion_de_la_actividad,
+                      style:
+                          const TextStyle(fontSize: 16, color: $colorTextBlack),
                     ),
                   ),
                   buttonColorConfirm: $colorSuccess,

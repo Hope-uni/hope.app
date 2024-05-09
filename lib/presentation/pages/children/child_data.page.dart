@@ -56,6 +56,7 @@ class _ChildDataPageState extends State<ChildDataPage> {
               margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
               child: SingleChildScrollView(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     ..._childPersonalData(
                       enableInput: enableInput,
@@ -231,7 +232,7 @@ List<Widget> _childPersonalData({
         child: Stack(children: [
           ClipOval(
               child: Container(
-            width: 250,
+            width: 145,
             height: 145,
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
@@ -311,96 +312,61 @@ List<Widget> _childPersonalData({
       ),
     ),
     const SizedBox(height: 10),
-    Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Expanded(
-          child: InputForm(
-            label: S.current.Primer_nombre,
-            maxLength: 50,
-            value: 'Mario', //TODO: Cambiar cuando este listo el endpoint
-            enable: enableInput,
-            onChanged: (value) {},
-          ),
-        ),
-        Expanded(
-          child: InputForm(
-            label: S.current.Segundo_nombre,
-            maxLength: 50,
-            value: 'Jose', //TODO: Cambiar cuando este listo el endpoint
-            enable: enableInput,
-            onChanged: (value) {},
-          ),
-        ),
-      ],
+    InputForm(
+      label: S.current.Primer_nombre,
+      maxLength: 50,
+      value: 'Mario', //TODO: Cambiar cuando este listo el endpoint
+      enable: enableInput,
+      onChanged: (value) {},
     ),
-    Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Expanded(
-          child: InputForm(
-            label: S.current.Primer_apellido,
-            maxLength: 50,
-            value: 'Ramos', //TODO: Cambiar cuando este listo el endpoint
-            enable: enableInput,
-            onChanged: (value) {},
-          ),
-        ),
-        Expanded(
-          child: InputForm(
-            label: S.current.Segundo_apellido,
-            maxLength: 50,
-            value: 'Mejia', //TODO: Cambiar cuando este listo el endpoint
-            enable: enableInput,
-            onChanged: (value) {},
-          ),
-        ),
-      ],
+    InputForm(
+      label: S.current.Segundo_nombre,
+      maxLength: 50,
+      value: 'Jose', //TODO: Cambiar cuando este listo el endpoint
+      enable: enableInput,
+      onChanged: (value) {},
     ),
-    Row(
-      children: [
-        Expanded(
-          child: InputForm(
-            label: S.current.Nombre_de_usuario,
-            maxLength: 8,
-            value: 'mramos', //TODO: Cambiar cuando este listo el endpoint
-            enable: enableInput,
-            onChanged: (value) {},
-          ),
-        ),
-        Expanded(
-          //TODO: Cambiar cuando este listo el endpoint
-          child: SelectBox(
-            enable: enableInput,
-            valueInitial: 'Masculino',
-            label: S.current.Sexo,
-            onSelected: (value) {},
-            listItems: const ['Masculino', 'Femenino'],
-          ),
-        ),
-      ],
+    InputForm(
+      label: S.current.Primer_apellido,
+      maxLength: 50,
+      value: 'Ramos', //TODO: Cambiar cuando este listo el endpoint
+      enable: enableInput,
+      onChanged: (value) {},
     ),
-    Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Expanded(
-          child: InputForm(
-            label: S.current.Fecha_de_nacimiento,
-            maxLength: 14,
-            value: '22/10/1997', //TODO: Cambiar cuando este listo el endpoint
-            enable: enableInput,
-            onChanged: (value) {},
-          ),
-        ),
-        Expanded(
-          child: InputForm(
-            label: S.current.Edad,
-            //TODO: Cambiar cuando este listo el endpoint
-            value: '27 años, 10 meses y 15 dias',
-            enable: false,
-          ),
-        ),
-      ],
+    InputForm(
+      label: S.current.Segundo_apellido,
+      maxLength: 50,
+      value: 'Mejia', //TODO: Cambiar cuando este listo el endpoint
+      enable: enableInput,
+      onChanged: (value) {},
+    ),
+    InputForm(
+      label: S.current.Nombre_de_usuario,
+      maxLength: 8,
+      value: 'mramos', //TODO: Cambiar cuando este listo el endpoint
+      enable: enableInput,
+      onChanged: (value) {},
+    ),
+    //TODO: Cambiar cuando este listo el endpoint
+    SelectBox(
+      enable: enableInput,
+      valueInitial: 'Masculino',
+      label: S.current.Sexo,
+      onSelected: (value) {},
+      listItems: const ['Masculino', 'Femenino'],
+    ),
+    InputForm(
+      label: S.current.Fecha_de_nacimiento,
+      maxLength: 14,
+      value: '22/10/1997', //TODO: Cambiar cuando este listo el endpoint
+      enable: enableInput,
+      onChanged: (value) {},
+    ),
+    InputForm(
+      label: S.current.Edad,
+      //TODO: Cambiar cuando este listo el endpoint
+      value: '27 años, 10 meses y 15 dias',
+      enable: false,
     ),
     InputForm(
       label: S.current.Direccion,
@@ -418,6 +384,7 @@ List<Widget> _childPersonalData({
 
 List<Widget> _generalInformation({required bool enableInput}) {
   return [
+    const SizedBox(height: 15),
     //TODO: Cambiar cuando este listo el endpoint
     SelectBox(
       enable: enableInput,
@@ -433,27 +400,19 @@ List<Widget> _generalInformation({required bool enableInput}) {
       enable: false,
       onChanged: (value) {},
     ),
-    Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Expanded(
-          child: InputForm(
-            label: S.current.Contacto_tutor,
-            value: '121422112', //TODO: Cambiar cuando este listo el endpoint
-            enable: false,
-            onChanged: (value) {},
-          ),
-        ),
-        Expanded(
-          child: InputForm(
-            label: S.current.Telefono_de_casa,
-            value: '54645566', //TODO: Cambiar cuando este listo el endpoint
-            enable: false,
-            onChanged: (value) {},
-          ),
-        ),
-      ],
+    InputForm(
+      label: S.current.Contacto_tutor,
+      value: '121422112', //TODO: Cambiar cuando este listo el endpoint
+      enable: false,
+      onChanged: (value) {},
     ),
+    InputForm(
+      label: S.current.Telefono_de_casa,
+      value: '54645566', //TODO: Cambiar cuando este listo el endpoint
+      enable: false,
+      onChanged: (value) {},
+    ),
+
     InputForm(
       label: S.current.Terapeuta,
       //TODO: Cambiar cuando este listo el endpoint

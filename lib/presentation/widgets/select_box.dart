@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 
-class SelectBox extends StatelessWidget {
+class SelectBox extends StatefulWidget {
   final List<String> listItems;
   final bool enable;
   final String? label;
@@ -10,49 +10,69 @@ class SelectBox extends StatelessWidget {
   final void Function(String?)? onSelected;
   final double? marginHorizontal;
 
-  const SelectBox(
-      {super.key,
-      required this.listItems,
-      required this.enable,
-      this.onSelected,
-      this.label,
-      this.hint,
-      this.valueInitial,
-      this.marginHorizontal});
+  const SelectBox({
+    super.key,
+    required this.listItems,
+    required this.enable,
+    this.onSelected,
+    this.label,
+    this.hint,
+    this.valueInitial,
+    this.marginHorizontal,
+  });
+
+  @override
+  State<SelectBox> createState() => _SelectBoxState();
+}
+
+class _SelectBoxState extends State<SelectBox> {
+  late final TextEditingController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = TextEditingController(text: widget.valueInitial);
+  }
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController controller =
-        TextEditingController(text: valueInitial);
     return Container(
-      margin:
-          EdgeInsets.symmetric(horizontal: marginHorizontal ?? 15, vertical: 7),
+      margin: const EdgeInsets.only(left: 15, right: 15, bottom: 12.5),
       child: DropdownMenu<String>(
-        initialSelection: valueInitial,
+        initialSelection: controller.value.text,
         controller: controller,
         expandedInsets: const EdgeInsets.all(1),
-        onSelected: onSelected,
-        enabled: enable,
-        label: label != null
+        onSelected: (value) {
+          setState(() => controller.text = value!);
+          widget.onSelected;
+        },
+        trailingIcon: controller.value.text.isNotEmpty
+            ? GestureDetector(
+                onTap: () => setState(() => controller.clear()),
+                child: const Icon(Icons.clear),
+              )
+            : null,
+        enableSearch: true,
+        enabled: widget.enable,
+        label: widget.label != null
             ? Text(
-                label!,
+                widget.label!,
                 style: const TextStyle(
                   color: $colorTextBlack,
                   overflow: TextOverflow.ellipsis,
                 ),
               )
             : null,
-        hintText: hint,
+        hintText: widget.hint,
         //Dejar el espacio en blanco para que no se descuadre el contenido cuando no tiene counterText,
         helperText: ' ',
         inputDecorationTheme: const InputDecorationTheme(
-          border: UnderlineInputBorder(),
-          //Ese tamaño se ajusta al tamaño por defecto de los inputs
-          constraints: BoxConstraints(maxHeight: 68),
-          contentPadding: EdgeInsets.zero,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(15)),
+          ),
         ),
         dropdownMenuEntries:
-            listItems.map<DropdownMenuEntry<String>>((String value) {
+            widget.listItems.map<DropdownMenuEntry<String>>((String value) {
           return DropdownMenuEntry<String>(value: value, label: value);
         }).toList(),
       ),

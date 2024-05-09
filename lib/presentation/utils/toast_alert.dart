@@ -26,7 +26,7 @@ void toastAlert(
       context: context,
       type: typeAlert,
       style: ToastificationStyle.flatColored,
-      autoCloseDuration: const Duration(seconds: 5),
+      autoCloseDuration: const Duration(seconds: 2),
       title: Text(title),
       description: RichText(
         text: TextSpan(
