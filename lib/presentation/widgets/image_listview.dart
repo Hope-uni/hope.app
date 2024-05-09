@@ -1,3 +1,4 @@
+import 'package:color_filter_extension/color_filter_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
@@ -9,6 +10,7 @@ class ImageListVIew extends StatelessWidget {
   final bool isDecoration;
   final Color? backgroundDecoration;
   final bool? backgroundLine;
+  final bool? isFilterBW;
 
   const ImageListVIew({
     super.key,
@@ -18,6 +20,7 @@ class ImageListVIew extends StatelessWidget {
     this.backgroundColorIcon,
     this.backgroundDecoration,
     this.backgroundLine,
+    this.isFilterBW = false,
   });
 
 //TODO: Cuando este listo el endpoint ajustar widget pare recibir data
@@ -57,8 +60,13 @@ class ImageListVIew extends StatelessWidget {
                       ),
                       margin: const EdgeInsets.symmetric(
                           horizontal: 7, vertical: 10),
-                      //TODO: Agregar url de logros de los niños cuando el endpoint este listo
-                      child: const ImageLoad(urlImage: ''),
+                      child: ColorFiltered(
+                        colorFilter: ColorFilterExt.preset(isFilterBW == true
+                            ? ColorFiltersPreset.inkwell()
+                            : ColorFiltersPreset.none()),
+                        //TODO: Agregar url de logros de los niños cuando el endpoint este listo
+                        child: const ImageLoad(urlImage: ''),
+                      ),
                     ),
                     Visibility(
                       visible: isSelect,
