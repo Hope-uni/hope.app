@@ -23,9 +23,9 @@ class _BoardPageState extends State<BoardPage> {
       appBar: false
           ? null
           : AppBar(
-              title: const Text(
+              title: Text(
                 //TODO: Cambiar cuando este liso el endpoint
-                'Actividad pendiente: Formar 5 oraciones con animales',
+                '${S.current.Actividad_pendiente}: Formar 5 oraciones con animales',
                 maxLines: 2,
               ),
             ),

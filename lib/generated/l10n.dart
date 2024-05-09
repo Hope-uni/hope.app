@@ -1481,6 +1481,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Actividad pendiente`
+  String get Actividad_pendiente {
+    return Intl.message(
+      'Actividad pendiente',
+      name: 'Actividad_pendiente',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -38,6 +38,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Actividad": MessageLookupByLibrary.simpleMessage("Actividad"),
         "Actividad_Actual":
             MessageLookupByLibrary.simpleMessage("Actividad actual"),
+        "Actividad_pendiente":
+            MessageLookupByLibrary.simpleMessage("Actividad pendiente"),
         "Actividades": MessageLookupByLibrary.simpleMessage("Actividades"),
         "Actividades_para_los_ninos":
             MessageLookupByLibrary.simpleMessage("Actividades para los niños"),
