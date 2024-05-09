@@ -130,7 +130,15 @@ class _BoardPageState extends State<BoardPage> {
                 ],
               ),
             ),
-            const SizedBox(height: 25),
+            Container(
+              height: 50,
+              alignment: Alignment.center,
+              child: const Text(
+                //TODO: Cambiar cuando el enpoint este listo
+                'Yo quiero comer galleta',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+              ),
+            ),
             DragTarget<int>(
               builder: (
                 BuildContext context,
@@ -141,7 +149,8 @@ class _BoardPageState extends State<BoardPage> {
                   decoration: BoxDecoration(
                       color: $colorBackgroundDrawer,
                       borderRadius: BorderRadius.circular(20)),
-                  margin: const EdgeInsets.symmetric(horizontal: 13),
+                  margin:
+                      const EdgeInsets.only(bottom: 10, left: 12.5, right: 12),
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   height: 155.0,
                   width: size.width,
@@ -200,15 +209,6 @@ class _BoardPageState extends State<BoardPage> {
               onAcceptWithDetails: (DragTargetDetails<int> details) {
                 setState(() => acceptedData += details.data);
               },
-            ),
-            Container(
-              height: 50,
-              alignment: Alignment.center,
-              child: const Text(
-                //TODO: Cambiar cuando el enpoint este listo
-                'Yo quiero comer galleta',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              ),
             ),
           ],
         ),
