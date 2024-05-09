@@ -53,8 +53,7 @@ class ChildrenPageState extends ConsumerState<ChildrenPage> {
             InputForm(
               value: searchsPatients,
               enable: true,
-              //TODO: Crear variable Intl
-              label: 'Buscar por primer nombre',
+              label: S.current.Buscar_por_primer_nombre,
               marginBottom: 0,
               onChanged: (value) =>
                   ref.read(searchPatients.notifier).state = value,

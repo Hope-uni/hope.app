@@ -8,6 +8,7 @@ class ImageListVIew extends StatelessWidget {
   final Color? backgroundColorIcon;
   final bool isDecoration;
   final Color? backgroundDecoration;
+  final bool? backgroundLine;
 
   const ImageListVIew({
     super.key,
@@ -16,6 +17,7 @@ class ImageListVIew extends StatelessWidget {
     this.iconSelect,
     this.backgroundColorIcon,
     this.backgroundDecoration,
+    this.backgroundLine,
   });
 
 //TODO: Cuando este listo el endpoint ajustar widget pare recibir data
@@ -32,47 +34,55 @@ class ImageListVIew extends StatelessWidget {
           : null,
       width: double.infinity,
       height: 150,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: 10,
-        itemBuilder: (context, index) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Stack(
-                alignment: Alignment.topRight,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    margin:
-                        const EdgeInsets.symmetric(horizontal: 7, vertical: 10),
-                    //TODO: Agregar url de logros de los niños cuando el endpoint este listo
-                    child: const ImageLoad(urlImage: ''),
-                  ),
-                  Visibility(
-                    visible: isSelect,
-                    child: IconButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(
-                          backgroundColorIcon ?? $colorError,
-                        ),
-                        iconColor:
-                            const MaterialStatePropertyAll($colorTextWhite),
+      child: Stack(alignment: Alignment.center, children: [
+        backgroundLine == true
+            ? Container(
+                height: 25,
+                color: const Color.fromARGB(255, 50, 50, 50),
+              )
+            : Container(),
+        ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: 10,
+          itemBuilder: (context, index) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Stack(
+                  alignment: Alignment.topRight,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                      onPressed: () {},
-                      icon: iconSelect ?? const Icon(Icons.check),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 7, vertical: 10),
+                      //TODO: Agregar url de logros de los niños cuando el endpoint este listo
+                      child: const ImageLoad(urlImage: ''),
                     ),
-                  )
-                ],
-              ),
-              //TODO: Cambiar cuando este listo el endpoint
-              const Text('Manzana')
-            ],
-          );
-        },
-      ),
+                    Visibility(
+                      visible: isSelect,
+                      child: IconButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll(
+                            backgroundColorIcon ?? $colorError,
+                          ),
+                          iconColor:
+                              const MaterialStatePropertyAll($colorTextWhite),
+                        ),
+                        onPressed: () {},
+                        icon: iconSelect ?? const Icon(Icons.check),
+                      ),
+                    ),
+                  ],
+                ),
+                //TODO: Cambiar cuando este listo el endpoint
+                const Text('Manzana')
+              ],
+            );
+          },
+        ),
+      ]),
     );
   }
 }

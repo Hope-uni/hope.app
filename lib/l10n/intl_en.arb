@@ -139,5 +139,7 @@
   "Guardado_con_exito": "¡Guardado con éxito!",
   "La_actividad_se_guardo_correctamente": "La actividad se guardó correctamente",
   "Esta_seguro_de_salir_de_la_creacion_de_la_actividad": "¿Está seguro de salir de la creación de la actividad?",
-  "Buscar_por_primer_nombre": "Buscar por primer nombre"
+  "Buscar_por_primer_nombre": "Buscar por primer nombre",
+  "Limpiar": "Limpiar",
+  "Verificar_actividad": "Verificar actividad"
 }
