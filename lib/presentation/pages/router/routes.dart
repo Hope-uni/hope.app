@@ -94,6 +94,12 @@ final goRouterProvider = Provider<GoRouter>((ref) {
           idChild: int.parse(state.pathParameters['idChild']!),
         ),
       ),
+      GoRoute(
+        path: '/board',
+        name: 'board',
+        builder: (BuildContext context, GoRouterState state) =>
+            const BoardPage(),
+      ),
     ],
     /*redirect: (context, state) {
       final isGoingTo = state.matchedLocation;

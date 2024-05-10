@@ -1461,6 +1461,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Limpiar`
+  String get Limpiar {
+    return Intl.message(
+      'Limpiar',
+      name: 'Limpiar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Verificar actividad`
+  String get Verificar_actividad {
+    return Intl.message(
+      'Verificar actividad',
+      name: 'Verificar_actividad',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Actividad pendiente`
+  String get Actividad_pendiente {
+    return Intl.message(
+      'Actividad pendiente',
+      name: 'Actividad_pendiente',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

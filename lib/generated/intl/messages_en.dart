@@ -40,6 +40,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Actividad": MessageLookupByLibrary.simpleMessage("Actividad"),
         "Actividad_Actual":
             MessageLookupByLibrary.simpleMessage("Actividad actual"),
+        "Actividad_pendiente":
+            MessageLookupByLibrary.simpleMessage("Actividad pendiente"),
         "Actividades": MessageLookupByLibrary.simpleMessage("Actividades"),
         "Actividades_para_los_ninos":
             MessageLookupByLibrary.simpleMessage("Actividades para los niños"),
@@ -190,6 +192,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "La contraseña debe contener entre 8 y 30 caracteres"),
         "La_contrasena_es_requerida":
             MessageLookupByLibrary.simpleMessage("La contraseña es requerida"),
+        "Limpiar": MessageLookupByLibrary.simpleMessage("Limpiar"),
         "Limpiar_filtros":
             MessageLookupByLibrary.simpleMessage("Limpiar filtros"),
         "Lista_de_pictogramas_generales": MessageLookupByLibrary.simpleMessage(
@@ -279,6 +282,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Ver_informacion_detallada_de_la_actividad":
             MessageLookupByLibrary.simpleMessage(
                 "Ver Información detallada de la actividad"),
+        "Verificar_actividad":
+            MessageLookupByLibrary.simpleMessage("Verificar actividad"),
         "progreso_de_fase":
             MessageLookupByLibrary.simpleMessage("Progreso de fase")
       };
