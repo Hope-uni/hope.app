@@ -40,8 +40,8 @@ class PictogramPage extends StatelessWidget {
       body: GridImages(
         isCustomized: false,
         images: arregloImages,
-        // ignore: avoid_print//TODO: Cambiar cuando este listo el endpoint
-        loadNextImages: () => print('cargando nuevas imagenes'),
+        //TODO: Cambiar cuando este listo el endpoint
+        loadNextImages: () {},
       ),
     );
   }

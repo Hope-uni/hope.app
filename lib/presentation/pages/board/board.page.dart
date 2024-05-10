@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
+import 'package:color_filter_extension/color_filter_extension.dart';
 
 class BoardPage extends StatefulWidget {
   const BoardPage({super.key});
@@ -164,6 +165,7 @@ class _BoardPageState extends State<BoardPage> {
                       ),
                       const Expanded(
                         child: ImageListVIew(
+                          isFilterBW: true,
                           backgroundLine: true,
                           isDecoration: false,
                           isSelect: false,
@@ -225,31 +227,50 @@ class DraggableExample extends StatefulWidget {
 }
 
 class _DraggableExampleState extends State<DraggableExample> {
+  bool isFilterBW = true;
+
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         Draggable<int>(
-            data: 10,
-            feedback: const SizedBox(
-              height: 200,
-              width: 200,
-              child: ImageLoad(urlImage: ''),
-            ),
-            childWhenDragging: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Container(
-                height: 140.0,
-                width: 140.0,
-                color: const Color.fromARGB(255, 225, 225, 225),
+          data: 10,
+          feedback: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: SizedBox(
+              height: 200.0,
+              width: 200.0,
+              child: ColorFiltered(
+                colorFilter: ColorFilterExt.preset(isFilterBW
+                    ? ColorFiltersPreset.inkwell()
+                    : ColorFiltersPreset.none()),
+                child: const ImageLoad(urlImage: ''),
               ),
             ),
-            child: const SizedBox(
+          ),
+          childWhenDragging: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Container(
               height: 140.0,
               width: 140.0,
-              child: ImageLoad(urlImage: ''),
-            )),
+              color: $colorButtonDisable.withOpacity(0.25),
+            ),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: SizedBox(
+              height: 140.0,
+              width: 140.0,
+              child: ColorFiltered(
+                colorFilter: ColorFilterExt.preset(isFilterBW
+                    ? ColorFiltersPreset.inkwell()
+                    : ColorFiltersPreset.none()),
+                child: const ImageLoad(urlImage: ''),
+              ),
+            ),
+          ),
+        )
       ],
     );
   }
