@@ -1,5 +1,6 @@
 class CustomError implements Exception {
   final String message;
+  final int statuCode;
 
-  CustomError(this.message);
+  CustomError({required this.message, required this.statuCode});
 }

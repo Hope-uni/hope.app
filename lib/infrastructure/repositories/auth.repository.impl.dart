@@ -18,7 +18,7 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<ResponseDataObject<Token>> resetPassword(String emailOrUserName) {
-    return dataSource.resetPassword(emailOrUserName);
+  Future<ResponseDataObject> forgotPassword(String emailOrUserName) {
+    return dataSource.forgotPassword(emailOrUserName);
   }
 }

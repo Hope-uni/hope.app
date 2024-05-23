@@ -8,14 +8,13 @@ class AuthDataSourceImpl extends AuthDataSource {
   final dio = Dio(BaseOptions(baseUrl: Environment.apiUrl));
 
   @override
-  // ignore: avoid_renaming_method_parameters
   Future<ResponseDataObject<Token>> checkAuthStatus(String tokenUser) async {
     try {
       final response = await dio.get('path',
           options: Options(headers: {'Authorization': 'Bearer $tokenUser'}));
 
       final token = ResponseMapper.responseJsonToEntity<Token>(
-          response.data, TokenMapper.tokenJsonToEntity);
+          json: response.data, fromJson: TokenMapper.tokenJsonToEntity);
       return token;
     } catch (e) {
       throw UnimplementedError();
@@ -28,18 +27,35 @@ class AuthDataSourceImpl extends AuthDataSource {
       final response = await dio
           .post('/auth/login', data: {'username': email, 'password': password});
       final token = ResponseMapper.responseJsonToEntity<Token>(
-          response.data, TokenMapper.tokenJsonToEntity);
+          json: response.data, fromJson: TokenMapper.tokenJsonToEntity);
       return token;
     } on DioException catch (e) {
       throw CustomError(
-          e.response?.data['message'] ?? S.current.Error_solicitud);
+        message: e.response?.data['message'] ?? S.current.Error_solicitud,
+        statuCode: e.response!.statusCode!,
+      );
     } catch (e) {
-      throw CustomError(S.current.Error_inesperado);
+      throw CustomError(message: S.current.Error_inesperado, statuCode: 501);
     }
   }
 
   @override
-  Future<ResponseDataObject<Token>> resetPassword(String emailOrUserName) {
-    throw UnimplementedError();
+  Future<ResponseDataObject> forgotPassword(String emailOrUserName) async {
+    try {
+      final response = await dio
+          .post('/auth/forgot-password', data: {'username': emailOrUserName});
+
+      final responseForgotPassword =
+          ResponseMapper.responseJsonToEntity(json: response.data);
+
+      return responseForgotPassword;
+    } on DioException catch (e) {
+      throw CustomError(
+        message: e.response?.data['message'] ?? S.current.Error_solicitud,
+        statuCode: e.response!.statusCode!,
+      );
+    } catch (e) {
+      throw CustomError(message: S.current.Error_inesperado, statuCode: 501);
+    }
   }
 }

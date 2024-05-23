@@ -1,14 +1,20 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hope_app/domain/domain.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
 
+final passwordProvider =
+    StateNotifierProvider<PasswordNotifier, PasswordState>((ref) {
+  final authRepository = AuthRepositoryImpl();
+  return PasswordNotifier(authRepository: authRepository);
+});
+
 class PasswordState {
-  //TODO: Probablemente cambiar a interfaz cuando el endpoint este listo
-  final String? message;
+  final String message;
   final int statusCode;
 
   PasswordState({
     this.statusCode = 0,
-    this.message,
+    this.message = '',
   });
 
   PasswordState copyWith({
@@ -17,32 +23,32 @@ class PasswordState {
   }) =>
       PasswordState(
         statusCode: statusCode ?? this.statusCode,
-        message: message == '' ? null : message ?? this.message,
+        message: message ?? this.message,
       );
 }
 
 class PasswordNotifier extends StateNotifier<PasswordState> {
-  PasswordNotifier() : super(PasswordState());
+  final AuthRepository authRepository;
 
-  /*TODO: Cambiar todo el metodo cuando este listo el endpoint*/
-  Future<void> sendEmailResetPassword() async {
+  PasswordNotifier({required this.authRepository}) : super(PasswordState());
+
+  Future<void> sendEmailForgotPassword(String emailOrUsername) async {
     try {
-      // final response = await resetPasswordRepository.reset(email);
+      final responseForgotPassword =
+          await authRepository.forgotPassword(emailOrUsername);
+
       _setStatePassword(
-          'Se envio solicitud de restablecer contraseña correctamente');
+        responseForgotPassword.message,
+        responseForgotPassword.statusCode,
+      );
     } on CustomError catch (e) {
-      _setStatePassword(e.message);
+      _setStatePassword(e.message, e.statuCode);
     } catch (e) {
-      _setStatePassword('Error no controlado');
+      _setStatePassword('Error no controlado', 501);
     }
   }
 
-  void _setStatePassword(String message) {
-    state = state.copyWith(message: message, statusCode: 200);
+  void _setStatePassword(String message, int statusCode) {
+    state = state.copyWith(message: message, statusCode: statusCode);
   }
 }
-
-final passwordProvider =
-    StateNotifierProvider<PasswordNotifier, PasswordState>((ref) {
-  return PasswordNotifier();
-});

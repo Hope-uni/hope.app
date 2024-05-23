@@ -123,13 +123,15 @@ class _ButtonSendEmail extends ConsumerWidget {
     final isFormPosted = ref.watch(resetPasswordFormProvider).isFormPosted;
 
     ref.listen(passwordProvider, (previous, next) {
-      if (next.message == null) return;
-      //TODO: Agregar validaciones y textos cuando el endpoint este listo dependiendo del statusCode de la respuesta
       toastAlert(
         context: context,
-        title: 'Correo enviado',
-        description: next.message!,
-        typeAlert: ToastificationType.success,
+        title: next.statusCode == 200
+            ? S.current.Peticion_enviada
+            : S.current.Error,
+        description: next.message,
+        typeAlert: next.statusCode == 200
+            ? ToastificationType.success
+            : ToastificationType.error,
       );
     });
 

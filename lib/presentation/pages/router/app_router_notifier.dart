@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hope_app/presentation/providers/providers.dart';
 
-// ignore: non_constant_identifier_names
-final GoRouterNotifierProvider = Provider((ref) {
+final goRouterNotifierProvider = Provider((ref) {
   final authNotifier = ref.read(authProvider.notifier);
   return GoRouterNotifier(authNotifier);
 });

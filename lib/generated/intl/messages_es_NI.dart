@@ -106,9 +106,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Debe_ingresar_el_nombre_de_usuario_o_correo":
             MessageLookupByLibrary.simpleMessage(
                 "Debe ingresar el nombre de usuario o correo"),
-
-        "Descripcion": MessageLookupByLibrary.simpleMessage("Descripción"),
         "Derechos_reservados": m0,
+        "Descripcion": MessageLookupByLibrary.simpleMessage("Descripción"),
         "Direccion": MessageLookupByLibrary.simpleMessage("Dirección"),
         "Edad": MessageLookupByLibrary.simpleMessage("Edad"),
         "Editar": MessageLookupByLibrary.simpleMessage("Editar"),
@@ -155,7 +154,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Esta_seguro_de_salir_de_la_edicion_de_la_actividad":
             MessageLookupByLibrary.simpleMessage(
                 "Esta seguro de salir de la edición de la actividad"),
-        "Esta_seguro_que_desea_eliminar_el_pictograma": m1,
+        "Esta_seguro_que_desea_eliminar_el_pictograma": m2,
         "Fase": MessageLookupByLibrary.simpleMessage("Fase"),
         "Fase_del_autismo":
             MessageLookupByLibrary.simpleMessage("Fase del autismo"),
@@ -219,6 +218,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Oracion": MessageLookupByLibrary.simpleMessage("Oración"),
         "Pagina": MessageLookupByLibrary.simpleMessage("Página"),
         "Perfil": MessageLookupByLibrary.simpleMessage("Perfil"),
+        "Peticion_enviada":
+            MessageLookupByLibrary.simpleMessage("Petición enviada"),
         "Pictogramas_blanco_negro":
             MessageLookupByLibrary.simpleMessage("Pictogramas Blanco/Negro"),
         "Pictogramas_personalizados":
@@ -242,14 +243,14 @@ class MessageLookup extends MessageLookupByLibrary {
             "Quitar asignación de actividad"),
         "Restablecer_contrasena":
             MessageLookupByLibrary.simpleMessage("Restablecer contraseña"),
-        "Se_actualizo_correctamente_el_pictograma_personalizado": m2,
+        "Se_actualizo_correctamente_el_pictograma_personalizado": m3,
         "Se_actualizo_correctamente_la_informacion_de_la_actividad":
             MessageLookupByLibrary.simpleMessage(
                 "Se actualizo correctamente la información de la actividad"),
         "Se_asigno_correctamente_la_actividad_a_los_ninos_seleccionados":
             MessageLookupByLibrary.simpleMessage(
                 "Se asignó correctamente la actividad a los niños seleccionados"),
-        "Se_avanzo_a_la_fase": m3,
+        "Se_avanzo_a_la_fase": m4,
         "Segundo_apellido":
             MessageLookupByLibrary.simpleMessage("Segundo Apellido"),
         "Segundo_nombre":

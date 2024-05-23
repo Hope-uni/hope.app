@@ -20,8 +20,14 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
   void _setLoggedToken(Token token) async {
     await keyValueRepository.setValueStorage(token.accessToken!, 'token');
+    await keyValueRepository.setValueStorage(
+        token.refreshToken!, 'refreshToken');
+
     state = state.copyWith(
-        token: token, authStatus: AuthStatus.authenticated, errorMessage: '');
+      token: token,
+      authStatus: AuthStatus.authenticated,
+      errorMessage: '',
+    );
   }
 
   Future<void> loginUser(String email, String password) async {
@@ -54,6 +60,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
   Future<void> logout() async {
     await keyValueRepository.deleteKeyStorage('token');
+    await keyValueRepository.deleteKeyStorage('refreshToken');
     state = state.copyWith(
       authStatus: AuthStatus.notAuthenticated,
       token: null,
