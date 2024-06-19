@@ -124,15 +124,12 @@ class _ButtonSendEmail extends ConsumerWidget {
 
     ref.listen(passwordProvider, (previous, next) {
       toastAlert(
-        context: context,
-        title: next.statusCode == 200
-            ? S.current.Peticion_enviada
-            : S.current.Error,
-        description: next.message,
-        typeAlert: next.statusCode == 200
-            ? ToastificationType.success
-            : ToastificationType.error,
-      );
+          context: context,
+          title: next.typeMessage == ToastificationType.success
+              ? S.current.Peticion_enviada
+              : S.current.Error,
+          description: next.message,
+          typeAlert: next.typeMessage);
     });
 
     return Container(

@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hope_app/domain/domain.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
+import 'package:toastification/toastification.dart';
 
 final passwordProvider =
     StateNotifierProvider<PasswordNotifier, PasswordState>((ref) {
@@ -10,19 +11,19 @@ final passwordProvider =
 
 class PasswordState {
   final String message;
-  final int statusCode;
+  final ToastificationType typeMessage;
 
   PasswordState({
-    this.statusCode = 0,
+    this.typeMessage = ToastificationType.success,
     this.message = '',
   });
 
   PasswordState copyWith({
-    int? statusCode,
+    ToastificationType? typeMessage,
     String? message,
   }) =>
       PasswordState(
-        statusCode: statusCode ?? this.statusCode,
+        typeMessage: typeMessage ?? this.typeMessage,
         message: message ?? this.message,
       );
 }
@@ -39,16 +40,16 @@ class PasswordNotifier extends StateNotifier<PasswordState> {
 
       _setStatePassword(
         responseForgotPassword.message,
-        responseForgotPassword.statusCode,
+        ToastificationType.success,
       );
     } on CustomError catch (e) {
-      _setStatePassword(e.message, e.statuCode);
+      _setStatePassword(e.message, e.typeNotification);
     } catch (e) {
-      _setStatePassword('Error no controlado', 501);
+      _setStatePassword('Error no controlado', ToastificationType.error);
     }
   }
 
-  void _setStatePassword(String message, int statusCode) {
-    state = state.copyWith(message: message, statusCode: statusCode);
+  void _setStatePassword(String message, ToastificationType messageType) {
+    state = state.copyWith(message: message, typeMessage: messageType);
   }
 }
