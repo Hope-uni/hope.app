@@ -4,19 +4,19 @@ import 'package:hope_app/presentation/providers/password.provider.dart';
 
 final resetPasswordFormProvider = StateNotifierProvider.autoDispose<
     ResetPasswordNotifier, ResetPasswordState>((ref) {
-  final resetPasswordCallback =
-      ref.watch(passwordProvider.notifier).sendEmailResetPassword;
-  return ResetPasswordNotifier(resetPasswordCallback: resetPasswordCallback);
+  final forgotPasswordCallback =
+      ref.watch(passwordProvider.notifier).sendEmailForgotPassword;
+  return ResetPasswordNotifier(forgotPasswordCallback: forgotPasswordCallback);
 });
 
 class ResetPasswordNotifier extends StateNotifier<ResetPasswordState> {
-  final Future<void> Function() resetPasswordCallback;
-  ResetPasswordNotifier({required this.resetPasswordCallback})
+  final Future<void> Function(String emailOrUsername) forgotPasswordCallback;
+  ResetPasswordNotifier({required this.forgotPasswordCallback})
       : super(ResetPasswordState());
 
   void sendResetPassword() async {
     state = state.copyWith(isFormPosted: true);
-    await resetPasswordCallback();
+    await forgotPasswordCallback(state.emailOrUser);
     state = state.copyWith(isFormPosted: false);
   }
 

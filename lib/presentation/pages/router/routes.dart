@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/pages/pages.dart';
-//import 'package:hope_app/presentation/providers/providers.dart';
+import 'package:hope_app/presentation/providers/providers.dart';
 
 final goRouterProvider = Provider<GoRouter>((ref) {
-  final goRouterNotifier = ref.read(GoRouterNotifierProvider);
+  final goRouterNotifier = ref.read(goRouterNotifierProvider);
+  final keyValueRepository = KeyValueStorageRepositoryImpl();
+
   return GoRouter(
-    initialLocation: '/children',
+    initialLocation: '/login',
     refreshListenable: goRouterNotifier,
     routes: <RouteBase>[
       GoRoute(
@@ -101,7 +104,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             const BoardPage(),
       ),
     ],
-    /*redirect: (context, state) {
+    redirect: (context, state) async {
       final isGoingTo = state.matchedLocation;
       final authStatus = goRouterNotifier.authStatus;
 
@@ -115,6 +118,10 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       }
 
       if (authStatus == AuthStatus.authenticated) {
+        final String? token =
+            await keyValueRepository.getValueStorage<String>('token');
+
+        if (token == null) return '/login';
         if (isGoingTo == '/login' ||
             isGoingTo == '/resetpassword' ||
             isGoingTo == '/splash') return '/children';
@@ -123,6 +130,6 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       //if(user.role =='tutor')
 
       return null;
-    },*/
+    },
   );
 });

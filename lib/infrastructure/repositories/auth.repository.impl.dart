@@ -13,12 +13,18 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<ResponseDataObject<Token>> login(String email, String password) {
-    return dataSource.login(email, password);
+  Future<ResponseDataObject<Token>> login(
+      String emailUsername, String password) {
+    return dataSource.login(emailUsername, password);
   }
 
   @override
-  Future<ResponseDataObject<Token>> resetPassword(String emailOrUserName) {
-    return dataSource.resetPassword(emailOrUserName);
+  Future<ResponseDataObject> forgotPassword(String emailOrUserName) {
+    return dataSource.forgotPassword(emailOrUserName);
+  }
+
+  @override
+  Future<ResponseDataObject<Me>> mePermissions() {
+    return dataSource.mePermissions();
   }
 }

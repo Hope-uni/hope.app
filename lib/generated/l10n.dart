@@ -1491,6 +1491,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Petición enviada`
+  String get Peticion_enviada {
+    return Intl.message(
+      'Petición enviada',
+      name: 'Peticion_enviada',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

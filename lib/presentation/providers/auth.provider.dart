@@ -1,42 +1,69 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hope_app/domain/domain.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
+import 'package:hope_app/presentation/services/services.dart';
 
 final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
   final authRepository = AuthRepositoryImpl();
   final keyValueRepository = KeyValueStorageRepositoryImpl();
   return AuthNotifier(
-      authRepository: authRepository, keyValueRepository: keyValueRepository);
+    authRepository: authRepository,
+    keyValueRepository: keyValueRepository,
+  );
 });
 
 class AuthNotifier extends StateNotifier<AuthState> {
   final AuthRepository authRepository;
   final KeyValueStorageRepository keyValueRepository;
-
+  final DioService dio = DioService();
   AuthNotifier({required this.keyValueRepository, required this.authRepository})
       : super(AuthState()) {
     checkAuthStatus();
   }
 
   void _setLoggedToken(Token token) async {
-    await keyValueRepository.setValueStorage(token.accessToken!, 'token');
-    state = state.copyWith(
-        token: token, authStatus: AuthStatus.authenticated, errorMessage: '');
+    try {
+      await keyValueRepository.setValueStorage<String>(
+        token.accessToken,
+        'token',
+      );
+      await keyValueRepository.setValueStorage<String>(
+        token.refreshToken,
+        'refreshToken',
+      );
+
+      await dio.configureBearer();
+      final mePermisson = await authRepository.mePermissions();
+
+      final dataMe = mePermisson.data;
+      _settearDataMe(dataMe!);
+
+      state = state.copyWith(
+        token: token,
+        authStatus: AuthStatus.authenticated,
+        errorMessage: '',
+      );
+    } on CustomError catch (e) {
+      _settearError(e.message);
+    } catch (e) {
+      _settearError('Error no controlado');
+    }
   }
 
-  Future<void> loginUser(String email, String password) async {
+  Future<void> loginUser(String emailUsername, String password) async {
     try {
-      final token = await authRepository.login(email, password);
+      final token = await authRepository.login(emailUsername, password);
       _setLoggedToken(token.data!);
     } on CustomError catch (e) {
-      settearError(e.message);
+      _settearError(e.message);
     } catch (e) {
-      settearError('Error no controlado');
+      _settearError('Error no controlado');
     }
   }
 
   Future<void> checkAuthStatus() async {
-    final token = await keyValueRepository.getValueStorage<String>('token');
+    final String? token =
+        await keyValueRepository.getValueStorage<String>('token');
     if (token == null) return logout();
 
     final itemToken = Token(accessToken: token, refreshToken: '');
@@ -54,17 +81,32 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
   Future<void> logout() async {
     await keyValueRepository.deleteKeyStorage('token');
+    await keyValueRepository.deleteKeyStorage('refreshToken');
     state = state.copyWith(
       authStatus: AuthStatus.notAuthenticated,
       token: null,
     );
   }
 
-  void settearError(String error) {
+  void _settearError(String error) {
+    logout();
     state = state.copyWith(
         authStatus: AuthStatus.notAuthenticated,
         token: null,
         errorMessage: error);
+  }
+
+  void _settearDataMe(Me me) async {
+    await keyValueRepository.setValueStorage<String>(me.username, 'userName');
+    await keyValueRepository.setValueStorage<String>(me.email, 'email');
+
+    final permissonsList = me.roles.expand((role) => role.permissions).toList();
+
+    final descriptionsPermissons =
+        permissonsList.map((e) => e.description).toList();
+
+    await keyValueRepository.setValueStorage<List<String>>(
+        descriptionsPermissons, 'permissions');
   }
 }
 

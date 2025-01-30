@@ -4,18 +4,20 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/pages/pages.dart';
+import 'package:hope_app/presentation/services/services.dart';
 import 'presentation/utils/utils.dart';
 
 Future<void> main() async {
   await Environment.initEnvitonment();
   await S.delegate.load(const Locale('es', 'NI'));
+  DioService();
+
   runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Ocultar la barra de estado

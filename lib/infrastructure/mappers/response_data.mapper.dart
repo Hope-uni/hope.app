@@ -14,13 +14,13 @@ class ResponseMapper<T> {
             : List<T>.from(json["data"]!.map((x) => fromJson(x))),
       );
 
-  static ResponseDataObject<T> responseJsonToEntity<T>(
-    Map<String, dynamic> json,
-    T Function(Map<String, dynamic>) fromJson,
-  ) =>
+  static ResponseDataObject<T> responseJsonToEntity<T>({
+    required Map<String, dynamic> json,
+    T Function(Map<String, dynamic>)? fromJson,
+  }) =>
       ResponseDataObject<T>(
           error: json["error"],
           statusCode: json["statusCode"],
           message: json["message"],
-          data: json["data"] == null ? null : fromJson(json["data"]));
+          data: json["data"] == null ? null : fromJson!(json["data"]));
 }
