@@ -8,3 +8,4 @@ export 'modal_question.dart';
 export 'modal_password.dart';
 export 'toast_alert.dart';
 export 'paint_press_load_button.dart';
+export 'constanst_permissons.dart';

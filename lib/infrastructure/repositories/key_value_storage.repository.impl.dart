@@ -16,11 +16,11 @@ class KeyValueStorageRepositoryImpl extends KeyValueStorageRepository {
 
   @override
   Future<T?> getValueStorage<T>(String key) async {
-    return keyStorageDataSource.getValueStorage(key);
+    return keyStorageDataSource.getValueStorage<T>(key);
   }
 
   @override
   Future<void> setValueStorage<T>(T value, String key) async {
-    return keyStorageDataSource.setValueStorage(value, key);
+    return keyStorageDataSource.setValueStorage<T>(value, key);
   }
 }
