@@ -254,7 +254,7 @@ class _DraggableExampleState extends State<DraggableExample> {
             child: Container(
               height: 140.0,
               width: 140.0,
-              color: $colorButtonDisable.withOpacity(0.25),
+              color: $colorButtonDisable.withValues(alpha: 0.25),
             ),
           ),
           child: ClipRRect(

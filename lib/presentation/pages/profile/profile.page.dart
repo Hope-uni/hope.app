@@ -79,7 +79,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               child: IconButton.filled(
                                 iconSize: 30,
                                 style: const ButtonStyle(
-                                  backgroundColor: MaterialStatePropertyAll(
+                                  backgroundColor: WidgetStatePropertyAll(
                                     $colorBlueGeneral,
                                   ),
                                 ),

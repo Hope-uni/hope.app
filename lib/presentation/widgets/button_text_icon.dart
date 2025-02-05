@@ -20,8 +20,8 @@ class ButtonTextIcon extends StatelessWidget {
     return TextButton.icon(
       onPressed: onClic,
       style: ButtonStyle(
-        backgroundColor: MaterialStatePropertyAll(buttonColor ?? $colorSuccess),
-        iconColor: const MaterialStatePropertyAll($colorTextWhite),
+        backgroundColor: WidgetStatePropertyAll(buttonColor ?? $colorSuccess),
+        iconColor: const WidgetStatePropertyAll($colorTextWhite),
       ),
       icon: icon,
       label: Text(

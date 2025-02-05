@@ -72,11 +72,11 @@ class ImageListVIew extends StatelessWidget {
                       visible: isSelect,
                       child: IconButton(
                         style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll(
+                          backgroundColor: WidgetStatePropertyAll(
                             backgroundColorIcon ?? $colorError,
                           ),
                           iconColor:
-                              const MaterialStatePropertyAll($colorTextWhite),
+                              const WidgetStatePropertyAll($colorTextWhite),
                         ),
                         onPressed: () {},
                         icon: iconSelect ?? const Icon(Icons.check),

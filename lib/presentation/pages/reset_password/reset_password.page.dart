@@ -55,7 +55,7 @@ class ResetPasswordForm extends StatelessWidget {
                   },
                   style: const ButtonStyle(
                       padding:
-                          MaterialStatePropertyAll(EdgeInsets.only(right: 5))),
+                          WidgetStatePropertyAll(EdgeInsets.only(right: 5))),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -149,7 +149,7 @@ class _ButtonSendEmail extends ConsumerWidget {
                     .sendResetPassword();
               },
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.resolveWith((states) =>
+          backgroundColor: WidgetStateProperty.resolveWith((states) =>
               isFormPosted ? $colorButtonDisable : $colorBlueGeneral),
         ),
         child: Text(S.current.Enviar_correo),

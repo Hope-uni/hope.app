@@ -32,6 +32,6 @@ const Color $colorRowTable = Color.fromARGB(40, 130, 178, 255);
 
 const Color $colorBackgroundPages = Color.fromARGB(255, 253, 251, 255);
 
-final Color $colorShadow = Colors.black.withOpacity(0.3);
+final Color $colorShadow = Colors.black.withValues(alpha: 0.3);
 
 const Color $colorSelectMenu = Color.fromARGB(255, 217, 228, 250);
