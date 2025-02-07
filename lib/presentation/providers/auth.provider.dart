@@ -1,14 +1,19 @@
+import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hope_app/domain/domain.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
+import 'package:hope_app/presentation/providers/permissions.provider.dart';
 import 'package:hope_app/presentation/services/services.dart';
 
 final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
   final authRepository = AuthRepositoryImpl();
   final keyValueRepository = KeyValueStorageRepositoryImpl();
+  final profileState = ref.watch(profileProvider.notifier);
+
   return AuthNotifier(
     authRepository: authRepository,
     keyValueRepository: keyValueRepository,
+    profileState: profileState,
   );
 });
 
@@ -16,8 +21,14 @@ class AuthNotifier extends StateNotifier<AuthState> {
   final AuthRepository authRepository;
   final KeyValueStorageRepository keyValueRepository;
   final DioService dio = DioService();
-  AuthNotifier({required this.keyValueRepository, required this.authRepository})
-      : super(AuthState()) {
+
+  final ProfileNotifier profileState;
+
+  AuthNotifier({
+    required this.keyValueRepository,
+    required this.authRepository,
+    required this.profileState,
+  }) : super(AuthState()) {
     checkAuthStatus();
   }
 
@@ -36,13 +47,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
       final mePermisson = await authRepository.mePermissions();
 
       final dataMe = mePermisson.data;
-      _settearDataMe(dataMe!);
-
-      state = state.copyWith(
-        token: token,
-        authStatus: AuthStatus.authenticated,
-        errorMessage: '',
-      );
+      _settearDataMe(dataMe!, token);
     } on CustomError catch (e) {
       _settearError(e.message);
     } catch (e) {
@@ -71,17 +76,17 @@ class AuthNotifier extends StateNotifier<AuthState> {
       token: itemToken,
       authStatus: AuthStatus.authenticated,
     );
-    /* try {
-      final user = await authRepository.checkAuthStatus(token);
-      _setLoggedToken(user);
-    } catch (e) {
-      logout();
-    }*/
   }
 
   Future<void> logout() async {
-    await keyValueRepository.deleteKeyStorage('token');
-    await keyValueRepository.deleteKeyStorage('refreshToken');
+    _resetTokens();
+    await keyValueRepository.deleteKeyStorage('userName');
+    await keyValueRepository.deleteKeyStorage('email');
+    await keyValueRepository.deleteKeyStorage('profile');
+    await keyValueRepository.deleteKeyStorage('permissions');
+
+    profileState.resetProfile();
+
     state = state.copyWith(
       authStatus: AuthStatus.notAuthenticated,
       token: null,
@@ -89,16 +94,24 @@ class AuthNotifier extends StateNotifier<AuthState> {
   }
 
   void _settearError(String error) {
-    logout();
+    _resetTokens();
     state = state.copyWith(
         authStatus: AuthStatus.notAuthenticated,
         token: null,
         errorMessage: error);
   }
 
-  void _settearDataMe(Me me) async {
+  void _resetTokens() async {
+    await keyValueRepository.deleteKeyStorage('token');
+    await keyValueRepository.deleteKeyStorage('refreshToken');
+  }
+
+  void _settearDataMe(Me me, token) async {
     await keyValueRepository.setValueStorage<String>(me.username, 'userName');
     await keyValueRepository.setValueStorage<String>(me.email, 'email');
+
+    await keyValueRepository.setValueStorage<String>(
+        jsonEncode(MePermissionsMapper.toJsonProfile(me.profile)), 'profile');
 
     final permissonsList = me.roles.expand((role) => role.permissions).toList();
 
@@ -107,6 +120,18 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
     await keyValueRepository.setValueStorage<List<String>>(
         descriptionsPermissons, 'permissions');
+
+    if (descriptionsPermissons.isEmpty) {
+      logout();
+    }
+
+    profileState.loadProfileAndPermmisions();
+
+    state = state.copyWith(
+      token: token,
+      authStatus: AuthStatus.authenticated,
+      errorMessage: '',
+    );
   }
 }
 

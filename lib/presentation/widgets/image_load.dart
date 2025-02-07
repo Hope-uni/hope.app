@@ -23,11 +23,10 @@ class ImageLoad extends StatelessWidget {
               showDialog<void>(
                 context: context,
                 builder: (BuildContext context) {
-                  return const AlertDialog(
+                  return AlertDialog(
                     contentPadding: EdgeInsets.zero,
-                    //TODO: Agregar url de logros de los niños cuando el endpoint este listo
                     content: ImageLoad(
-                      urlImage: '',
+                      urlImage: urlImage,
                       width: 300,
                       height: 280,
                     ),
@@ -46,8 +45,7 @@ class ImageLoad extends StatelessWidget {
             return Image.asset('assets/img/no-image.png');
           },
           placeholder: const AssetImage('assets/gif/jar-loading.gif'),
-          //TODO : Reemplazar luego por networImage
-          image: const AssetImage('assets/img/no-image.png'),
+          image: NetworkImage(urlImage),
         ),
       ),
     ); //NetworkImage(urlImage) ;

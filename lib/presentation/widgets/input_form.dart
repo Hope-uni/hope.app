@@ -14,17 +14,22 @@ class InputForm extends StatelessWidget {
   final bool? obscureText;
   final Widget? suffixIcon;
   final bool? isNumber;
+  final bool? readOnly;
   final List<TextInputFormatter>? inputFormatters;
   final Function(String)? onChanged;
+  final Function()? onTap;
   final bool? isSearch;
+  final TextEditingController? controllerExt;
 
   const InputForm({
     super.key,
     required this.value,
     required this.enable,
     this.label,
+    this.readOnly,
     this.maxLines,
     this.maxLength,
+    this.onTap,
     this.onChanged,
     this.hint,
     this.inputFormatters,
@@ -34,6 +39,7 @@ class InputForm extends StatelessWidget {
     this.errorText,
     this.isNumber,
     this.isSearch,
+    this.controllerExt,
   });
 
   @override
@@ -48,9 +54,10 @@ class InputForm extends StatelessWidget {
         bottom: marginBottom == null ? 12.5 : marginBottom!,
       ),
       child: TextField(
-        controller: controller,
+        controller: controllerExt ?? controller,
         onChanged: onChanged,
         enabled: enable,
+        readOnly: readOnly ?? false,
         maxLines: maxLines ?? 1,
         obscureText: obscureText ?? false,
         maxLength: enable ? maxLength : null,
@@ -64,6 +71,7 @@ class InputForm extends StatelessWidget {
         keyboardType: isNumber == true
             ? TextInputType.number
             : TextInputType.emailAddress,
+        onTap: onTap,
         decoration: InputDecoration(
           labelText: label,
           suffixIcon: suffixIcon,
