@@ -247,7 +247,7 @@ List<Widget> _childPersonalData({
               child: IconButton.filled(
                   style: const ButtonStyle(
                       backgroundColor:
-                          MaterialStatePropertyAll($colorBlueGeneral)),
+                          WidgetStatePropertyAll($colorBlueGeneral)),
                   onPressed: () {
                     bottomSheetModal(
                       context: context,

@@ -131,7 +131,7 @@ class _AddActivityPageState extends State<AddActivityPage> {
             visible: currentStep > 1,
             child: TextButton(
               style: const ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll($colorError),
+                backgroundColor: WidgetStatePropertyAll($colorError),
               ),
               child: Text(
                 S.current.Atras,
@@ -149,7 +149,7 @@ class _AddActivityPageState extends State<AddActivityPage> {
             visible: currentStep != totalSteps,
             child: TextButton(
               style: const ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll($colorBlueGeneral),
+                backgroundColor: WidgetStatePropertyAll($colorBlueGeneral),
               ),
               child: Text(
                 S.current.Siguiente,
@@ -166,7 +166,7 @@ class _AddActivityPageState extends State<AddActivityPage> {
             visible: currentStep == totalSteps,
             child: TextButton(
               style: const ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll($colorSuccess),
+                backgroundColor: WidgetStatePropertyAll($colorSuccess),
               ),
               child: Text(
                 S.current.Guardar,
