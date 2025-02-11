@@ -55,7 +55,7 @@ class LoginForsm extends StatelessWidget {
             },
             style: const ButtonStyle(
                 alignment: Alignment.centerRight,
-                padding: MaterialStatePropertyAll(EdgeInsets.only(right: 5))),
+                padding: WidgetStatePropertyAll(EdgeInsets.only(right: 5))),
             child: Text(S.current.Olvido_su_contrasena),
           ),
         ),
@@ -182,7 +182,7 @@ class _ButtonLogin extends ConsumerWidget {
                 ref.read(loginFormProvider.notifier).onFormSubmit();
               },
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.resolveWith((states) =>
+          backgroundColor: WidgetStateProperty.resolveWith((states) =>
               loginProvider.isFormPosted
                   ? $colorButtonDisable
                   : $colorBlueGeneral),

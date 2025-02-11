@@ -1,24 +1,62 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
+import 'package:hope_app/presentation/providers/permissions.provider.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
 import 'package:toastification/toastification.dart';
 
-class ProfilePage extends StatefulWidget {
+class ProfilePage extends ConsumerStatefulWidget {
   const ProfilePage({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  ConsumerState<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfilePageState extends ConsumerState<ProfilePage> {
   bool enableInput = false;
   final CameraGalleryDataSourceImpl image = CameraGalleryDataSourceImpl();
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     const double sizeInputs = 150;
+
+    final profileState = ref.watch(profileProvider);
+
+    if (profileState.isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    final TextEditingController controller = TextEditingController(
+        text: profileState.profile!.birthday.split('-').reversed.join('-'));
+
+    Future<void> selectDate(BuildContext context, String dateValue) async {
+      final DateTime now = DateTime.now();
+      final DateTime firstDate = DateTime(1950, 1, 1);
+      final DateTime lastDate = now;
+
+      final day = int.parse(dateValue.split('-')[2]);
+      final month = int.parse(dateValue.split('-')[1]);
+      final year = int.parse(dateValue.split('-')[0]);
+
+      DateTime? pickedDate = await showDatePicker(
+        context: context,
+        initialDate: DateTime(year, month, day),
+        firstDate: firstDate,
+        lastDate: lastDate,
+      );
+
+      if (pickedDate != null) {
+        ref.read(profileProvider.notifier).updateBirthday(pickedDate);
+
+        setState(() {
+          controller.text =
+              "${pickedDate.year}-${pickedDate.month}-${pickedDate.day}";
+        });
+      }
+    }
 
     return DefaultTabController(
       initialIndex: 0,
@@ -64,10 +102,10 @@ class _ProfilePageState extends State<ProfilePage> {
                               decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
                               ),
-                              child: const ImageLoad(
+                              child: ImageLoad(
                                 height: 150,
                                 width: 150,
-                                urlImage: '',
+                                urlImage: profileState.profile!.image,
                               ),
                             ),
                           ),
@@ -79,7 +117,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               child: IconButton.filled(
                                 iconSize: 30,
                                 style: const ButtonStyle(
-                                  backgroundColor: MaterialStatePropertyAll(
+                                  backgroundColor: WidgetStatePropertyAll(
                                     $colorBlueGeneral,
                                   ),
                                 ),
@@ -157,78 +195,81 @@ class _ProfilePageState extends State<ProfilePage> {
                   InputForm(
                     label: S.current.Nombre_de_usuario,
                     maxLength: 50,
-                    //TODO: Cambiar cuando este listo el endpoint
-                    value: 'LordMario',
+                    value: profileState.userName!,
                     enable: enableInput,
                     onChanged: (value) {},
                   ),
                   InputForm(
                     label: S.current.Correo_electronico,
                     maxLength: 100,
-                    //TODO: Cambiar cuando este listo el endpoint
-                    value: 'marioramosmejia2243@gmail.com',
+                    value: profileState.email!,
                     enable: enableInput,
                     onChanged: (value) {},
                   ),
                   InputForm(
                     label: S.current.Primer_nombre,
                     maxLength: 50,
-                    //TODO: Cambiar cuando este listo el endpoint
-                    value: 'Mario',
+                    value: profileState.profile!.firstName,
                     enable: enableInput,
                     onChanged: (value) {},
                   ),
                   InputForm(
                     label: S.current.Segundo_nombre,
                     maxLength: 50,
-                    //TODO: Cambiar cuando este listo el endpoint
-                    value: 'Jose',
+                    value: profileState.profile!.secondName ?? '-',
                     enable: enableInput,
                     onChanged: (value) {},
                   ),
                   InputForm(
                     label: S.current.Primer_apellido,
                     maxLength: 50,
-                    //TODO: Cambiar cuando este listo el endpoint
-                    value: 'Ramos',
+                    value: profileState.profile!.surname,
                     enable: enableInput,
                     onChanged: (value) {},
                   ),
                   InputForm(
                     label: S.current.Segundo_apellido,
                     maxLength: 50,
-                    //TODO: Cambiar cuando este listo el endpoint
-                    value: 'Mejia',
+                    value: profileState.profile!.secondSurname ?? '-',
                     enable: enableInput,
                     onChanged: (value) {},
                   ),
                   InputForm(
                     label: S.current.Cedula,
                     maxLength: 14,
-                    //TODO: Cambiar cuando este listo el endpoint
-                    value: '0012210970007L',
+                    value: profileState.profile!.identificationNumber,
                     enable: enableInput,
                     onChanged: (value) {},
                   ),
                   InputForm(
-                    label: S.current.Edad,
-                    //TODO: Cambiar cuando este listo el endpoint
-                    value: '27 años, 10 meses y 15 dias',
-                    enable: false,
+                    label: S.current.Fecha_de_nacimiento,
+                    value: profileState.profile!.birthday
+                        .split('-')
+                        .reversed
+                        .join('-'),
+                    enable: enableInput,
+                    readOnly: true,
+                    controllerExt: controller,
+                    onTap: () =>
+                        selectDate(context, profileState.profile!.birthday),
                   ),
                   InputForm(
                     label: S.current.Telefono,
                     maxLength: 8,
-                    //TODO: Cambiar cuando este listo el endpoint
-                    value: '57144515',
+                    isNumber: true,
+                    value: profileState.profile!.telephone == null
+                        ? '-'
+                        : profileState.profile!.telephone.toString(),
                     enable: enableInput,
                     onChanged: (value) {},
                   ),
                   InputForm(
                     label: S.current.Celular,
                     maxLength: 8,
-                    //TODO: Cambiar cuando este listo el endpoint
-                    value: '81524091',
+                    isNumber: true,
+                    value: profileState.profile!.phoneNumber == null
+                        ? '-'
+                        : profileState.profile!.phoneNumber.toString(),
                     enable: enableInput,
                     onChanged: (value) {},
                   ),
@@ -238,9 +279,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     maxLines: 5,
                     enable: enableInput,
                     onChanged: (value) {},
-                    //TODO: Cambiar cuando este listo el endpoint
-                    value:
-                        'Del pali de san judas 3 c al sur 1/2 c abajo , 5ta casa mano izquierda',
+                    value: profileState.profile!.address,
                   ),
                   const SizedBox(height: 50)
                 ],

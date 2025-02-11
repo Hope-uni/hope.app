@@ -153,7 +153,7 @@ class StepperCustom extends StatelessWidget {
 
   _getLineColor(i) {
     var color = curStep > i + 1
-        ? $colorBlueGeneral.withOpacity(0.4)
+        ? $colorBlueGeneral.withValues(alpha: 0.4)
         : $colorButtonDisable;
     return color;
   }

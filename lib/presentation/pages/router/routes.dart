@@ -3,7 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/pages/pages.dart';
+import 'package:hope_app/presentation/providers/permissions.provider.dart';
 import 'package:hope_app/presentation/providers/providers.dart';
+import 'package:hope_app/presentation/utils/constanst_permissons.dart';
 
 final goRouterProvider = Provider<GoRouter>((ref) {
   final goRouterNotifier = ref.read(goRouterNotifierProvider);
@@ -121,13 +123,21 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         final String? token =
             await keyValueRepository.getValueStorage<String>('token');
 
-        if (token == null) return '/login';
+        final List<String>? permissions = await keyValueRepository
+            .getValueStorage<List<String>>('permissions');
+
+        if (token == null || permissions == null) return '/login';
+
         if (isGoingTo == '/login' ||
             isGoingTo == '/resetpassword' ||
-            isGoingTo == '/splash') return '/children';
+            isGoingTo == '/splash' && permissions.contains($listPatients)) {
+          return '/children';
+        }
+        final profileState = ref.watch(profileProvider);
+        if (profileState.isLoading) {
+          ref.read(profileProvider.notifier).loadProfileAndPermmisions();
+        }
       }
-      //Aqui agregar validaciones de roles o permisos y tambien agregar rutas a array para hacerlo mas dinamico
-      //if(user.role =='tutor')
 
       return null;
     },

@@ -83,8 +83,8 @@ class ChildrenPageState extends ConsumerState<ChildrenPage> {
                       //TODO: Cambiar cuando este listo el endpoint
                       subTitle: 'Fase 4 | 20 años',
                       //TODO: Cambiar cuando este listo el endpoint
-                      image: '',
-                      //TODO: Cambiar cuando este listo el endpoint
+                      image:
+                          'https://static.arasaac.org/pictograms/2340/2340_2500.png',
                       iconButton: MenuItems(
                         idChild:
                             int.parse(listPatients.totalPatients[index].id),
