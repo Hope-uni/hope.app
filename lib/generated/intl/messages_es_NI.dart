@@ -92,6 +92,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Contrasena": MessageLookupByLibrary.simpleMessage("Contraseña"),
         "Contrasena_actual":
             MessageLookupByLibrary.simpleMessage("Contraseña actual"),
+        "Correo": MessageLookupByLibrary.simpleMessage("email"),
         "Correo_electronico":
             MessageLookupByLibrary.simpleMessage("Correo electrónico"),
         "Correo_o_nombre_de_usuario":
@@ -131,8 +132,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "Entrar": MessageLookupByLibrary.simpleMessage("Entrar"),
         "Enviar_correo": MessageLookupByLibrary.simpleMessage("Enviar correo"),
         "Error": MessageLookupByLibrary.simpleMessage("Error"),
+        "Error_al_actualizar_los_permisos":
+            MessageLookupByLibrary.simpleMessage(
+                "Error al actualizar los permisos"),
         "Error_inesperado": MessageLookupByLibrary.simpleMessage(
             "Lamentablemente, ocurrió un error inesperado. Por favor, intenta nuevamente más tarde."),
+        "Error_no_controlado":
+            MessageLookupByLibrary.simpleMessage("Error no controlado"),
         "Error_solicitud": MessageLookupByLibrary.simpleMessage(
             "Lo sentimos, ha ocurrido un error al procesar tu solicitud. Por favor, intenta nuevamente más tarde."),
         "Esta_Seguro_de_actualizar_los_datos":
@@ -218,6 +224,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Oracion": MessageLookupByLibrary.simpleMessage("Oración"),
         "Pagina": MessageLookupByLibrary.simpleMessage("Página"),
         "Perfil": MessageLookupByLibrary.simpleMessage("Perfil"),
+        "Permisos": MessageLookupByLibrary.simpleMessage("permissions"),
         "Peticion_enviada":
             MessageLookupByLibrary.simpleMessage("Petición enviada"),
         "Pictogramas_blanco_negro":
@@ -230,6 +237,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Primer_apellido":
             MessageLookupByLibrary.simpleMessage("Primer Apellido"),
         "Primer_nombre": MessageLookupByLibrary.simpleMessage("Primer Nombre"),
+        "Profile": MessageLookupByLibrary.simpleMessage("profile"),
         "Progreso_general":
             MessageLookupByLibrary.simpleMessage("Progreso general"),
         "Progresos": MessageLookupByLibrary.simpleMessage("Progresos"),
@@ -241,6 +249,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Quitar actividad a los niños"),
         "Quitar_asignacion_de_actividad": MessageLookupByLibrary.simpleMessage(
             "Quitar asignación de actividad"),
+        "RefreshToken": MessageLookupByLibrary.simpleMessage("refreshToken"),
         "Restablecer_contrasena":
             MessageLookupByLibrary.simpleMessage("Restablecer contraseña"),
         "Se_actualizo_correctamente_el_pictograma_personalizado": m3,
@@ -275,9 +284,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "Telefono_de_casa":
             MessageLookupByLibrary.simpleMessage("Teléfono de casa"),
         "Terapeuta": MessageLookupByLibrary.simpleMessage("Terapeuta"),
+        "Token": MessageLookupByLibrary.simpleMessage("token"),
         "Total_de_resultados":
             MessageLookupByLibrary.simpleMessage("Total de resultados:"),
         "Tutor": MessageLookupByLibrary.simpleMessage("Tutor"),
+        "User_Name": MessageLookupByLibrary.simpleMessage("userName"),
         "Usuario": MessageLookupByLibrary.simpleMessage("Usuario"),
         "Ver_informacion":
             MessageLookupByLibrary.simpleMessage("Ver Información"),

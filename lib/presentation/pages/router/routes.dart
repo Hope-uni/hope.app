@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/pages/pages.dart';
 import 'package:hope_app/presentation/providers/permissions.provider.dart';
@@ -121,10 +122,10 @@ final goRouterProvider = Provider<GoRouter>((ref) {
 
       if (authStatus == AuthStatus.authenticated) {
         final String? token =
-            await keyValueRepository.getValueStorage<String>('token');
+            await keyValueRepository.getValueStorage<String>(S.current.Token);
 
         final List<String>? permissions = await keyValueRepository
-            .getValueStorage<List<String>>('permissions');
+            .getValueStorage<List<String>>(S.current.Permisos);
 
         if (token == null || permissions == null) return '/login';
 
