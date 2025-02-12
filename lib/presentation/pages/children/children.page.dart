@@ -80,6 +80,8 @@ class ChildrenPageState extends ConsumerState<ChildrenPage> {
                     return ListTileCustom(
                       //TODO: Cambiar cuando este listo el endpoint
                       title: 'Mario Jose Ramos Mejia',
+                      colorTitle: true,
+                      styleTitle: FontWeight.bold,
                       //TODO: Cambiar cuando este listo el endpoint
                       subTitle: 'Fase 4 | 20 años',
                       //TODO: Cambiar cuando este listo el endpoint

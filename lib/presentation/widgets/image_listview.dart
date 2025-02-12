@@ -65,7 +65,12 @@ class ImageListVIew extends StatelessWidget {
                             ? ColorFiltersPreset.inkwell()
                             : ColorFiltersPreset.none()),
                         //TODO: Agregar url de logros de los niños cuando el endpoint este listo
-                        child: const ImageLoad(urlImage: ''),
+                        child: const SizedBox(
+                            height: 100,
+                            width: 100,
+                            child: ImageLoad(
+                                urlImage: //TODO: Cambiar cuando este listo el endpoint
+                                    'https://static.wikia.nocookie.net/mario/images/f/f0/Estrella_Artwork_.png/revision/latest?cb=20220428203232&path-prefix=es')),
                       ),
                     ),
                     Visibility(

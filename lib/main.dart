@@ -35,6 +35,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     // Ejecutar código asíncrono después de que el widget haya sido renderizado por primera vez
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await DioService().configureBearer();
       // Verificar si el token está presente y realizar la llamada al endpoint "Me"
       final token = await KeyValueStorageRepositoryImpl()
           .getValueStorage<String>(S.current.Token);

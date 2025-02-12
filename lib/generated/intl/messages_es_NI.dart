@@ -40,14 +40,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "Actividad": MessageLookupByLibrary.simpleMessage("Actividad"),
         "Actividad_Actual":
             MessageLookupByLibrary.simpleMessage("Actividad actual"),
+        "Actividad_actual":
+            MessageLookupByLibrary.simpleMessage("Actividad actual"),
         "Actividad_pendiente":
             MessageLookupByLibrary.simpleMessage("Actividad pendiente"),
         "Actividades": MessageLookupByLibrary.simpleMessage("Actividades"),
         "Actividades_para_los_ninos":
             MessageLookupByLibrary.simpleMessage("Actividades para los niños"),
+        "Actividades_terminadas":
+            MessageLookupByLibrary.simpleMessage("Actividades terminadas"),
         "Actualizado_con_exito":
             MessageLookupByLibrary.simpleMessage("¡Actualizado con éxito!"),
         "Actualizar": MessageLookupByLibrary.simpleMessage("Actualizar"),
+        "Agregar_observacion":
+            MessageLookupByLibrary.simpleMessage("Agregar observación"),
         "Agregar_pictograma":
             MessageLookupByLibrary.simpleMessage("Agregar pictograma"),
         "Anadir_nuevo_pictograma_personalizado":

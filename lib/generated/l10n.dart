@@ -1581,6 +1581,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Agregar observación`
+  String get Agregar_observacion {
+    return Intl.message(
+      'Agregar observación',
+      name: 'Agregar_observacion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Actividad actual`
+  String get Actividad_actual {
+    return Intl.message(
+      'Actividad actual',
+      name: 'Actividad_actual',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Actividades terminadas`
+  String get Actividades_terminadas {
+    return Intl.message(
+      'Actividades terminadas',
+      name: 'Actividades_terminadas',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

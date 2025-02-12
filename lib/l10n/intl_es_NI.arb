@@ -151,5 +151,8 @@
   "Correo": "email",
   "Profile": "profile",
   "Error_al_actualizar_los_permisos": "Error al actualizar los permisos",
-  "Error_no_controlado": "Error no controlado"
+  "Error_no_controlado": "Error no controlado",
+  "Agregar_observacion": "Agregar observación",
+  "Actividad_actual": "Actividad actual",
+  "Actividades_terminadas": "Actividades terminadas"
 }

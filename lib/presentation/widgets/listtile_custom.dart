@@ -4,18 +4,26 @@ import 'package:hope_app/presentation/widgets/widgets.dart';
 
 class ListTileCustom extends StatelessWidget {
   final String title;
-  final Widget iconButton;
+  final Widget? iconButton;
   final Color? colorItemSelect;
   final String? image;
   final String? subTitle;
+  final FontWeight? styleSubTitle;
+  final FontWeight? styleTitle;
+  final bool? colorSubTitle;
+  final bool? colorTitle;
 
   const ListTileCustom({
     super.key,
     required this.title,
-    required this.iconButton,
+    this.iconButton,
     this.colorItemSelect,
     this.image,
     this.subTitle,
+    this.styleSubTitle,
+    this.colorSubTitle,
+    this.colorTitle,
+    this.styleTitle,
   });
 
   @override
@@ -46,9 +54,16 @@ class ListTileCustom extends StatelessWidget {
                 child: ClipOval(child: ImageLoad(urlImage: image!)),
               )
             : Container(width: 3, color: $colorBlueGeneral),
-        title: Text(title, style: const TextStyle(fontWeight: FontWeight.w500)),
+        title: Text(title,
+            style: TextStyle(
+                fontWeight: styleTitle,
+                color: colorTitle == true ? $colorBlueGeneral : null)),
         subtitle: subTitle != null
-            ? Text(subTitle!, style: const TextStyle(fontSize: 15))
+            ? Text(subTitle!,
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: styleSubTitle,
+                    color: colorSubTitle == true ? $colorBlueGeneral : null))
             : null,
         trailing: iconButton,
         contentPadding: const EdgeInsets.only(right: 5, left: 15),
