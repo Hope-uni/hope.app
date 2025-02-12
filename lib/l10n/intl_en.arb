@@ -143,5 +143,13 @@
   "Limpiar": "Limpiar",
   "Verificar_actividad": "Verificar actividad",
   "Actividad_pendiente": "Actividad pendiente",
-  "Peticion_enviada": "Petición enviada"
+  "Peticion_enviada": "Petición enviada",
+  "Token": "token",
+  "RefreshToken": "refreshToken",
+  "Permisos": "permissions",
+  "User_Name": "userName",
+  "Correo": "email",
+  "Profile": "profile",
+  "Error_al_actualizar_los_permisos": "Error al actualizar los permisos",
+  "Error_no_controlado": "Error no controlado"
 }

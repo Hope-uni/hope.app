@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hope_app/domain/entities/me.entities.dart';
+import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/infrastructure/mappers/me_permissions.mapper.dart';
 import 'package:hope_app/infrastructure/repositories/key_value_storage.repository.impl.dart';
 
@@ -15,17 +16,18 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
   ProfileNotifier(this._storageProfile) : super(ProfileState());
 
   Future<void> loadProfileAndPermmisions() async {
-    final storedPermissions =
-        await _storageProfile.getValueStorage<List<String>>('permissions') ??
-            [];
+    final storedPermissions = await _storageProfile
+            .getValueStorage<List<String>>(S.current.Permisos) ??
+        [];
 
     final storedProfile =
-        await _storageProfile.getValueStorage<String>('profile');
+        await _storageProfile.getValueStorage<String>(S.current.Profile);
 
     final storedUserName =
-        await _storageProfile.getValueStorage<String>('userName');
+        await _storageProfile.getValueStorage<String>(S.current.User_Name);
 
-    final storedEmail = await _storageProfile.getValueStorage<String>('email');
+    final storedEmail =
+        await _storageProfile.getValueStorage<String>(S.current.Correo);
 
     state = state.copyWith(
         userName: storedUserName,

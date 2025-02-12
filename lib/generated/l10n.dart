@@ -1501,6 +1501,86 @@ class S {
       args: [],
     );
   }
+
+  /// `token`
+  String get Token {
+    return Intl.message(
+      'token',
+      name: 'Token',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `refreshToken`
+  String get RefreshToken {
+    return Intl.message(
+      'refreshToken',
+      name: 'RefreshToken',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `permissions`
+  String get Permisos {
+    return Intl.message(
+      'permissions',
+      name: 'Permisos',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `userName`
+  String get User_Name {
+    return Intl.message(
+      'userName',
+      name: 'User_Name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `email`
+  String get Correo {
+    return Intl.message(
+      'email',
+      name: 'Correo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `profile`
+  String get Profile {
+    return Intl.message(
+      'profile',
+      name: 'Profile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error al actualizar los permisos`
+  String get Error_al_actualizar_los_permisos {
+    return Intl.message(
+      'Error al actualizar los permisos',
+      name: 'Error_al_actualizar_los_permisos',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error no controlado`
+  String get Error_no_controlado {
+    return Intl.message(
+      'Error no controlado',
+      name: 'Error_no_controlado',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

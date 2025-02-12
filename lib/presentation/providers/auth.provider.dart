@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hope_app/domain/domain.dart';
+import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/providers/permissions.provider.dart';
 import 'package:hope_app/presentation/services/services.dart';
@@ -28,30 +29,28 @@ class AuthNotifier extends StateNotifier<AuthState> {
     required this.keyValueRepository,
     required this.authRepository,
     required this.profileState,
-  }) : super(AuthState()) {
-    checkAuthStatus();
-  }
+  }) : super(AuthState());
 
   void _setLoggedToken(Token token) async {
     try {
       await keyValueRepository.setValueStorage<String>(
         token.accessToken,
-        'token',
+        S.current.Token,
       );
       await keyValueRepository.setValueStorage<String>(
         token.refreshToken,
-        'refreshToken',
+        S.current.RefreshToken,
       );
 
       await dio.configureBearer();
       final mePermisson = await authRepository.mePermissions();
 
       final dataMe = mePermisson.data;
-      _settearDataMe(dataMe!, token);
+      settearDataMe(dataMe!, token);
     } on CustomError catch (e) {
       _settearError(e.message);
     } catch (e) {
-      _settearError('Error no controlado');
+      _settearError(S.current.Error_no_controlado);
     }
   }
 
@@ -62,28 +61,16 @@ class AuthNotifier extends StateNotifier<AuthState> {
     } on CustomError catch (e) {
       _settearError(e.message);
     } catch (e) {
-      _settearError('Error no controlado');
+      _settearError(S.current.Error_no_controlado);
     }
-  }
-
-  Future<void> checkAuthStatus() async {
-    final String? token =
-        await keyValueRepository.getValueStorage<String>('token');
-    if (token == null) return logout();
-
-    final itemToken = Token(accessToken: token, refreshToken: '');
-    state = state.copyWith(
-      token: itemToken,
-      authStatus: AuthStatus.authenticated,
-    );
   }
 
   Future<void> logout() async {
     _resetTokens();
-    await keyValueRepository.deleteKeyStorage('userName');
-    await keyValueRepository.deleteKeyStorage('email');
-    await keyValueRepository.deleteKeyStorage('profile');
-    await keyValueRepository.deleteKeyStorage('permissions');
+    await keyValueRepository.deleteKeyStorage(S.current.User_Name);
+    await keyValueRepository.deleteKeyStorage(S.current.Correo);
+    await keyValueRepository.deleteKeyStorage(S.current.Profile);
+    await keyValueRepository.deleteKeyStorage(S.current.Permisos);
 
     profileState.resetProfile();
 
@@ -102,16 +89,19 @@ class AuthNotifier extends StateNotifier<AuthState> {
   }
 
   void _resetTokens() async {
-    await keyValueRepository.deleteKeyStorage('token');
-    await keyValueRepository.deleteKeyStorage('refreshToken');
+    await keyValueRepository.deleteKeyStorage(S.current.Token);
+    await keyValueRepository.deleteKeyStorage(S.current.RefreshToken);
   }
 
-  void _settearDataMe(Me me, token) async {
-    await keyValueRepository.setValueStorage<String>(me.username, 'userName');
-    await keyValueRepository.setValueStorage<String>(me.email, 'email');
+  void settearDataMe(Me me, token) async {
+    await keyValueRepository.setValueStorage<String>(
+        me.username, S.current.User_Name);
+    await keyValueRepository.setValueStorage<String>(
+        me.email, S.current.Correo);
 
     await keyValueRepository.setValueStorage<String>(
-        jsonEncode(MePermissionsMapper.toJsonProfile(me.profile)), 'profile');
+        jsonEncode(MePermissionsMapper.toJsonProfile(me.profile)),
+        S.current.Profile);
 
     final permissonsList = me.roles.expand((role) => role.permissions).toList();
 
@@ -119,7 +109,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
         permissonsList.map((e) => e.description).toList();
 
     await keyValueRepository.setValueStorage<List<String>>(
-        descriptionsPermissons, 'permissions');
+        descriptionsPermissons, S.current.Permisos);
 
     if (descriptionsPermissons.isEmpty) {
       logout();
