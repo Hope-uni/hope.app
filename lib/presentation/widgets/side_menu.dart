@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hope_app/generated/l10n.dart';
+import 'package:hope_app/presentation/interfaces/menu_item.interfaces.dart';
 import 'package:hope_app/presentation/providers/permissions.provider.dart';
 import 'package:hope_app/presentation/providers/providers.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
@@ -18,10 +19,14 @@ class SideMenu extends ConsumerWidget {
     if (profileState.isLoading) {
       return const Center(child: CircularProgressIndicator());
     }
-
-    final menuPermmisions = appMenuItemsDrawer
-        .where((item) => profileState.permmisions!.contains(item.permission))
-        .toList();
+    final List<MenuItem> menuPermmisions;
+    if (profileState.permmisions == null) {
+      menuPermmisions = [];
+    } else {
+      menuPermmisions = appMenuItemsDrawer
+          .where((item) => profileState.permmisions!.contains(item.permission))
+          .toList();
+    }
 
     return Stack(children: [
       NavigationDrawer(
@@ -54,17 +59,19 @@ class SideMenu extends ConsumerWidget {
                         width: 100,
                         height: 100,
                         child: ImageLoad(
-                            urlImage: profileState.profile!.image,
+                            urlImage: profileState.profile != null
+                                ? profileState.profile!.image
+                                : '',
                             isDoubleTap: false),
                       ),
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      profileState.userName!,
+                      profileState.userName ?? '',
                       style:
                           const TextStyle(color: $colorTextWhite, fontSize: 15),
                     ),
-                    Text(profileState.email!,
+                    Text(profileState.email ?? '',
                         style: const TextStyle(
                             color: $colorTextWhite, fontSize: 10)),
                   ],

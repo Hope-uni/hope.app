@@ -5,7 +5,6 @@ export 'children/child_data.page.dart';
 export 'activities/activities.page.dart';
 export 'profile/profile.page.dart';
 export 'reset_password/reset_password.page.dart';
-export 'check_auth_status/check_auth_status.page.dart';
 export 'pictogram/pictogram.page.dart';
 export 'router/app_router_notifier.dart';
 export 'router/routes.dart';

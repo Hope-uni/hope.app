@@ -6,7 +6,6 @@ import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/pages/pages.dart';
 import 'package:hope_app/presentation/providers/permissions.provider.dart';
 import 'package:hope_app/presentation/providers/providers.dart';
-import 'package:hope_app/presentation/utils/constanst_permissons.dart';
 
 final goRouterProvider = Provider<GoRouter>((ref) {
   final goRouterNotifier = ref.read(goRouterNotifierProvider);
@@ -16,12 +15,6 @@ final goRouterProvider = Provider<GoRouter>((ref) {
     initialLocation: '/login',
     refreshListenable: goRouterNotifier,
     routes: <RouteBase>[
-      GoRoute(
-        path: '/splash',
-        name: 'splash',
-        builder: (BuildContext context, GoRouterState state) =>
-            const CheckAuthStatusPage(),
-      ),
       GoRoute(
         path: '/login',
         name: 'login',
@@ -33,6 +26,12 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         name: 'resetpassword',
         builder: (BuildContext context, GoRouterState state) =>
             const ResetPasswordPage(),
+      ),
+      GoRoute(
+        path: '/dashboard',
+        name: 'dashboard',
+        builder: (BuildContext context, GoRouterState state) =>
+            const DashboardPage(),
       ),
       GoRoute(
         path: '/children',
@@ -111,7 +110,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       final isGoingTo = state.matchedLocation;
       final authStatus = goRouterNotifier.authStatus;
 
-      if (isGoingTo == '/splash' && authStatus == AuthStatus.checking) {
+      if (authStatus == AuthStatus.checking) {
         return null;
       }
 
@@ -124,18 +123,17 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         final String? token =
             await keyValueRepository.getValueStorage<String>(S.current.Token);
 
-        final List<String>? permissions = await keyValueRepository
-            .getValueStorage<List<String>>(S.current.Permisos);
+        if (token == null) return '/login';
 
-        if (token == null || permissions == null) return '/login';
-
-        if (isGoingTo == '/login' ||
-            isGoingTo == '/resetpassword' ||
-            isGoingTo == '/splash' && permissions.contains($listPatients)) {
-          return '/children';
+        if (isGoingTo == '/login' || isGoingTo == '/resetpassword') {
+          return '/dashboard';
         }
+
         final profileState = ref.watch(profileProvider);
-        if (profileState.isLoading) {
+        final bool? verified = await keyValueRepository
+            .getValueStorage<bool>(S.current.Verificado);
+
+        if (profileState.isLoading && verified == true) {
           ref.read(profileProvider.notifier).loadProfileAndPermmisions();
         }
       }

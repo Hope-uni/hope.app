@@ -42,7 +42,10 @@ class ImageLoad extends StatelessWidget {
           fit: BoxFit.cover,
           placeholderFit: BoxFit.cover,
           imageErrorBuilder: (context, error, stackTrace) {
-            return Image.asset('assets/img/no-image.png');
+            return Image.asset(
+              'assets/img/no-image.png',
+              fit: BoxFit.cover,
+            );
           },
           placeholder: const AssetImage('assets/gif/jar-loading.gif'),
           image: NetworkImage(urlImage),

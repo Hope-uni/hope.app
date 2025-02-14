@@ -37,11 +37,13 @@ class AuthDataSourceImpl extends AuthDataSource {
       return token;
     } on DioException catch (e) {
       throw CustomError(
+        e.response!.statusCode!,
         message: e.response?.data['message'] ?? S.current.Error_solicitud,
         typeNotification: ToastificationType.error,
       );
     } catch (e) {
       throw CustomError(
+        null,
         message: S.current.Error_inesperado,
         typeNotification: ToastificationType.error,
       );
@@ -60,11 +62,13 @@ class AuthDataSourceImpl extends AuthDataSource {
       return responseForgotPassword;
     } on DioException catch (e) {
       throw CustomError(
+        e.response!.statusCode!,
         message: e.response?.data['message'] ?? S.current.Error_solicitud,
         typeNotification: ToastificationType.error,
       );
     } catch (e) {
       throw CustomError(
+        null,
         message: S.current.Error_inesperado,
         typeNotification: ToastificationType.error,
       );
@@ -83,11 +87,13 @@ class AuthDataSourceImpl extends AuthDataSource {
       return responseMe;
     } on DioException catch (e) {
       throw CustomError(
+        e.response!.statusCode!,
         message: e.response?.data['message'] ?? S.current.Error_solicitud,
         typeNotification: ToastificationType.error,
       );
     } catch (e) {
       throw CustomError(
+        null,
         message: S.current.Error_inesperado,
         typeNotification: ToastificationType.error,
       );

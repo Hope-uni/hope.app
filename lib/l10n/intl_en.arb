@@ -154,5 +154,9 @@
   "Error_no_controlado": "Error no controlado",
   "Agregar_observacion": "Agregar observación",
   "Actividad_actual": "Actividad actual",
-  "Actividades_terminadas":"Actividades terminadas"
+  "Actividades_terminadas": "Actividades terminadas",
+  "Verificado": "verificado",
+  "Bienvenido_pagina_de_inicio": "Bienvenido - Pagina de inicio",
+  "Cambiar_contrasena": "Cambiar contraseña",
+  "Cambio_de_contrasena_del_niño": "Cambio de contraseña del niño"
 }

@@ -9,12 +9,12 @@ import 'package:hope_app/presentation/services/services.dart';
 final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
   final authRepository = AuthRepositoryImpl();
   final keyValueRepository = KeyValueStorageRepositoryImpl();
-  final profileState = ref.watch(profileProvider.notifier);
+  final profileStateNotifier = ref.watch(profileProvider.notifier);
 
   return AuthNotifier(
     authRepository: authRepository,
     keyValueRepository: keyValueRepository,
-    profileState: profileState,
+    profileStateNotifier: profileStateNotifier,
   );
 });
 
@@ -23,12 +23,12 @@ class AuthNotifier extends StateNotifier<AuthState> {
   final KeyValueStorageRepository keyValueRepository;
   final DioService dio = DioService();
 
-  final ProfileNotifier profileState;
+  final ProfileNotifier profileStateNotifier;
 
   AuthNotifier({
+    required this.profileStateNotifier,
     required this.keyValueRepository,
     required this.authRepository,
-    required this.profileState,
   }) : super(AuthState());
 
   void _setLoggedToken(Token token) async {
@@ -48,10 +48,28 @@ class AuthNotifier extends StateNotifier<AuthState> {
       final dataMe = mePermisson.data;
       settearDataMe(dataMe!, token);
     } on CustomError catch (e) {
+      if (e.errorCode == 401) {
+        await keyValueRepository.setValueStorage<bool>(
+          false,
+          S.current.Verificado,
+        );
+        profileStateNotifier.updateIsLoading();
+
+        chagesStateAuthenticated(token);
+        return;
+      }
       _settearError(e.message);
     } catch (e) {
       _settearError(S.current.Error_no_controlado);
     }
+  }
+
+  void chagesStateAuthenticated(Token token) {
+    state = state.copyWith(
+      token: token,
+      authStatus: AuthStatus.authenticated,
+      errorMessage: '',
+    );
   }
 
   Future<void> loginUser(String emailUsername, String password) async {
@@ -71,8 +89,9 @@ class AuthNotifier extends StateNotifier<AuthState> {
     await keyValueRepository.deleteKeyStorage(S.current.Correo);
     await keyValueRepository.deleteKeyStorage(S.current.Profile);
     await keyValueRepository.deleteKeyStorage(S.current.Permisos);
+    await keyValueRepository.deleteKeyStorage(S.current.Verificado);
 
-    profileState.resetProfile();
+    profileStateNotifier.resetProfile();
 
     state = state.copyWith(
       authStatus: AuthStatus.notAuthenticated,
@@ -94,6 +113,10 @@ class AuthNotifier extends StateNotifier<AuthState> {
   }
 
   void settearDataMe(Me me, token) async {
+    await keyValueRepository.setValueStorage<bool>(
+      true,
+      S.current.Verificado,
+    );
     await keyValueRepository.setValueStorage<String>(
         me.username, S.current.User_Name);
     await keyValueRepository.setValueStorage<String>(
@@ -111,17 +134,9 @@ class AuthNotifier extends StateNotifier<AuthState> {
     await keyValueRepository.setValueStorage<List<String>>(
         descriptionsPermissons, S.current.Permisos);
 
-    if (descriptionsPermissons.isEmpty) {
-      logout();
-    }
+    profileStateNotifier.loadProfileAndPermmisions();
 
-    profileState.loadProfileAndPermmisions();
-
-    state = state.copyWith(
-      token: token,
-      authStatus: AuthStatus.authenticated,
-      errorMessage: '',
-    );
+    chagesStateAuthenticated(token);
   }
 }
 

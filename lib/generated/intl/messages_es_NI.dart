@@ -71,6 +71,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Avanzar_de_fase":
             MessageLookupByLibrary.simpleMessage("Avanzar de fase"),
         "Aviso": MessageLookupByLibrary.simpleMessage("¡Aviso!"),
+        "Bienvenido_pagina_de_inicio": MessageLookupByLibrary.simpleMessage(
+            "Bienvenido - Pagina de inicio"),
         "Buscar": MessageLookupByLibrary.simpleMessage("Buscar"),
         "Buscar_por_nombre_de_actividad": MessageLookupByLibrary.simpleMessage(
             "Buscar por nombre de actividad"),
@@ -79,6 +81,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Busqueda_por_nombre":
             MessageLookupByLibrary.simpleMessage("Búsqueda por nombre"),
         "Camara": MessageLookupByLibrary.simpleMessage("Cámara"),
+        "Cambiar_contrasena":
+            MessageLookupByLibrary.simpleMessage("Cambiar contraseña"),
         "Cambio_de_contrasena_de":
             MessageLookupByLibrary.simpleMessage("Cambio de contraseña de"),
         "Cancelar": MessageLookupByLibrary.simpleMessage("Cancelar"),
@@ -301,6 +305,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Ver_informacion_detallada_de_la_actividad":
             MessageLookupByLibrary.simpleMessage(
                 "Ver Información detallada de la actividad"),
+        "Verificado": MessageLookupByLibrary.simpleMessage("verificado"),
         "Verificar_actividad":
             MessageLookupByLibrary.simpleMessage("Verificar actividad"),
         "progreso_de_fase":

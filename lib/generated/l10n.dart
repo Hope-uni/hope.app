@@ -1611,6 +1611,38 @@ class S {
       args: [],
     );
   }
+
+  /// `verificado`
+  String get Verificado {
+    return Intl.message(
+      'verificado',
+      name: 'Verificado',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bienvenido - Pagina de inicio`
+  String get Bienvenido_pagina_de_inicio {
+    return Intl.message(
+      'Bienvenido - Pagina de inicio',
+      name: 'Bienvenido_pagina_de_inicio',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cambiar contraseña`
+  String get Cambiar_contrasena {
+    return Intl.message(
+      'Cambiar contraseña',
+      name: 'Cambiar_contrasena',
+      desc: '',
+      args: [],
+    );
+  }
+
+  // skipped getter for the 'Cambio_de_contrasena_del_niño' key
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

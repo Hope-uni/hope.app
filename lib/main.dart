@@ -4,10 +4,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hope_app/domain/domain.dart';
 import 'package:hope_app/generated/l10n.dart';
+import 'package:hope_app/infrastructure/errors/custom_errors.dart';
 import 'package:hope_app/infrastructure/repositories/auth.repository.impl.dart';
 import 'package:hope_app/infrastructure/repositories/key_value_storage.repository.impl.dart';
 import 'package:hope_app/presentation/pages/pages.dart';
 import 'package:hope_app/presentation/providers/auth.provider.dart';
+import 'package:hope_app/presentation/providers/permissions.provider.dart';
 import 'package:hope_app/presentation/services/services.dart';
 import 'package:toastification/toastification.dart';
 import 'presentation/utils/utils.dart';
@@ -37,12 +39,16 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await DioService().configureBearer();
       // Verificar si el token está presente y realizar la llamada al endpoint "Me"
-      final token = await KeyValueStorageRepositoryImpl()
+      final String? token = await KeyValueStorageRepositoryImpl()
           .getValueStorage<String>(S.current.Token);
-      if (token != null) {
+
+      final bool? verified = await KeyValueStorageRepositoryImpl()
+          .getValueStorage<bool>(S.current.Verificado);
+      final refreshToken = await KeyValueStorageRepositoryImpl()
+          .getValueStorage<String>(S.current.RefreshToken);
+
+      if (token != null && verified == true) {
         try {
-          final refreshToken = await KeyValueStorageRepositoryImpl()
-              .getValueStorage<String>(S.current.RefreshToken);
           final Token tokenFinal =
               Token(accessToken: token, refreshToken: refreshToken!);
           // Aquí llamas a la API para obtener los datos del perfil del usuario
@@ -51,6 +57,17 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
           if (dataMe != null) {
             // Guarda los datos del perfil en el almacenamiento local o en el estado global
             ref.read(authProvider.notifier).settearDataMe(dataMe, tokenFinal);
+          }
+        } on CustomError catch (e) {
+          if (e.errorCode == 401) {
+            final Token tokenFinal =
+                Token(accessToken: token, refreshToken: refreshToken!);
+            ref.read(profileProvider.notifier).updateIsLoading();
+            ref
+                .read(authProvider.notifier)
+                .chagesStateAuthenticated(tokenFinal);
+
+            return;
           }
         } catch (error) {
           if (mounted) {
@@ -61,6 +78,12 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
                 description: error.toString());
           }
         }
+      }
+      if (token != null && verified != true) {
+        final Token tokenFinal =
+            Token(accessToken: token, refreshToken: refreshToken!);
+        ref.read(profileProvider.notifier).updateIsLoading();
+        ref.read(authProvider.notifier).chagesStateAuthenticated(tokenFinal);
       }
     });
   }
