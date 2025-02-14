@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 
-class InputForm extends StatelessWidget {
+class InputForm extends StatefulWidget {
   final String value;
   final bool enable;
   final String? label;
@@ -43,47 +43,66 @@ class InputForm extends StatelessWidget {
   });
 
   @override
+  State<InputForm> createState() => _InputFormState();
+}
+
+class _InputFormState extends State<InputForm> {
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller =
+        widget.controllerExt ?? TextEditingController(text: widget.value);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final TextEditingController controller = TextEditingController(text: value);
-    final textLength = controller.value.text.length;
-    controller.selection = TextSelection.collapsed(offset: textLength);
+    final textLength = _controller.value.text.length;
     return Container(
       margin: EdgeInsets.only(
         left: 15,
         right: 15,
-        bottom: marginBottom == null ? 12.5 : marginBottom!,
+        bottom: widget.marginBottom == null ? 12.5 : widget.marginBottom!,
       ),
       child: TextField(
-        controller: controllerExt ?? controller,
-        onChanged: onChanged,
-        enabled: enable,
-        readOnly: readOnly ?? false,
-        maxLines: maxLines ?? 1,
-        obscureText: obscureText ?? false,
-        maxLength: enable ? maxLength : null,
+        controller: widget.controllerExt ?? _controller,
+        onChanged: widget.onChanged,
+        enabled: widget.enable,
+        readOnly: widget.readOnly ?? false,
+        maxLines: widget.maxLines ?? 1,
+        obscureText: widget.obscureText ?? false,
+        maxLength: widget.enable ? widget.maxLength : null,
         style: const TextStyle(color: $colorTextBlack),
         textCapitalization: TextCapitalization.sentences,
-        textInputAction:
-            isSearch == true ? TextInputAction.search : TextInputAction.done,
-        inputFormatters: isNumber == true
+        textInputAction: widget.isSearch == true
+            ? TextInputAction.search
+            : TextInputAction.done,
+        inputFormatters: widget.isNumber == true
             ? [FilteringTextInputFormatter.digitsOnly]
-            : inputFormatters,
-        keyboardType: isNumber == true
+            : widget.inputFormatters,
+        keyboardType: widget.isNumber == true
             ? TextInputType.number
             : TextInputType.emailAddress,
-        onTap: onTap,
+        onTap: widget.onTap,
         decoration: InputDecoration(
-          labelText: label,
-          suffixIcon: suffixIcon,
-          errorText: errorText,
+          labelText: widget.label,
+          suffixIcon: widget.suffixIcon,
+          errorText: widget.errorText,
           errorMaxLines: 2,
-          hintText: hint,
+          hintText: widget.hint,
           labelStyle: const TextStyle(color: $colorTextBlack),
           border: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(15)),
           ),
-          counterText: maxLength != null && enable
-              ? '$textLength/ $maxLength'
+          counterText: widget.maxLength != null && widget.enable
+              ? '$textLength/ ${widget.maxLength}'
               : ' ', //Dejar el espacio en blanco para que no se descuadre el contenido cuando no tiene counterText
         ),
       ),

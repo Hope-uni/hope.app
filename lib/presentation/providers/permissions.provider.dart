@@ -33,9 +33,14 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
         userName: storedUserName,
         email: storedEmail,
         permmisions: storedPermissions,
-        profile:
-            MePermissionsMapper.fromJsonProfile(jsonDecode(storedProfile!)),
+        profile: storedProfile != null
+            ? MePermissionsMapper.fromJsonProfile(jsonDecode(storedProfile))
+            : null,
         isLoading: false);
+  }
+
+  void updateIsLoading() {
+    state = state.copyWith(isLoading: false);
   }
 
   void resetProfile() {

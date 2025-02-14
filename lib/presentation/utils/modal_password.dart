@@ -3,17 +3,18 @@ import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
 
-modalPassword({required BuildContext context}) {
+modalPassword({required BuildContext context, required bool isVerifided}) {
   return showDialog<void>(
+    barrierDismissible: isVerifided ? true : false,
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
         title: Text(
+          //TODO: Cambiar cuando este listo el endpoint
           '${S.current.Cambio_de_contrasena_de}\nAlejandra Maria Ramos Tellez',
           maxLines: 3,
           overflow: TextOverflow.ellipsis,
           textAlign: TextAlign.center,
-          //TODO: Cambiar cuando este listo el endpoint
         ),
         icon: const Icon(Icons.edit),
         contentPadding:
@@ -64,16 +65,17 @@ modalPassword({required BuildContext context}) {
               Navigator.of(context).pop();
             },
           ),
-          ButtonTextIcon(
-            title: S.current.Cancelar,
-            icon: const Icon(
-              Icons.cancel,
-            ),
-            buttonColor: $colorError,
-            onClic: () {
-              Navigator.of(context).pop();
-            },
-          )
+          if (isVerifided == true)
+            ButtonTextIcon(
+              title: S.current.Cancelar,
+              icon: const Icon(
+                Icons.cancel,
+              ),
+              buttonColor: $colorError,
+              onClic: () {
+                Navigator.of(context).pop();
+              },
+            )
         ],
       );
     },

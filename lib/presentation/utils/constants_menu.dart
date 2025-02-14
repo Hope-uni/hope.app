@@ -68,13 +68,13 @@ final List<MenuItem> menuPacientTutor = <MenuItem>[
     },
   ),
   MenuItem(
-    title: 'Cambiar contraseña',
-    subTitle: 'Cambio de contraseña del niño',
+    title: S.current.Cambiar_contrasena,
+    subTitle: S.current.Cambio_de_contrasena_de,
     icon: Icons.key,
     permission:
         $findPatients, //TODO: Reemplazar por permiso correcto cuando este listo
     onClick: ({required BuildContext context, int? idItem}) {
-      modalPassword(context: context);
+      modalPassword(context: context, isVerifided: true);
     },
   ),
 ];
