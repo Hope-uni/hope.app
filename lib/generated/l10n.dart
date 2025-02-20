@@ -1502,66 +1502,6 @@ class S {
     );
   }
 
-  /// `token`
-  String get Token {
-    return Intl.message(
-      'token',
-      name: 'Token',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `refreshToken`
-  String get RefreshToken {
-    return Intl.message(
-      'refreshToken',
-      name: 'RefreshToken',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `permissions`
-  String get Permisos {
-    return Intl.message(
-      'permissions',
-      name: 'Permisos',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `userName`
-  String get User_Name {
-    return Intl.message(
-      'userName',
-      name: 'User_Name',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `email`
-  String get Correo {
-    return Intl.message(
-      'email',
-      name: 'Correo',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `profile`
-  String get Profile {
-    return Intl.message(
-      'profile',
-      name: 'Profile',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Error al actualizar los permisos`
   String get Error_al_actualizar_los_permisos {
     return Intl.message(
@@ -1612,20 +1552,10 @@ class S {
     );
   }
 
-  /// `verificado`
-  String get Verificado {
-    return Intl.message(
-      'verificado',
-      name: 'Verificado',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Bienvenido - Pagina de inicio`
+  /// `Bienvenido - Página de inicio`
   String get Bienvenido_pagina_de_inicio {
     return Intl.message(
-      'Bienvenido - Pagina de inicio',
+      'Bienvenido - Página de inicio',
       name: 'Bienvenido_pagina_de_inicio',
       desc: '',
       args: [],
@@ -1643,6 +1573,136 @@ class S {
   }
 
   // skipped getter for the 'Cambio_de_contrasena_del_niño' key
+
+  /// `No autorizado`
+  String get No_autorizado {
+    return Intl.message(
+      'No autorizado',
+      name: 'No_autorizado',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No cuenta con el permiso necesario`
+  String get No_cuenta_con_el_permiso_necesario {
+    return Intl.message(
+      'No cuenta con el permiso necesario',
+      name: 'No_cuenta_con_el_permiso_necesario',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `El nombre de usuario no puede estar vacio`
+  String get El_nombre_de_usuario_no_puede_estar_vacio {
+    return Intl.message(
+      'El nombre de usuario no puede estar vacio',
+      name: 'El_nombre_de_usuario_no_puede_estar_vacio',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `El correo no puede estar vacio`
+  String get El_correo_no_puede_estar_vacio {
+    return Intl.message(
+      'El correo no puede estar vacio',
+      name: 'El_correo_no_puede_estar_vacio',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `El primer nombre no puede estar vacio`
+  String get El_primer_nombre_no_puede_estar_vacio {
+    return Intl.message(
+      'El primer nombre no puede estar vacio',
+      name: 'El_primer_nombre_no_puede_estar_vacio',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `El primer apellido no puede estar vacio`
+  String get El_primer_apellido_no_puede_estar_vacio {
+    return Intl.message(
+      'El primer apellido no puede estar vacio',
+      name: 'El_primer_apellido_no_puede_estar_vacio',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `La direccion no puede estar vacia`
+  String get La_direccion_no_puede_estar_vacia {
+    return Intl.message(
+      'La direccion no puede estar vacia',
+      name: 'La_direccion_no_puede_estar_vacia',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `La fecha de nacimiento no puede estar vacia`
+  String get La_fecha_de_nacimiento_no_puede_estar_vacia {
+    return Intl.message(
+      'La fecha de nacimiento no puede estar vacia',
+      name: 'La_fecha_de_nacimiento_no_puede_estar_vacia',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `El sexo no puede estar vacio`
+  String get El_sexo_no_puede_estar_vacio {
+    return Intl.message(
+      'El sexo no puede estar vacio',
+      name: 'El_sexo_no_puede_estar_vacio',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Formato incorrecto de cédula (###-######-####L)`
+  String get Formato_incorrecto_de_cedula {
+    return Intl.message(
+      'Formato incorrecto de cédula (###-######-####L)',
+      name: 'Formato_incorrecto_de_cedula',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `El celular deber ser un numero valido y no estar vacio`
+  String get El_celular_deber_ser_un_numero_valido_y_no_estar_vacio {
+    return Intl.message(
+      'El celular deber ser un numero valido y no estar vacio',
+      name: 'El_celular_deber_ser_un_numero_valido_y_no_estar_vacio',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `El telefono deber ser un numero valido y no estar vacio`
+  String get El_telefono_deber_ser_un_numero_valido_y_no_estar_vacio {
+    return Intl.message(
+      'El telefono deber ser un numero valido y no estar vacio',
+      name: 'El_telefono_deber_ser_un_numero_valido_y_no_estar_vacio',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cargando....`
+  String get Cargando {
+    return Intl.message(
+      'Cargando....',
+      name: 'Cargando',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

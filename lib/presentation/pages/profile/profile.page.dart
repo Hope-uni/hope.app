@@ -20,13 +20,13 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
   final CameraGalleryDataSourceImpl image = CameraGalleryDataSourceImpl();
 
   final Map<String, FocusNode> focusNodes = {
-    'userName': FocusNode(),
-    'email': FocusNode(),
-    'firstName': FocusNode(),
-    'surname': FocusNode(),
-    'identificationNumber': FocusNode(),
-    'phoneNumber': FocusNode(),
-    'telephone': FocusNode(),
+    $userNameProfile: FocusNode(),
+    $emailProfile: FocusNode(),
+    $firstNameProfile: FocusNode(),
+    $surnameProfile: FocusNode(),
+    $identificationNumbereProfile: FocusNode(),
+    $phoneNumberProfile: FocusNode(),
+    $telephoneProfile: FocusNode(),
   };
 
   @override
@@ -40,14 +40,15 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
         focusNodes[firstErrorKey]?.requestFocus();
       }
 
-      if (next.errorMessageApi != null) {
-        toastAlert(
-          context: context,
-          title: S.current.Error,
-          description: next.errorMessageApi!,
-          typeAlert: ToastificationType.error,
-        );
-      }
+      if (next.errorMessageApi == null) return;
+
+      toastAlert(
+        context: context,
+        title: S.current.Error,
+        description: next.errorMessageApi!,
+        typeAlert: ToastificationType.error,
+      );
+      profileNotifier.updateErrorMessage();
     });
 
     final Size size = MediaQuery.of(context).size;
@@ -229,31 +230,32 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                     onChanged: (value) {
                       profileNotifier.updateUserName(value);
                     },
-                    focus: focusNodes['userName'],
-                    errorText: profileState.validationErrors['userName'],
+                    focus: focusNodes[$userNameProfile],
+                    errorText: profileState.validationErrors[$userNameProfile],
                   ),
                   InputForm(
                     label: S.current.Correo_electronico,
                     maxLength: 50,
                     value: profileState.email!,
                     enable: enableInput,
-                    focus: focusNodes['email'],
+                    focus: focusNodes[$emailProfile],
                     onChanged: (value) {
                       profileNotifier.updateEmail(value);
                     },
-                    errorText: profileState.validationErrors['email'],
+                    errorText: profileState.validationErrors[$emailProfile],
                   ),
                   InputForm(
                     label: S.current.Primer_nombre,
                     maxLength: 25,
                     value: profileState.profile!.firstName,
                     enable: enableInput,
-                    focus: focusNodes['firstName'],
+                    focus: focusNodes[$firstNameProfile],
                     onChanged: (value) {
-                      profileNotifier.updateProfileField("firstName", value);
+                      profileNotifier.updateProfileField(
+                          $firstNameProfile, value);
                     },
                     allCharacters: false,
-                    errorText: profileState.validationErrors['firstName'],
+                    errorText: profileState.validationErrors[$firstNameProfile],
                   ),
                   InputForm(
                     label: S.current.Segundo_nombre,
@@ -261,7 +263,8 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                     value: profileState.profile!.secondName ?? '-',
                     enable: enableInput,
                     onChanged: (value) {
-                      profileNotifier.updateProfileField("secondName", value);
+                      profileNotifier.updateProfileField(
+                          $secondNameProfile, value);
                     },
                     allCharacters: false,
                   ),
@@ -270,12 +273,13 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                     maxLength: 25,
                     value: profileState.profile!.surname,
                     enable: enableInput,
-                    focus: focusNodes['surname'],
+                    focus: focusNodes[$surnameProfile],
                     onChanged: (value) {
-                      profileNotifier.updateProfileField("surname", value);
+                      profileNotifier.updateProfileField(
+                          $surnameProfile, value);
                     },
                     allCharacters: false,
-                    errorText: profileState.validationErrors['surname'],
+                    errorText: profileState.validationErrors[$surnameProfile],
                   ),
                   InputForm(
                     label: S.current.Segundo_apellido,
@@ -284,7 +288,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                     enable: enableInput,
                     onChanged: (value) {
                       profileNotifier.updateProfileField(
-                          "secondSurname", value);
+                          $secondSurnameProfile, value);
                     },
                     allCharacters: false,
                   ),
@@ -293,24 +297,25 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                     valueInitial: profileState.profile!.gender,
                     label: S.current.Sexo,
                     onSelected: (value) {
-                      profileNotifier.updateProfileField("gender", value!);
+                      profileNotifier.updateProfileField(
+                          $genderProfile, value!);
                     },
                     deleteSelection: false,
-                    listItems: const ['Masculino', 'Femenino'],
-                    errorText: profileState.validationErrors['gender'],
+                    listItems: const [$masculinoProfile, $femeninoProfile],
+                    errorText: profileState.validationErrors[$genderProfile],
                   ),
                   InputForm(
                     label: S.current.Cedula,
                     maxLength: 16,
                     value: profileState.profile!.identificationNumber,
                     enable: enableInput,
-                    focus: focusNodes['identificationNumber'],
+                    focus: focusNodes[$identificationNumbereProfile],
                     onChanged: (value) {
                       profileNotifier.updateProfileField(
-                          "identificationNumber", value);
+                          $identificationNumbereProfile, value);
                     },
-                    errorText:
-                        profileState.validationErrors['identificationNumber'],
+                    errorText: profileState
+                        .validationErrors[$identificationNumbereProfile],
                   ),
                   InputForm(
                     label: S.current.Fecha_de_nacimiento,
@@ -324,9 +329,10 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                     onTap: () =>
                         selectDate(context, profileState.profile!.birthday),
                     onChanged: (value) {
-                      profileNotifier.updateProfileField("birthday", value);
+                      profileNotifier.updateProfileField(
+                          $birthdayProfile, value);
                     },
-                    errorText: profileState.validationErrors['birthday'],
+                    errorText: profileState.validationErrors[$birthdayProfile],
                   ),
                   if (profileState.roles!.contains('Tutor'))
                     InputForm(
@@ -335,23 +341,26 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         isNumber: true,
                         value: profileState.profile!.telephone ?? '',
                         enable: enableInput,
-                        focus: focusNodes['telephone'],
+                        focus: focusNodes[$telephoneProfile],
                         onChanged: (value) {
                           profileNotifier.updateProfileField(
-                              "telephone", value);
+                              $telephoneProfile, value);
                         },
-                        errorText: profileState.validationErrors['telephone']),
+                        errorText:
+                            profileState.validationErrors[$telephoneProfile]),
                   InputForm(
                     label: S.current.Celular,
                     maxLength: 8,
                     isNumber: true,
                     value: profileState.profile!.phoneNumber,
                     enable: enableInput,
-                    focus: focusNodes['phoneNumber'],
+                    focus: focusNodes[$phoneNumberProfile],
                     onChanged: (value) {
-                      profileNotifier.updateProfileField("phoneNumber", value);
+                      profileNotifier.updateProfileField(
+                          $phoneNumberProfile, value);
                     },
-                    errorText: profileState.validationErrors['phoneNumber'],
+                    errorText:
+                        profileState.validationErrors[$phoneNumberProfile],
                   ),
                   InputForm(
                     label: S.current.Direccion,
@@ -359,9 +368,10 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                     maxLines: 5,
                     enable: enableInput,
                     onChanged: (value) {
-                      profileNotifier.updateProfileField("address", value);
+                      profileNotifier.updateProfileField(
+                          $addressProfile, value);
                     },
-                    errorText: profileState.validationErrors['address'],
+                    errorText: profileState.validationErrors[$addressProfile],
                     value: profileState.profile!.address,
                   ),
                   const SizedBox(height: 50)
@@ -391,8 +401,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                     toastAlert(
                         iconAlert: const Icon(Icons.update),
                         context: context,
-                        title: 'No autorizado',
-                        description: 'No cuenta con el permiso necesario',
+                        title: S.current.No_autorizado,
+                        description:
+                            S.current.No_cuenta_con_el_permiso_necesario,
                         typeAlert: ToastificationType.info);
                   }
                 },

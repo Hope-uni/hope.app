@@ -29,15 +29,3 @@ class ResponseDataObject<T> extends ResponseData {
     this.data,
   });
 }
-
-class ResponseDataList<T> extends ResponseData {
-  List<T>? data;
-
-  ResponseDataList({
-    required super.error,
-    required super.statusCode,
-    required super.message,
-    required super.validationErrors,
-    this.data,
-  });
-}
