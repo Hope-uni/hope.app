@@ -40,20 +40,22 @@ class Permission {
 
 class Profile {
   int profileId;
+  String fullName;
   String firstName;
   String? secondName;
   String surname;
   String? secondSurname;
-  String image;
+  String? image;
   String identificationNumber;
-  int? phoneNumber;
-  int? telephone;
+  String phoneNumber;
+  String? telephone;
   String address;
   String birthday;
   String gender;
 
   Profile({
     required this.profileId,
+    required this.fullName,
     required this.firstName,
     required this.secondName,
     required this.surname,
@@ -66,4 +68,36 @@ class Profile {
     required this.birthday,
     required this.gender,
   });
+
+  Profile copyWith({
+    String? fullName,
+    String? firstName,
+    String? secondName,
+    String? surname,
+    String? secondSurname,
+    String? identificationNumber,
+    String? address,
+    String? birthday,
+    String? telephone,
+    String? phoneNumber,
+    String? image,
+    int? profileId,
+    String? gender,
+  }) {
+    return Profile(
+      fullName: fullName ?? this.fullName,
+      firstName: firstName ?? this.firstName,
+      secondName: secondName ?? this.secondName,
+      surname: surname ?? this.surname,
+      secondSurname: secondSurname ?? this.secondSurname,
+      identificationNumber: identificationNumber ?? this.identificationNumber,
+      address: address ?? this.address,
+      birthday: birthday ?? this.birthday,
+      telephone: telephone ?? this.telephone,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      image: image ?? this.image,
+      profileId: profileId ?? this.profileId,
+      gender: gender ?? this.gender,
+    );
+  }
 }

@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/pages/pages.dart';
-import 'package:hope_app/presentation/providers/permissions.provider.dart';
 import 'package:hope_app/presentation/providers/providers.dart';
 
 final goRouterProvider = Provider<GoRouter>((ref) {
@@ -129,7 +128,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
           return '/dashboard';
         }
 
-        final profileState = ref.watch(profileProvider);
+        final profileState = ref.read(profileProvider);
         final bool? verified = await keyValueRepository
             .getValueStorage<bool>(S.current.Verificado);
 
@@ -137,7 +136,6 @@ final goRouterProvider = Provider<GoRouter>((ref) {
           ref.read(profileProvider.notifier).loadProfileAndPermmisions();
         }
       }
-
       return null;
     },
   );

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
-import 'package:hope_app/presentation/providers/permissions.provider.dart';
+import 'package:hope_app/presentation/providers/providers.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
 import 'package:toastification/toastification.dart';
@@ -16,14 +16,42 @@ class ProfilePage extends ConsumerStatefulWidget {
 
 class _ProfilePageState extends ConsumerState<ProfilePage> {
   bool enableInput = false;
+  bool clickSave = false;
   final CameraGalleryDataSourceImpl image = CameraGalleryDataSourceImpl();
+
+  final Map<String, FocusNode> focusNodes = {
+    'userName': FocusNode(),
+    'email': FocusNode(),
+    'firstName': FocusNode(),
+    'surname': FocusNode(),
+    'identificationNumber': FocusNode(),
+    'phoneNumber': FocusNode(),
+    'telephone': FocusNode(),
+  };
 
   @override
   Widget build(BuildContext context) {
+    final profileState = ref.watch(profileProvider);
+    final profileNotifier = ref.watch(profileProvider.notifier);
+
+    ref.listen(profileProvider, (previous, next) {
+      if (next.validationErrors.isNotEmpty && clickSave) {
+        String firstErrorKey = next.validationErrors.keys.first;
+        focusNodes[firstErrorKey]?.requestFocus();
+      }
+
+      if (next.errorMessageApi != null) {
+        toastAlert(
+          context: context,
+          title: S.current.Error,
+          description: next.errorMessageApi!,
+          typeAlert: ToastificationType.error,
+        );
+      }
+    });
+
     final Size size = MediaQuery.of(context).size;
     const double sizeInputs = 150;
-
-    final profileState = ref.watch(profileProvider);
 
     if (profileState.isLoading) {
       return const Center(child: CircularProgressIndicator());
@@ -49,7 +77,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
       );
 
       if (pickedDate != null) {
-        ref.read(profileProvider.notifier).updateBirthday(pickedDate);
+        profileNotifier.updateBirthday(pickedDate);
 
         setState(() {
           controller.text =
@@ -105,7 +133,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                               child: ImageLoad(
                                 height: 150,
                                 width: 150,
-                                urlImage: profileState.profile!.image,
+                                urlImage: profileState.profile!.image ?? '',
                               ),
                             ),
                           ),
@@ -153,6 +181,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                                           children: [
                                             Column(
                                               children: [
+                                                //TODO: Falta hacer la logica de cambio de foto cuando se ocupe el repositorio de imagenes
                                                 IconButton(
                                                   onPressed: () async {
                                                     // ignore: unused_local_variable
@@ -194,52 +223,94 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                   ),
                   InputForm(
                     label: S.current.Nombre_de_usuario,
-                    maxLength: 50,
+                    maxLength: 25,
                     value: profileState.userName!,
                     enable: enableInput,
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      profileNotifier.updateUserName(value);
+                    },
+                    focus: focusNodes['userName'],
+                    errorText: profileState.validationErrors['userName'],
                   ),
                   InputForm(
                     label: S.current.Correo_electronico,
-                    maxLength: 100,
+                    maxLength: 50,
                     value: profileState.email!,
                     enable: enableInput,
-                    onChanged: (value) {},
+                    focus: focusNodes['email'],
+                    onChanged: (value) {
+                      profileNotifier.updateEmail(value);
+                    },
+                    errorText: profileState.validationErrors['email'],
                   ),
                   InputForm(
                     label: S.current.Primer_nombre,
-                    maxLength: 50,
+                    maxLength: 25,
                     value: profileState.profile!.firstName,
                     enable: enableInput,
-                    onChanged: (value) {},
+                    focus: focusNodes['firstName'],
+                    onChanged: (value) {
+                      profileNotifier.updateProfileField("firstName", value);
+                    },
+                    allCharacters: false,
+                    errorText: profileState.validationErrors['firstName'],
                   ),
                   InputForm(
                     label: S.current.Segundo_nombre,
-                    maxLength: 50,
+                    maxLength: 25,
                     value: profileState.profile!.secondName ?? '-',
                     enable: enableInput,
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      profileNotifier.updateProfileField("secondName", value);
+                    },
+                    allCharacters: false,
                   ),
                   InputForm(
                     label: S.current.Primer_apellido,
-                    maxLength: 50,
+                    maxLength: 25,
                     value: profileState.profile!.surname,
                     enable: enableInput,
-                    onChanged: (value) {},
+                    focus: focusNodes['surname'],
+                    onChanged: (value) {
+                      profileNotifier.updateProfileField("surname", value);
+                    },
+                    allCharacters: false,
+                    errorText: profileState.validationErrors['surname'],
                   ),
                   InputForm(
                     label: S.current.Segundo_apellido,
-                    maxLength: 50,
+                    maxLength: 25,
                     value: profileState.profile!.secondSurname ?? '-',
                     enable: enableInput,
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      profileNotifier.updateProfileField(
+                          "secondSurname", value);
+                    },
+                    allCharacters: false,
+                  ),
+                  SelectBox(
+                    enable: enableInput,
+                    valueInitial: profileState.profile!.gender,
+                    label: S.current.Sexo,
+                    onSelected: (value) {
+                      profileNotifier.updateProfileField("gender", value!);
+                    },
+                    deleteSelection: false,
+                    listItems: const ['Masculino', 'Femenino'],
+                    errorText: profileState.validationErrors['gender'],
                   ),
                   InputForm(
                     label: S.current.Cedula,
-                    maxLength: 14,
+                    maxLength: 16,
                     value: profileState.profile!.identificationNumber,
                     enable: enableInput,
-                    onChanged: (value) {},
+                    focus: focusNodes['identificationNumber'],
+                    onChanged: (value) {
+                      profileNotifier.updateProfileField(
+                          "identificationNumber", value);
+                    },
+                    errorText:
+                        profileState.validationErrors['identificationNumber'],
                   ),
                   InputForm(
                     label: S.current.Fecha_de_nacimiento,
@@ -252,33 +323,45 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                     controllerExt: controller,
                     onTap: () =>
                         selectDate(context, profileState.profile!.birthday),
+                    onChanged: (value) {
+                      profileNotifier.updateProfileField("birthday", value);
+                    },
+                    errorText: profileState.validationErrors['birthday'],
                   ),
-                  InputForm(
-                    label: S.current.Telefono,
-                    maxLength: 8,
-                    isNumber: true,
-                    value: profileState.profile!.telephone == null
-                        ? '-'
-                        : profileState.profile!.telephone.toString(),
-                    enable: enableInput,
-                    onChanged: (value) {},
-                  ),
+                  if (profileState.roles!.contains('Tutor'))
+                    InputForm(
+                        label: S.current.Telefono,
+                        maxLength: 8,
+                        isNumber: true,
+                        value: profileState.profile!.telephone ?? '',
+                        enable: enableInput,
+                        focus: focusNodes['telephone'],
+                        onChanged: (value) {
+                          profileNotifier.updateProfileField(
+                              "telephone", value);
+                        },
+                        errorText: profileState.validationErrors['telephone']),
                   InputForm(
                     label: S.current.Celular,
                     maxLength: 8,
                     isNumber: true,
-                    value: profileState.profile!.phoneNumber == null
-                        ? '-'
-                        : profileState.profile!.phoneNumber.toString(),
+                    value: profileState.profile!.phoneNumber,
                     enable: enableInput,
-                    onChanged: (value) {},
+                    focus: focusNodes['phoneNumber'],
+                    onChanged: (value) {
+                      profileNotifier.updateProfileField("phoneNumber", value);
+                    },
+                    errorText: profileState.validationErrors['phoneNumber'],
                   ),
                   InputForm(
                     label: S.current.Direccion,
                     maxLength: 100,
                     maxLines: 5,
                     enable: enableInput,
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      profileNotifier.updateProfileField("address", value);
+                    },
+                    errorText: profileState.validationErrors['address'],
                     value: profileState.profile!.address,
                   ),
                   const SizedBox(height: 50)
@@ -288,26 +371,42 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
           ),
         ]),
         drawer: const SideMenu(),
-        floatingActionButton:
-            Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-          Visibility(
+        floatingActionButton: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Visibility(
               visible: !enableInput,
               child: ButtonTextIcon(
-                  title: S.current.Editar,
-                  icon: const Icon(Icons.edit),
-                  buttonColor: $colorBlueGeneral,
-                  onClic: () {
-                    setState(() {
-                      enableInput = true;
-                    });
-                  })),
-          Visibility(
+                title: S.current.Editar,
+                icon: const Icon(Icons.edit),
+                buttonColor: $colorBlueGeneral,
+                onClic: () {
+                  if (profileState.permmisions!.contains($updateProfile)) {
+                    setState(
+                      () {
+                        enableInput = true;
+                      },
+                    );
+                  } else {
+                    toastAlert(
+                        iconAlert: const Icon(Icons.update),
+                        context: context,
+                        title: 'No autorizado',
+                        description: 'No cuenta con el permiso necesario',
+                        typeAlert: ToastificationType.info);
+                  }
+                },
+              ),
+            ),
+            Visibility(
               visible: enableInput,
               child: ButtonTextIcon(
-                  title: S.current.Actualizar,
-                  icon: const Icon(Icons.update),
-                  buttonColor: $colorSuccess,
-                  onClic: () {
+                title: S.current.Actualizar,
+                icon: const Icon(Icons.update),
+                buttonColor: $colorSuccess,
+                onClic: () {
+                  clickSave = true;
+                  if (profileNotifier.checkFields()) {
                     modalDialogConfirmation(
                       context: context,
                       titleButtonConfirm: S.current.Si_actualizar,
@@ -320,49 +419,63 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         ),
                       ),
                       buttonColorConfirm: $colorSuccess,
-                      onClic: () {
-                        Navigator.of(context).pop();
-                        toastAlert(
-                            iconAlert: const Icon(Icons.update),
-                            context: context,
-                            title: S.current.Actualizado_con_exito,
-                            description:
-                                S.current.Informacion_personal_actualizada,
-                            typeAlert: ToastificationType.info);
+                      onClic: () async {
+                        if (await profileNotifier.updateTherapist()) {
+                          if (context.mounted) {
+                            toastAlert(
+                                iconAlert: const Icon(Icons.update),
+                                context: context,
+                                title: S.current.Actualizado_con_exito,
+                                description:
+                                    S.current.Informacion_personal_actualizada,
+                                typeAlert: ToastificationType.info);
+                          }
+                          setState(() {
+                            enableInput = false;
+                          });
+                        }
+                        if (context.mounted) Navigator.of(context).pop();
                       },
                     );
-                  })),
-          const SizedBox(
-            width: 10,
-          ),
-          Visibility(
+                  }
+                  clickSave = false;
+                },
+              ),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Visibility(
               visible: enableInput,
               child: ButtonTextIcon(
-                  title: S.current.Cancelar,
-                  icon: const Icon(Icons.cancel),
-                  buttonColor: $colorError,
-                  onClic: () {
-                    modalDialogConfirmation(
-                      context: context,
-                      titleButtonConfirm: S.current.Si_salir,
-                      question: RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                          text: S.current.Esta_seguro_de_salir_de_la_edicion,
-                          style: const TextStyle(
-                              fontSize: 14, color: $colorTextBlack),
-                        ),
+                title: S.current.Cancelar,
+                icon: const Icon(Icons.cancel),
+                buttonColor: $colorError,
+                onClic: () {
+                  modalDialogConfirmation(
+                    context: context,
+                    titleButtonConfirm: S.current.Si_salir,
+                    question: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        text: S.current.Esta_seguro_de_salir_de_la_edicion,
+                        style: const TextStyle(
+                            fontSize: 14, color: $colorTextBlack),
                       ),
-                      buttonColorConfirm: $colorSuccess,
-                      onClic: () {
-                        Navigator.of(context).pop();
-                        setState(() {
-                          enableInput = false;
-                        });
-                      },
-                    );
-                  })),
-        ]),
+                    ),
+                    buttonColorConfirm: $colorSuccess,
+                    onClic: () {
+                      Navigator.of(context).pop();
+                      setState(() {
+                        enableInput = false;
+                      });
+                    },
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

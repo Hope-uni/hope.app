@@ -3,13 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hope_app/domain/domain.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
-import 'package:hope_app/presentation/providers/permissions.provider.dart';
+import 'package:hope_app/presentation/providers/providers.dart';
 import 'package:hope_app/presentation/services/services.dart';
 
 final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
   final authRepository = AuthRepositoryImpl();
   final keyValueRepository = KeyValueStorageRepositoryImpl();
-  final profileStateNotifier = ref.watch(profileProvider.notifier);
+  final profileStateNotifier = ref.read(profileProvider.notifier);
 
   return AuthNotifier(
     authRepository: authRepository,
@@ -90,6 +90,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     await keyValueRepository.deleteKeyStorage(S.current.Profile);
     await keyValueRepository.deleteKeyStorage(S.current.Permisos);
     await keyValueRepository.deleteKeyStorage(S.current.Verificado);
+    await keyValueRepository.deleteKeyStorage('roles');
 
     profileStateNotifier.resetProfile();
 
@@ -125,6 +126,10 @@ class AuthNotifier extends StateNotifier<AuthState> {
     await keyValueRepository.setValueStorage<String>(
         jsonEncode(MePermissionsMapper.toJsonProfile(me.profile)),
         S.current.Profile);
+
+    final roles = me.roles.map((e) => e.name).toList();
+
+    await keyValueRepository.setValueStorage<List<String>>(roles, 'roles');
 
     final permissonsList = me.roles.expand((role) => role.permissions).toList();
 
