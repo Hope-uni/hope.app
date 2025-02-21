@@ -48,15 +48,17 @@ class LoginFormNotifier extends StateNotifier<LoginFormState> {
       : super(LoginFormState());
 
   void onUserNameChange(String value) {
-    final newUserName = value;
     state = state.copyWith(
-        userName: newUserName, errorUserName: value.isNotEmpty ? '' : null);
+      userName: value,
+      errorUserName: value.isNotEmpty ? '' : null,
+    );
   }
 
   void onPasswordChange(String value) {
-    final newPassword = value;
     state = state.copyWith(
-        password: newPassword, errorPassword: value.isNotEmpty ? '' : null);
+      password: value,
+      errorPassword: value.isNotEmpty ? '' : null,
+    );
   }
 
   bool validInputs() {
