@@ -7,22 +7,6 @@ import 'package:toastification/toastification.dart';
 
 class AuthDataSourceImpl extends AuthDataSource {
   final dioServices = DioService();
-  final KeyValueStorageRepository keyValueRepository =
-      KeyValueStorageRepositoryImpl();
-
-  @override
-  Future<ResponseDataObject<Token>> checkAuthStatus(String tokenUser) async {
-    try {
-      final response = await dioServices.dio.get('path',
-          options: Options(headers: {'Authorization': 'Bearer $tokenUser'}));
-
-      final token = ResponseMapper.responseJsonToEntity<Token>(
-          json: response.data, fromJson: TokenMapper.tokenJsonToEntity);
-      return token;
-    } catch (e) {
-      throw UnimplementedError();
-    }
-  }
 
   @override
   Future<ResponseDataObject<Token>> login(

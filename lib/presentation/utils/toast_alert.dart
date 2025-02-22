@@ -26,7 +26,7 @@ void toastAlert(
       context: context,
       type: typeAlert,
       style: ToastificationStyle.flatColored,
-      autoCloseDuration: const Duration(seconds: 2),
+      autoCloseDuration: const Duration(seconds: 3),
       title: Text(title),
       description: RichText(
         text: TextSpan(
@@ -46,7 +46,7 @@ void toastAlert(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
       margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       borderRadius: BorderRadius.circular(12),
-      showProgressBar: true,
+      showProgressBar: false,
       closeButtonShowType: CloseButtonShowType.none,
       closeOnClick: false,
       pauseOnHover: true,

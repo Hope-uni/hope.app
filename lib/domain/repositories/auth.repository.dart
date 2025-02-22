@@ -5,6 +5,4 @@ abstract class AuthRepository {
       String emailUsername, String password);
   Future<ResponseDataObject> forgotPassword(String emailOrUserName);
   Future<ResponseDataObject<Me>> mePermissions();
-
-  Future<ResponseDataObject<Token>> checkAuthStatus(String token);
 }

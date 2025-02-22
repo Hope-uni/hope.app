@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hope_app/domain/domain.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
+import 'package:hope_app/presentation/utils/utils.dart';
 
 final profileProvider =
     StateNotifierProvider<ProfileNotifier, ProfileState>((ref) {
@@ -14,6 +15,8 @@ final profileProvider =
 class ProfileNotifier extends StateNotifier<ProfileState> {
   final KeyValueStorageRepositoryImpl storageProfile;
   final ProfilePersonRepositoryImpl profileRepository;
+
+  ProfileState? originalState;
 
   ProfileNotifier(
       {required this.storageProfile, required this.profileRepository})
@@ -65,7 +68,8 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
     );
   }
 
-  Future<bool> updateTherapist() async {
+  Future<void> updateTherapist() async {
+    state = state.copyWith(isUpdateData: true);
     try {
       final profilePerson = _convertProfilePerson();
       final response =
@@ -74,17 +78,17 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
       _convertProfile(response.data!);
       _updateProfileStorage(response.data!);
 
-      return true;
+      originalState = null;
+      state = state.copyWith(isUpdateData: false, showtoastAlert: true);
     } on CustomError catch (e) {
-      state = state.copyWith(errorMessageApi: e.message);
-      return false;
+      state = state.copyWith(errorMessageApi: e.message, isUpdateData: false);
     } catch (e) {
-      state = state.copyWith(errorMessageApi: S.current.Error_inesperado);
-      return false;
+      state = state.copyWith(
+          errorMessageApi: S.current.Error_inesperado, isUpdateData: false);
     }
   }
 
-  Future<bool> updateTutor() async {
+  Future<void> updateTutor() async {
     try {
       final profilePerson = _convertProfilePerson();
       final response =
@@ -92,23 +96,19 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
 
       _convertProfile(response.data!);
       _updateProfileStorage(response.data!);
-
-      return true;
+      originalState = null;
     } on CustomError catch (e) {
       state = state.copyWith(errorMessageApi: e.message);
-      return false;
     } catch (e) {
       state = state.copyWith(errorMessageApi: S.current.Error_inesperado);
-      return false;
     }
   }
 
   Future<void> _updateProfileStorage(ProfilePerson profilePerson) async {
     await storageProfile.setValueStorage<String>(
-        profilePerson.username, S.current.User_Name);
+        profilePerson.username, $userName);
 
-    await storageProfile.setValueStorage<String>(
-        profilePerson.email, S.current.Correo);
+    await storageProfile.setValueStorage<String>(profilePerson.email, $email);
 
     await storageProfile.setValueStorage<String>(
         jsonEncode(MePermissionsMapper.toJsonProfile(
@@ -131,25 +131,23 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
             gender: profilePerson.gender,
           ),
         )),
-        S.current.Profile);
+        $profile);
   }
 
   Future<void> loadProfileAndPermmisions() async {
-    final storedPermissions = await storageProfile
-            .getValueStorage<List<String>>(S.current.Permisos) ??
-        [];
+    final storedPermissions =
+        await storageProfile.getValueStorage<List<String>>($permissions) ?? [];
 
     final storedProfile =
-        await storageProfile.getValueStorage<String>(S.current.Profile);
+        await storageProfile.getValueStorage<String>($profile);
 
     final storedUserName =
-        await storageProfile.getValueStorage<String>(S.current.User_Name);
+        await storageProfile.getValueStorage<String>($userName);
 
-    final storedEmail =
-        await storageProfile.getValueStorage<String>(S.current.Correo);
+    final storedEmail = await storageProfile.getValueStorage<String>($email);
 
     final storedRoles =
-        await storageProfile.getValueStorage<List<String>>('roles');
+        await storageProfile.getValueStorage<List<String>>($roles);
 
     state = state.copyWith(
         roles: storedRoles,
@@ -162,12 +160,8 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
         isLoading: false);
   }
 
-  void updateIsLoading() {
-    state = state.copyWith(isLoading: false);
-  }
-
-  void resetProfile() {
-    state = ProfileState();
+  void updateIsLoading(bool isLoading) {
+    state = state.copyWith(isLoading: isLoading);
   }
 
   void updateBirthday(DateTime newDate) {
@@ -182,59 +176,66 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
 
     Profile updatedProfile = state.profile!;
     switch (fieldName) {
-      case "firstName":
-        if (newValue.isNotEmpty) newValidationErrors.remove('firstName');
+      case $firstNameProfile:
+        if (newValue.isNotEmpty) newValidationErrors.remove($firstNameProfile);
         updatedProfile = state.profile!.copyWith(firstName: newValue);
         break;
-      case "secondName":
+
+      case $secondNameProfile:
         updatedProfile = state.profile!.copyWith(secondName: newValue);
         break;
-      case "surname":
-        if (newValue.isNotEmpty) newValidationErrors.remove('surname');
+
+      case $surnameProfile:
+        if (newValue.isNotEmpty) newValidationErrors.remove($surnameProfile);
         updatedProfile = state.profile!.copyWith(surname: newValue);
         break;
-      case "secondSurname":
+
+      case $secondSurnameProfile:
         updatedProfile = state.profile!.copyWith(secondSurname: newValue);
         break;
-      case "identificationNumber":
-        if (newValue.isNotEmpty) {
-          newValidationErrors.remove('identificationNumber');
+
+      case $identificationNumbereProfile:
+        if ($regexidentificationNumber.hasMatch(newValue)) {
+          newValidationErrors.remove($identificationNumbereProfile);
         }
         updatedProfile =
             state.profile!.copyWith(identificationNumber: newValue);
         break;
-      case "address":
-        if (newValue.isNotEmpty) newValidationErrors.remove('address');
+
+      case $addressProfile:
+        if (newValue.isNotEmpty) newValidationErrors.remove($addressProfile);
         updatedProfile = state.profile!.copyWith(address: newValue);
         break;
-      case "birthday":
-        if (newValue.isNotEmpty) newValidationErrors.remove('birthday');
+
+      case $birthdayProfile:
+        if (newValue.isNotEmpty) newValidationErrors.remove($birthdayProfile);
         updatedProfile = state.profile!.copyWith(birthday: newValue);
         break;
-      case "telephone":
-        final regexTelephone = RegExp(r'^(2)[0-9]{7}$');
-        if (state.profile!.telephone != null &&
-            regexTelephone.hasMatch(newValue)) {
-          newValidationErrors.remove('telephone');
+
+      case $telephoneProfile:
+        if ($regexTelephone.hasMatch(newValue)) {
+          newValidationErrors.remove($telephoneProfile);
         }
 
         updatedProfile = state.profile!.copyWith(telephone: newValue);
         break;
-      case "phoneNumber":
-        final regexCel = RegExp(r'^(5|7|8)[0-9]{7}$');
 
-        if (regexCel.hasMatch(newValue)) {
-          newValidationErrors.remove('phoneNumber');
+      case $phoneNumberProfile:
+        if ($regexphoneNumber.hasMatch(newValue)) {
+          newValidationErrors.remove($phoneNumberProfile);
         }
         updatedProfile = state.profile!.copyWith(phoneNumber: newValue);
         break;
-      case "image":
+
+      case $imageProfile:
         updatedProfile = state.profile!.copyWith(image: newValue);
         break;
-      case "gender":
-        if (newValue.isNotEmpty) newValidationErrors.remove('gender');
+
+      case $genderProfile:
+        if (newValue.isNotEmpty) newValidationErrors.remove($genderProfile);
         updatedProfile = state.profile!.copyWith(gender: newValue);
         break;
+
       default:
         break;
     }
@@ -246,11 +247,11 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
   }
 
   void updateUserName(String value) {
-// Borra el error si el usuario ingresa texto
+    // Borra el error si el usuario ingresa texto
     final Map<String, String?> newValidationErrors =
         Map.from(state.validationErrors);
 
-    if (value.isNotEmpty) newValidationErrors.remove('userName');
+    if (value.isNotEmpty) newValidationErrors.remove($userNameProfile);
 
     state = state.copyWith(
       userName: value,
@@ -263,62 +264,61 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
     final Map<String, String?> newValidationErrors =
         Map.from(state.validationErrors);
 
-    if (value.isNotEmpty) newValidationErrors.remove('email');
+    if (value.isNotEmpty) newValidationErrors.remove($emailProfile);
     state = state.copyWith(
       email: value,
       validationErrors: newValidationErrors,
     );
   }
 
+  void updateErrorMessage() {
+    state = state.copyWith(errorMessageApi: '', showtoastAlert: false);
+  }
+
   bool checkFields() {
     Map<String, String?> errors = {};
 
     if (state.userName == null || state.userName!.isEmpty) {
-      errors['userName'] = "El nombre de usuario no puede estar vacio";
+      errors[$userNameProfile] =
+          S.current.El_nombre_de_usuario_no_puede_estar_vacio;
     }
     if (state.email == null || state.email!.isEmpty) {
-      errors['email'] = "El  correo no puede estar vacio";
+      errors[$emailProfile] = S.current.El_correo_no_puede_estar_vacio;
     }
     if (state.profile!.firstName.isEmpty) {
-      errors['firstName'] = "El primer nombre no puede estar vacio";
+      errors[$firstNameProfile] =
+          S.current.El_primer_nombre_no_puede_estar_vacio;
     }
     if (state.profile!.surname.isEmpty) {
-      errors['surname'] = "El primer apellido no puede estar vacio";
+      errors[$surnameProfile] =
+          S.current.El_primer_apellido_no_puede_estar_vacio;
     }
     if (state.profile!.address.isEmpty) {
-      errors['address'] = "La direccion no puede estar vacia";
+      errors[$addressProfile] = S.current.La_direccion_no_puede_estar_vacia;
     }
     if (state.profile!.birthday.isEmpty) {
-      errors['birthday'] = "La fecha de nacimiento no puede estar vacia";
+      errors[$birthdayProfile] =
+          S.current.La_fecha_de_nacimiento_no_puede_estar_vacia;
     }
     if (state.profile!.gender.isEmpty) {
-      errors['gender'] = "El sexo no puede estar vacio";
+      errors[$genderProfile] = S.current.El_sexo_no_puede_estar_vacio;
     }
 
-    final regexCedula = RegExp(
-        r'^[0-9]{3}-(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[012])([0-9]{2})-[0-9]{4}[^iIñÑzZ]+$');
-
-    if (!regexCedula.hasMatch(state.profile!.identificationNumber)) {
-      errors['identificationNumber'] =
-          'Formato incorrecto de cédula (###-######-####L)';
+    if (!$regexidentificationNumber
+        .hasMatch(state.profile!.identificationNumber)) {
+      errors[$identificationNumbereProfile] =
+          S.current.Formato_incorrecto_de_cedula;
     }
 
-    if (state.profile!.identificationNumber.isEmpty) {
-      errors['identificationNumber'] = "La cedula no puede estar vacia";
+    if (!$regexphoneNumber.hasMatch(state.profile!.phoneNumber)) {
+      errors[$phoneNumberProfile] =
+          S.current.El_celular_deber_ser_un_numero_valido_y_no_estar_vacio;
     }
 
-    final regexCel = RegExp(r'^(5|7|8)[0-9]{7}$');
-
-    if (!regexCel.hasMatch(state.profile!.phoneNumber)) {
-      errors['phoneNumber'] =
-          "El celular deber ser un numero valido y no estar vacio";
-    }
-
-    final regexTelephone = RegExp(r'^(2)[0-9]{7}$');
     if (state.profile!.telephone != null &&
-        !regexTelephone.hasMatch(state.profile!.telephone!)) {
-      errors['telephone'] =
-          "El telefono deber ser un numero valido y no estar vacio";
+        !$regexTelephone.hasMatch(state.profile!.telephone!)) {
+      errors[$telephoneProfile] =
+          S.current.El_telefono_deber_ser_un_numero_valido_y_no_estar_vacio;
     }
 
     state = state.copyWith(validationErrors: errors);
@@ -329,6 +329,17 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
       return false;
     }
   }
+
+  void restoredState() {
+    if (originalState != null) {
+      state = originalState!;
+      originalState = null;
+    }
+  }
+
+  void assingState() {
+    originalState = state;
+  }
 }
 
 class ProfileState {
@@ -338,6 +349,8 @@ class ProfileState {
   final String? email;
   final List<String>? permmisions;
   final bool isLoading;
+  final bool? isUpdateData;
+  final bool? showtoastAlert;
   final String? errorMessageApi;
   final Map<String, String?> validationErrors;
 
@@ -348,6 +361,8 @@ class ProfileState {
     this.email,
     this.permmisions,
     this.isLoading = true,
+    this.isUpdateData,
+    this.showtoastAlert = false,
     this.errorMessageApi,
     this.validationErrors = const {},
   });
@@ -358,6 +373,8 @@ class ProfileState {
     String? userName,
     String? email,
     bool? isLoading,
+    bool? isUpdateData,
+    bool? showtoastAlert,
     String? errorMessageApi,
     Map<String, String?>? validationErrors,
     List<String>? permmisions,
@@ -368,7 +385,11 @@ class ProfileState {
         userName: userName ?? this.userName,
         email: email ?? this.email,
         isLoading: isLoading ?? this.isLoading,
-        errorMessageApi: errorMessageApi ?? this.errorMessageApi,
+        isUpdateData: isUpdateData ?? this.isUpdateData,
+        showtoastAlert: showtoastAlert ?? this.showtoastAlert,
+        errorMessageApi: errorMessageApi == ''
+            ? null
+            : errorMessageApi ?? this.errorMessageApi,
         validationErrors: validationErrors ?? this.validationErrors,
         permmisions: permmisions ?? this.permmisions,
       );

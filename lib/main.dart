@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hope_app/domain/domain.dart';
 import 'package:hope_app/generated/l10n.dart';
-import 'package:hope_app/infrastructure/errors/custom_errors.dart';
-import 'package:hope_app/infrastructure/repositories/auth.repository.impl.dart';
-import 'package:hope_app/infrastructure/repositories/key_value_storage.repository.impl.dart';
+import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/pages/pages.dart';
-import 'package:hope_app/presentation/providers/auth.provider.dart';
-import 'package:hope_app/presentation/providers/permissions.provider.dart';
 import 'package:hope_app/presentation/services/services.dart';
 import 'package:toastification/toastification.dart';
+import 'presentation/providers/providers.dart';
 import 'presentation/utils/utils.dart';
 
 Future<void> main() async {
@@ -39,13 +35,13 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await DioService().configureBearer();
       // Verificar si el token está presente y realizar la llamada al endpoint "Me"
-      final String? token = await KeyValueStorageRepositoryImpl()
-          .getValueStorage<String>(S.current.Token);
+      final String? token =
+          await KeyValueStorageRepositoryImpl().getValueStorage<String>($token);
 
       final bool? verified = await KeyValueStorageRepositoryImpl()
-          .getValueStorage<bool>(S.current.Verificado);
+          .getValueStorage<bool>($verified);
       final refreshToken = await KeyValueStorageRepositoryImpl()
-          .getValueStorage<String>(S.current.RefreshToken);
+          .getValueStorage<String>($refreshToken);
 
       if (token != null && verified == true) {
         try {
@@ -62,7 +58,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
           if (e.errorCode == 401) {
             final Token tokenFinal =
                 Token(accessToken: token, refreshToken: refreshToken!);
-            ref.read(profileProvider.notifier).updateIsLoading();
+            ref.read(profileProvider.notifier).updateIsLoading(false);
             ref
                 .read(authProvider.notifier)
                 .chagesStateAuthenticated(tokenFinal);
@@ -82,7 +78,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
       if (token != null && verified != true) {
         final Token tokenFinal =
             Token(accessToken: token, refreshToken: refreshToken!);
-        ref.read(profileProvider.notifier).updateIsLoading();
+        ref.read(profileProvider.notifier).updateIsLoading(true);
         ref.read(authProvider.notifier).chagesStateAuthenticated(tokenFinal);
       }
     });
@@ -96,10 +92,6 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    // Ocultar la barra de estado
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky,
-        overlays: []);
-
     final appRouter = ref.watch(goRouterProvider);
 
     return MaterialApp.router(

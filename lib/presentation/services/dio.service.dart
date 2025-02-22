@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:hope_app/domain/domain.dart';
-import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 
@@ -24,7 +23,7 @@ class DioService {
   // Configura el token de autorización
   Future<void> configureBearer() async {
     final String? token =
-        await keyValueRepository.getValueStorage<String>(S.current.Token);
+        await keyValueRepository.getValueStorage<String>($token);
     dio = Dio(BaseOptions(baseUrl: Environment.apiUrl));
 
     if (token != null) {

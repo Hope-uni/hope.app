@@ -9,7 +9,7 @@ final List<MenuItem> appMenuItemsDrawer = <MenuItem>[
     title: S.current.Ninos,
     subTitle: S.current.Ninos_asignados,
     onClick: ({required BuildContext context, int? idItem}) {
-      context.pushNamed('children');
+      context.pushReplacementNamed('children');
     },
     icon: Icons.face,
     permission: $listPatients,
@@ -21,7 +21,7 @@ final List<MenuItem> appMenuItemsDrawer = <MenuItem>[
     permission:
         $updatePatienttherapist, //TODO: Reemplazar por permiso correcto cuando este listo
     onClick: ({required BuildContext context, int? idItem}) {
-      context.pushNamed('activities');
+      context.pushReplacementNamed('activities');
     },
   ),
   MenuItem(
@@ -30,7 +30,7 @@ final List<MenuItem> appMenuItemsDrawer = <MenuItem>[
     icon: Icons.account_circle,
     permission: $me,
     onClick: ({required BuildContext context, int? idItem}) {
-      context.pushNamed('profile');
+      context.pushReplacementNamed('profile');
     },
   ),
 ];

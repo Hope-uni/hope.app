@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hope_app/generated/l10n.dart';
-import 'package:hope_app/presentation/providers/password.provider.dart';
+import 'package:hope_app/presentation/providers/providers.dart';
 
 final resetPasswordFormProvider = StateNotifierProvider.autoDispose<
     ResetPasswordNotifier, ResetPasswordState>((ref) {
