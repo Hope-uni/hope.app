@@ -49,19 +49,27 @@ class ResetPasswordForm extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Expanded(
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  style: const ButtonStyle(
-                      padding:
-                          WidgetStatePropertyAll(EdgeInsets.only(right: 5))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(S.current.Iniciar_sesion),
-                      const Icon(Icons.arrow_forward),
-                    ],
+                child: Container(
+                  alignment: Alignment.centerRight,
+                  child: GestureDetector(
+                    onTap: () {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                      Navigator.pop(context);
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(S.current.Iniciar_sesion,
+                            textAlign: TextAlign.end,
+                            style: const TextStyle(
+                              color: $colorBlueGeneral,
+                            )),
+                        const Icon(
+                          Icons.arrow_forward,
+                          color: $colorBlueGeneral,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

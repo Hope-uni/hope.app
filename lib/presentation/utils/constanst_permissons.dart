@@ -1,5 +1,3 @@
-import 'dart:core';
-
 const String $me = "buscarme";
 const String $listPatients = "listar pacientes";
 const String $findPatients = "buscar pacientes";
@@ -12,3 +10,8 @@ const String $createCustomPictogram = "crear pictogramas-personalizados";
 const String $listCustomPictograms = "listar pictogramas-personalizados";
 const String $deleteCustomPictogram = "borrar pictogramas-personalizados";
 const String $updateCustomPictogram = "actualizar pictogramas-personalizados";
+
+//Roles
+const String $tutor = "Tutor";
+const String $terapeuta = "Terapeuta";
+const String $paciente = "Paciente";

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/pages/pages.dart';
-import 'package:hope_app/presentation/providers/permissions.provider.dart';
 import 'package:hope_app/presentation/providers/providers.dart';
+import 'package:hope_app/presentation/utils/utils.dart';
 
 final goRouterProvider = Provider<GoRouter>((ref) {
   final goRouterNotifier = ref.read(goRouterNotifierProvider);
@@ -121,7 +120,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
 
       if (authStatus == AuthStatus.authenticated) {
         final String? token =
-            await keyValueRepository.getValueStorage<String>(S.current.Token);
+            await keyValueRepository.getValueStorage<String>($token);
 
         if (token == null) return '/login';
 
@@ -129,15 +128,14 @@ final goRouterProvider = Provider<GoRouter>((ref) {
           return '/dashboard';
         }
 
-        final profileState = ref.watch(profileProvider);
-        final bool? verified = await keyValueRepository
-            .getValueStorage<bool>(S.current.Verificado);
+        final profileState = ref.read(profileProvider);
+        final bool? verified =
+            await keyValueRepository.getValueStorage<bool>($verified);
 
         if (profileState.isLoading && verified == true) {
           ref.read(profileProvider.notifier).loadProfileAndPermmisions();
         }
       }
-
       return null;
     },
   );

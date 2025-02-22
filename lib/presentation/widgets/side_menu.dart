@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hope_app/generated/l10n.dart';
-import 'package:hope_app/presentation/interfaces/menu_item.interfaces.dart';
-import 'package:hope_app/presentation/providers/permissions.provider.dart';
+import 'package:hope_app/presentation/interfaces/interface.dart';
 import 'package:hope_app/presentation/providers/providers.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
@@ -28,8 +27,11 @@ class SideMenu extends ConsumerWidget {
           .toList();
     }
 
+    final size = MediaQuery.of(context).size;
+
     return Stack(children: [
       NavigationDrawer(
+        backgroundColor: $colorBlueGeneral,
         selectedIndex: selectedOpcion,
         onDestinationSelected: (value) {
           //Aqui se asigna el nuevo valor el index del menu y se redirecciona a la pantalla
@@ -59,9 +61,9 @@ class SideMenu extends ConsumerWidget {
                         width: 100,
                         height: 100,
                         child: ImageLoad(
-                            urlImage: profileState.profile != null
-                                ? profileState.profile!.image
-                                : '',
+                            urlImage: profileState.profile == null
+                                ? ''
+                                : profileState.profile!.image ?? '',
                             isDoubleTap: false),
                       ),
                     ),
@@ -77,11 +79,17 @@ class SideMenu extends ConsumerWidget {
                   ],
                 )),
           ),
-          ...menuPermmisions.map((item) => NavigationDrawerDestination(
-              icon: Icon(item.icon), label: Text(item.title))),
-          const SizedBox(
-            height: 200,
-          )
+          ...menuPermmisions.map(
+            (item) => NavigationDrawerDestination(
+              backgroundColor: $colorBackgroundDrawer,
+              icon: Icon(item.icon),
+              label: Text(item.title),
+            ),
+          ),
+          Container(
+            height: size.height / 1.5,
+            color: $colorBackgroundDrawer,
+          ),
         ],
       ),
       Positioned(

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hope_app/generated/l10n.dart';
-import 'package:hope_app/infrastructure/repositories/key_value_storage.repository.impl.dart';
-import 'package:hope_app/presentation/utils/constants_desing.dart';
-import 'package:hope_app/presentation/utils/modal_password.dart';
+import 'package:hope_app/infrastructure/infrastructure.dart';
+import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
 
 class DashboardPage extends StatelessWidget {
@@ -13,7 +12,7 @@ class DashboardPage extends StatelessWidget {
 // Llama a la función para verificar la keyStorage al cargar la página
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final bool? verified = await KeyValueStorageRepositoryImpl()
-          .getValueStorage<bool>(S.current.Verificado);
+          .getValueStorage<bool>($verified);
 
       if (verified != true) {
         if (context.mounted) {

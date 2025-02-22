@@ -72,7 +72,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Avanzar de fase"),
         "Aviso": MessageLookupByLibrary.simpleMessage("¡Aviso!"),
         "Bienvenido_pagina_de_inicio": MessageLookupByLibrary.simpleMessage(
-            "Bienvenido - Pagina de inicio"),
+            "Bienvenido - Página de inicio"),
         "Buscar": MessageLookupByLibrary.simpleMessage("Buscar"),
         "Buscar_por_nombre_de_actividad": MessageLookupByLibrary.simpleMessage(
             "Buscar por nombre de actividad"),
@@ -86,6 +86,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Cambio_de_contrasena_de":
             MessageLookupByLibrary.simpleMessage("Cambio de contraseña de"),
         "Cancelar": MessageLookupByLibrary.simpleMessage("Cancelar"),
+        "Cargando": MessageLookupByLibrary.simpleMessage("Cargando...."),
         "Categoria_de_pictogramas":
             MessageLookupByLibrary.simpleMessage("Categoría de pictogramas"),
         "Cedula": MessageLookupByLibrary.simpleMessage("Cédula"),
@@ -102,7 +103,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "Contrasena": MessageLookupByLibrary.simpleMessage("Contraseña"),
         "Contrasena_actual":
             MessageLookupByLibrary.simpleMessage("Contraseña actual"),
-        "Correo": MessageLookupByLibrary.simpleMessage("email"),
         "Correo_electronico":
             MessageLookupByLibrary.simpleMessage("Correo electrónico"),
         "Correo_o_nombre_de_usuario":
@@ -130,6 +130,25 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Editar observaciones"),
         "Editar_observaciones_del_nino": MessageLookupByLibrary.simpleMessage(
             "Editar observaciones del niño"),
+        "El_celular_deber_ser_un_numero_valido_y_no_estar_vacio":
+            MessageLookupByLibrary.simpleMessage(
+                "El celular deber ser un numero valido y no estar vacío"),
+        "El_correo_no_puede_estar_vacio": MessageLookupByLibrary.simpleMessage(
+            "El correo no puede estar vacío"),
+        "El_nombre_de_usuario_no_puede_estar_vacio":
+            MessageLookupByLibrary.simpleMessage(
+                "El nombre de usuario no puede estar vacío"),
+        "El_primer_apellido_no_puede_estar_vacio":
+            MessageLookupByLibrary.simpleMessage(
+                "El primer apellido no puede estar vacío"),
+        "El_primer_nombre_no_puede_estar_vacio":
+            MessageLookupByLibrary.simpleMessage(
+                "El primer nombre no puede estar vacío"),
+        "El_sexo_no_puede_estar_vacio": MessageLookupByLibrary.simpleMessage(
+            "El sexo no puede estar vacío"),
+        "El_telefono_deber_ser_un_numero_valido_y_no_estar_vacio":
+            MessageLookupByLibrary.simpleMessage(
+                "El teléfono deber ser un numero valido y no estar vacío"),
         "El_usuario_es_requerido":
             MessageLookupByLibrary.simpleMessage("El usuario es requerido"),
         "Eliminacion_permanente_de_la_actividad":
@@ -177,6 +196,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Fases": MessageLookupByLibrary.simpleMessage("Fases"),
         "Fecha_de_nacimiento":
             MessageLookupByLibrary.simpleMessage("Fecha de nacimiento"),
+        "Formato_incorrecto_de_cedula": MessageLookupByLibrary.simpleMessage(
+            "Formato incorrecto de cédula (###-######-####L)"),
         "Galeria": MessageLookupByLibrary.simpleMessage("Galería"),
         "Guardado_con_exito":
             MessageLookupByLibrary.simpleMessage("¡Guardado con éxito!"),
@@ -208,6 +229,12 @@ class MessageLookup extends MessageLookupByLibrary {
                 "La contraseña debe contener entre 8 y 30 caracteres"),
         "La_contrasena_es_requerida":
             MessageLookupByLibrary.simpleMessage("La contraseña es requerida"),
+        "La_direccion_no_puede_estar_vacia":
+            MessageLookupByLibrary.simpleMessage(
+                "La dirección  no puede estar vacía"),
+        "La_fecha_de_nacimiento_no_puede_estar_vacia":
+            MessageLookupByLibrary.simpleMessage(
+                "La fecha de nacimiento no puede estar vacía"),
         "Limpiar": MessageLookupByLibrary.simpleMessage("Limpiar"),
         "Limpiar_filtros":
             MessageLookupByLibrary.simpleMessage("Limpiar filtros"),
@@ -222,6 +249,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Ninos": MessageLookupByLibrary.simpleMessage("Niños"),
         "Ninos_asignados":
             MessageLookupByLibrary.simpleMessage("Niños asignados"),
+        "No_autorizado": MessageLookupByLibrary.simpleMessage("No autorizado"),
+        "No_cuenta_con_el_permiso_necesario":
+            MessageLookupByLibrary.simpleMessage(
+                "No cuenta con el permiso necesario"),
         "Nombre": MessageLookupByLibrary.simpleMessage("Nombre"),
         "Nombre_de_usuario":
             MessageLookupByLibrary.simpleMessage("Nombre de usuario"),
@@ -234,7 +265,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "Oracion": MessageLookupByLibrary.simpleMessage("Oración"),
         "Pagina": MessageLookupByLibrary.simpleMessage("Página"),
         "Perfil": MessageLookupByLibrary.simpleMessage("Perfil"),
-        "Permisos": MessageLookupByLibrary.simpleMessage("permissions"),
         "Peticion_enviada":
             MessageLookupByLibrary.simpleMessage("Petición enviada"),
         "Pictogramas_blanco_negro":
@@ -247,7 +277,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "Primer_apellido":
             MessageLookupByLibrary.simpleMessage("Primer Apellido"),
         "Primer_nombre": MessageLookupByLibrary.simpleMessage("Primer Nombre"),
-        "Profile": MessageLookupByLibrary.simpleMessage("profile"),
         "Progreso_general":
             MessageLookupByLibrary.simpleMessage("Progreso general"),
         "Progresos": MessageLookupByLibrary.simpleMessage("Progresos"),
@@ -259,7 +288,6 @@ class MessageLookup extends MessageLookupByLibrary {
             "Quitar actividad a los niños"),
         "Quitar_asignacion_de_actividad": MessageLookupByLibrary.simpleMessage(
             "Quitar asignación de actividad"),
-        "RefreshToken": MessageLookupByLibrary.simpleMessage("refreshToken"),
         "Restablecer_contrasena":
             MessageLookupByLibrary.simpleMessage("Restablecer contraseña"),
         "Se_actualizo_correctamente_el_pictograma_personalizado": m3,
@@ -294,18 +322,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Telefono_de_casa":
             MessageLookupByLibrary.simpleMessage("Teléfono de casa"),
         "Terapeuta": MessageLookupByLibrary.simpleMessage("Terapeuta"),
-        "Token": MessageLookupByLibrary.simpleMessage("token"),
         "Total_de_resultados":
             MessageLookupByLibrary.simpleMessage("Total de resultados:"),
         "Tutor": MessageLookupByLibrary.simpleMessage("Tutor"),
-        "User_Name": MessageLookupByLibrary.simpleMessage("userName"),
         "Usuario": MessageLookupByLibrary.simpleMessage("Usuario"),
         "Ver_informacion":
             MessageLookupByLibrary.simpleMessage("Ver Información"),
         "Ver_informacion_detallada_de_la_actividad":
             MessageLookupByLibrary.simpleMessage(
                 "Ver Información detallada de la actividad"),
-        "Verificado": MessageLookupByLibrary.simpleMessage("verificado"),
         "Verificar_actividad":
             MessageLookupByLibrary.simpleMessage("Verificar actividad"),
         "progreso_de_fase":

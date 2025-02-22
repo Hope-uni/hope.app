@@ -6,3 +6,4 @@ export 'patient_list.provider.dart';
 export 'pictogram_list.provider.dart';
 export 'activities.provider.dart';
 export 'password.provider.dart';
+export 'profile.provider.dart';

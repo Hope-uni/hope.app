@@ -9,6 +9,8 @@ class SelectBox extends StatefulWidget {
   final String? valueInitial;
   final void Function(String?)? onSelected;
   final double? marginHorizontal;
+  final String? errorText;
+  final bool? deleteSelection;
 
   const SelectBox({
     super.key,
@@ -16,7 +18,9 @@ class SelectBox extends StatefulWidget {
     required this.enable,
     this.onSelected,
     this.label,
+    this.deleteSelection,
     this.hint,
+    this.errorText,
     this.valueInitial,
     this.marginHorizontal,
   });
@@ -42,16 +46,17 @@ class _SelectBoxState extends State<SelectBox> {
         initialSelection: controller.value.text,
         controller: controller,
         expandedInsets: const EdgeInsets.all(1),
-        onSelected: (value) {
-          setState(() => controller.text = value!);
-          widget.onSelected;
-        },
-        trailingIcon: controller.value.text.isNotEmpty
-            ? GestureDetector(
-                onTap: () => setState(() => controller.clear()),
-                child: const Icon(Icons.clear),
-              )
-            : null,
+        onSelected: widget.onSelected,
+        trailingIcon: widget.deleteSelection != true
+            ? null
+            : controller.value.text.isNotEmpty
+                ? GestureDetector(
+                    onTap: () {
+                      setState(() => controller.text = '');
+                    },
+                    child: const Icon(Icons.clear),
+                  )
+                : null,
         enableSearch: true,
         enabled: widget.enable,
         label: widget.label != null
@@ -64,9 +69,11 @@ class _SelectBoxState extends State<SelectBox> {
               )
             : null,
         hintText: widget.hint,
+        errorText: widget.errorText,
         //Dejar el espacio en blanco para que no se descuadre el contenido cuando no tiene counterText,
         helperText: ' ',
         inputDecorationTheme: const InputDecorationTheme(
+          errorMaxLines: 2,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(15)),
           ),

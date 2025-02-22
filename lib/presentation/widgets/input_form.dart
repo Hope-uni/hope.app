@@ -14,7 +14,9 @@ class InputForm extends StatefulWidget {
   final bool? obscureText;
   final Widget? suffixIcon;
   final bool? isNumber;
+  final bool? allCharacters;
   final bool? readOnly;
+  final FocusNode? focus;
   final List<TextInputFormatter>? inputFormatters;
   final Function(String)? onChanged;
   final Function()? onTap;
@@ -32,12 +34,14 @@ class InputForm extends StatefulWidget {
     this.onTap,
     this.onChanged,
     this.hint,
+    this.focus,
     this.inputFormatters,
     this.marginBottom,
     this.obscureText,
     this.suffixIcon,
     this.errorText,
     this.isNumber,
+    this.allCharacters,
     this.isSearch,
     this.controllerExt,
   });
@@ -57,6 +61,13 @@ class _InputFormState extends State<InputForm> {
   }
 
   @override
+  void didUpdateWidget(InputForm oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Verifica si el valor ha cambiado
+    if (widget.value != oldWidget.value) _controller.text = widget.value;
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
@@ -72,6 +83,7 @@ class _InputFormState extends State<InputForm> {
         bottom: widget.marginBottom == null ? 12.5 : widget.marginBottom!,
       ),
       child: TextField(
+        focusNode: widget.focus,
         controller: widget.controllerExt ?? _controller,
         onChanged: widget.onChanged,
         enabled: widget.enable,
@@ -86,7 +98,9 @@ class _InputFormState extends State<InputForm> {
             : TextInputAction.done,
         inputFormatters: widget.isNumber == true
             ? [FilteringTextInputFormatter.digitsOnly]
-            : widget.inputFormatters,
+            : (widget.allCharacters != false
+                ? widget.inputFormatters
+                : [FilteringTextInputFormatter.allow(RegExp('[a-zA-Z]'))]),
         keyboardType: widget.isNumber == true
             ? TextInputType.number
             : TextInputType.emailAddress,

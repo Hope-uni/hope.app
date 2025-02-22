@@ -3,13 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hope_app/domain/domain.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
-import 'package:hope_app/presentation/providers/permissions.provider.dart';
+import 'package:hope_app/presentation/providers/providers.dart';
 import 'package:hope_app/presentation/services/services.dart';
+import 'package:hope_app/presentation/utils/utils.dart';
 
 final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
   final authRepository = AuthRepositoryImpl();
   final keyValueRepository = KeyValueStorageRepositoryImpl();
-  final profileStateNotifier = ref.watch(profileProvider.notifier);
+  final profileStateNotifier = ref.read(profileProvider.notifier);
 
   return AuthNotifier(
     authRepository: authRepository,
@@ -35,11 +36,11 @@ class AuthNotifier extends StateNotifier<AuthState> {
     try {
       await keyValueRepository.setValueStorage<String>(
         token.accessToken,
-        S.current.Token,
+        $token,
       );
       await keyValueRepository.setValueStorage<String>(
         token.refreshToken,
-        S.current.RefreshToken,
+        $refreshToken,
       );
 
       await dio.configureBearer();
@@ -49,11 +50,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
       settearDataMe(dataMe!, token);
     } on CustomError catch (e) {
       if (e.errorCode == 401) {
-        await keyValueRepository.setValueStorage<bool>(
-          false,
-          S.current.Verificado,
-        );
-        profileStateNotifier.updateIsLoading();
+        await keyValueRepository.setValueStorage<bool>(false, $verified);
+        profileStateNotifier.updateIsLoading(false);
 
         chagesStateAuthenticated(token);
         return;
@@ -85,11 +83,12 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
   Future<void> logout() async {
     _resetTokens();
-    await keyValueRepository.deleteKeyStorage(S.current.User_Name);
-    await keyValueRepository.deleteKeyStorage(S.current.Correo);
-    await keyValueRepository.deleteKeyStorage(S.current.Profile);
-    await keyValueRepository.deleteKeyStorage(S.current.Permisos);
-    await keyValueRepository.deleteKeyStorage(S.current.Verificado);
+    await keyValueRepository.deleteKeyStorage($userName);
+    await keyValueRepository.deleteKeyStorage($email);
+    await keyValueRepository.deleteKeyStorage($profile);
+    await keyValueRepository.deleteKeyStorage($permissions);
+    await keyValueRepository.deleteKeyStorage($verified);
+    await keyValueRepository.deleteKeyStorage($roles);
 
     profileStateNotifier.resetProfile();
 
@@ -108,23 +107,21 @@ class AuthNotifier extends StateNotifier<AuthState> {
   }
 
   void _resetTokens() async {
-    await keyValueRepository.deleteKeyStorage(S.current.Token);
-    await keyValueRepository.deleteKeyStorage(S.current.RefreshToken);
+    await keyValueRepository.deleteKeyStorage($token);
+    await keyValueRepository.deleteKeyStorage($refreshToken);
   }
 
   void settearDataMe(Me me, token) async {
-    await keyValueRepository.setValueStorage<bool>(
-      true,
-      S.current.Verificado,
-    );
-    await keyValueRepository.setValueStorage<String>(
-        me.username, S.current.User_Name);
-    await keyValueRepository.setValueStorage<String>(
-        me.email, S.current.Correo);
+    await keyValueRepository.setValueStorage<bool>(true, $verified);
+    await keyValueRepository.setValueStorage<String>(me.username, $userName);
+    await keyValueRepository.setValueStorage<String>(me.email, $email);
 
     await keyValueRepository.setValueStorage<String>(
-        jsonEncode(MePermissionsMapper.toJsonProfile(me.profile)),
-        S.current.Profile);
+        jsonEncode(MePermissionsMapper.toJsonProfile(me.profile)), $profile);
+
+    final roles = me.roles.map((e) => e.name).toList();
+
+    await keyValueRepository.setValueStorage<List<String>>(roles, $roles);
 
     final permissonsList = me.roles.expand((role) => role.permissions).toList();
 
@@ -132,7 +129,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
         permissonsList.map((e) => e.description).toList();
 
     await keyValueRepository.setValueStorage<List<String>>(
-        descriptionsPermissons, S.current.Permisos);
+        descriptionsPermissons, $permissions);
 
     profileStateNotifier.loadProfileAndPermmisions();
 

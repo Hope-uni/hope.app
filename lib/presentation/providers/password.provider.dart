@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hope_app/domain/domain.dart';
+import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:toastification/toastification.dart';
 
@@ -45,7 +46,8 @@ class PasswordNotifier extends StateNotifier<PasswordState> {
     } on CustomError catch (e) {
       _setStatePassword(e.message, e.typeNotification);
     } catch (e) {
-      _setStatePassword('Error no controlado', ToastificationType.error);
+      _setStatePassword(
+          S.current.Error_no_controlado, ToastificationType.error);
     }
   }
 
