@@ -46,17 +46,19 @@ class LoginForsm extends StatelessWidget {
         _InputPassword(),
         //Forget Password
         Container(
+          alignment: Alignment.centerRight,
           margin: const EdgeInsets.only(right: 15, left: 10),
-          width: double.infinity,
-          child: TextButton(
-            onPressed: () {
+          child: GestureDetector(
+            onTap: () {
+              FocusManager.instance.primaryFocus?.unfocus();
               Navigator.of(context)
                   .push(buildPageRoute(const ResetPasswordPage()));
             },
-            style: const ButtonStyle(
-                alignment: Alignment.centerRight,
-                padding: WidgetStatePropertyAll(EdgeInsets.only(right: 5))),
-            child: Text(S.current.Olvido_su_contrasena),
+            child: Text(S.current.Olvido_su_contrasena,
+                textAlign: TextAlign.end,
+                style: const TextStyle(
+                  color: $colorBlueGeneral,
+                )),
           ),
         ),
         const SizedBox(height: 10),
@@ -165,10 +167,11 @@ class _ButtonLogin extends ConsumerWidget {
     ref.listen(authProvider, (previous, next) {
       if (next.errorMessage == null) return;
       toastAlert(
-          context: context,
-          title: S.current.Error,
-          description: next.errorMessage!,
-          typeAlert: ToastificationType.error);
+        context: context,
+        title: S.current.Error,
+        description: next.errorMessage!,
+        typeAlert: ToastificationType.error,
+      );
     });
 
     return Container(
@@ -187,7 +190,9 @@ class _ButtonLogin extends ConsumerWidget {
                   ? $colorButtonDisable
                   : $colorBlueGeneral),
         ),
-        child: Text(S.current.Iniciar_sesion),
+        child: Text(loginProvider.isFormPosted
+            ? S.current.Cargando
+            : S.current.Iniciar_sesion),
       ),
     );
   }

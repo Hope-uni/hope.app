@@ -132,23 +132,23 @@ class MessageLookup extends MessageLookupByLibrary {
             "Editar observaciones del niño"),
         "El_celular_deber_ser_un_numero_valido_y_no_estar_vacio":
             MessageLookupByLibrary.simpleMessage(
-                "El celular deber ser un numero valido y no estar vacio"),
+                "El celular deber ser un numero valido y no estar vacío"),
         "El_correo_no_puede_estar_vacio": MessageLookupByLibrary.simpleMessage(
-            "El correo no puede estar vacio"),
+            "El correo no puede estar vacío"),
         "El_nombre_de_usuario_no_puede_estar_vacio":
             MessageLookupByLibrary.simpleMessage(
-                "El nombre de usuario no puede estar vacio"),
+                "El nombre de usuario no puede estar vacío"),
         "El_primer_apellido_no_puede_estar_vacio":
             MessageLookupByLibrary.simpleMessage(
-                "El primer apellido no puede estar vacio"),
+                "El primer apellido no puede estar vacío"),
         "El_primer_nombre_no_puede_estar_vacio":
             MessageLookupByLibrary.simpleMessage(
-                "El primer nombre no puede estar vacio"),
+                "El primer nombre no puede estar vacío"),
         "El_sexo_no_puede_estar_vacio": MessageLookupByLibrary.simpleMessage(
-            "El sexo no puede estar vacio"),
+            "El sexo no puede estar vacío"),
         "El_telefono_deber_ser_un_numero_valido_y_no_estar_vacio":
             MessageLookupByLibrary.simpleMessage(
-                "El telefono deber ser un numero valido y no estar vacio"),
+                "El teléfono deber ser un numero valido y no estar vacío"),
         "El_usuario_es_requerido":
             MessageLookupByLibrary.simpleMessage("El usuario es requerido"),
         "Eliminacion_permanente_de_la_actividad":
@@ -231,10 +231,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("La contraseña es requerida"),
         "La_direccion_no_puede_estar_vacia":
             MessageLookupByLibrary.simpleMessage(
-                "La direccion no puede estar vacia"),
+                "La dirección  no puede estar vacía"),
         "La_fecha_de_nacimiento_no_puede_estar_vacia":
             MessageLookupByLibrary.simpleMessage(
-                "La fecha de nacimiento no puede estar vacia"),
+                "La fecha de nacimiento no puede estar vacía"),
         "Limpiar": MessageLookupByLibrary.simpleMessage("Limpiar"),
         "Limpiar_filtros":
             MessageLookupByLibrary.simpleMessage("Limpiar filtros"),

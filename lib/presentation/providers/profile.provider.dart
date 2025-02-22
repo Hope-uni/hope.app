@@ -16,6 +16,8 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
   final KeyValueStorageRepositoryImpl storageProfile;
   final ProfilePersonRepositoryImpl profileRepository;
 
+  ProfileState? originalState;
+
   ProfileNotifier(
       {required this.storageProfile, required this.profileRepository})
       : super(ProfileState());
@@ -66,7 +68,8 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
     );
   }
 
-  Future<bool> updateTherapist() async {
+  Future<void> updateTherapist() async {
+    state = state.copyWith(isUpdateData: true);
     try {
       final profilePerson = _convertProfilePerson();
       final response =
@@ -75,17 +78,17 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
       _convertProfile(response.data!);
       _updateProfileStorage(response.data!);
 
-      return true;
+      originalState = null;
+      state = state.copyWith(isUpdateData: false, showtoastAlert: true);
     } on CustomError catch (e) {
-      state = state.copyWith(errorMessageApi: e.message);
-      return false;
+      state = state.copyWith(errorMessageApi: e.message, isUpdateData: false);
     } catch (e) {
-      state = state.copyWith(errorMessageApi: S.current.Error_inesperado);
-      return false;
+      state = state.copyWith(
+          errorMessageApi: S.current.Error_inesperado, isUpdateData: false);
     }
   }
 
-  Future<bool> updateTutor() async {
+  Future<void> updateTutor() async {
     try {
       final profilePerson = _convertProfilePerson();
       final response =
@@ -93,14 +96,11 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
 
       _convertProfile(response.data!);
       _updateProfileStorage(response.data!);
-
-      return true;
+      originalState = null;
     } on CustomError catch (e) {
       state = state.copyWith(errorMessageApi: e.message);
-      return false;
     } catch (e) {
       state = state.copyWith(errorMessageApi: S.current.Error_inesperado);
-      return false;
     }
   }
 
@@ -162,10 +162,6 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
 
   void updateIsLoading(bool isLoading) {
     state = state.copyWith(isLoading: isLoading);
-  }
-
-  void resetProfile() {
-    state = ProfileState();
   }
 
   void updateBirthday(DateTime newDate) {
@@ -275,6 +271,10 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
     );
   }
 
+  void updateErrorMessage() {
+    state = state.copyWith(errorMessageApi: '', showtoastAlert: false);
+  }
+
   bool checkFields() {
     Map<String, String?> errors = {};
 
@@ -330,10 +330,15 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
     }
   }
 
-  void updateErrorMessage() {
-    state = state.copyWith(
-      errorMessageApi: '',
-    );
+  void restoredState() {
+    if (originalState != null) {
+      state = originalState!;
+      originalState = null;
+    }
+  }
+
+  void assingState() {
+    originalState = state;
   }
 }
 
@@ -344,6 +349,8 @@ class ProfileState {
   final String? email;
   final List<String>? permmisions;
   final bool isLoading;
+  final bool? isUpdateData;
+  final bool? showtoastAlert;
   final String? errorMessageApi;
   final Map<String, String?> validationErrors;
 
@@ -354,6 +361,8 @@ class ProfileState {
     this.email,
     this.permmisions,
     this.isLoading = true,
+    this.isUpdateData,
+    this.showtoastAlert = false,
     this.errorMessageApi,
     this.validationErrors = const {},
   });
@@ -364,6 +373,8 @@ class ProfileState {
     String? userName,
     String? email,
     bool? isLoading,
+    bool? isUpdateData,
+    bool? showtoastAlert,
     String? errorMessageApi,
     Map<String, String?>? validationErrors,
     List<String>? permmisions,
@@ -374,6 +385,8 @@ class ProfileState {
         userName: userName ?? this.userName,
         email: email ?? this.email,
         isLoading: isLoading ?? this.isLoading,
+        isUpdateData: isUpdateData ?? this.isUpdateData,
+        showtoastAlert: showtoastAlert ?? this.showtoastAlert,
         errorMessageApi: errorMessageApi == ''
             ? null
             : errorMessageApi ?? this.errorMessageApi,

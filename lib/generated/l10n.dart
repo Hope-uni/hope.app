@@ -1594,70 +1594,70 @@ class S {
     );
   }
 
-  /// `El nombre de usuario no puede estar vacio`
+  /// `El nombre de usuario no puede estar vacío`
   String get El_nombre_de_usuario_no_puede_estar_vacio {
     return Intl.message(
-      'El nombre de usuario no puede estar vacio',
+      'El nombre de usuario no puede estar vacío',
       name: 'El_nombre_de_usuario_no_puede_estar_vacio',
       desc: '',
       args: [],
     );
   }
 
-  /// `El correo no puede estar vacio`
+  /// `El correo no puede estar vacío`
   String get El_correo_no_puede_estar_vacio {
     return Intl.message(
-      'El correo no puede estar vacio',
+      'El correo no puede estar vacío',
       name: 'El_correo_no_puede_estar_vacio',
       desc: '',
       args: [],
     );
   }
 
-  /// `El primer nombre no puede estar vacio`
+  /// `El primer nombre no puede estar vacío`
   String get El_primer_nombre_no_puede_estar_vacio {
     return Intl.message(
-      'El primer nombre no puede estar vacio',
+      'El primer nombre no puede estar vacío',
       name: 'El_primer_nombre_no_puede_estar_vacio',
       desc: '',
       args: [],
     );
   }
 
-  /// `El primer apellido no puede estar vacio`
+  /// `El primer apellido no puede estar vacío`
   String get El_primer_apellido_no_puede_estar_vacio {
     return Intl.message(
-      'El primer apellido no puede estar vacio',
+      'El primer apellido no puede estar vacío',
       name: 'El_primer_apellido_no_puede_estar_vacio',
       desc: '',
       args: [],
     );
   }
 
-  /// `La direccion no puede estar vacia`
+  /// `La dirección  no puede estar vacía`
   String get La_direccion_no_puede_estar_vacia {
     return Intl.message(
-      'La direccion no puede estar vacia',
+      'La dirección  no puede estar vacía',
       name: 'La_direccion_no_puede_estar_vacia',
       desc: '',
       args: [],
     );
   }
 
-  /// `La fecha de nacimiento no puede estar vacia`
+  /// `La fecha de nacimiento no puede estar vacía`
   String get La_fecha_de_nacimiento_no_puede_estar_vacia {
     return Intl.message(
-      'La fecha de nacimiento no puede estar vacia',
+      'La fecha de nacimiento no puede estar vacía',
       name: 'La_fecha_de_nacimiento_no_puede_estar_vacia',
       desc: '',
       args: [],
     );
   }
 
-  /// `El sexo no puede estar vacio`
+  /// `El sexo no puede estar vacío`
   String get El_sexo_no_puede_estar_vacio {
     return Intl.message(
-      'El sexo no puede estar vacio',
+      'El sexo no puede estar vacío',
       name: 'El_sexo_no_puede_estar_vacio',
       desc: '',
       args: [],
@@ -1674,20 +1674,20 @@ class S {
     );
   }
 
-  /// `El celular deber ser un numero valido y no estar vacio`
+  /// `El celular deber ser un numero valido y no estar vacío`
   String get El_celular_deber_ser_un_numero_valido_y_no_estar_vacio {
     return Intl.message(
-      'El celular deber ser un numero valido y no estar vacio',
+      'El celular deber ser un numero valido y no estar vacío',
       name: 'El_celular_deber_ser_un_numero_valido_y_no_estar_vacio',
       desc: '',
       args: [],
     );
   }
 
-  /// `El telefono deber ser un numero valido y no estar vacio`
+  /// `El teléfono deber ser un numero valido y no estar vacío`
   String get El_telefono_deber_ser_un_numero_valido_y_no_estar_vacio {
     return Intl.message(
-      'El telefono deber ser un numero valido y no estar vacio',
+      'El teléfono deber ser un numero valido y no estar vacío',
       name: 'El_telefono_deber_ser_un_numero_valido_y_no_estar_vacio',
       desc: '',
       args: [],

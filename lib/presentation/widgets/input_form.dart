@@ -61,6 +61,13 @@ class _InputFormState extends State<InputForm> {
   }
 
   @override
+  void didUpdateWidget(InputForm oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Verifica si el valor ha cambiado
+    if (widget.value != oldWidget.value) _controller.text = widget.value;
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
