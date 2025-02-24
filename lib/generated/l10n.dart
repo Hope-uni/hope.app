@@ -1703,6 +1703,38 @@ class S {
       args: [],
     );
   }
+
+  /// `La contraseña actual no puede estar vacía`
+  String get La_contrasena_actual_no_puede_estar_vacia {
+    return Intl.message(
+      'La contraseña actual no puede estar vacía',
+      name: 'La_contrasena_actual_no_puede_estar_vacia',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `La contraseña debe tener entre 8 y 30 caracteres además contener letras y números`
+  String
+      get La_contrasena_debe_tener_entre_caracteres_ademas_contener_letras_y_numeros {
+    return Intl.message(
+      'La contraseña debe tener entre 8 y 30 caracteres además contener letras y números',
+      name:
+          'La_contrasena_debe_tener_entre_caracteres_ademas_contener_letras_y_numeros',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Las contraseñas no coinciden`
+  String get Las_contrasena_no_coinciden {
+    return Intl.message(
+      'Las contraseñas no coinciden',
+      name: 'Las_contrasena_no_coinciden',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

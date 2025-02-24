@@ -224,9 +224,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "La_actividad_se_guardo_correctamente":
             MessageLookupByLibrary.simpleMessage(
                 "La actividad se guardó correctamente"),
+        "La_contrasena_actual_no_puede_estar_vacia":
+            MessageLookupByLibrary.simpleMessage(
+                "La contraseña actual no puede estar vacía"),
         "La_contrasena_debe_contener_entre_8_y_30_caracteres":
             MessageLookupByLibrary.simpleMessage(
                 "La contraseña debe contener entre 8 y 30 caracteres"),
+        "La_contrasena_debe_tener_entre_caracteres_ademas_contener_letras_y_numeros":
+            MessageLookupByLibrary.simpleMessage(
+                "La contraseña debe tener entre 8 y 30 caracteres además contener letras y números"),
         "La_contrasena_es_requerida":
             MessageLookupByLibrary.simpleMessage("La contraseña es requerida"),
         "La_direccion_no_puede_estar_vacia":
@@ -235,6 +241,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "La_fecha_de_nacimiento_no_puede_estar_vacia":
             MessageLookupByLibrary.simpleMessage(
                 "La fecha de nacimiento no puede estar vacía"),
+        "Las_contrasena_no_coinciden": MessageLookupByLibrary.simpleMessage(
+            "Las contraseñas no coinciden"),
         "Limpiar": MessageLookupByLibrary.simpleMessage("Limpiar"),
         "Limpiar_filtros":
             MessageLookupByLibrary.simpleMessage("Limpiar filtros"),

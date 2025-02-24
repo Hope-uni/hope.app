@@ -1,38 +1,25 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hope_app/domain/domain.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:toastification/toastification.dart';
 
-final passwordProvider =
-    StateNotifierProvider<PasswordNotifier, PasswordState>((ref) {
+final passwordProvider = StateNotifierProvider.autoDispose<
+    ResetPasswordNotifier, ResetPasswordState>((ref) {
   final authRepository = AuthRepositoryImpl();
-  return PasswordNotifier(authRepository: authRepository);
+  return ResetPasswordNotifier(authRepository: authRepository);
 });
 
-class PasswordState {
-  final String message;
-  final ToastificationType typeMessage;
+class ResetPasswordNotifier extends StateNotifier<ResetPasswordState> {
+  final AuthRepositoryImpl authRepository;
 
-  PasswordState({
-    this.typeMessage = ToastificationType.success,
-    this.message = '',
-  });
+  ResetPasswordNotifier({required this.authRepository})
+      : super(ResetPasswordState());
 
-  PasswordState copyWith({
-    ToastificationType? typeMessage,
-    String? message,
-  }) =>
-      PasswordState(
-        typeMessage: typeMessage ?? this.typeMessage,
-        message: message ?? this.message,
-      );
-}
-
-class PasswordNotifier extends StateNotifier<PasswordState> {
-  final AuthRepository authRepository;
-
-  PasswordNotifier({required this.authRepository}) : super(PasswordState());
+  void sendResetPassword() async {
+    state = state.copyWith(isFormPosted: true);
+    await sendEmailForgotPassword(state.emailOrUser);
+    state = state.copyWith(isFormPosted: false);
+  }
 
   Future<void> sendEmailForgotPassword(String emailOrUsername) async {
     try {
@@ -54,4 +41,60 @@ class PasswordNotifier extends StateNotifier<PasswordState> {
   void _setStatePassword(String message, ToastificationType messageType) {
     state = state.copyWith(message: message, typeMessage: messageType);
   }
+
+  void onEmailOrUser(String emailOrUser) {
+    state = state.copyWith(
+      emailOrUser: emailOrUser,
+      errorEmailOrUser: emailOrUser.isNotEmpty ? '' : null,
+    );
+  }
+
+  bool validInput() {
+    if (state.emailOrUser.isEmpty) {
+      state = state.copyWith(
+        errorEmailOrUser: S.current.Debe_ingresar_el_nombre_de_usuario_o_correo,
+      );
+      return false;
+    }
+    return true;
+  }
+
+  void resetStateMessage() {
+    state = state.copyWith(
+      message: '',
+    );
+  }
+}
+
+class ResetPasswordState {
+  final String? errorEmailOrUser;
+  final String emailOrUser;
+  final bool isFormPosted;
+  final String message;
+  final ToastificationType typeMessage;
+
+  ResetPasswordState({
+    this.isFormPosted = false,
+    this.emailOrUser = '',
+    this.errorEmailOrUser,
+    this.typeMessage = ToastificationType.success,
+    this.message = '',
+  });
+
+  ResetPasswordState copyWith({
+    String? emailOrUser,
+    bool? isFormPosted,
+    String? errorEmailOrUser,
+    ToastificationType? typeMessage,
+    String? message,
+  }) =>
+      ResetPasswordState(
+        emailOrUser: emailOrUser ?? this.emailOrUser,
+        isFormPosted: isFormPosted ?? this.isFormPosted,
+        errorEmailOrUser: errorEmailOrUser == ''
+            ? null
+            : errorEmailOrUser ?? this.errorEmailOrUser,
+        typeMessage: typeMessage ?? this.typeMessage,
+        message: message ?? this.message,
+      );
 }

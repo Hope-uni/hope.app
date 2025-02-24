@@ -164,5 +164,8 @@
   "Formato_incorrecto_de_cedula": "Formato incorrecto de cédula (###-######-####L)",
   "El_celular_deber_ser_un_numero_valido_y_no_estar_vacio": "El celular deber ser un numero valido y no estar vacío",
   "El_telefono_deber_ser_un_numero_valido_y_no_estar_vacio": "El teléfono deber ser un numero valido y no estar vacío",
-  "Cargando": "Cargando...."
+  "Cargando": "Cargando....",
+  "La_contrasena_actual_no_puede_estar_vacia": "La contraseña actual no puede estar vacía",
+  "La_contrasena_debe_tener_entre_caracteres_ademas_contener_letras_y_numeros": "La contraseña debe tener entre 8 y 30 caracteres además contener letras y números",
+  "Las_contrasena_no_coinciden": "Las contraseñas no coinciden"
 }

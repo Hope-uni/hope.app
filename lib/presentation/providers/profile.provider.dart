@@ -340,6 +340,10 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
   void assingState() {
     originalState = state;
   }
+
+  void resetProfile() {
+    state = ProfileState();
+  }
 }
 
 class ProfileState {
