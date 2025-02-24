@@ -21,9 +21,8 @@ class AuthDataSourceImpl extends AuthDataSource {
 
       return token;
     } on DioException catch (e) {
-      final responseMapper =
-          ResponseMapper.responseJsonToEntity<ResponseDataObject>(
-              json: e.response!.data);
+      final responseMapper = ResponseMapper.responseJsonToEntity<ResponseData>(
+          json: e.response!.data);
 
       final String message;
 
@@ -50,21 +49,20 @@ class AuthDataSourceImpl extends AuthDataSource {
   }
 
   @override
-  Future<ResponseDataObject<ResponseDataObject>> forgotPassword(
+  Future<ResponseDataObject<ResponseData>> forgotPassword(
       String emailOrUserName) async {
     try {
       final response = await dioServices.dio.post('/auth/forgot-password',
           data: {$emailUsername: emailOrUserName});
 
       final responseForgotPassword =
-          ResponseMapper.responseJsonToEntity<ResponseDataObject>(
+          ResponseMapper.responseJsonToEntity<ResponseData>(
               json: response.data);
 
       return responseForgotPassword;
     } on DioException catch (e) {
-      final responseMapper =
-          ResponseMapper.responseJsonToEntity<ResponseDataObject>(
-              json: e.response!.data);
+      final responseMapper = ResponseMapper.responseJsonToEntity<ResponseData>(
+          json: e.response!.data);
 
       final String message;
 
@@ -101,8 +99,8 @@ class AuthDataSourceImpl extends AuthDataSource {
 
       return responseMe;
     } on DioException catch (e) {
-      final responseMapper =
-          ResponseMapper.responseJsonToEntity<Me>(json: e.response!.data);
+      final responseMapper = ResponseMapper.responseJsonToEntity<ResponseData>(
+          json: e.response!.data);
 
       final String message;
 
@@ -129,7 +127,7 @@ class AuthDataSourceImpl extends AuthDataSource {
   }
 
   @override
-  Future<ResponseDataObject<ResponseDataObject>> changePassword({
+  Future<ResponseDataObject<ResponseData>> changePassword({
     required String password,
     required String newPassword,
     required String confirmNewPassword,
@@ -145,14 +143,13 @@ class AuthDataSourceImpl extends AuthDataSource {
       );
 
       final responseChangePassword =
-          ResponseMapper.responseJsonToEntity<ResponseDataObject>(
+          ResponseMapper.responseJsonToEntity<ResponseData>(
               json: response.data);
 
       return responseChangePassword;
     } on DioException catch (e) {
-      final responseMapper =
-          ResponseMapper.responseJsonToEntity<ResponseDataObject>(
-              json: e.response!.data);
+      final responseMapper = ResponseMapper.responseJsonToEntity<ResponseData>(
+          json: e.response!.data);
 
       final String message;
 

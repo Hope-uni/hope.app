@@ -14,7 +14,7 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<ResponseDataObject<ResponseDataObject>> forgotPassword(
+  Future<ResponseDataObject<ResponseData>> forgotPassword(
       String emailOrUserName) {
     return dataSource.forgotPassword(emailOrUserName);
   }
@@ -25,7 +25,7 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<ResponseDataObject<ResponseDataObject>> changePassword({
+  Future<ResponseDataObject<ResponseData>> changePassword({
     required String password,
     required String newPassword,
     required String confirmNewPassword,

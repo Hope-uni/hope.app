@@ -16,17 +16,15 @@ class ProfilePersonDataSourceImpl extends ProfilePersonDataSource {
           '/therapist/${profilePerson.id}',
           data: ProfilePersonMapper.toJson(profilePerson));
 
-      final responseMapper = ResponseMapper.responseJsonToEntity(
+      final responseMapper = ResponseMapper.responseJsonToEntity<ProfilePerson>(
         json: response.data,
         fromJson: ProfilePersonMapper.profilePersonJsonToEntity,
       );
 
       return responseMapper;
     } on DioException catch (e) {
-      final responseMapper = ResponseMapper.responseJsonToEntity(
-        json: e.response!.data,
-        fromJson: ProfilePersonMapper.profilePersonJsonToEntity,
-      );
+      final responseMapper = ResponseMapper.responseJsonToEntity<ResponseData>(
+          json: e.response!.data);
 
       final String message;
 
@@ -59,17 +57,15 @@ class ProfilePersonDataSourceImpl extends ProfilePersonDataSource {
       final response = await dioServices.dio.put('/tutor/${profilePerson.id}',
           data: ProfilePersonMapper.toJson(profilePerson));
 
-      final responseMapper = ResponseMapper.responseJsonToEntity(
+      final responseMapper = ResponseMapper.responseJsonToEntity<ProfilePerson>(
         json: response.data,
         fromJson: ProfilePersonMapper.profilePersonJsonToEntity,
       );
 
       return responseMapper;
     } on DioException catch (e) {
-      final responseMapper = ResponseMapper.responseJsonToEntity(
-        json: e.response!.data,
-        fromJson: ProfilePersonMapper.profilePersonJsonToEntity,
-      );
+      final responseMapper = ResponseMapper.responseJsonToEntity<ResponseData>(
+          json: e.response!.data);
 
       final String message;
 
