@@ -434,6 +434,18 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                     },
                   ),
                 ),
+                const SizedBox(width: 10),
+                Visibility(
+                  visible: !enableInput,
+                  child: ButtonTextIcon(
+                    title: S.current.Cambiar_contrasena,
+                    icon: const Icon(Icons.edit),
+                    buttonColor: $colorSuccess,
+                    onClic: () {
+                      modalPassword(context: context, isVerifided: true);
+                    },
+                  ),
+                ),
                 Visibility(
                   visible: enableInput,
                   child: ButtonTextIcon(
@@ -469,9 +481,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                     },
                   ),
                 ),
-                const SizedBox(
-                  width: 10,
-                ),
+                const SizedBox(width: 10),
                 Visibility(
                   visible: enableInput,
                   child: ButtonTextIcon(

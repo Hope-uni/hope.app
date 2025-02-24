@@ -32,7 +32,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     required this.authRepository,
   }) : super(AuthState());
 
-  void _setLoggedToken(Token token) async {
+  void setLoggedToken(Token token) async {
     try {
       await keyValueRepository.setValueStorage<String>(
         token.accessToken,
@@ -73,7 +73,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
   Future<void> loginUser(String emailUsername, String password) async {
     try {
       final token = await authRepository.login(emailUsername, password);
-      _setLoggedToken(token.data!);
+      setLoggedToken(token.data!);
     } on CustomError catch (e) {
       _settearError(e.message);
     } catch (e) {

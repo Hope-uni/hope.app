@@ -95,7 +95,7 @@ Text _titleApp() {
 class _InputUserEmail extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final resetPasswordProvider = ref.watch(resetPasswordFormProvider);
+    final resetPasswordProvider = ref.watch(passwordProvider);
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -115,8 +115,7 @@ class _InputUserEmail extends ConsumerWidget {
               FilteringTextInputFormatter.deny(
                   RegExp(r'\s')), // Denegar espacios
             ],
-            onChanged:
-                ref.read(resetPasswordFormProvider.notifier).onEmailOrUser,
+            onChanged: ref.read(passwordProvider.notifier).onEmailOrUser,
             errorText: resetPasswordProvider.errorEmailOrUser,
           ),
         ),
@@ -128,16 +127,21 @@ class _InputUserEmail extends ConsumerWidget {
 class _ButtonSendEmail extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isFormPosted = ref.watch(resetPasswordFormProvider).isFormPosted;
+    final isFormPosted = ref.watch(passwordProvider).isFormPosted;
 
     ref.listen(passwordProvider, (previous, next) {
-      toastAlert(
+      if (next.message.isNotEmpty) {
+        toastAlert(
           context: context,
           title: next.typeMessage == ToastificationType.success
               ? S.current.Peticion_enviada
               : S.current.Error,
           description: next.message,
-          typeAlert: next.typeMessage);
+          typeAlert: next.typeMessage,
+        );
+
+        ref.watch(passwordProvider.notifier).resetStateMessage();
+      }
     });
 
     return Container(
@@ -147,20 +151,17 @@ class _ButtonSendEmail extends ConsumerWidget {
         onPressed: isFormPosted
             ? null
             : () {
-                if (!ref
-                    .read(resetPasswordFormProvider.notifier)
-                    .validInput()) {
+                if (!ref.read(passwordProvider.notifier).validInput()) {
                   return;
                 }
-                ref
-                    .read(resetPasswordFormProvider.notifier)
-                    .sendResetPassword();
+                ref.read(passwordProvider.notifier).sendResetPassword();
               },
         style: ButtonStyle(
           backgroundColor: WidgetStateProperty.resolveWith((states) =>
               isFormPosted ? $colorButtonDisable : $colorBlueGeneral),
         ),
-        child: Text(S.current.Enviar_correo),
+        child:
+            Text(isFormPosted ? S.current.Cargando : S.current.Enviar_correo),
       ),
     );
   }

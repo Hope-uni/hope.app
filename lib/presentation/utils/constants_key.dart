@@ -1,4 +1,4 @@
-//Keys Storage
+//KEYS STORAGE
 const String $token = "token";
 const String $refreshToken = "refreshToken";
 const String $permissions = "permissions";
@@ -8,7 +8,7 @@ const String $profile = "profile";
 const String $verified = "verified";
 const String $roles = "roles";
 
-//Keys Profile
+//KEYS PROFILE
 const String $userNameProfile = "userName";
 const String $emailProfile = "email";
 const String $firstNameProfile = "firstName";
@@ -26,9 +26,15 @@ const String $imageProfile = "image";
 const String $masculinoProfile = "Masculino";
 const String $femeninoProfile = "Femenino";
 
-//Finals REGEX
+//KEYS AUTH
+const String $emailUsername = "email_username";
+const String $password = "password";
+const String $newPassword = "newPassword";
+const String $confirmNewPassword = "confirmNewPassword";
 
+//FINALS REGEX
 final $regexphoneNumber = RegExp(r'^(5|7|8)[0-9]{7}$');
 final $regexTelephone = RegExp(r'^(2)[0-9]{7}$');
+final $regexPassword = RegExp(r'^[a-zA-z0-9]{8,30}$');
 final $regexidentificationNumber = RegExp(
     r'^[0-9]{3}-(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[012])([0-9]{2})-[0-9]{4}[^iIñÑzZ]+$');

@@ -4,23 +4,35 @@ import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
 
-class DashboardPage extends StatelessWidget {
+class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-// Llama a la función para verificar la keyStorage al cargar la página
+  State<DashboardPage> createState() => _DashboardPageState();
+}
+
+class _DashboardPageState extends State<DashboardPage> {
+  @override
+  void initState() {
+    super.initState();
+    // Llama a la función para verificar la keyStorage al cargar la página
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final bool? verified = await KeyValueStorageRepositoryImpl()
           .getValueStorage<bool>($verified);
 
       if (verified != true) {
-        if (context.mounted) {
-          modalPassword(context: context, isVerifided: verified ?? false);
+        if (mounted) {
+          modalPassword(
+            context: context,
+            isVerifided: verified ?? false,
+          );
         }
       }
     });
+  }
 
+  @override
+  Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(title: Text(S.current.Bienvenido_pagina_de_inicio)),
