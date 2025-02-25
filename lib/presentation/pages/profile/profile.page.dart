@@ -411,6 +411,18 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                 Visibility(
                   visible: !enableInput,
                   child: ButtonTextIcon(
+                    title: S.current.Cambiar_contrasena,
+                    icon: const Icon(Icons.edit),
+                    buttonColor: $colorSuccess,
+                    onClic: () {
+                      modalPassword(context: context, isVerifided: true);
+                    },
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Visibility(
+                  visible: !enableInput,
+                  child: ButtonTextIcon(
                     title: S.current.Editar,
                     icon: const Icon(Icons.edit),
                     buttonColor: $colorBlueGeneral,
@@ -431,18 +443,6 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                                 S.current.No_cuenta_con_el_permiso_necesario,
                             typeAlert: ToastificationType.info);
                       }
-                    },
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Visibility(
-                  visible: !enableInput,
-                  child: ButtonTextIcon(
-                    title: S.current.Cambiar_contrasena,
-                    icon: const Icon(Icons.edit),
-                    buttonColor: $colorSuccess,
-                    onClic: () {
-                      modalPassword(context: context, isVerifided: true);
                     },
                   ),
                 ),
@@ -470,7 +470,11 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                           buttonColorConfirm: $colorSuccess,
                           onClic: () async {
                             if (context.mounted) Navigator.of(context).pop();
-                            await profileNotifier.updateTherapist();
+                            if (profileState.roles!.contains($tutor)) {
+                              await profileNotifier.updateTutor();
+                            } else {
+                              await profileNotifier.updateTherapist();
+                            }
                             setState(() {
                               enableInput = false;
                             });
