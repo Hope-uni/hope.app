@@ -2,7 +2,7 @@ import 'package:hope_app/domain/domain.dart';
 
 abstract class ProfilePersonRepository {
   Future<ResponseDataObject<ProfilePerson>> updateProfileTutor(
-      ProfilePerson profilePerson);
+      {required ProfilePerson profilePerson, required int idTutor});
   Future<ResponseDataObject<ProfilePerson>> updateProfileTherapist(
-      ProfilePerson profilePerson);
+      {required ProfilePerson profilePerson, required int idTherapist});
 }

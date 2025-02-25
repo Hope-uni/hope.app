@@ -10,11 +10,13 @@ class ProfilePersonDataSourceImpl extends ProfilePersonDataSource {
 
   @override
   Future<ResponseDataObject<ProfilePerson>> updateProfileTherapist(
-      ProfilePerson profilePerson) async {
+      {required ProfilePerson profilePerson, required int idTherapist}) async {
     try {
-      final response = await dioServices.dio.put(
-          '/therapist/${profilePerson.id}',
-          data: ProfilePersonMapper.toJson(profilePerson));
+      final data = ProfilePersonMapper.toJson(profilePerson);
+      data.removeWhere((key, value) => value == null);
+
+      final response =
+          await dioServices.dio.put('/therapist/$idTherapist', data: data);
 
       final responseMapper = ResponseMapper.responseJsonToEntity<ProfilePerson>(
         json: response.data,
@@ -52,10 +54,12 @@ class ProfilePersonDataSourceImpl extends ProfilePersonDataSource {
 
   @override
   Future<ResponseDataObject<ProfilePerson>> updateProfileTutor(
-      ProfilePerson profilePerson) async {
+      {required ProfilePerson profilePerson, required int idTutor}) async {
     try {
-      final response = await dioServices.dio.put('/tutor/${profilePerson.id}',
-          data: ProfilePersonMapper.toJson(profilePerson));
+      final data = ProfilePersonMapper.toJson(profilePerson);
+      data.removeWhere((key, value) => value == null);
+
+      final response = await dioServices.dio.put('/tutor/$idTutor', data: data);
 
       final responseMapper = ResponseMapper.responseJsonToEntity<ProfilePerson>(
         json: response.data,
