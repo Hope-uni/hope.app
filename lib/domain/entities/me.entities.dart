@@ -40,7 +40,7 @@ class Permission {
 
 class Profile {
   int profileId;
-  String fullName;
+  //String? fullName; //TODO: Cambiar cuando el endpoint ya lo devuelva
   String firstName;
   String? secondName;
   String surname;
@@ -55,7 +55,7 @@ class Profile {
 
   Profile({
     required this.profileId,
-    required this.fullName,
+    //this.fullName, //TODO: Cambiar cuando el endpoint ya lo devuelva
     required this.firstName,
     required this.secondName,
     required this.surname,
@@ -70,7 +70,7 @@ class Profile {
   });
 
   Profile copyWith({
-    String? fullName,
+    //String? fullName,//TODO: Cambiar cuando el endpoint ya lo devuelva
     String? firstName,
     String? secondName,
     String? surname,
@@ -85,7 +85,7 @@ class Profile {
     String? gender,
   }) {
     return Profile(
-      fullName: fullName ?? this.fullName,
+      //fullName: fullName ?? this.fullName,//TODO: Cambiar cuando el endpoint ya lo devuelva
       firstName: firstName ?? this.firstName,
       secondName: secondName ?? this.secondName,
       surname: surname ?? this.surname,

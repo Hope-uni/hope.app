@@ -1,6 +1,6 @@
 export 'login/login.page.dart';
 export 'dashboard/dashboard.page.dart';
-export 'children/children.page.dart';
+export 'children/children_tutor.page.dart';
 export 'children/child_data.page.dart';
 export 'activities/activities.page.dart';
 export 'profile/profile.page.dart';
@@ -14,3 +14,4 @@ export 'activities/new_activity.page.dart';
 export 'activities/add_activity.page.dart';
 export 'activities/remove_activity.page.dart';
 export 'board/board.page.dart';
+export 'children/children_therapist.page.dart';
