@@ -1765,6 +1765,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Sin terapeuta asignado`
+  String get Sin_terapeuta_asignado {
+    return Intl.message(
+      'Sin terapeuta asignado',
+      name: 'Sin_terapeuta_asignado',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Grado de autismo actual`
+  String get Grado_de_autismo_actual {
+    return Intl.message(
+      'Grado de autismo actual',
+      name: 'Grado_de_autismo_actual',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fase actual`
+  String get Fase_actual {
+    return Intl.message(
+      'Fase actual',
+      name: 'Fase_actual',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sin actividad activa por el momento`
+  String get Sin_actividad_activa_por_el_momento {
+    return Intl.message(
+      'Sin actividad activa por el momento',
+      name: 'Sin_actividad_activa_por_el_momento',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
