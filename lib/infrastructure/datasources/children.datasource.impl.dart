@@ -15,10 +15,12 @@ class ChildrenDataSourceImpl extends ChildrenDataSource {
       final response =
           await dioServices.dio.get('/therapist/patients?page=$page&size=15');
 
-      final responseMe = ResponseMapper.responseJsonListToEntity<Children>(
-          json: response.data, fromJson: ChildrenMapper.childrenJsonToEntity);
+      final responseChildren =
+          ResponseMapper.responseJsonListToEntity<Children>(
+              json: response.data,
+              fromJson: ChildrenMapper.childrenJsonToEntity);
 
-      return responseMe;
+      return responseChildren;
     } on DioException catch (e) {
       final responseMapper = ResponseMapper.responseJsonToEntity<ResponseData>(
           json: e.response!.data);
@@ -54,10 +56,49 @@ class ChildrenDataSourceImpl extends ChildrenDataSource {
       final response =
           await dioServices.dio.get('/tutor/patients?page=$page&size=15');
 
-      final responseMe = ResponseMapper.responseJsonListToEntity<Children>(
-          json: response.data, fromJson: ChildrenMapper.childrenJsonToEntity);
+      final responseChildren =
+          ResponseMapper.responseJsonListToEntity<Children>(
+              json: response.data,
+              fromJson: ChildrenMapper.childrenJsonToEntity);
 
-      return responseMe;
+      return responseChildren;
+    } on DioException catch (e) {
+      final responseMapper = ResponseMapper.responseJsonToEntity<ResponseData>(
+          json: e.response!.data);
+
+      final String message;
+
+      if (responseMapper.validationErrors != null) {
+        message = responseMapper.validationErrors!.message;
+      } else {
+        message = responseMapper.message.isNotEmpty
+            ? responseMapper.message
+            : S.current.Error_solicitud;
+      }
+
+      throw CustomError(
+        e.response!.statusCode!,
+        message: message,
+        typeNotification: ToastificationType.error,
+      );
+    } catch (e) {
+      throw CustomError(
+        null,
+        message: S.current.Error_inesperado,
+        typeNotification: ToastificationType.error,
+      );
+    }
+  }
+
+  @override
+  Future<ResponseDataObject<Child>> getChild({required int idChild}) async {
+    try {
+      final response = await dioServices.dio.get('/patient/$idChild');
+
+      final responseChild = ResponseMapper.responseJsonToEntity<Child>(
+          json: response.data, fromJson: ChildMapper.childfromJson);
+
+      return responseChild;
     } on DioException catch (e) {
       final responseMapper = ResponseMapper.responseJsonToEntity<ResponseData>(
           json: e.response!.data);

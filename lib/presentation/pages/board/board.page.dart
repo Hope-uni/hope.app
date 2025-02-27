@@ -163,8 +163,11 @@ class _BoardPageState extends State<BoardPage> {
                         icon: const Icon(Icons.delete),
                         onClic: () {},
                       ),
+                      //TODO: Cambiar cuando este listo el endpoint
                       const Expanded(
                         child: ImageListVIew(
+                          images: [],
+                          nameImages: [],
                           isFilterBW: true,
                           backgroundLine: true,
                           isDecoration: false,

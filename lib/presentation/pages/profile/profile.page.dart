@@ -322,7 +322,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                               $genderProfile, value!);
                         },
                         deleteSelection: false,
-                        listItems: const [$masculinoProfile, $femeninoProfile],
+                        listItems: const [$masculino, $femenino],
                         errorText:
                             profileState.validationErrors[$genderProfile],
                       ),

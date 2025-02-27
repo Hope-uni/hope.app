@@ -4,6 +4,8 @@ export 'entities/token.entities.dart';
 export 'entities/me.entities.dart';
 export 'entities/profile_person.entities.dart';
 export 'entities/children.entities.dart';
+export 'entities/catalogo_object.entities.dart';
+export 'entities/child.entities.dart';
 
 export 'datasources/auth.datasource.dart';
 export 'repositories/auth.repository.dart';

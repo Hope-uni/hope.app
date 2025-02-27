@@ -1,3 +1,5 @@
+import 'package:hope_app/domain/domain.dart';
+
 class Children {
   int id;
   int userId;
@@ -6,8 +8,7 @@ class Children {
   CatalogObject teaDegree;
   CatalogObject currentPhase;
   int achievementCount;
-  //TODO: Corregir cuando el endpoint ya lo devuelva
-  String? image;
+  String image;
 
   Children({
     required this.id,
@@ -17,19 +18,6 @@ class Children {
     required this.teaDegree,
     required this.currentPhase,
     required this.achievementCount,
-    //TODO: Corregir cuando el endpoint ya lo devuelva
-    this.image,
-  });
-}
-
-class CatalogObject {
-  int id;
-  String name;
-  String description;
-
-  CatalogObject({
-    required this.id,
-    required this.name,
-    required this.description,
+    required this.image,
   });
 }

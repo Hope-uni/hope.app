@@ -8,3 +8,4 @@ export 'activities.provider.dart';
 export 'profile.provider.dart';
 export 'change_password.provider.dart';
 export 'children.provider.dart';
+export 'child.provider.dart';

@@ -1,4 +1,5 @@
 import 'package:hope_app/domain/domain.dart';
+import 'package:hope_app/infrastructure/infrastructure.dart';
 
 class ChildrenMapper {
   static Children childrenJsonToEntity(Map<String, dynamic> json) => Children(
@@ -6,17 +7,11 @@ class ChildrenMapper {
         userId: json["userId"],
         fullName: json["fullName"],
         age: json["age"],
-        teaDegree: catalogObjectfromJson(json["teaDegree"]),
-        currentPhase: catalogObjectfromJson(json["currentPhase"]),
+        teaDegree:
+            CatalogoObjectMapper.catalogObjectfromJson(json["teaDegree"]),
+        currentPhase:
+            CatalogoObjectMapper.catalogObjectfromJson(json["currentPhase"]),
         achievementCount: json["achievementCount"],
-        //TODO: Corregir cuando el endpoint ya lo devuelva
         image: json["image"],
-      );
-
-  static CatalogObject catalogObjectfromJson(Map<String, dynamic> json) =>
-      CatalogObject(
-        id: json["id"],
-        name: json["name"],
-        description: json["description"],
       );
 }
