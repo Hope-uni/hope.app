@@ -7,3 +7,4 @@ export 'pictogram_list.provider.dart';
 export 'activities.provider.dart';
 export 'profile.provider.dart';
 export 'change_password.provider.dart';
+export 'children.provider.dart';

@@ -48,8 +48,9 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
       email: profile.email,
       profile: Profile(
         profileId: profile.id!,
-        fullName:
-            '${profile.firstName} ${profile.secondName ?? ''} ${profile.surname} ${profile.secondSurname ?? ''}',
+        //TODO: Cambiar cuando el endpoint ya lo devuelva
+        /*fullName:
+            '${profile.firstName} ${profile.secondName ?? ''} ${profile.surname} ${profile.secondSurname ?? ''}',*/
         firstName: profile.firstName,
         secondName: profile.secondName,
         surname: profile.surname,
@@ -114,10 +115,11 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
         jsonEncode(MePermissionsMapper.toJsonProfile(
           Profile(
             profileId: profilePerson.id!,
-            fullName: profilePerson.firstName +
+            //TODO: Cambiar cuando el endpoint ya lo devuelva
+            /*fullName: profilePerson.firstName +
                 (profilePerson.secondName ?? '') +
                 profilePerson.surname +
-                (profilePerson.secondSurname ?? ''),
+                (profilePerson.secondSurname ?? ''),*/
             firstName: profilePerson.firstName,
             secondName: profilePerson.secondName,
             surname: profilePerson.surname,

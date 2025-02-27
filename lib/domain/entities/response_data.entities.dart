@@ -3,12 +3,14 @@ class ResponseData {
   int statusCode;
   String message;
   ValidationError? validationErrors;
+  Paginate? paginate;
 
   ResponseData({
     required this.error,
     required this.statusCode,
     required this.message,
     required this.validationErrors,
+    this.paginate,
   });
 }
 
@@ -18,6 +20,20 @@ class ValidationError {
   ValidationError({required this.message});
 }
 
+class Paginate {
+  int total;
+  int pageCount;
+  int page;
+  int pageSize;
+
+  Paginate({
+    required this.total,
+    required this.pageCount,
+    required this.page,
+    required this.pageSize,
+  });
+}
+
 class ResponseDataObject<T> extends ResponseData {
   T? data;
 
@@ -25,7 +41,20 @@ class ResponseDataObject<T> extends ResponseData {
     required super.error,
     required super.statusCode,
     required super.message,
+    this.data,
+    required super.validationErrors,
+  });
+}
+
+class ResponseDataList<T> extends ResponseData {
+  List<T>? data;
+
+  ResponseDataList({
+    required super.error,
+    required super.statusCode,
+    required super.message,
     required super.validationErrors,
     this.data,
+    required super.paginate,
   });
 }
