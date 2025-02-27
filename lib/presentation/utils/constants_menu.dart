@@ -6,13 +6,26 @@ import 'package:hope_app/presentation/utils/utils.dart';
 
 final List<MenuItem> appMenuItemsDrawer = <MenuItem>[
   MenuItem(
-    title: S.current.Ninos,
-    subTitle: S.current.Ninos_asignados,
+    title: S.current.Ninos_terapeuta,
+    subTitle: S.current.Ninos_asignados_Terapeuta,
     onClick: ({required BuildContext context, int? idItem}) {
-      context.pushReplacementNamed('children');
+      context.pushReplacementNamed($childrenTherapist);
     },
-    icon: Icons.face,
-    permission: $listPatients,
+    icon: Icons.diversity_3,
+    permission:
+        $listPatients, //TODO: Reemplazar por permiso correcto cuando este listo
+    roles: [$terapeuta],
+  ),
+  MenuItem(
+    title: S.current.Ninos_tutor,
+    subTitle: S.current.Ninos_asignados_Tutor,
+    onClick: ({required BuildContext context, int? idItem}) {
+      context.pushReplacementNamed($childrenTutor);
+    },
+    icon: Icons.family_restroom,
+    permission:
+        $listPatients, //TODO: Reemplazar por permiso correcto cuando este listo
+    roles: [$tutor],
   ),
   MenuItem(
     title: S.current.Actividades,
@@ -21,8 +34,9 @@ final List<MenuItem> appMenuItemsDrawer = <MenuItem>[
     permission:
         $updatePatienttherapist, //TODO: Reemplazar por permiso correcto cuando este listo
     onClick: ({required BuildContext context, int? idItem}) {
-      context.pushReplacementNamed('activities');
+      context.pushReplacementNamed($activities);
     },
+    roles: [$terapeuta],
   ),
   MenuItem(
     title: S.current.Perfil,
@@ -30,8 +44,9 @@ final List<MenuItem> appMenuItemsDrawer = <MenuItem>[
     icon: Icons.account_circle,
     permission: $me,
     onClick: ({required BuildContext context, int? idItem}) {
-      context.pushReplacementNamed('profile');
+      context.pushReplacementNamed($profileRoute);
     },
+    roles: [$tutor, $terapeuta],
   ),
 ];
 
@@ -43,9 +58,9 @@ final List<MenuItem> menuPacientTutor = <MenuItem>[
     permission:
         $findPatients, //TODO: Reemplazar por permiso correcto cuando este listo
     onClick: ({required BuildContext context, int? idItem}) {
-      context
-          .pushNamed('child', pathParameters: {'idChild': idItem.toString()});
+      context.pushNamed($child, pathParameters: {$idChild: idItem.toString()});
     },
+    roles: [$tutor],
   ),
   MenuItem(
     title: S.current.Agregar_pictograma,
@@ -53,9 +68,10 @@ final List<MenuItem> menuPacientTutor = <MenuItem>[
     icon: Icons.add,
     permission: $createCustomPictogram,
     onClick: ({required BuildContext context, int? idItem}) {
-      context.pushNamed('pictogram',
-          pathParameters: {'idChild': idItem.toString()});
+      context
+          .pushNamed($pictogram, pathParameters: {$idChild: idItem.toString()});
     },
+    roles: [$tutor],
   ),
   MenuItem(
     title: S.current.Listar_pictogramas,
@@ -63,9 +79,10 @@ final List<MenuItem> menuPacientTutor = <MenuItem>[
     icon: Icons.format_list_bulleted,
     permission: $listCustomPictograms,
     onClick: ({required BuildContext context, int? idItem}) {
-      context.pushNamed('customPictogram',
-          pathParameters: {'idChild': idItem.toString()});
+      context.pushNamed($customPictogram,
+          pathParameters: {$idChild: idItem.toString()});
     },
+    roles: [$tutor],
   ),
   MenuItem(
     title: S.current.Cambiar_contrasena,
@@ -76,6 +93,7 @@ final List<MenuItem> menuPacientTutor = <MenuItem>[
     onClick: ({required BuildContext context, int? idItem}) {
       modalPassword(context: context, isVerifided: true);
     },
+    roles: [$tutor],
   ),
 ];
 
@@ -87,9 +105,9 @@ final List<MenuItem> menuPacientTherapist = <MenuItem>[
     permission:
         $findPatients, //TODO: Reemplazar por permiso correcto cuando este listo
     onClick: ({required BuildContext context, int? idItem}) {
-      context
-          .pushNamed('child', pathParameters: {'idChild': idItem.toString()});
+      context.pushNamed($child, pathParameters: {$idChild: idItem.toString()});
     },
+    roles: [$terapeuta],
   ),
   MenuItem(
     title: S.current.Editar_observaciones,
@@ -97,9 +115,9 @@ final List<MenuItem> menuPacientTherapist = <MenuItem>[
     icon: Icons.edit,
     permission: $updatePatienttherapist,
     onClick: ({required BuildContext context, int? idItem}) {
-      context
-          .pushNamed('child', pathParameters: {'idChild': idItem.toString()});
+      context.pushNamed($child, pathParameters: {$idChild: idItem.toString()});
     },
+    roles: [$terapeuta],
   ),
   MenuItem(
     title: S.current.Quitar_actividad,
@@ -108,8 +126,9 @@ final List<MenuItem> menuPacientTherapist = <MenuItem>[
     permission:
         $findPatients, //TODO: Reemplazar por permiso correcto cuando este listo
     onClick: ({required BuildContext context, int? idItem}) {
-      context.pushNamed('deleteActivity');
+      context.pushNamed($deleteActivity);
     },
+    roles: [$terapeuta],
   ),
 ];
 
@@ -122,13 +141,14 @@ final List<MenuItem> menuActivity = <MenuItem>[
         $findPatients, //TODO: Reemplazar por permiso correcto cuando este listo
     onClick: ({required BuildContext context, int? idItem}) {
       context.pushNamed(
-        'activity',
+        $activity,
         pathParameters: {
-          'idActivity': idItem.toString(),
-          'isEdit': false.toString()
+          $idActivity: idItem.toString(),
+          $isEdit: false.toString()
         },
       );
     },
+    roles: [$terapeuta],
   ),
   MenuItem(
     title: S.current.Editar,
@@ -137,11 +157,12 @@ final List<MenuItem> menuActivity = <MenuItem>[
     permission:
         $findPatients, //TODO: Reemplazar por permiso correcto cuando este listo
     onClick: ({required BuildContext context, int? idItem}) {
-      context.pushNamed('activity', pathParameters: {
-        'idActivity': idItem.toString(),
-        'isEdit': true.toString()
+      context.pushNamed($activity, pathParameters: {
+        $idActivity: idItem.toString(),
+        $isEdit: true.toString()
       });
     },
+    roles: [$terapeuta],
   ),
   MenuItem(
     title: S.current.Asignar_actividad,
@@ -150,8 +171,9 @@ final List<MenuItem> menuActivity = <MenuItem>[
     permission:
         $findPatients, //TODO: Reemplazar por permiso correcto cuando este listo
     onClick: ({required BuildContext context, int? idItem}) {
-      context.pushNamed('addActivity');
+      context.pushNamed($addActivity);
     },
+    roles: [$terapeuta],
   ),
   MenuItem(
     title: S.current.Quitar_actividad,
@@ -160,8 +182,9 @@ final List<MenuItem> menuActivity = <MenuItem>[
     permission:
         $findPatients, //TODO: Reemplazar por permiso correcto cuando este listo
     onClick: ({required BuildContext context, int? idItem}) {
-      context.pushNamed('removeActivity');
+      context.pushNamed($removeActivity);
     },
+    roles: [$terapeuta],
   ),
   MenuItem(
     title: S.current.Eliminar,
@@ -193,5 +216,6 @@ final List<MenuItem> menuActivity = <MenuItem>[
         titleButtonConfirm: S.current.Si_Eliminar,
       );
     },
+    roles: [$terapeuta],
   ),
 ];

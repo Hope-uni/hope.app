@@ -22,9 +22,16 @@ class SideMenu extends ConsumerWidget {
     if (profileState.permmisions == null) {
       menuPermmisions = [];
     } else {
-      menuPermmisions = appMenuItemsDrawer
+      final menuPermmision = appMenuItemsDrawer
           .where((item) => profileState.permmisions!.contains(item.permission))
           .toList();
+
+      final menuPermmisionRoles = menuPermmision
+          .where((item) => profileState.roles!
+              .any((element) => item.roles.contains(element)))
+          .toList();
+
+      menuPermmisions = menuPermmisionRoles;
     }
 
     final size = MediaQuery.of(context).size;

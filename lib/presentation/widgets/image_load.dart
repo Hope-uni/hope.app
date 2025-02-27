@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class ImageLoad extends StatelessWidget {
-  final String urlImage;
+  final String? urlImage;
   final double? height;
   final double? width;
   final bool? isDoubleTap;
 
   const ImageLoad({
     super.key,
-    required this.urlImage,
+    this.urlImage,
     this.height,
     this.width,
     this.isDoubleTap,
@@ -29,6 +29,7 @@ class ImageLoad extends StatelessWidget {
                       urlImage: urlImage,
                       width: 300,
                       height: 280,
+                      isDoubleTap: false,
                     ),
                   );
                 },
@@ -42,15 +43,14 @@ class ImageLoad extends StatelessWidget {
           fit: BoxFit.cover,
           placeholderFit: BoxFit.cover,
           imageErrorBuilder: (context, error, stackTrace) {
-            return Image.asset(
-              'assets/img/no-image.png',
-              fit: BoxFit.cover,
-            );
+            return Image.asset('assets/img/no-image.png', fit: BoxFit.cover);
           },
           placeholder: const AssetImage('assets/gif/jar-loading.gif'),
-          image: NetworkImage(urlImage),
+          image: urlImage != null && urlImage!.isNotEmpty
+              ? NetworkImage(urlImage!) as ImageProvider
+              : const AssetImage('assets/img/no-image.png'),
         ),
       ),
-    ); //NetworkImage(urlImage) ;
+    );
   }
 }
