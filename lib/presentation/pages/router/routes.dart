@@ -16,91 +16,97 @@ final goRouterProvider = Provider<GoRouter>((ref) {
     routes: <RouteBase>[
       GoRoute(
         path: '/login',
-        name: 'login',
+        name: $login,
         builder: (BuildContext context, GoRouterState state) =>
             const LoginPage(),
       ),
       GoRoute(
         path: '/resetpassword',
-        name: 'resetpassword',
+        name: $resetpassword,
         builder: (BuildContext context, GoRouterState state) =>
             const ResetPasswordPage(),
       ),
       GoRoute(
         path: '/dashboard',
-        name: 'dashboard',
+        name: $dashboard,
         builder: (BuildContext context, GoRouterState state) =>
             const DashboardPage(),
       ),
       GoRoute(
-        path: '/children',
-        name: 'children',
+        path: '/childrenTutor',
+        name: $childrenTutor,
         builder: (BuildContext context, GoRouterState state) =>
-            const ChildrenPage(),
+            const ChildrenTutorPage(),
+      ),
+      GoRoute(
+        path: '/childrenTherapist',
+        name: $childrenTherapist,
+        builder: (BuildContext context, GoRouterState state) =>
+            const ChildrenTherapistPage(),
       ),
       GoRoute(
         path: '/child/:idChild',
-        name: 'child',
+        name: $child,
         builder: (BuildContext context, GoRouterState state) => ChildDataPage(
-          idChild: int.parse(state.pathParameters['idChild']!),
+          idChild: int.parse(state.pathParameters[$idChild]!),
         ),
       ),
       GoRoute(
         path: '/activities',
-        name: 'activities',
+        name: $activities,
         builder: (BuildContext context, GoRouterState state) =>
             const ActivitiesPage(),
       ),
       GoRoute(
         path: '/activity/:idActivity/:isEdit',
-        name: 'activity',
+        name: $activity,
         builder: (BuildContext context, GoRouterState state) => ActivityPage(
-          isGoEdit: bool.parse(state.pathParameters['isEdit']!),
-          idItem: int.parse(state.pathParameters['idActivity']!),
+          isGoEdit: bool.parse(state.pathParameters[$isEdit]!),
+          idItem: int.parse(state.pathParameters[$idActivity]!),
         ),
       ),
       GoRoute(
         path: '/newActivity',
-        name: 'newActivity',
+        name: $newActivity,
         builder: (BuildContext context, GoRouterState state) =>
             const NewActivityPage(),
       ),
       GoRoute(
         path: '/addActivity',
-        name: 'addActivity',
+        name: $addActivity,
         builder: (BuildContext context, GoRouterState state) =>
             const AddActivityPage(),
       ),
       GoRoute(
         path: '/removeActivity',
-        name: 'removeActivity',
+        name: $removeActivity,
         builder: (BuildContext context, GoRouterState state) =>
             const RemoveAcivityPage(),
       ),
       GoRoute(
         path: '/profile',
-        name: 'profile',
+        name: $profileRoute,
         builder: (BuildContext context, GoRouterState state) =>
             const ProfilePage(),
       ),
       GoRoute(
         path: '/pictogram/:idChild',
-        name: 'pictogram',
+        name: $pictogram,
         builder: (BuildContext context, GoRouterState state) => PictogramPage(
-          idChild: int.parse(state.pathParameters['idChild']!),
+          idChild: int.parse(state.pathParameters[$idChild]!),
         ),
       ),
       GoRoute(
         path: '/customPictogram/:idChild',
-        name: 'customPictogram',
+        name: $customPictogram,
         builder: (BuildContext context, GoRouterState state) =>
             CustomPictogramasPage(
-          idChild: int.parse(state.pathParameters['idChild']!),
+          idChild: int.parse(state.pathParameters[$idChild]!),
         ),
       ),
       GoRoute(
         path: '/board',
-        name: 'board',
+        name: $board,
         builder: (BuildContext context, GoRouterState state) =>
             const BoardPage(),
       ),

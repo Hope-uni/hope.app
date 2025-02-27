@@ -9,13 +9,15 @@ class ProfilePersonRepositoryImpl extends ProfilePersonRepository {
 
   @override
   Future<ResponseDataObject<ProfilePerson>> updateProfileTherapist(
-      ProfilePerson profilePerson) {
-    return dataSource.updateProfileTherapist(profilePerson);
+      {required ProfilePerson profilePerson, required int idTherapist}) {
+    return dataSource.updateProfileTherapist(
+        profilePerson: profilePerson, idTherapist: idTherapist);
   }
 
   @override
   Future<ResponseDataObject<ProfilePerson>> updateProfileTutor(
-      ProfilePerson profilePerson) {
-    return dataSource.updateProfileTutor(profilePerson);
+      {required ProfilePerson profilePerson, required int idTutor}) {
+    return dataSource.updateProfileTutor(
+        profilePerson: profilePerson, idTutor: idTutor);
   }
 }

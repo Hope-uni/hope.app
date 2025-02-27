@@ -11,11 +11,13 @@ final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
   final authRepository = AuthRepositoryImpl();
   final keyValueRepository = KeyValueStorageRepositoryImpl();
   final profileStateNotifier = ref.read(profileProvider.notifier);
+  final childrenStateNotifier = ref.read(childrenProvider.notifier);
 
   return AuthNotifier(
     authRepository: authRepository,
     keyValueRepository: keyValueRepository,
     profileStateNotifier: profileStateNotifier,
+    childrenStateNotifier: childrenStateNotifier,
   );
 });
 
@@ -25,9 +27,11 @@ class AuthNotifier extends StateNotifier<AuthState> {
   final DioService dio = DioService();
 
   final ProfileNotifier profileStateNotifier;
+  final ChildrenNotifier childrenStateNotifier;
 
   AuthNotifier({
     required this.profileStateNotifier,
+    required this.childrenStateNotifier,
     required this.keyValueRepository,
     required this.authRepository,
   }) : super(AuthState());
@@ -91,6 +95,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     await keyValueRepository.deleteKeyStorage($roles);
 
     profileStateNotifier.resetProfile();
+    childrenStateNotifier.resetState();
 
     state = state.copyWith(
       authStatus: AuthStatus.notAuthenticated,

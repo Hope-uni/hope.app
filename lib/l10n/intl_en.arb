@@ -7,11 +7,13 @@
   "Olvido_su_contrasena": "¿Olvido su contraseña?",
   "Entrar": "Entrar",
   "Los_campos_no_pueden_estar_vacios": "Los campos no pueden estar vacíos",
-  "Ninos": "Niños",
+  "Ninos_terapeuta": "Niños - Terapeuta",
+  "Ninos_tutor": "Niños - Tutor",
   "Actividades": "Actividades",
   "Configuracion": "Configuración",
   "Cerrar_sesion": "Cerrar sesión",
-  "Ninos_asignados": "Niños asignados",
+  "Ninos_asignados_Terapeuta": "Niños asignados - Terapeuta",
+  "Ninos_asignados_Tutor": "Niños asignados - Tutor",
   "Actividades_para_los_ninos": "Actividades para los niños",
   "Datos_personales": "Datos personales",
   "Restablecer_contrasena": "Restablecer contraseña",
@@ -167,5 +169,6 @@
   "Cargando": "Cargando....",
   "La_contrasena_actual_no_puede_estar_vacia": "La contraseña actual no puede estar vacía",
   "La_contrasena_debe_tener_entre_caracteres_ademas_contener_letras_y_numeros": "La contraseña debe tener entre 8 y 30 caracteres además contener letras y números",
-  "Las_contrasena_no_coinciden": "Las contraseñas no coinciden"
+  "Las_contrasena_no_coinciden": "Las contraseñas no coinciden",
+  "Anos": "Años"
 }

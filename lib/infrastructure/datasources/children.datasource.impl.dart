@@ -5,25 +5,20 @@ import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/services/services.dart';
 import 'package:toastification/toastification.dart';
 
-class ProfilePersonDataSourceImpl extends ProfilePersonDataSource {
+class ChildrenDataSourceImpl extends ChildrenDataSource {
   final dioServices = DioService();
 
   @override
-  Future<ResponseDataObject<ProfilePerson>> updateProfileTherapist(
-      {required ProfilePerson profilePerson, required int idTherapist}) async {
+  Future<ResponseDataList<Children>> getChildrenTherapist(
+      {required int page}) async {
     try {
-      final data = ProfilePersonMapper.toJson(profilePerson);
-      data.removeWhere((key, value) => value == null);
-
       final response =
-          await dioServices.dio.put('/therapist/$idTherapist', data: data);
+          await dioServices.dio.get('/therapist/patients?page=$page&size=15');
 
-      final responseMapper = ResponseMapper.responseJsonToEntity<ProfilePerson>(
-        json: response.data,
-        fromJson: ProfilePersonMapper.profilePersonJsonToEntity,
-      );
+      final responseMe = ResponseMapper.responseJsonListToEntity<Children>(
+          json: response.data, fromJson: ChildrenMapper.childrenJsonToEntity);
 
-      return responseMapper;
+      return responseMe;
     } on DioException catch (e) {
       final responseMapper = ResponseMapper.responseJsonToEntity<ResponseData>(
           json: e.response!.data);
@@ -53,20 +48,16 @@ class ProfilePersonDataSourceImpl extends ProfilePersonDataSource {
   }
 
   @override
-  Future<ResponseDataObject<ProfilePerson>> updateProfileTutor(
-      {required ProfilePerson profilePerson, required int idTutor}) async {
+  Future<ResponseDataList<Children>> getChildrenTutor(
+      {required int page}) async {
     try {
-      final data = ProfilePersonMapper.toJson(profilePerson);
-      data.removeWhere((key, value) => value == null);
+      final response =
+          await dioServices.dio.get('/tutor/patients?page=$page&size=15');
 
-      final response = await dioServices.dio.put('/tutor/$idTutor', data: data);
+      final responseMe = ResponseMapper.responseJsonListToEntity<Children>(
+          json: response.data, fromJson: ChildrenMapper.childrenJsonToEntity);
 
-      final responseMapper = ResponseMapper.responseJsonToEntity<ProfilePerson>(
-        json: response.data,
-        fromJson: ProfilePersonMapper.profilePersonJsonToEntity,
-      );
-
-      return responseMapper;
+      return responseMe;
     } on DioException catch (e) {
       final responseMapper = ResponseMapper.responseJsonToEntity<ResponseData>(
           json: e.response!.data);

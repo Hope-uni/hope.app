@@ -7,6 +7,7 @@ class ListTileCustom extends StatelessWidget {
   final Widget? iconButton;
   final Color? colorItemSelect;
   final String? image;
+  final bool? noImage;
   final String? subTitle;
   final FontWeight? styleSubTitle;
   final FontWeight? styleTitle;
@@ -19,6 +20,7 @@ class ListTileCustom extends StatelessWidget {
     this.iconButton,
     this.colorItemSelect,
     this.image,
+    this.noImage = false,
     this.subTitle,
     this.styleSubTitle,
     this.colorSubTitle,
@@ -47,11 +49,13 @@ class ListTileCustom extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 7),
       child: ListTile(
         minLeadingWidth: 3,
-        leading: image != null
+        leading: noImage == false
             ? SizedBox(
                 height: 55,
                 width: 55,
-                child: ClipOval(child: ImageLoad(urlImage: image!)),
+                child: ClipOval(
+                  child: ImageLoad(urlImage: image),
+                ),
               )
             : Container(width: 3, color: $colorBlueGeneral),
         title: Text(title,

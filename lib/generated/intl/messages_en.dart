@@ -59,6 +59,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Anadir_nuevo_pictograma_personalizado":
             MessageLookupByLibrary.simpleMessage(
                 "Añadir nuevo pictograma personalizado"),
+        "Anos": MessageLookupByLibrary.simpleMessage("Años"),
         "Asignacion_exitosa":
             MessageLookupByLibrary.simpleMessage("Asignación exitosa"),
         "Asignar_actividad":
@@ -254,9 +255,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "Los_campos_no_pueden_estar_vacios":
             MessageLookupByLibrary.simpleMessage(
                 "Los campos no pueden estar vacíos"),
-        "Ninos": MessageLookupByLibrary.simpleMessage("Niños"),
-        "Ninos_asignados":
-            MessageLookupByLibrary.simpleMessage("Niños asignados"),
+        "Ninos_asignados_Terapeuta":
+            MessageLookupByLibrary.simpleMessage("Niños asignados - Terapeuta"),
+        "Ninos_asignados_Tutor":
+            MessageLookupByLibrary.simpleMessage("Niños asignados - Tutor"),
+        "Ninos_terapeuta":
+            MessageLookupByLibrary.simpleMessage("Niños - Terapeuta"),
+        "Ninos_tutor": MessageLookupByLibrary.simpleMessage("Niños - Tutor"),
         "No_autorizado": MessageLookupByLibrary.simpleMessage("No autorizado"),
         "No_cuenta_con_el_permiso_necesario":
             MessageLookupByLibrary.simpleMessage(

@@ -130,11 +130,21 @@ class S {
     );
   }
 
-  /// `Niños`
-  String get Ninos {
+  /// `Niños - Terapeuta`
+  String get Ninos_terapeuta {
     return Intl.message(
-      'Niños',
-      name: 'Ninos',
+      'Niños - Terapeuta',
+      name: 'Ninos_terapeuta',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Niños - Tutor`
+  String get Ninos_tutor {
+    return Intl.message(
+      'Niños - Tutor',
+      name: 'Ninos_tutor',
       desc: '',
       args: [],
     );
@@ -170,11 +180,21 @@ class S {
     );
   }
 
-  /// `Niños asignados`
-  String get Ninos_asignados {
+  /// `Niños asignados - Terapeuta`
+  String get Ninos_asignados_Terapeuta {
     return Intl.message(
-      'Niños asignados',
-      name: 'Ninos_asignados',
+      'Niños asignados - Terapeuta',
+      name: 'Ninos_asignados_Terapeuta',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Niños asignados - Tutor`
+  String get Ninos_asignados_Tutor {
+    return Intl.message(
+      'Niños asignados - Tutor',
+      name: 'Ninos_asignados_Tutor',
       desc: '',
       args: [],
     );
@@ -1731,6 +1751,16 @@ class S {
     return Intl.message(
       'Las contraseñas no coinciden',
       name: 'Las_contrasena_no_coinciden',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Años`
+  String get Anos {
+    return Intl.message(
+      'Años',
+      name: 'Anos',
       desc: '',
       args: [],
     );

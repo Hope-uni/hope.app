@@ -1,7 +1,5 @@
-import 'package:hope_app/domain/domain.dart';
-
 class ProfilePerson {
-  int id;
+  int? id;
   String firstName;
   String? secondName;
   String surname;
@@ -15,11 +13,9 @@ class ProfilePerson {
   String birthday;
   String gender;
   String address;
-  List<Patient> patients;
-  List<dynamic> activities; //TODO: Cambiar cuando mapee actividades
 
   ProfilePerson({
-    required this.id,
+    this.id,
     required this.firstName,
     this.secondName,
     required this.surname,
@@ -33,7 +29,5 @@ class ProfilePerson {
     required this.birthday,
     required this.gender,
     required this.address,
-    required this.patients,
-    required this.activities,
   });
 }

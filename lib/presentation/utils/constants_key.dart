@@ -32,6 +32,31 @@ const String $password = "password";
 const String $newPassword = "newPassword";
 const String $confirmNewPassword = "confirmNewPassword";
 
+//KEYS PAGINATE
+const String $indexPage = "indexPage";
+const String $pageCount = "pageCount";
+
+//KEYS ROUTE
+const String $childrenTherapist = "childrenTherapist";
+const String $childrenTutor = "childrenTutor";
+const String $activities = "activities";
+const String $profileRoute = "profile";
+const String $child = "child";
+const String $idChild = "idChild";
+const String $pictogram = "pictogram";
+const String $customPictogram = "customPictogram";
+const String $deleteActivity = "deleteActivity";
+const String $idActivity = "idActivity";
+const String $activity = "activity";
+const String $isEdit = "isEdit";
+const String $addActivity = "addActivity";
+const String $removeActivity = "removeActivity";
+const String $board = "board";
+const String $dashboard = "dashboard";
+const String $resetpassword = "resetpassword";
+const String $login = "login";
+const String $newActivity = "newActivity";
+
 //FINALS REGEX
 final $regexphoneNumber = RegExp(r'^(5|7|8)[0-9]{7}$');
 final $regexTelephone = RegExp(r'^(2)[0-9]{7}$');

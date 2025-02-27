@@ -21,6 +21,7 @@ final Color $colorPrimary50 = Colors.blue[50]!;
 final Color $colorSuccess100 = Colors.green[100]!;
 
 const Color $colorButtonDisable = Colors.grey;
+const Color $colorTransparent = Colors.transparent;
 
 const String $fontFamilyAnton = 'Anton';
 const TextStyle $fontFamilyPoppins = TextStyle(fontFamily: 'Poppins');

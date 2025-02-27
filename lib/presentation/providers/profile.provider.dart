@@ -24,7 +24,6 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
 
   ProfilePerson _convertProfilePerson() {
     final ProfilePerson profilePerson = ProfilePerson(
-      id: state.profile!.profileId,
       secondName: state.profile!.secondName ?? '',
       address: state.profile!.address,
       firstName: state.profile!.firstName,
@@ -37,9 +36,7 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
       telephone: state.profile!.telephone ?? '',
       gender: state.profile!.gender,
       phoneNumber: state.profile!.phoneNumber,
-      activities: [],
       surname: state.profile!.surname,
-      patients: [],
     );
 
     return profilePerson;
@@ -50,9 +47,10 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
       userName: profile.username,
       email: profile.email,
       profile: Profile(
-        profileId: profile.id,
-        fullName:
-            '${profile.firstName} ${profile.secondName ?? ''} ${profile.surname} ${profile.secondSurname ?? ''}',
+        profileId: profile.id!,
+        //TODO: Cambiar cuando el endpoint ya lo devuelva
+        /*fullName:
+            '${profile.firstName} ${profile.secondName ?? ''} ${profile.surname} ${profile.secondSurname ?? ''}',*/
         firstName: profile.firstName,
         secondName: profile.secondName,
         surname: profile.surname,
@@ -72,8 +70,8 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
     state = state.copyWith(isUpdateData: true);
     try {
       final profilePerson = _convertProfilePerson();
-      final response =
-          await profileRepository.updateProfileTherapist(profilePerson);
+      final response = await profileRepository.updateProfileTherapist(
+          profilePerson: profilePerson, idTherapist: state.profile!.profileId);
 
       _convertProfile(response.data!);
       _updateProfileStorage(response.data!);
@@ -89,18 +87,21 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
   }
 
   Future<void> updateTutor() async {
+    state = state.copyWith(isUpdateData: true);
     try {
       final profilePerson = _convertProfilePerson();
-      final response =
-          await profileRepository.updateProfileTutor(profilePerson);
+      final response = await profileRepository.updateProfileTutor(
+          profilePerson: profilePerson, idTutor: state.profile!.profileId);
 
       _convertProfile(response.data!);
       _updateProfileStorage(response.data!);
       originalState = null;
+      state = state.copyWith(isUpdateData: false, showtoastAlert: true);
     } on CustomError catch (e) {
-      state = state.copyWith(errorMessageApi: e.message);
+      state = state.copyWith(errorMessageApi: e.message, isUpdateData: false);
     } catch (e) {
-      state = state.copyWith(errorMessageApi: S.current.Error_inesperado);
+      state = state.copyWith(
+          errorMessageApi: S.current.Error_inesperado, isUpdateData: false);
     }
   }
 
@@ -113,11 +114,12 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
     await storageProfile.setValueStorage<String>(
         jsonEncode(MePermissionsMapper.toJsonProfile(
           Profile(
-            profileId: profilePerson.id,
-            fullName: profilePerson.firstName +
+            profileId: profilePerson.id!,
+            //TODO: Cambiar cuando el endpoint ya lo devuelva
+            /*fullName: profilePerson.firstName +
                 (profilePerson.secondName ?? '') +
                 profilePerson.surname +
-                (profilePerson.secondSurname ?? ''),
+                (profilePerson.secondSurname ?? ''),*/
             firstName: profilePerson.firstName,
             secondName: profilePerson.secondName,
             surname: profilePerson.surname,
@@ -170,7 +172,7 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
   }
 
   void updateProfileField(String fieldName, String newValue) {
-// Borra el error si el usuario ingresa texto
+    //Borra el error si el usuario ingresa texto
     final Map<String, String?> newValidationErrors =
         Map.from(state.validationErrors);
 
