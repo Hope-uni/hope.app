@@ -1,0 +1,108 @@
+import 'package:hope_app/domain/domain.dart';
+import 'package:hope_app/infrastructure/mappers/catalogo_object.mapper.dart';
+
+class ChildMapper {
+  static Child childfromJson(Map<String, dynamic> json) => Child(
+        id: json["id"],
+        userId: json["userId"],
+        fullName: json["fullName"],
+        firstName: json["firstName"],
+        secondName: json["secondName"],
+        surname: json["surname"],
+        secondSurname: json["secondSurname"],
+        gender: json["gender"],
+        age: json["age"],
+        image: json["image"],
+        username: json["username"],
+        email: json["email"],
+        birthday: json["birthday"],
+        address: json["address"],
+        teaDegree:
+            CatalogoObjectMapper.catalogObjectfromJson(json["teaDegree"]),
+        currentPhase:
+            CatalogoObjectMapper.catalogObjectfromJson(json["currentPhase"]),
+        progress: progressfromJson(json["progress"]),
+        observations: json["observations"] == null
+            ? null
+            : List<Observation>.from(
+                json["observations"].map((x) => observationfromJson(x))),
+        achievements: json["achievements"] == null
+            ? null
+            : List<CatalogObjectCategory>.from(json["achievements"]
+                .map((x) => catalogObjectCategoryfromJson(x))),
+        tutor: personfromJson(json["tutor"]),
+        therapist: json["therapist"] == null
+            ? null
+            : personfromJson(json["therapist"]),
+        currentActivity: json["currentActivity"] == null
+            ? null
+            : currentActivityfromJson(json["currentActivity"]),
+        activities: json["activities"] == null
+            ? null
+            : List<Activity>.from(
+                json["activities"].map((x) => activityfromJson(x))),
+        pictograms: json["pictograms"] == null
+            ? null
+            : List<CatalogObjectCategory>.from(json["pictograms"]
+                .map((x) => catalogObjectCategoryfromJson(x))),
+      );
+
+  static CatalogObjectCategory catalogObjectCategoryfromJson(
+          Map<String, dynamic> json) =>
+      CatalogObjectCategory(
+        id: json["id"],
+        name: json["name"],
+        imageUrl: json["imageUrl"],
+        category: json["Category"] == null
+            ? null
+            : categoryfromJson(json["Category"]),
+      );
+
+  static Category categoryfromJson(Map<String, dynamic> json) => Category(
+        id: json["id"],
+        name: json["name"],
+      );
+
+  static Activity activityfromJson(Map<String, dynamic> json) => Activity(
+        id: json["id"],
+        phase: CatalogoObjectMapper.catalogObjectfromJson(json["phase"]),
+        name: json["name"],
+        description: json["description"],
+        satisfactoryPoints: json["satisfactoryPoints"],
+      );
+
+  static CurrentActivity currentActivityfromJson(Map<String, dynamic> json) =>
+      CurrentActivity(
+        id: json["id"],
+        name: json["name"],
+        satisfactoryPoints: json["satisfactoryPoints"],
+        satisfactoryAttempts: json["satisfactoryAttempts"],
+        progress: json["progress"],
+        description: json["description"],
+        phase: CatalogoObjectMapper.catalogObjectfromJson(json["phase"]),
+      );
+
+  static Observation observationfromJson(Map<String, dynamic> json) =>
+      Observation(
+        id: json["id"],
+        description: json["description"],
+        username: json["username"],
+        createdAt: json["createdAt"],
+      );
+
+  static Progress progressfromJson(Map<String, dynamic> json) => Progress(
+        generalProgress: json["generalProgress"],
+        phaseProgress: json["phaseProgress"],
+      );
+
+  static Person personfromJson(Map<String, dynamic> json) => Person(
+        id: json["id"],
+        userId: json["userId"],
+        image: json["image"],
+        fullName: json["fullName"],
+        email: json["email"],
+        username: json["username"],
+        phoneNumber: json["phoneNumber"],
+        telephone: json["telephone"],
+      );
+}

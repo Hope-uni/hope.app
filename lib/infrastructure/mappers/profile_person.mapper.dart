@@ -14,7 +14,7 @@ class ProfilePersonMapper {
         username: json["username"],
         email: json["email"],
         identificationNumber: json["identificationNumber"],
-        phoneNumber: json["phoneNumber"].toString(),
+        phoneNumber: json["phoneNumber"],
         telephone: json["telephone"],
         birthday: json["birthday"],
         gender: json["gender"],
