@@ -77,7 +77,10 @@ class FormActivity extends StatelessWidget {
                   enable: true,
                   onChanged: (value) {},
                 ),
+                //TODO: Cambiar cuando este listo el endpoint
                 const ImageListVIew(
+                  images: [],
+                  nameImages: [],
                   isDecoration: true,
                   isSelect: true,
                   backgroundColorIcon: $colorSuccess,
@@ -93,7 +96,10 @@ class FormActivity extends StatelessWidget {
             child:
                 Text(S.current.Solucion, style: const TextStyle(fontSize: 15)),
           ),
+          //TODO: Cambiar cuando este listo el endpoint
           ImageListVIew(
+            images: const [],
+            nameImages: const [],
             backgroundDecoration: $colorPrimary50,
             isDecoration: true,
             isSelect: isVisibleSeleccion || isEdit,

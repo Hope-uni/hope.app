@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
+import 'package:hope_app/presentation/providers/providers.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
 import 'package:toastification/toastification.dart';
 
-class ChildDataPage extends StatefulWidget {
+class ChildDataPage extends ConsumerStatefulWidget {
   final int idChild;
   const ChildDataPage({super.key, required this.idChild});
 
   @override
-  State<ChildDataPage> createState() => _ChildDataPageState();
+  ChildDataPageState createState() => ChildDataPageState();
 }
 
-class _ChildDataPageState extends State<ChildDataPage> {
+class ChildDataPageState extends ConsumerState<ChildDataPage> {
   bool enableInput = false;
   final ScrollController _scrollController = ScrollController();
   final ScrollController _scrollControllerObservations = ScrollController();
@@ -50,9 +52,21 @@ class _ChildDataPageState extends State<ChildDataPage> {
   }
 
   @override
+  Future<void> didChangeDependencies() async {
+    super.didChangeDependencies();
+
+    Future.microtask(() async {
+      final notifierChild = ref.read(childProvider.notifier);
+      await notifierChild.getChild(idChild: widget.idChild);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
+        final stateChild = ref.watch(childProvider);
+
         return DefaultTabController(
           initialIndex: 0,
           length: 5,
@@ -135,69 +149,109 @@ class _ChildDataPageState extends State<ChildDataPage> {
                           ),
                       ],
                     ))),
-            body: TabBarView(
-              children: <Widget>[
-                Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        ..._childPersonalData(
-                          enableInput: enableInput,
-                          context: context,
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        ..._generalInformation(enableInput: enableInput)
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        ..._childProgressData(enableInput: enableInput)
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      ..._achievements(
-                          scrollController: _scrollControllerObservations,
-                          ref: ref)
+            body: Stack(
+              children: [
+                if (stateChild.isLoading == false)
+                  TabBarView(
+                    children: <Widget>[
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 15),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              ..._childPersonalData(
+                                enableInput: enableInput,
+                                context: context,
+                                ref: ref,
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 15),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              ..._generalInformation(
+                                enableInput: enableInput,
+                                ref: ref,
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 15),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              ..._childProgressData(
+                                enableInput: enableInput,
+                                ref: ref,
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 15),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            ..._activities(
+                                scrollController: _scrollControllerObservations,
+                                ref: ref)
+                          ],
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 15),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            ..._observationsChild(
+                                scrollController: _scrollControllerObservations,
+                                ref: ref)
+                          ],
+                        ),
+                      ),
                     ],
                   ),
-                ),
-                Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
+                if (stateChild.isLoading == true)
+                  Stack(
                     children: [
-                      ..._observationsChild(
-                          scrollController: _scrollControllerObservations,
-                          ref: ref)
+                      const Opacity(
+                        opacity: 0.5,
+                        child: ModalBarrier(
+                            dismissible: false, color: $colorTransparent),
+                      ),
+                      Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const CircularProgressIndicator(),
+                            const SizedBox(height: 25),
+                            Text(
+                              S.current.Cargando,
+                              style: const TextStyle(
+                                color: $colorButtonDisable,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                decoration: TextDecoration.none,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
-                ),
               ],
             ),
             floatingActionButton: Row(
@@ -340,12 +394,11 @@ class _ChildDataPageState extends State<ChildDataPage> {
 List<Widget> _childPersonalData({
   required bool enableInput,
   required BuildContext context,
+  required WidgetRef ref,
 }) {
   final CameraGalleryDataSourceImpl image = CameraGalleryDataSourceImpl();
 
-  //TODO: Quitar comentario y reemplazar por el gestor de estado cuando se utilice el endpoint
-  /*final TextEditingController controller = TextEditingController(
-      text: profileState.profile!.birthday.split('-').reversed.join('-'));*/
+  final stateChild = ref.watch(childProvider);
 
   Future<void> selectDate(BuildContext context, String dateValue) async {
     final DateTime now = DateTime.now();
@@ -362,15 +415,10 @@ List<Widget> _childPersonalData({
       firstDate: firstDate,
       lastDate: lastDate,
     );
-//TODO: Quitar comentario y reemplazar por el gestor de estado cuando se utilice el endpoint
-    /*if (pickedDate != null) {
-      ref.read(profileProvider.notifier).updateBirthday(pickedDate);
 
-      setState(() {
-        controller.text =
-            "${pickedDate.year}-${pickedDate.month}-${pickedDate.day}";
-      });
-    }*/
+    if (pickedDate != null) {
+      ref.read(childProvider.notifier).updateBirthday(pickedDate);
+    }
   }
 
   return [
@@ -380,16 +428,13 @@ List<Widget> _childPersonalData({
       child: Center(
         child: Stack(children: [
           ClipOval(
-              child: Container(
-            width: 145,
-            height: 145,
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
+            child: Container(
+              width: 145,
+              height: 145,
+              decoration: const BoxDecoration(shape: BoxShape.circle),
+              child: ImageLoad(urlImage: stateChild.child!.image),
             ),
-            child: const ImageLoad(
-                urlImage: //TODO: Reemplazar por el gestor de estado cuando se utilice el endpoint
-                    'https://e7.pngegg.com/pngimages/660/375/png-clipart-mario-mario.png'),
-          )),
+          ),
           Visibility(
             visible: enableInput,
             child: Positioned(
@@ -397,8 +442,8 @@ List<Widget> _childPersonalData({
               right: 0,
               child: IconButton.filled(
                   style: const ButtonStyle(
-                      backgroundColor:
-                          WidgetStatePropertyAll($colorBlueGeneral)),
+                    backgroundColor: WidgetStatePropertyAll($colorBlueGeneral),
+                  ),
                   onPressed: () {
                     bottomSheetModal(
                       context: context,
@@ -414,17 +459,11 @@ List<Widget> _childPersonalData({
                         ),
                         Container(
                           alignment: Alignment.centerLeft,
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                          ),
-                          child: Text(
-                            S.current.Seleccione_foto_de_perfil,
-                          ),
+                          margin: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Text(S.current.Seleccione_foto_de_perfil),
                         ),
                         Container(
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                          ),
+                          margin: const EdgeInsets.symmetric(horizontal: 20),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -464,64 +503,69 @@ List<Widget> _childPersonalData({
     ),
     const SizedBox(height: 10),
     InputForm(
-      label: S.current.Primer_nombre,
-      maxLength: 50,
-      value: 'Mario', //TODO: Cambiar cuando este listo el endpoint
+      label: S.current.Nombre_de_usuario,
+      maxLength: 25,
+      value: stateChild.child!.username,
       enable: enableInput,
+      onChanged: (value) {},
+    ),
+    InputForm(
+      label: S.current.Correo_electronico,
+      maxLength: 50,
+      value: stateChild.child!.email,
+      enable: enableInput,
+      onChanged: (value) {},
+    ),
+    InputForm(
+      label: S.current.Primer_nombre,
+      maxLength: 25,
+      value: stateChild.child!.firstName,
+      enable: enableInput,
+      allCharacters: false,
       onChanged: (value) {},
     ),
     InputForm(
       label: S.current.Segundo_nombre,
-      maxLength: 50,
-      value: 'Jose', //TODO: Cambiar cuando este listo el endpoint
+      maxLength: 25,
+      value: stateChild.child!.secondName ?? '-',
       enable: enableInput,
+      allCharacters: false,
       onChanged: (value) {},
     ),
     InputForm(
       label: S.current.Primer_apellido,
-      maxLength: 50,
-      value: 'Ramos', //TODO: Cambiar cuando este listo el endpoint
+      maxLength: 25,
+      value: stateChild.child!.surname,
       enable: enableInput,
+      allCharacters: false,
       onChanged: (value) {},
     ),
     InputForm(
       label: S.current.Segundo_apellido,
-      maxLength: 50,
-      value: 'Mejia', //TODO: Cambiar cuando este listo el endpoint
+      maxLength: 25,
+      value: stateChild.child!.secondSurname ?? '-',
       enable: enableInput,
+      allCharacters: false,
       onChanged: (value) {},
     ),
-    InputForm(
-      label: S.current.Nombre_de_usuario,
-      maxLength: 8,
-      value: 'mramos', //TODO: Cambiar cuando este listo el endpoint
-      enable: enableInput,
-      onChanged: (value) {},
-    ),
-    //TODO: Cambiar cuando este listo el endpoint
     SelectBox(
       enable: enableInput,
-      valueInitial: 'Masculino',
+      valueInitial: stateChild.child!.gender,
       label: S.current.Sexo,
       onSelected: (value) {},
-      listItems: const ['Masculino', 'Femenino'],
+      listItems: const [$masculino, $femenino],
+      deleteSelection: false,
     ),
     InputForm(
-        label: S.current.Fecha_de_nacimiento,
-        value: //TODO: Quitar comentario y reemplazar por el gestor de estado cuando se utilice el endpoint
-            '12-05-2024', //profileState.profile!.birthday.split('-').reversed.join('-'),
-        enable: enableInput,
-        readOnly: true,
-        // controllerExt: controller,
-        onTap:
-            () => //TODO: Quitar comentario y reemplazar por el gestor de estado cuando se utilice el endpoint
-                selectDate(
-                    context, '2023-05-01') //profileState.profile!.birthday),
-        ),
+      label: S.current.Fecha_de_nacimiento,
+      value: stateChild.child!.birthday.split('-').reversed.join('-'),
+      enable: enableInput,
+      readOnly: true,
+      onTap: () => selectDate(context, stateChild.child!.birthday),
+    ),
     InputForm(
       label: S.current.Edad,
-      //TODO: Cambiar cuando este listo el endpoint
-      value: '27 años, 10 meses y 15 dias',
+      value: stateChild.child!.age.toString(),
       enable: false,
     ),
     InputForm(
@@ -530,15 +574,17 @@ List<Widget> _childPersonalData({
       maxLines: 5,
       enable: enableInput,
       onChanged: (value) {},
-      //TODO: Cambiar cuando este listo el endpoint
-      value:
-          'Del pali de san judas 3 c al sur 1/2 c abajo , 5ta casa mano izquierda',
+      value: stateChild.child!.address,
     ),
     const SizedBox(height: 55),
   ];
 }
 
-List<Widget> _generalInformation({required bool enableInput}) {
+List<Widget> _generalInformation({
+  required bool enableInput,
+  required WidgetRef ref,
+}) {
+  final stateChild = ref.watch(childProvider);
   return [
     const SizedBox(height: 15),
     //TODO: Cambiar cuando este listo el endpoint
@@ -551,36 +597,33 @@ List<Widget> _generalInformation({required bool enableInput}) {
     ),
     InputForm(
       label: S.current.Tutor,
-      //TODO: Cambiar cuando este listo el endpoint
-      value: 'Maria Alejandra Ramos Irigoyen',
+      value: stateChild.child!.tutor.fullName,
       enable: false,
-      onChanged: (value) {},
     ),
     InputForm(
       label: S.current.Contacto_tutor,
-      value: '121422112', //TODO: Cambiar cuando este listo el endpoint
+      value: stateChild.child!.tutor.telephone!,
       enable: false,
-      onChanged: (value) {},
     ),
     InputForm(
       label: S.current.Telefono_de_casa,
-      value: '54645566', //TODO: Cambiar cuando este listo el endpoint
+      value: stateChild.child!.tutor.phoneNumber,
       enable: false,
-      onChanged: (value) {},
     ),
 
     InputForm(
       label: S.current.Terapeuta,
-      //TODO: Cambiar cuando este listo el endpoint
-      value: 'Anthony Alexander Rayo Mejia',
+      value: stateChild.child!.therapist != null
+          ? stateChild.child!.therapist!.fullName
+          : S.current.Sin_terapeuta_asignado,
       enable: false,
-      onChanged: (value) {},
     ),
     InputForm(
       label: S.current.Contacto_terapeuta,
-      value: '56564456', //TODO: Cambiar cuando este listo el endpoint
+      value: stateChild.child!.therapist != null
+          ? stateChild.child!.therapist!.phoneNumber
+          : '-',
       enable: false,
-      onChanged: (value) {},
     ),
     const SizedBox(
       height: 55,
@@ -588,8 +631,219 @@ List<Widget> _generalInformation({required bool enableInput}) {
   ];
 }
 
-List<Widget> _observationsChild(
-    {required ScrollController scrollController, required WidgetRef ref}) {
+List<Widget> _childProgressData({
+  required bool enableInput,
+  required WidgetRef ref,
+}) {
+  final stateChild = ref.watch(childProvider);
+  return [
+    Container(
+      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 13, vertical: 20),
+                alignment: Alignment.centerLeft,
+                child: Text(S.current.Progreso_general),
+              ),
+              SizedBox(
+                height: 100,
+                width: 100,
+                child: Stack(children: [
+                  SizedBox(
+                    height: 100,
+                    width: 100,
+                    child: CircularProgressIndicator(
+                      value: double.parse(
+                              stateChild.child!.progress.generalProgress) /
+                          100,
+                      backgroundColor: $colorButtonDisable,
+                      strokeWidth: 10,
+                      color: $colorBlueGeneral,
+                    ),
+                  ),
+                  Center(
+                    child: Text(
+                      '${stateChild.child!.progress.generalProgress} %',
+                      style: const TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )
+                ]),
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              Container(
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 13, vertical: 20),
+                alignment: Alignment.centerLeft,
+                child: Text(S.current.progreso_de_fase),
+              ),
+              SizedBox(
+                height: 100,
+                width: 100,
+                child: Stack(children: [
+                  SizedBox(
+                    height: 100,
+                    width: 100,
+                    child: CircularProgressIndicator(
+                      value: stateChild.child!.progress.phaseProgress / 100,
+                      backgroundColor: $colorButtonDisable,
+                      strokeWidth: 10,
+                      color: $colorBlueGeneral,
+                    ),
+                  ),
+                  Center(
+                    child: Text(
+                      '${stateChild.child!.progress.phaseProgress.toString()} %',
+                      style: const TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )
+                ]),
+              ),
+            ],
+          ),
+        ],
+      ),
+    ),
+    const SizedBox(height: 15),
+    ListView(
+      shrinkWrap: true, // Asegura que solo ocupe el espacio necesario
+      physics: const NeverScrollableScrollPhysics(),
+      children: [
+        ListTileCustom(
+          title:
+              '${S.current.Grado_de_autismo_actual}:  ${stateChild.child!.teaDegree.name}',
+          colorTitle: true,
+          styleTitle: FontWeight.bold,
+          noImage: true,
+          subTitle: stateChild.child!.teaDegree.description,
+        )
+      ],
+    ),
+    ListView(
+      shrinkWrap: true, // Asegura que solo ocupe el espacio necesario
+      physics: const NeverScrollableScrollPhysics(),
+      children: [
+        ListTileCustom(
+          title:
+              '${S.current.Fase_actual}:  ${stateChild.child!.currentPhase.name}',
+          colorTitle: true,
+          styleTitle: FontWeight.bold,
+          noImage: true,
+          subTitle: stateChild.child!.currentPhase.description,
+        )
+      ],
+    ),
+    const SizedBox(height: 10),
+    Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      alignment: Alignment.centerLeft,
+      child: Text(S.current.Logros),
+    ),
+    if (stateChild.child!.achievements != null)
+      ImageListVIew(
+        images: stateChild.child!.achievements != null
+            ? stateChild.child!.achievements!
+                .map((item) => item.imageUrl)
+                .toList()
+            : [],
+        nameImages: stateChild.child!.achievements != null
+            ? stateChild.child!.achievements!.map((item) => item.name).toList()
+            : [],
+        isDecoration: false,
+        isSelect: false,
+      ),
+    if (stateChild.child!.achievements == null)
+      SizedBox(
+        height: 250,
+        child: SvgPicture.asset(
+          fit: BoxFit.contain,
+          'assets/svg/SinDatos.svg',
+        ),
+      ),
+    const SizedBox(height: 55),
+  ];
+}
+
+List<Widget> _activities({
+  required ScrollController scrollController,
+  required WidgetRef ref,
+}) {
+  final stateChildActivities = ref.watch(childProvider).child!.activities;
+  final stateChildCurrentActivity =
+      ref.watch(childProvider).child!.currentActivity;
+  return [
+    Container(
+      margin: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
+      alignment: Alignment.centerLeft,
+      child: Text(S.current.Actividad_actual),
+    ),
+    ListView(
+      shrinkWrap: true, // Asegura que solo ocupe el espacio necesario
+      physics: const NeverScrollableScrollPhysics(),
+      children: [
+        ListTileCustom(
+          title: stateChildCurrentActivity != null
+              ? stateChildCurrentActivity.name
+              : S.current.Sin_actividad_activa_por_el_momento,
+          colorTitle: true,
+          styleTitle: FontWeight.bold,
+          noImage: true,
+          subTitle: stateChildCurrentActivity != null
+              ? stateChildCurrentActivity.description
+              : '-',
+        )
+      ],
+    ),
+    Container(
+      margin: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
+      alignment: Alignment.centerLeft,
+      child: Text(S.current.Actividades_terminadas),
+    ),
+    Expanded(
+      child: stateChildActivities != null
+          ? ListView.builder(
+              itemCount: stateChildActivities.length,
+              itemBuilder: (context, index) {
+                if (index < stateChildActivities.length) {
+                  return ListTileCustom(
+                    title: stateChildActivities[index].name,
+                    colorTitle: true,
+                    styleTitle: FontWeight.bold,
+                    noImage: true,
+                    subTitle: stateChildActivities[index].description,
+                  );
+                } else {
+                  return const SizedBox(height: 75);
+                }
+              },
+            )
+          : SvgPicture.asset(
+              fit: BoxFit.contain,
+              'assets/svg/SinDatos.svg',
+            ),
+    ),
+  ];
+}
+
+List<Widget> _observationsChild({
+  required ScrollController scrollController,
+  required WidgetRef ref,
+}) {
+  final stateChildObservations = ref.watch(childProvider).child!.observations;
   return [
     Container(
       alignment: Alignment.centerRight,
@@ -599,159 +853,28 @@ List<Widget> _observationsChild(
           onClic: () {}),
     ),
     Expanded(
-      child: ListView.builder(
-        //TODO: Cambiar cuando este listo el endpoint
-        itemCount: 8,
-        itemBuilder: (context, index) {
-          //TODO: Cambiar el 14 cuando este listo el endpoint
-          if (index < 8) {
-            return const ListTileCustom(
-              //TODO: Cambiar cuando este listo el endpoint
-              title:
-                  'El niño tiene problemas con el alcohol lo que le genere una fuerte dependencia emocional a su difunto padre el cual murio a manos de gorillas en el norte de africa',
-              //TODO: Cambiar cuando este listo el endpoint
-              subTitle: '\n12-10-2024     @Mario Ramos',
-              styleSubTitle: FontWeight.bold,
-              colorSubTitle: true,
-            );
-          } else {
-            return const SizedBox(height: 75);
-          }
-        },
-      ),
+      child: stateChildObservations != null
+          ? ListView.builder(
+              itemCount: stateChildObservations.length,
+              itemBuilder: (context, index) {
+                if (index < stateChildObservations.length) {
+                  return ListTileCustom(
+                    title: stateChildObservations[index].description,
+                    subTitle:
+                        '\n${stateChildObservations[index].createdAt}     @${stateChildObservations[index].username}',
+                    styleSubTitle: FontWeight.bold,
+                    colorSubTitle: true,
+                    noImage: true,
+                  );
+                } else {
+                  return const SizedBox(height: 75);
+                }
+              },
+            )
+          : SvgPicture.asset(
+              fit: BoxFit.contain,
+              'assets/svg/SinDatos.svg',
+            ),
     ),
-  ];
-}
-
-List<Widget> _achievements(
-    {required ScrollController scrollController, required WidgetRef ref}) {
-  return [
-    Container(
-      margin: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
-      alignment: Alignment.centerLeft,
-      child: Text(
-        S.current.Actividad_actual,
-        style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
-      ),
-    ),
-    ListView(
-      shrinkWrap: true, // Asegura que solo ocupe el espacio necesario
-      physics: const NeverScrollableScrollPhysics(),
-      children: const [
-        ListTileCustom(
-          //TODO: Cambiar cuando este listo el endpoint
-          title: 'Crear 5 oraciones usando objetos de la casa',
-          colorTitle: true,
-          styleTitle: FontWeight.bold,
-          //TODO: Cambiar cuando este listo el endpoint
-          subTitle:
-              'El niño tiene problemas con el alcohol lo que le genere una fuerte dependencia emocional a su difunto padre el cual murio a manos de gorillas en el norte de africa',
-        )
-      ],
-    ),
-    Container(
-      margin: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
-      alignment: Alignment.centerLeft,
-      child: Text(
-        S.current.Actividades_terminadas,
-        style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
-      ),
-    ),
-    Expanded(
-      child: ListView.builder(
-        //TODO: Cambiar cuando este listo el endpoint
-        itemCount: 8,
-        itemBuilder: (context, index) {
-          //TODO: Cambiar el 14 cuando este listo el endpoint
-          if (index < 8) {
-            return const ListTileCustom(
-              //TODO: Cambiar cuando este listo el endpoint
-              title: 'Crear 5 oraciones usando objetos de la casa',
-              colorTitle: true,
-              styleTitle: FontWeight.bold,
-              //TODO: Cambiar cuando este listo el endpoint
-              subTitle:
-                  'El niño tiene problemas con el alcohol lo que le genere una fuerte dependencia emocional a su difunto padre el cual murio a manos de gorillas en el norte de africa\n\n15-08-2024   @Mario Ramos',
-            );
-          } else {
-            return const SizedBox(height: 75);
-          }
-        },
-      ),
-    ),
-  ];
-}
-
-List<Widget> _childProgressData({required bool enableInput}) {
-  return [
-    Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 13, vertical: 20),
-          alignment: Alignment.centerLeft,
-          child: Text(
-            //TODO: Reemplazar por el gestor de estado cuando se utilice el endpoint
-            '${S.current.Progreso_general} | 50%',
-            style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
-          ),
-        ),
-        const SizedBox(
-          width: 20,
-        ),
-        const SizedBox(
-          height: 100,
-          width: 100,
-          child: CircularProgressIndicator(
-            value: 0.5,
-            backgroundColor: Colors.grey,
-            strokeWidth: 10,
-          ),
-        ),
-      ],
-    ),
-    const SizedBox(height: 40),
-    Column(
-      children: [
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 13, vertical: 20),
-          alignment: Alignment.centerLeft,
-          child: Text(
-            //TODO: Reemplazar por el gestor de estado cuando se utilice el endpoint
-            '${S.current.progreso_de_fase} 3 | 80%',
-            style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
-          ),
-        ),
-        const SizedBox(
-          width: 20,
-        ),
-        const SizedBox(
-          height: 100,
-          width: 100,
-          child: CircularProgressIndicator(
-            value: 0.8,
-            backgroundColor: Colors.grey,
-            strokeWidth: 10,
-          ),
-        )
-      ],
-    ),
-    const SizedBox(height: 40),
-    const SizedBox(
-      height: 20,
-    ),
-    Container(
-      margin: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
-      alignment: Alignment.centerLeft,
-      child: Text(
-        S.current.Logros,
-        style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
-      ),
-    ),
-    const ImageListVIew(
-      isDecoration: false,
-      isSelect: false,
-    ),
-    const SizedBox(height: 55),
   ];
 }

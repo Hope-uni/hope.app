@@ -192,6 +192,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Esta seguro de salir de la edición de la actividad"),
         "Esta_seguro_que_desea_eliminar_el_pictograma": m2,
         "Fase": MessageLookupByLibrary.simpleMessage("Fase"),
+        "Fase_actual": MessageLookupByLibrary.simpleMessage("Fase actual"),
         "Fase_del_autismo":
             MessageLookupByLibrary.simpleMessage("Fase del autismo"),
         "Fases": MessageLookupByLibrary.simpleMessage("Fases"),
@@ -200,6 +201,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Formato_incorrecto_de_cedula": MessageLookupByLibrary.simpleMessage(
             "Formato incorrecto de cédula (###-######-####L)"),
         "Galeria": MessageLookupByLibrary.simpleMessage("Galería"),
+        "Grado_de_autismo_actual":
+            MessageLookupByLibrary.simpleMessage("Grado de autismo actual"),
         "Guardado_con_exito":
             MessageLookupByLibrary.simpleMessage("¡Guardado con éxito!"),
         "Guardar": MessageLookupByLibrary.simpleMessage("Guardar"),
@@ -330,6 +333,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "Si_avanzar": MessageLookupByLibrary.simpleMessage("Si, avanzar"),
         "Si_salir": MessageLookupByLibrary.simpleMessage("Si, Salir"),
         "Siguiente": MessageLookupByLibrary.simpleMessage("Siguiente"),
+        "Sin_actividad_activa_por_el_momento":
+            MessageLookupByLibrary.simpleMessage(
+                "Sin actividad activa por el momento"),
+        "Sin_terapeuta_asignado":
+            MessageLookupByLibrary.simpleMessage("Sin terapeuta asignado"),
         "Solucion": MessageLookupByLibrary.simpleMessage("Solución"),
         "Telefono": MessageLookupByLibrary.simpleMessage("Teléfono"),
         "Telefono_de_casa":

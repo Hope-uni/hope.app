@@ -23,8 +23,8 @@ const String $telephoneProfile = "telephone";
 const String $addressProfile = "address";
 const String $imageProfile = "image";
 
-const String $masculinoProfile = "Masculino";
-const String $femeninoProfile = "Femenino";
+const String $masculino = "Masculino";
+const String $femenino = "Femenino";
 
 //KEYS AUTH
 const String $emailUsername = "email_username";

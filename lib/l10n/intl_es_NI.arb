@@ -170,5 +170,9 @@
   "La_contrasena_actual_no_puede_estar_vacia": "La contraseña actual no puede estar vacía",
   "La_contrasena_debe_tener_entre_caracteres_ademas_contener_letras_y_numeros": "La contraseña debe tener entre 8 y 30 caracteres además contener letras y números",
   "Las_contrasena_no_coinciden": "Las contraseñas no coinciden",
-  "Anos": "Años"
+  "Anos": "Años",
+  "Sin_terapeuta_asignado": "Sin terapeuta asignado",
+  "Grado_de_autismo_actual": "Grado de autismo actual",
+  "Fase_actual": "Fase actual",
+  "Sin_actividad_activa_por_el_momento": "Sin actividad activa por el momento"
 }

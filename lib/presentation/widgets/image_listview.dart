@@ -11,6 +11,8 @@ class ImageListVIew extends StatelessWidget {
   final Color? backgroundDecoration;
   final bool? backgroundLine;
   final bool? isFilterBW;
+  final List<String> images;
+  final List<String> nameImages;
 
   const ImageListVIew({
     super.key,
@@ -21,9 +23,10 @@ class ImageListVIew extends StatelessWidget {
     this.backgroundDecoration,
     this.backgroundLine,
     this.isFilterBW = false,
+    required this.images,
+    required this.nameImages,
   });
 
-//TODO: Cuando este listo el endpoint ajustar widget pare recibir data
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -46,7 +49,7 @@ class ImageListVIew extends StatelessWidget {
             : Container(),
         ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: 10,
+          itemCount: images.length,
           itemBuilder: (context, index) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -64,13 +67,10 @@ class ImageListVIew extends StatelessWidget {
                         colorFilter: ColorFilterExt.preset(isFilterBW == true
                             ? ColorFiltersPreset.inkwell()
                             : ColorFiltersPreset.none()),
-                        //TODO: Agregar url de logros de los niños cuando el endpoint este listo
-                        child: const SizedBox(
+                        child: SizedBox(
                             height: 100,
                             width: 100,
-                            child: ImageLoad(
-                                urlImage: //TODO: Cambiar cuando este listo el endpoint
-                                    'https://static.wikia.nocookie.net/mario/images/f/f0/Estrella_Artwork_.png/revision/latest?cb=20220428203232&path-prefix=es')),
+                            child: ImageLoad(urlImage: images[index])),
                       ),
                     ),
                     Visibility(
@@ -89,8 +89,7 @@ class ImageListVIew extends StatelessWidget {
                     ),
                   ],
                 ),
-                //TODO: Cambiar cuando este listo el endpoint
-                const Text('Manzana')
+                Text(nameImages[index])
               ],
             );
           },
