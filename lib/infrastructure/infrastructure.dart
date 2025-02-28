@@ -20,5 +20,6 @@ export 'mappers/me_permissions.mapper.dart';
 export 'mappers/children.mapper.dart';
 export 'mappers/catalogo_object.mapper.dart';
 export 'mappers/child.mapper.dart';
+export 'mappers/person.mapper.dart';
 
 export 'errors/custom_errors.dart';

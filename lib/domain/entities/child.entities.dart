@@ -1,27 +1,17 @@
 import 'package:hope_app/domain/domain.dart';
 
-class Child {
+class Child extends Person {
   int id;
   int userId;
   String fullName;
-  String firstName;
-  String? secondName;
-  String surname;
-  String? secondSurname;
-  String gender;
   int age;
-  String? image;
-  String username;
-  String email;
-  String birthday;
-  String address;
   CatalogObject teaDegree;
   CatalogObject currentPhase;
   Progress progress;
   List<Observation>? observations;
   List<CatalogObjectCategory>? achievements;
-  Person tutor;
-  Person? therapist;
+  PersonTutorTherapist tutor;
+  PersonTutorTherapist? therapist;
   CurrentActivity? currentActivity;
   List<Activity>? activities;
   List<CatalogObjectCategory>? pictograms;
@@ -30,17 +20,17 @@ class Child {
     required this.id,
     required this.userId,
     required this.fullName,
-    required this.firstName,
-    this.secondName,
-    required this.surname,
-    this.secondSurname,
-    required this.gender,
+    required super.firstName,
+    super.secondName,
+    required super.surname,
+    super.secondSurname,
+    required super.gender,
     required this.age,
-    this.image,
-    required this.username,
-    required this.email,
-    required this.birthday,
-    required this.address,
+    super.image,
+    required super.username,
+    required super.email,
+    required super.birthday,
+    required super.address,
     required this.teaDegree,
     required this.currentPhase,
     required this.progress,
@@ -52,6 +42,59 @@ class Child {
     this.activities,
     this.pictograms,
   });
+
+  Child copyWith({
+    String? firstName,
+    String? secondName,
+    String? surname,
+    String? secondSurname,
+    String? gender,
+    String? image,
+    String? username,
+    String? email,
+    String? birthday,
+    String? address,
+    int? id,
+    int? userId,
+    String? fullName,
+    int? age,
+    CatalogObject? teaDegree,
+    CatalogObject? currentPhase,
+    Progress? progress,
+    PersonTutorTherapist? tutor,
+    List<Observation>? observations,
+    List<CatalogObjectCategory>? achievements,
+    PersonTutorTherapist? therapist,
+    CurrentActivity? currentActivity,
+    List<Activity>? activities,
+    List<CatalogObjectCategory>? pictograms,
+  }) =>
+      Child(
+        firstName: firstName ?? super.firstName,
+        secondName: secondName ?? super.secondName,
+        surname: surname ?? super.surname,
+        secondSurname: secondSurname ?? super.secondSurname,
+        gender: gender ?? super.gender,
+        image: image ?? super.image,
+        username: username ?? super.username,
+        email: email ?? super.email,
+        birthday: birthday ?? super.birthday,
+        address: address ?? super.address,
+        id: id ?? this.id,
+        userId: userId ?? this.userId,
+        fullName: fullName ?? this.fullName,
+        age: age ?? this.age,
+        teaDegree: teaDegree ?? this.teaDegree,
+        currentPhase: currentPhase ?? this.currentPhase,
+        progress: progress ?? this.progress,
+        tutor: tutor ?? this.tutor,
+        observations: observations ?? this.observations,
+        achievements: achievements ?? this.achievements,
+        therapist: therapist ?? this.therapist,
+        currentActivity: currentActivity ?? this.currentActivity,
+        activities: activities ?? this.activities,
+        pictograms: pictograms ?? this.pictograms,
+      );
 }
 
 class Activity {
@@ -114,7 +157,7 @@ class Progress {
   });
 }
 
-class Person {
+class PersonTutorTherapist {
   int id;
   int userId;
   String? image;
@@ -124,7 +167,7 @@ class Person {
   String phoneNumber;
   String? telephone;
 
-  Person({
+  PersonTutorTherapist({
     required this.id,
     required this.userId,
     this.image,

@@ -69,7 +69,6 @@ class _InputFormState extends State<InputForm> {
 
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
   }
 

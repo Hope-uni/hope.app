@@ -4,6 +4,7 @@ import 'package:hope_app/domain/domain.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
+import 'package:intl/intl.dart';
 
 final profileProvider =
     StateNotifierProvider<ProfileNotifier, ProfileState>((ref) {
@@ -48,9 +49,8 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
       email: profile.email,
       profile: Profile(
         profileId: profile.id!,
-        //TODO: Cambiar cuando el endpoint ya lo devuelva
-        /*fullName:
-            '${profile.firstName} ${profile.secondName ?? ''} ${profile.surname} ${profile.secondSurname ?? ''}',*/
+        fullName:
+            '${profile.firstName} ${profile.secondName ?? ''} ${profile.surname} ${profile.secondSurname ?? ''}',
         firstName: profile.firstName,
         secondName: profile.secondName,
         surname: profile.surname,
@@ -115,11 +115,10 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
         jsonEncode(MePermissionsMapper.toJsonProfile(
           Profile(
             profileId: profilePerson.id!,
-            //TODO: Cambiar cuando el endpoint ya lo devuelva
-            /*fullName: profilePerson.firstName +
+            fullName: profilePerson.firstName +
                 (profilePerson.secondName ?? '') +
                 profilePerson.surname +
-                (profilePerson.secondSurname ?? ''),*/
+                (profilePerson.secondSurname ?? ''),
             firstName: profilePerson.firstName,
             secondName: profilePerson.secondName,
             surname: profilePerson.surname,
@@ -168,7 +167,8 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
 
   void updateBirthday(DateTime newDate) {
     if (state.profile == null) return; // Evita errores si profile es null
-    state.profile!.birthday = "${newDate.year}-${newDate.month}-${newDate.day}";
+    String dateFormat = DateFormat('yyyy-MM-dd').format(newDate);
+    state.profile!.birthday = dateFormat;
   }
 
   void updateProfileField(String fieldName, String newValue) {

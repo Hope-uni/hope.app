@@ -34,6 +34,7 @@ class ProfilePersonMapper {
         "phoneNumber": profile.phoneNumber,
         "gender": profile.gender,
         "address": profile.address,
+        "birthday": profile.birthday,
       };
 
   static Map<String, dynamic> toJsonPatients(patients) => {
