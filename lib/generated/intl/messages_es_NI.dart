@@ -293,8 +293,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Primer_apellido":
             MessageLookupByLibrary.simpleMessage("Primer Apellido"),
         "Primer_nombre": MessageLookupByLibrary.simpleMessage("Primer Nombre"),
-        "Progreso_general":
-            MessageLookupByLibrary.simpleMessage("Progreso general"),
+        "Progreso_general_de_las_fase": MessageLookupByLibrary.simpleMessage(
+            "Progreso general de las fase"),
         "Progresos": MessageLookupByLibrary.simpleMessage("Progresos"),
         "Puntaje": MessageLookupByLibrary.simpleMessage("Puntaje"),
         "Puntos": MessageLookupByLibrary.simpleMessage("Puntos"),
@@ -354,7 +354,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Ver Información detallada de la actividad"),
         "Verificar_actividad":
             MessageLookupByLibrary.simpleMessage("Verificar actividad"),
-        "progreso_de_fase":
-            MessageLookupByLibrary.simpleMessage("Progreso de fase")
+        "progreso_de_fase_Actual":
+            MessageLookupByLibrary.simpleMessage("Progreso de fase actual")
       };
 }
