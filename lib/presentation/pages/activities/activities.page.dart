@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/providers/providers.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
+import 'package:toastification/toastification.dart';
 
 class ActivitiesPage extends ConsumerStatefulWidget {
   const ActivitiesPage({super.key});
@@ -19,11 +21,9 @@ class ActivitiesPageState extends ConsumerState<ActivitiesPage> {
   @override
   void initState() {
     super.initState();
-    final listActivities = ref.read(activitiesProvider.notifier);
-    scrollController.addListener(() {
-      if ((scrollController.position.pixels + 150) >=
-          scrollController.position.maxScrollExtent) {
-        listActivities.getNextActivities();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (mounted) {
+        ref.read(activitiesProvider.notifier).resetIsErrorInitial();
       }
     });
   }
@@ -35,14 +35,56 @@ class ActivitiesPageState extends ConsumerState<ActivitiesPage> {
   }
 
   @override
+  Future<void> didChangeDependencies() async {
+    super.didChangeDependencies();
+
+    Future.microtask(() async {
+      final notifierActivities = ref.read(activitiesProvider.notifier);
+      final stateActivities = ref.read(activitiesProvider);
+
+      if (stateActivities.paginateActivities[$indexPage]! == 1) {
+        await notifierActivities.getActivities();
+      }
+
+      scrollController.addListener(() async {
+        final stateActivities = ref.read(activitiesProvider);
+        if ((scrollController.position.pixels + 50) >=
+                scrollController.position.maxScrollExtent &&
+            stateActivities.isLoading == false) {
+          if (stateActivities.paginateActivities[$indexPage]! > 1 &&
+              stateActivities.paginateActivities[$indexPage]! <=
+                  stateActivities.paginateActivities[$pageCount]!) {
+            await notifierActivities.getActivities();
+          }
+        }
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final searchActivity = ref.watch(searchNameActivity);
 
-    final listaActividades = ref.watch(activitiesProvider);
+    final stateActivities = ref.read(activitiesProvider);
+    final stateWacthActivities = ref.watch(activitiesProvider);
+
     final TextEditingController controller =
         TextEditingController(text: searchActivity);
+
     final textLength = controller.value.text.length;
     controller.selection = TextSelection.collapsed(offset: textLength);
+
+    ref.listen(activitiesProvider, (previous, next) {
+      if (next.errorMessageApi != null) {
+        toastAlert(
+          context: context,
+          title: S.current.Error,
+          description: next.errorMessageApi!,
+          typeAlert: ToastificationType.error,
+        );
+        ref.read(activitiesProvider.notifier).updateErrorMessage();
+      }
+    });
 
     return Scaffold(
       appBar: AppBar(
@@ -85,29 +127,83 @@ class ActivitiesPageState extends ConsumerState<ActivitiesPage> {
               ),
             ),
             Expanded(
-              child: ListView.builder(
-                controller: scrollController,
-                //TODO: Cambiar cuando este listo el endpoint
-                itemCount: listaActividades.totalActivities.length + 1,
-                itemBuilder: (context, index) {
-                  //TODO: Cambiar el 14 cuando este listo el endpoint
-                  if (index < listaActividades.totalActivities.length) {
-                    return ListTileCustom(
-                      //TODO: Cambiar cuando este listo el endpoint
-                      title: 'Seleccionar 5 pictogramas de animales',
-                      //TODO: Cambiar cuando este listo el endpoint
-                      subTitle: 'Fase 4 | 20 puntos',
-                      //TODO: Cambiar cuando este listo el endpoint
-                      iconButton: MenuItems(
-                        idChild: int.parse(
-                            listaActividades.totalActivities[index].id),
-                        menuItems: menuActivity,
+              child: Stack(
+                children: [
+                  if (stateWacthActivities.paginateActivities[$indexPage] != 1)
+                    SizedBox.expand(
+                      child: stateWacthActivities.activities.isNotEmpty
+                          ? ListView.builder(
+                              controller: scrollController,
+                              itemCount: stateActivities.activities.length + 1,
+                              itemBuilder: (context, index) {
+                                if (index < stateActivities.activities.length) {
+                                  final item =
+                                      stateActivities.activities[index];
+                                  return ListTileCustom(
+                                    title: item.name,
+                                    colorTitle: true,
+                                    styleTitle: FontWeight.bold,
+                                    subTitle:
+                                        '${S.current.Fase}: ${item.phase.name}\n${S.current.Puntos_requeridos}s: ${item.satisfactoryPoints}',
+                                    iconButton: MenuItems(
+                                      idChild: item.id,
+                                      menuItems: menuActivity,
+                                    ),
+                                    noImage: true,
+                                  );
+                                } else {
+                                  return const SizedBox(height: 75);
+                                }
+                              },
+                            )
+                          : SvgPicture.asset(
+                              fit: BoxFit.contain,
+                              'assets/svg/SinDatos.svg',
+                            ),
+                    ),
+
+                  if (stateWacthActivities.isLoading == true &&
+                      stateWacthActivities.paginateActivities[$indexPage] != 1)
+                    const Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Padding(
+                        padding: EdgeInsets.all(16),
+                        child: CircularProgressIndicator(),
                       ),
-                    );
-                  } else {
-                    return const SizedBox(height: 75);
-                  }
-                },
+                    ),
+                  // 🔄 LOADING
+                  if (stateWacthActivities.paginateActivities[$indexPage] ==
+                      1) ...[
+                    const Opacity(
+                      opacity: 0.5,
+                      child: ModalBarrier(
+                          dismissible: false, color: $colorTransparent),
+                    ),
+                    Center(
+                      child: stateWacthActivities.isErrorInitial == true
+                          ? SvgPicture.asset(
+                              fit: BoxFit.contain,
+                              'assets/svg/SinDatos.svg',
+                            )
+                          : Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const CircularProgressIndicator(),
+                                const SizedBox(height: 25),
+                                Text(
+                                  S.current.Cargando,
+                                  style: const TextStyle(
+                                    color: $colorButtonDisable,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    decoration: TextDecoration.none,
+                                  ),
+                                ),
+                              ],
+                            ),
+                    ),
+                  ],
+                ],
               ),
             )
           ],
