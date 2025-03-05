@@ -1,8 +1,4 @@
-import 'package:hope_app/domain/datasources/children.datasource.dart';
-import 'package:hope_app/domain/entities/child.entities.dart';
-import 'package:hope_app/domain/entities/children.entities.dart';
-import 'package:hope_app/domain/entities/response_data.entities.dart';
-import 'package:hope_app/domain/repositories/children.repository.dart';
+import 'package:hope_app/domain/domain.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
 
 class ChildrenRepositoryImpl extends ChildrenRepository {
@@ -24,5 +20,13 @@ class ChildrenRepositoryImpl extends ChildrenRepository {
   @override
   Future<ResponseDataObject<Child>> getChild({required int idChild}) {
     return dataSource.getChild(idChild: idChild);
+  }
+
+  @override
+  Future<ResponseDataObject<Person>> updateChild({
+    required int idChild,
+    required Person child,
+  }) {
+    return dataSource.updateChild(idChild: idChild, child: child);
   }
 }

@@ -28,7 +28,7 @@ class MePermissionsMapper {
 
   static Profile fromJsonProfile(Map<String, dynamic> json) => Profile(
         profileId: json["profileId"],
-        //fullName: json["fullName"],//TODO: Cambiar cuando el endpoint ya lo devuelva
+        fullName: json["fullName"],
         firstName: json["firstName"],
         secondName: json["secondName"],
         surname: json["surname"],
@@ -44,7 +44,7 @@ class MePermissionsMapper {
 
   static Map<String, dynamic> toJsonProfile(Profile profile) => {
         "profileId": profile.profileId,
-        //"fullName": profile.fullName,//TODO: Cambiar cuando el endpoint ya lo devuelva
+        "fullName": profile.fullName,
         "firstName": profile.firstName,
         "secondName": profile.secondName,
         "surname": profile.surname,

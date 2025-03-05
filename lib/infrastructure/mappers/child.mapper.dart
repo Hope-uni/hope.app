@@ -1,5 +1,5 @@
 import 'package:hope_app/domain/domain.dart';
-import 'package:hope_app/infrastructure/mappers/catalogo_object.mapper.dart';
+import 'package:hope_app/infrastructure/infrastructure.dart';
 
 class ChildMapper {
   static Child childfromJson(Map<String, dynamic> json) => Child(
@@ -95,7 +95,8 @@ class ChildMapper {
         phaseProgress: json["phaseProgress"],
       );
 
-  static Person personfromJson(Map<String, dynamic> json) => Person(
+  static PersonTutorTherapist personfromJson(Map<String, dynamic> json) =>
+      PersonTutorTherapist(
         id: json["id"],
         userId: json["userId"],
         image: json["image"],
