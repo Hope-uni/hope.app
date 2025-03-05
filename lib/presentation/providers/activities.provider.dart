@@ -1,120 +1,101 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hope_app/domain/domain.dart';
+import 'package:hope_app/generated/l10n.dart';
+import 'package:hope_app/infrastructure/infrastructure.dart';
+import 'package:hope_app/presentation/utils/utils.dart';
 
 final searchNameActivity = StateProvider<String>((ref) => '');
 
 final activitiesProvider =
-    StateNotifierProvider<ActivitiesNotifier, ActivityStatus>((ref) {
-  //final activityRepository = ActivityRepositoryImp(); Aqui iran todos los metodos referente a las actividades
-  return ActivitiesNotifier();
+    StateNotifierProvider<ActivitiesNotifier, ActivityState>((ref) {
+  final activityRepository = ActivitiesRepositoryImpl();
+  return ActivitiesNotifier(activityRepository: activityRepository);
 });
 
-class ActivitiesNotifier extends StateNotifier<ActivityStatus> {
-//final activityRepository = PatientsRepositoryImp(); Agregarlo a los parametros de la clase
+class ActivitiesNotifier extends StateNotifier<ActivityState> {
+  final ActivitiesRepositoryImpl activityRepository;
 
-  int page = 0;
-  int totalPages = 10;
-  int lastPage = 0;
-  ActivitiesNotifier()
-      : super(ActivityStatus(
-            newActivities: [],
-            totalActivities: [],
-            lastPage: 0,
-            indexPage: 0,
-            pageCount: 0)) {
-    _loadMoreActivities();
-  }
+  ActivitiesNotifier({required this.activityRepository})
+      : super(ActivityState());
 
   // Método para cargar más actividades
-  Future<void> _loadMoreActivities() async {
-    await Future.delayed(const Duration(seconds: 1));
-    // Aquí agregarías la lógica para cargar más acividades, Por ahora, simplemente agregamos actividades de ejemplo
-    final newActivity = List.generate(
-      10,
-      (index) => Patient(
-        id: '${state.totalActivities.length + index}',
-        fullName: 'Formar oracion con animales',
-        edad: '${20 + index}',
-        fase: '${(state.totalActivities.length + index) % 3}',
-      ),
-    );
+  Future<void> getActivities() async {
+    state = state.copyWith(isLoading: true);
+    final indexPage = state.paginateActivities[$indexPage]!;
+    try {
+      final children =
+          await activityRepository.getAllActivities(indexPage: indexPage);
 
-    // Agregamos las nuevas actividades a la lista acumulativa
-    state = state.copyWith(
-      lastPage: lastPage, //Cambiar por la respuesta del endpoint
-      pageCount: totalPages, //Cambiar por la respuesta del endpoint
-      indexPage: page, //Cambiar por la respuesta del endpoint
-      newActivities: newActivity,
-      totalActivities: [...state.totalActivities, ...newActivity],
-    );
-    page++;
-    lastPage = page;
-  }
+      Map<String, int> paginate = {
+        $indexPage: indexPage + 1,
+        $pageCount: children.paginate!.pageCount
+      };
 
-  void getPreviusActivities() {
-    final indexPagina = state.indexPage - 1;
-    if (indexPagina < 0) return;
-    page--;
-    _setState(indexPage: indexPagina);
-  }
-
-  void getNextActivities() {
-    if (state.indexPage < state.lastPage) {
-      _loadActivitiesCache();
-    } else {
-      if (state.indexPage == state.pageCount) return;
-      _loadMoreActivities();
+      state = state.copyWith(
+        paginateActivities: paginate,
+        activities: [...state.activities, ...children.data!],
+        isLoading: false,
+        isErrorInitial: false,
+      );
+    } on CustomError catch (e) {
+      if (indexPage == 1) state = state.copyWith(isErrorInitial: true);
+      state = state.copyWith(errorMessageApi: e.message, isLoading: false);
+    } catch (e) {
+      if (indexPage == 1) state = state.copyWith(isErrorInitial: true);
+      state = state.copyWith(
+        errorMessageApi: S.current.Error_inesperado,
+        isLoading: false,
+      );
     }
   }
 
-  void _loadActivitiesCache() {
-    final indexPagina = state.indexPage + 1;
-    if (indexPagina > state.pageCount) return;
-    page++;
-    _setState(indexPage: indexPagina);
+  void updateErrorMessage() {
+    state = state.copyWith(errorMessageApi: '');
   }
 
-  void _setState({required int indexPage}) {
-    final itemsByPage = state.pageCount;
-    final newActivity = state.totalActivities.sublist(
-        indexPage * itemsByPage, (indexPage * itemsByPage) + itemsByPage);
+  void resetIsErrorInitial() {
+    state = state.copyWith(isErrorInitial: false);
+  }
 
-    state = state.copyWith(
-        indexPage: indexPage,
-        newActivities: newActivity,
-        lastPage: state.lastPage,
-        pageCount: state.pageCount,
-        totalActivities: state.totalActivities);
+  void resetState() {
+    state = ActivityState();
   }
 }
 
-class ActivityStatus {
+class ActivityState {
   //TODO: Cambiar cuando este listo el endpoint
-  final List<Patient> newActivities;
-  //TODO: Cambiar cuando este listo el endpoint
-  final List<Patient> totalActivities;
-  final int indexPage;
-  final int lastPage;
-  final int pageCount;
+  final Activities? newActivity;
+  final List<Activities> activities;
+  final Map<String, int> paginateActivities;
+  final bool? isLoading;
+  final String? errorMessageApi;
+  final bool? isErrorInitial;
 
-  ActivityStatus({
-    required this.newActivities,
-    required this.totalActivities,
-    required this.lastPage,
-    required this.indexPage,
-    required this.pageCount,
+  ActivityState({
+    this.newActivity,
+    this.activities = const [],
+    this.paginateActivities = const {$indexPage: 1, $pageCount: 0},
+    this.isLoading = true,
+    this.isErrorInitial = false,
+    this.errorMessageApi,
   });
 
-  ActivityStatus copyWith(
-          {required List<Patient> newActivities,
-          required List<Patient> totalActivities,
-          required int indexPage,
-          required int pageCount,
-          required int lastPage}) =>
-      ActivityStatus(
-          newActivities: newActivities,
-          totalActivities: totalActivities,
-          lastPage: lastPage,
-          indexPage: indexPage,
-          pageCount: pageCount);
+  ActivityState copyWith({
+    Activities? newActivity,
+    List<Activities>? activities,
+    Map<String, int>? paginateActivities,
+    bool? isLoading,
+    bool? isErrorInitial,
+    String? errorMessageApi,
+  }) =>
+      ActivityState(
+        newActivity: newActivity ?? this.newActivity,
+        activities: activities ?? this.activities,
+        paginateActivities: paginateActivities ?? this.paginateActivities,
+        errorMessageApi: errorMessageApi == ''
+            ? null
+            : errorMessageApi ?? this.errorMessageApi,
+        isLoading: isLoading ?? this.isLoading,
+        isErrorInitial: isErrorInitial ?? this.isErrorInitial,
+      );
 }

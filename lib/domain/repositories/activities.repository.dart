@@ -1,0 +1,7 @@
+import 'package:hope_app/domain/domain.dart';
+
+abstract class ActivitiesRepository {
+  Future<ResponseDataList<Activities>> getAllActivities({
+    required int indexPage,
+  });
+}
