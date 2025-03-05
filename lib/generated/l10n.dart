@@ -1805,6 +1805,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Puntos requeridos`
+  String get Puntos_requeridos {
+    return Intl.message(
+      'Puntos requeridos',
+      name: 'Puntos_requeridos',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -298,6 +298,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Progresos": MessageLookupByLibrary.simpleMessage("Progresos"),
         "Puntaje": MessageLookupByLibrary.simpleMessage("Puntaje"),
         "Puntos": MessageLookupByLibrary.simpleMessage("Puntos"),
+        "Puntos_requeridos":
+            MessageLookupByLibrary.simpleMessage("Puntos requeridos"),
         "Quitar_actividad":
             MessageLookupByLibrary.simpleMessage("Quitar actividad"),
         "Quitar_actividad_a_los_ninos": MessageLookupByLibrary.simpleMessage(
