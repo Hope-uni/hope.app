@@ -17,7 +17,9 @@ class ProfilePage extends ConsumerStatefulWidget {
 class _ProfilePageState extends ConsumerState<ProfilePage> {
   bool enableInput = false;
   bool clickSave = false;
+
   final CameraGalleryDataSourceImpl image = CameraGalleryDataSourceImpl();
+  final TextEditingController controller = TextEditingController();
 
   final Map<String, FocusNode> focusNodes = {
     $userNameProfile: FocusNode(),
@@ -32,7 +34,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     final profileState = ref.watch(profileProvider);
-    final profileNotifier = ref.watch(profileProvider.notifier);
+    final profileNotifier = ref.read(profileProvider.notifier);
 
     ref.listen(profileProvider, (previous, next) {
       if (next.validationErrors.isNotEmpty && clickSave) {
@@ -69,9 +71,8 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     if (profileState.isLoading) {
       return const Center(child: CircularProgressIndicator());
     }
-
-    final TextEditingController controller = TextEditingController(
-        text: profileState.profile!.birthday.split('-').reversed.join('-'));
+    controller.text =
+        profileState.profile!.birthday.split('-').reversed.join('-');
 
     Future<void> selectDate(BuildContext context, String dateValue) async {
       final DateTime now = DateTime.now();
@@ -94,7 +95,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
 
         setState(() {
           controller.text =
-              "${pickedDate.year}-${pickedDate.month}-${pickedDate.day}";
+              "${pickedDate.day}-${pickedDate.month}-${pickedDate.year}";
         });
       }
     }
@@ -159,7 +160,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                                   bottom: 0,
                                   right: 0,
                                   child: IconButton.filled(
-                                    iconSize: 30,
+                                    iconSize: 20,
                                     style: const ButtonStyle(
                                       backgroundColor: WidgetStatePropertyAll(
                                         $colorBlueGeneral,

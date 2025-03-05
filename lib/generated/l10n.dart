@@ -1002,21 +1002,21 @@ class S {
     );
   }
 
-  /// `Progreso general`
-  String get Progreso_general {
+  /// `Progreso general de las fase`
+  String get Progreso_general_de_las_fase {
     return Intl.message(
-      'Progreso general',
-      name: 'Progreso_general',
+      'Progreso general de las fase',
+      name: 'Progreso_general_de_las_fase',
       desc: '',
       args: [],
     );
   }
 
-  /// `Progreso de fase`
-  String get progreso_de_fase {
+  /// `Progreso de fase actual`
+  String get progreso_de_fase_Actual {
     return Intl.message(
-      'Progreso de fase',
-      name: 'progreso_de_fase',
+      'Progreso de fase actual',
+      name: 'progreso_de_fase_Actual',
       desc: '',
       args: [],
     );

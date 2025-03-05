@@ -8,7 +8,7 @@ class Children {
   CatalogObject teaDegree;
   CatalogObject currentPhase;
   int achievementCount;
-  String image;
+  String? image;
 
   Children({
     required this.id,
@@ -18,6 +18,6 @@ class Children {
     required this.teaDegree,
     required this.currentPhase,
     required this.achievementCount,
-    required this.image,
+    this.image,
   });
 }
