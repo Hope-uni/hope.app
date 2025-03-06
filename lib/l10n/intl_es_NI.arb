@@ -33,7 +33,7 @@
   "Limpiar_filtros": "Limpiar filtros",
   "Editar": "Editar",
   "Eliminar": "Eliminar",
-  "Editar_imagen": "Editar Imagen",
+  "Editar_pictograma": "Editar pictograma",
   "Guardar": "Guardar",
   "Cancelar": "Cancelar",
   "Actualizar": "Actualizar",
@@ -175,5 +175,7 @@
   "Grado_de_autismo_actual": "Grado de autismo actual",
   "Fase_actual": "Fase actual",
   "Sin_actividad_activa_por_el_momento": "Sin actividad activa por el momento",
-  "Puntos_requeridos": "Puntos requeridos"
+  "Puntos_requeridos": "Puntos requeridos",
+  "Eliminacion_exitosa": "¡liminación exitosa!",
+  "Se_elimino_correctamente_el_pictograma_personalizado": "Se eliminó correctamente el pictograma personalizado"
 }

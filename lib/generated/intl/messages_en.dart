@@ -123,7 +123,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "Direccion": MessageLookupByLibrary.simpleMessage("Dirección"),
         "Edad": MessageLookupByLibrary.simpleMessage("Edad"),
         "Editar": MessageLookupByLibrary.simpleMessage("Editar"),
-        "Editar_imagen": MessageLookupByLibrary.simpleMessage("Editar Imagen"),
         "Editar_la_informacion_general_de_la_actividad":
             MessageLookupByLibrary.simpleMessage(
                 "Editar la Información general de la actividad"),
@@ -131,6 +130,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Editar observaciones"),
         "Editar_observaciones_del_nino": MessageLookupByLibrary.simpleMessage(
             "Editar observaciones del niño"),
+        "Editar_pictograma":
+            MessageLookupByLibrary.simpleMessage("Editar pictograma"),
         "El_celular_deber_ser_un_numero_valido_y_no_estar_vacio":
             MessageLookupByLibrary.simpleMessage(
                 "El celular deber ser un numero valido y no estar vacío"),
@@ -152,6 +153,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "El teléfono deber ser un numero valido y no estar vacío"),
         "El_usuario_es_requerido":
             MessageLookupByLibrary.simpleMessage("El usuario es requerido"),
+        "Eliminacion_exitosa":
+            MessageLookupByLibrary.simpleMessage("¡liminación exitosa!"),
         "Eliminacion_permanente_de_la_actividad":
             MessageLookupByLibrary.simpleMessage(
                 "Eliminación permanente de la actividad"),
@@ -316,6 +319,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Se asignó correctamente la actividad a los niños seleccionados"),
         "Se_avanzo_a_la_fase": m4,
+        "Se_elimino_correctamente_el_pictograma_personalizado":
+            MessageLookupByLibrary.simpleMessage(
+                "Se eliminó correctamente el pictograma personalizado"),
         "Segundo_apellido":
             MessageLookupByLibrary.simpleMessage("Segundo Apellido"),
         "Segundo_nombre":

@@ -390,11 +390,11 @@ class S {
     );
   }
 
-  /// `Editar Imagen`
-  String get Editar_imagen {
+  /// `Editar pictograma`
+  String get Editar_pictograma {
     return Intl.message(
-      'Editar Imagen',
-      name: 'Editar_imagen',
+      'Editar pictograma',
+      name: 'Editar_pictograma',
       desc: '',
       args: [],
     );
@@ -1811,6 +1811,26 @@ class S {
     return Intl.message(
       'Puntos requeridos',
       name: 'Puntos_requeridos',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `¡liminación exitosa!`
+  String get Eliminacion_exitosa {
+    return Intl.message(
+      '¡liminación exitosa!',
+      name: 'Eliminacion_exitosa',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Se eliminó correctamente el pictograma personalizado`
+  String get Se_elimino_correctamente_el_pictograma_personalizado {
+    return Intl.message(
+      'Se eliminó correctamente el pictograma personalizado',
+      name: 'Se_elimino_correctamente_el_pictograma_personalizado',
       desc: '',
       args: [],
     );
