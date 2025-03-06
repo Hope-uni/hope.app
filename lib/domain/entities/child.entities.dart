@@ -9,12 +9,12 @@ class Child extends Person {
   CatalogObject currentPhase;
   Progress progress;
   List<Observation>? observations;
-  List<CatalogObjectCategory>? achievements;
+  List<PictogramAchievements>? achievements;
   PersonTutorTherapist tutor;
   PersonTutorTherapist? therapist;
   CurrentActivity? currentActivity;
   List<Activity>? activities;
-  List<CatalogObjectCategory>? pictograms;
+  List<PictogramAchievements>? pictograms;
 
   Child({
     required this.id,
@@ -63,11 +63,11 @@ class Child extends Person {
     Progress? progress,
     PersonTutorTherapist? tutor,
     List<Observation>? observations,
-    List<CatalogObjectCategory>? achievements,
+    List<PictogramAchievements>? achievements,
     PersonTutorTherapist? therapist,
     CurrentActivity? currentActivity,
     List<Activity>? activities,
-    List<CatalogObjectCategory>? pictograms,
+    List<PictogramAchievements>? pictograms,
   }) =>
       Child(
         firstName: firstName ?? super.firstName,

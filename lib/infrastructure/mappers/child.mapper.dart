@@ -28,8 +28,8 @@ class ChildMapper {
                 json["observations"].map((x) => observationfromJson(x))),
         achievements: json["achievements"] == null
             ? null
-            : List<CatalogObjectCategory>.from(json["achievements"]
-                .map((x) => catalogObjectCategoryfromJson(x))),
+            : List<PictogramAchievements>.from(json["achievements"]
+                .map((x) => PictogramsMapper.pictogramAchievementsfromJson(x))),
         tutor: personfromJson(json["tutor"]),
         therapist: json["therapist"] == null
             ? null
@@ -43,24 +43,8 @@ class ChildMapper {
                 json["activities"].map((x) => activityfromJson(x))),
         pictograms: json["pictograms"] == null
             ? null
-            : List<CatalogObjectCategory>.from(json["pictograms"]
-                .map((x) => catalogObjectCategoryfromJson(x))),
-      );
-
-  static CatalogObjectCategory catalogObjectCategoryfromJson(
-          Map<String, dynamic> json) =>
-      CatalogObjectCategory(
-        id: json["id"],
-        name: json["name"],
-        imageUrl: json["imageUrl"],
-        category: json["Category"] == null
-            ? null
-            : categoryfromJson(json["Category"]),
-      );
-
-  static Category categoryfromJson(Map<String, dynamic> json) => Category(
-        id: json["id"],
-        name: json["name"],
+            : List<PictogramAchievements>.from(json["pictograms"]
+                .map((x) => PictogramsMapper.pictogramAchievementsfromJson(x))),
       );
 
   static Activity activityfromJson(Map<String, dynamic> json) => Activity(

@@ -9,7 +9,7 @@ class InputForm extends StatefulWidget {
   final String? hint;
   final String? errorText;
   final int? maxLength;
-  final int? maxLines;
+  final bool linesDynamic;
   final double? marginBottom;
   final bool? obscureText;
   final Widget? suffixIcon;
@@ -22,6 +22,8 @@ class InputForm extends StatefulWidget {
   final Function()? onTap;
   final bool? isSearch;
   final TextEditingController? controllerExt;
+  final Color? colorFilled;
+  final bool isMargin;
 
   const InputForm({
     super.key,
@@ -29,7 +31,7 @@ class InputForm extends StatefulWidget {
     required this.enable,
     this.label,
     this.readOnly,
-    this.maxLines,
+    this.linesDynamic = false,
     this.maxLength,
     this.onTap,
     this.onChanged,
@@ -44,6 +46,8 @@ class InputForm extends StatefulWidget {
     this.allCharacters,
     this.isSearch,
     this.controllerExt,
+    this.colorFilled,
+    this.isMargin = true,
   });
 
   @override
@@ -77,8 +81,8 @@ class _InputFormState extends State<InputForm> {
     final textLength = _controller.value.text.length;
     return Container(
       margin: EdgeInsets.only(
-        left: 15,
-        right: 15,
+        left: widget.isMargin == true ? 15 : 0,
+        right: widget.isMargin == true ? 15 : 0,
         bottom: widget.marginBottom == null ? 12.5 : widget.marginBottom!,
       ),
       child: TextField(
@@ -87,7 +91,7 @@ class _InputFormState extends State<InputForm> {
         onChanged: widget.onChanged,
         enabled: widget.enable,
         readOnly: widget.readOnly ?? false,
-        maxLines: widget.maxLines ?? 1,
+        maxLines: widget.linesDynamic == false ? 1 : null,
         obscureText: widget.obscureText ?? false,
         maxLength: widget.enable ? widget.maxLength : null,
         style: const TextStyle(color: $colorTextBlack),
@@ -110,6 +114,8 @@ class _InputFormState extends State<InputForm> {
           errorText: widget.errorText,
           errorMaxLines: 2,
           hintText: widget.hint,
+          filled: widget.colorFilled != null ? true : false,
+          fillColor: widget.colorFilled,
           labelStyle: const TextStyle(color: $colorTextBlack),
           border: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(15)),

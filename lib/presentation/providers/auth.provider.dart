@@ -13,6 +13,7 @@ final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
   final profileStateNotifier = ref.read(profileProvider.notifier);
   final childrenStateNotifier = ref.read(childrenProvider.notifier);
   final activitiesStateNotifier = ref.read(activitiesProvider.notifier);
+  final pictogramsStateNotifier = ref.read(pictogramsProvider.notifier);
 
   return AuthNotifier(
     authRepository: authRepository,
@@ -20,6 +21,7 @@ final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
     profileStateNotifier: profileStateNotifier,
     childrenStateNotifier: childrenStateNotifier,
     activitiesStateNotifier: activitiesStateNotifier,
+    pictogramsStateNotifier: pictogramsStateNotifier,
   );
 });
 
@@ -31,6 +33,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
   final ProfileNotifier profileStateNotifier;
   final ChildrenNotifier childrenStateNotifier;
   final ActivitiesNotifier activitiesStateNotifier;
+  final PictogramsNotifier pictogramsStateNotifier;
 
   AuthNotifier({
     required this.profileStateNotifier,
@@ -38,6 +41,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     required this.keyValueRepository,
     required this.authRepository,
     required this.activitiesStateNotifier,
+    required this.pictogramsStateNotifier,
   }) : super(AuthState());
 
   void setLoggedToken(Token token) async {

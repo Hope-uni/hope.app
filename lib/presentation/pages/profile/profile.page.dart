@@ -389,7 +389,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                       InputForm(
                         label: S.current.Direccion,
                         maxLength: 100,
-                        maxLines: 5,
+                        linesDynamic: true,
                         enable: enableInput,
                         onChanged: (value) {
                           profileNotifier.updateProfileField(
