@@ -72,6 +72,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Avanzar_de_fase":
             MessageLookupByLibrary.simpleMessage("Avanzar de fase"),
         "Aviso": MessageLookupByLibrary.simpleMessage("¡Aviso!"),
+        "Ayuda": MessageLookupByLibrary.simpleMessage("Ayuda"),
         "Bienvenido_pagina_de_inicio": MessageLookupByLibrary.simpleMessage(
             "Bienvenido - Página de inicio"),
         "Buscar": MessageLookupByLibrary.simpleMessage("Buscar"),
@@ -123,7 +124,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "Direccion": MessageLookupByLibrary.simpleMessage("Dirección"),
         "Edad": MessageLookupByLibrary.simpleMessage("Edad"),
         "Editar": MessageLookupByLibrary.simpleMessage("Editar"),
-        "Editar_imagen": MessageLookupByLibrary.simpleMessage("Editar Imagen"),
         "Editar_la_informacion_general_de_la_actividad":
             MessageLookupByLibrary.simpleMessage(
                 "Editar la Información general de la actividad"),
@@ -131,6 +131,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Editar observaciones"),
         "Editar_observaciones_del_nino": MessageLookupByLibrary.simpleMessage(
             "Editar observaciones del niño"),
+        "Editar_pictograma":
+            MessageLookupByLibrary.simpleMessage("Editar pictograma"),
         "El_celular_deber_ser_un_numero_valido_y_no_estar_vacio":
             MessageLookupByLibrary.simpleMessage(
                 "El celular deber ser un numero valido y no estar vacío"),
@@ -152,6 +154,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "El teléfono deber ser un numero valido y no estar vacío"),
         "El_usuario_es_requerido":
             MessageLookupByLibrary.simpleMessage("El usuario es requerido"),
+        "Eliminacion_exitosa":
+            MessageLookupByLibrary.simpleMessage("¡Eliminación exitosa!"),
         "Eliminacion_permanente_de_la_actividad":
             MessageLookupByLibrary.simpleMessage(
                 "Eliminación permanente de la actividad"),
@@ -206,6 +210,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Guardado_con_exito":
             MessageLookupByLibrary.simpleMessage("¡Guardado con éxito!"),
         "Guardar": MessageLookupByLibrary.simpleMessage("Guardar"),
+        "Hacer_clic_en_el_boton_de_editar":
+            MessageLookupByLibrary.simpleMessage(
+                "• Hacer clic en el botón de editar."),
+        "Hacer_doble_clic_sobre_la_imagen":
+            MessageLookupByLibrary.simpleMessage(
+                "• Hacer doble clic sobre la imagen."),
         "Hope": MessageLookupByLibrary.simpleMessage("hope"),
         "Informacion_del_nino":
             MessageLookupByLibrary.simpleMessage("Información del niño"),
@@ -250,14 +260,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Limpiar": MessageLookupByLibrary.simpleMessage("Limpiar"),
         "Limpiar_filtros":
             MessageLookupByLibrary.simpleMessage("Limpiar filtros"),
-        "Lista_de_pictogramas_generales": MessageLookupByLibrary.simpleMessage(
-            "Lista de pictogramas generales"),
         "Listar_pictogramas":
             MessageLookupByLibrary.simpleMessage("Listar pictogramas"),
         "Logros": MessageLookupByLibrary.simpleMessage("Logros"),
         "Los_campos_no_pueden_estar_vacios":
             MessageLookupByLibrary.simpleMessage(
                 "Los campos no pueden estar vacíos"),
+        "Mantener_el_dedo_sobre_el_nombre_durante_1_segundo_para_verlo_completo":
+            MessageLookupByLibrary.simpleMessage(
+                "• Mantener el dedo sobre el nombre durante 1 segundo para verlo completo."),
         "Ninos_asignados_Terapeuta":
             MessageLookupByLibrary.simpleMessage("Niños asignados - Terapeuta"),
         "Ninos_asignados_Tutor":
@@ -280,11 +291,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "Opciones": MessageLookupByLibrary.simpleMessage("Opciones"),
         "Oracion": MessageLookupByLibrary.simpleMessage("Oración"),
         "Pagina": MessageLookupByLibrary.simpleMessage("Página"),
+        "Para_ver_la_imagen_con_mas_detalle":
+            MessageLookupByLibrary.simpleMessage(
+                "Para ver la imagen con más detalle:"),
         "Perfil": MessageLookupByLibrary.simpleMessage("Perfil"),
         "Peticion_enviada":
             MessageLookupByLibrary.simpleMessage("Petición enviada"),
         "Pictogramas_blanco_negro":
             MessageLookupByLibrary.simpleMessage("Pictogramas Blanco/Negro"),
+        "Pictogramas_generales":
+            MessageLookupByLibrary.simpleMessage("Pictogramas generales"),
         "Pictogramas_personalizados":
             MessageLookupByLibrary.simpleMessage("Pictogramas Personalizados"),
         "Pictogramas_personalizados_del_nino":
@@ -316,6 +332,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Se asignó correctamente la actividad a los niños seleccionados"),
         "Se_avanzo_a_la_fase": m4,
+        "Se_elimino_correctamente_el_pictograma_personalizado":
+            MessageLookupByLibrary.simpleMessage(
+                "Se eliminó correctamente el pictograma personalizado"),
         "Segundo_apellido":
             MessageLookupByLibrary.simpleMessage("Segundo Apellido"),
         "Segundo_nombre":
@@ -333,6 +352,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Si_Quitar": MessageLookupByLibrary.simpleMessage("Si, Quitar"),
         "Si_actualizar": MessageLookupByLibrary.simpleMessage("Si, actualizar"),
         "Si_avanzar": MessageLookupByLibrary.simpleMessage("Si, avanzar"),
+        "Si_el_nombre_del_pictograma_no_se_muestra_completo_puede":
+            MessageLookupByLibrary.simpleMessage(
+                "Si el nombre del pictograma no se muestra completo, puede:"),
         "Si_salir": MessageLookupByLibrary.simpleMessage("Si, Salir"),
         "Siguiente": MessageLookupByLibrary.simpleMessage("Siguiente"),
         "Sin_actividad_activa_por_el_momento":

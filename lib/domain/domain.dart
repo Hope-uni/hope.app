@@ -8,6 +8,7 @@ export 'entities/catalogo_object.entities.dart';
 export 'entities/child.entities.dart';
 export 'entities/person.entities.dart';
 export 'entities/activities.entities.dart';
+export 'entities/pictogram.entities.dart';
 
 export 'datasources/auth.datasource.dart';
 export 'repositories/auth.repository.dart';
@@ -26,3 +27,6 @@ export 'repositories/children.repository.dart';
 
 export 'datasources/activities.datasource.dart';
 export 'repositories/activities.repository.dart';
+
+export 'datasources/pictograms.datasource.dart';
+export 'repositories/pictograms.repository.dart';

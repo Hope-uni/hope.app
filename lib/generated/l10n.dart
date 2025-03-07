@@ -390,11 +390,11 @@ class S {
     );
   }
 
-  /// `Editar Imagen`
-  String get Editar_imagen {
+  /// `Editar pictograma`
+  String get Editar_pictograma {
     return Intl.message(
-      'Editar Imagen',
-      name: 'Editar_imagen',
+      'Editar pictograma',
+      name: 'Editar_pictograma',
       desc: '',
       args: [],
     );
@@ -952,11 +952,11 @@ class S {
     );
   }
 
-  /// `Lista de pictogramas generales`
-  String get Lista_de_pictogramas_generales {
+  /// `Pictogramas generales`
+  String get Pictogramas_generales {
     return Intl.message(
-      'Lista de pictogramas generales',
-      name: 'Lista_de_pictogramas_generales',
+      'Pictogramas generales',
+      name: 'Pictogramas_generales',
       desc: '',
       args: [],
     );
@@ -1811,6 +1811,88 @@ class S {
     return Intl.message(
       'Puntos requeridos',
       name: 'Puntos_requeridos',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `¡Eliminación exitosa!`
+  String get Eliminacion_exitosa {
+    return Intl.message(
+      '¡Eliminación exitosa!',
+      name: 'Eliminacion_exitosa',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Se eliminó correctamente el pictograma personalizado`
+  String get Se_elimino_correctamente_el_pictograma_personalizado {
+    return Intl.message(
+      'Se eliminó correctamente el pictograma personalizado',
+      name: 'Se_elimino_correctamente_el_pictograma_personalizado',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Si el nombre del pictograma no se muestra completo, puede:`
+  String get Si_el_nombre_del_pictograma_no_se_muestra_completo_puede {
+    return Intl.message(
+      'Si el nombre del pictograma no se muestra completo, puede:',
+      name: 'Si_el_nombre_del_pictograma_no_se_muestra_completo_puede',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Mantener el dedo sobre el nombre durante 1 segundo para verlo completo.`
+  String
+      get Mantener_el_dedo_sobre_el_nombre_durante_1_segundo_para_verlo_completo {
+    return Intl.message(
+      '• Mantener el dedo sobre el nombre durante 1 segundo para verlo completo.',
+      name:
+          'Mantener_el_dedo_sobre_el_nombre_durante_1_segundo_para_verlo_completo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Hacer clic en el botón de editar.`
+  String get Hacer_clic_en_el_boton_de_editar {
+    return Intl.message(
+      '• Hacer clic en el botón de editar.',
+      name: 'Hacer_clic_en_el_boton_de_editar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Para ver la imagen con más detalle:`
+  String get Para_ver_la_imagen_con_mas_detalle {
+    return Intl.message(
+      'Para ver la imagen con más detalle:',
+      name: 'Para_ver_la_imagen_con_mas_detalle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Hacer doble clic sobre la imagen.`
+  String get Hacer_doble_clic_sobre_la_imagen {
+    return Intl.message(
+      '• Hacer doble clic sobre la imagen.',
+      name: 'Hacer_doble_clic_sobre_la_imagen',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ayuda`
+  String get Ayuda {
+    return Intl.message(
+      'Ayuda',
+      name: 'Ayuda',
       desc: '',
       args: [],
     );

@@ -20,13 +20,22 @@ class ChildNotifier extends StateNotifier<ChildState> {
     state = state.copyWith(isLoading: true);
     try {
       final responseChild = await childrenDataSource.getChild(idChild: idChild);
-      state = state.copyWith(child: responseChild.data, isLoading: false);
+      state = state.copyWith(
+        child: responseChild.data,
+        isLoading: false,
+        isError: false,
+      );
     } on CustomError catch (e) {
-      state = state.copyWith(errorMessageApi: e.message, isLoading: false);
+      state = state.copyWith(
+        errorMessageApi: e.message,
+        isLoading: false,
+        isError: true,
+      );
     } catch (e) {
       state = state.copyWith(
         errorMessageApi: S.current.Error_inesperado,
         isLoading: false,
+        isError: true,
       );
     }
   }
