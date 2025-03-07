@@ -120,7 +120,9 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
       }
     });
 
-    if (stateChild.isLoading == false && context.mounted) {
+    if (stateChild.isError != true &&
+        stateChild.isLoading == false &&
+        context.mounted) {
       controllerDate.text =
           stateChild.child!.birthday.split('-').reversed.join('-');
     }
@@ -235,7 +237,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
                 ))),
         body: Stack(
           children: [
-            if (stateChild.isLoading == false)
+            if (stateChild.isLoading == false && stateChild.isError != true)
               TabBarView(
                 children: <Widget>[
                   Container(
@@ -369,6 +371,11 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
                     ),
                   ),
                 ],
+              ),
+            if (stateChild.isError == true)
+              SvgPicture.asset(
+                fit: BoxFit.contain,
+                'assets/svg/SinDatos.svg',
               ),
           ],
         ),
@@ -789,7 +796,7 @@ List<Widget> _childPersonalData({
     InputForm(
       label: S.current.Direccion,
       maxLength: 100,
-      maxLines: 5,
+      linesDynamic: true,
       enable: enableInput,
       onChanged: (value) {
         notifierChild.updateChildField($addressProfile, value);

@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:hope_app/presentation/utils/utils.dart';
 
 class ImageLoad extends StatelessWidget {
   final String? urlImage;
-  final double? height;
-  final double? width;
   final bool? isDoubleTap;
 
   const ImageLoad({
     super.key,
     this.urlImage,
-    this.height,
-    this.width,
     this.isDoubleTap,
   });
 
@@ -23,13 +20,17 @@ class ImageLoad extends StatelessWidget {
               showDialog<void>(
                 context: context,
                 builder: (BuildContext context) {
-                  return AlertDialog(
-                    contentPadding: EdgeInsets.zero,
-                    content: ImageLoad(
-                      urlImage: urlImage,
-                      width: 300,
-                      height: 280,
-                      isDoubleTap: false,
+                  return Dialog(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: $colorTextBlack, width: 0.5),
+                        color: $colorTextWhite,
+                      ),
+                      child: ImageLoad(
+                        urlImage: urlImage,
+                        isDoubleTap: false,
+                      ),
                     ),
                   );
                 },
@@ -38,9 +39,7 @@ class ImageLoad extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
         child: FadeInImage(
-          height: height ?? 100,
-          width: width ?? 100,
-          fit: BoxFit.cover,
+          fit: isDoubleTap == false ? null : BoxFit.cover,
           placeholderFit: BoxFit.cover,
           imageErrorBuilder: (context, error, stackTrace) {
             return Image.asset('assets/img/no-image.png', fit: BoxFit.cover);

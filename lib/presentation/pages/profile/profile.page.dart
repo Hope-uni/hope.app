@@ -148,8 +148,6 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                                     shape: BoxShape.circle,
                                   ),
                                   child: ImageLoad(
-                                    height: 150,
-                                    width: 150,
                                     urlImage: profileState.profile!.image ?? '',
                                   ),
                                 ),
@@ -389,7 +387,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                       InputForm(
                         label: S.current.Direccion,
                         maxLength: 100,
-                        maxLines: 5,
+                        linesDynamic: true,
                         enable: enableInput,
                         onChanged: (value) {
                           profileNotifier.updateProfileField(

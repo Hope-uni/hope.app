@@ -1,34 +1,63 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hope_app/domain/domain.dart';
+import 'package:hope_app/generated/l10n.dart';
+import 'package:hope_app/infrastructure/infrastructure.dart';
+import 'package:hope_app/presentation/utils/utils.dart';
 
-//TODO: Cambiar cuando este listo el endpoint cambiar info
 final pictogramsProvider =
-    StateNotifierProvider<PictogramsNotifier, PictogramsStatus>((ref) {
-  //final patientRepository = PatientsRepositoryImp();
-  return PictogramsNotifier();
+    StateNotifierProvider<PictogramsNotifier, PictogramsState>((ref) {
+  return PictogramsNotifier(pictogramsDataSource: PictogramsDataSourceImpl());
 });
 
-typedef PictogramsCallBack = Future<List<String>> Function({
-  required int idChild,
-  required int indexPage,
-  required String typePicto,
-});
+class PictogramsNotifier extends StateNotifier<PictogramsState> {
+  final PictogramsDataSourceImpl pictogramsDataSource;
 
-class PictogramsNotifier extends StateNotifier<PictogramsStatus> {
-  final PictogramsCallBack? morePictograms;
+  PictogramsNotifier({required this.pictogramsDataSource})
+      : super(PictogramsState());
 
-  PictogramsNotifier({
-    this.morePictograms,
-  }) : super(PictogramsStatus());
+  Future<void> getPictograms() async {
+    state = state.copyWith(isLoading: true);
+    final indexPage = state.paginatePictograms[$indexPage]!;
+    try {
+      final pictograms =
+          await pictogramsDataSource.getPictograms(indexPage: indexPage);
 
-  Future<void> loadMorePictograms() async {
-    state.indexPage++;
-    final List<String> pictograms = await morePictograms!(
-        indexPage: state.indexPage,
-        typePicto: state.typePicto!,
-        idChild: state.idChild);
-    state.listPictograms = [...state.listPictograms, ...pictograms];
+      Map<String, int> paginate = {
+        $indexPage: indexPage + 1,
+        $pageCount: pictograms.paginate!.pageCount
+      };
 
-    //state.lastPage = valorRespuesta; TODO : Cambiar cuando ya este el endpoint
+      state = state.copyWith(
+        paginatePictograms: paginate,
+        pictograms: [
+          ...state.pictograms,
+          ...pictograms.data!,
+        ],
+        isLoading: false,
+        isErrorInitial: false,
+      );
+    } on CustomError catch (e) {
+      if (indexPage == 1) state = state.copyWith(isErrorInitial: true);
+      state = state.copyWith(errorMessageApi: e.message, isLoading: false);
+    } catch (e) {
+      if (indexPage == 1) state = state.copyWith(isErrorInitial: true);
+      state = state.copyWith(
+        errorMessageApi: S.current.Error_inesperado,
+        isLoading: false,
+      );
+    }
+  }
+
+  void updateErrorMessage() {
+    state = state.copyWith(errorMessageApi: '');
+  }
+
+  void resetIsErrorInitial() {
+    state = state.copyWith(isErrorInitial: false);
+  }
+
+  void resetState() {
+    state = PictogramsState();
   }
 
   void resetFilter() {
@@ -46,36 +75,43 @@ class PictogramsNotifier extends StateNotifier<PictogramsStatus> {
   }
 }
 
-class PictogramsStatus {
-  List<String> listPictograms;
-  int indexPage;
-  int lastPage;
-  int idChild;
-  String? typePicto;
-  String namePicto;
+class PictogramsState {
+  final List<PictogramAchievements> pictograms;
+  final bool? isLoading;
+  final String? errorMessageApi;
+  final bool? isErrorInitial;
+  final Map<String, int> paginatePictograms;
+  final String? typePicto;
+  final String namePicto;
 
-  PictogramsStatus({
-    this.listPictograms = const [],
-    this.indexPage = 0,
-    this.lastPage = 0,
-    this.idChild = 0,
+  PictogramsState({
+    this.pictograms = const [],
+    this.paginatePictograms = const {$indexPage: 1, $pageCount: 0},
+    this.isLoading = true,
+    this.isErrorInitial = false,
+    this.errorMessageApi,
     this.typePicto,
     this.namePicto = '',
   });
 
-  PictogramsStatus copyWith({
-    List<String>? listPictograms,
-    int? indexPage,
-    int? lastPage,
-    int? idChild,
+  PictogramsState copyWith({
+    List<PictogramAchievements>? pictograms,
+    Map<String, int>? paginatePictograms,
+    bool? isLoading,
+    bool? isErrorInitial,
+    String? errorMessageApi,
     String? typePicto,
     String? namePicto,
   }) =>
-      PictogramsStatus(
-          listPictograms: listPictograms ?? this.listPictograms,
-          indexPage: indexPage ?? this.indexPage,
-          lastPage: lastPage ?? this.lastPage,
-          idChild: idChild ?? this.idChild,
-          namePicto: namePicto ?? this.namePicto,
-          typePicto: typePicto == '' ? null : typePicto ?? this.typePicto);
+      PictogramsState(
+        pictograms: pictograms ?? this.pictograms,
+        errorMessageApi: errorMessageApi == ''
+            ? null
+            : errorMessageApi ?? this.errorMessageApi,
+        isLoading: isLoading ?? this.isLoading,
+        isErrorInitial: isErrorInitial ?? this.isErrorInitial,
+        paginatePictograms: paginatePictograms ?? this.paginatePictograms,
+        namePicto: namePicto ?? this.namePicto,
+        typePicto: typePicto == '' ? null : typePicto ?? this.typePicto,
+      );
 }
