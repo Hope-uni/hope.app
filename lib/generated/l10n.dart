@@ -1816,10 +1816,10 @@ class S {
     );
   }
 
-  /// `¡liminación exitosa!`
+  /// `¡Eliminación exitosa!`
   String get Eliminacion_exitosa {
     return Intl.message(
-      '¡liminación exitosa!',
+      '¡Eliminación exitosa!',
       name: 'Eliminacion_exitosa',
       desc: '',
       args: [],

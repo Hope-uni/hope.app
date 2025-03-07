@@ -155,7 +155,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "El_usuario_es_requerido":
             MessageLookupByLibrary.simpleMessage("El usuario es requerido"),
         "Eliminacion_exitosa":
-            MessageLookupByLibrary.simpleMessage("¡liminación exitosa!"),
+            MessageLookupByLibrary.simpleMessage("¡Eliminación exitosa!"),
         "Eliminacion_permanente_de_la_actividad":
             MessageLookupByLibrary.simpleMessage(
                 "Eliminación permanente de la actividad"),
