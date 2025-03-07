@@ -148,8 +148,6 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                                     shape: BoxShape.circle,
                                   ),
                                   child: ImageLoad(
-                                    height: 150,
-                                    width: 150,
                                     urlImage: profileState.profile!.image ?? '',
                                   ),
                                 ),
