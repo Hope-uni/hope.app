@@ -89,7 +89,7 @@
   "Informacion_personal_actualizada": "Información personal actualizada",
   "Se_actualizo_correctamente_el_pictograma_personalizado": "Se actualizó correctamente el pictograma personalizado: {namePictogram}",
   "Total_de_resultados": "Total de resultados:",
-  "Lista_de_pictogramas_generales": "Lista de pictogramas generales",
+  "Pictogramas_generales": "Pictogramas generales",
   "Informacion_general": "Información general",
   "Informacion_del_progreso": "Información del progreso",
   "Informacion_personal": "Información personal",
@@ -177,5 +177,11 @@
   "Sin_actividad_activa_por_el_momento": "Sin actividad activa por el momento",
   "Puntos_requeridos": "Puntos requeridos",
   "Eliminacion_exitosa": "¡liminación exitosa!",
-  "Se_elimino_correctamente_el_pictograma_personalizado": "Se eliminó correctamente el pictograma personalizado"
+  "Se_elimino_correctamente_el_pictograma_personalizado": "Se eliminó correctamente el pictograma personalizado",
+  "Si_el_nombre_del_pictograma_no_se_muestra_completo_puede": "Si el nombre del pictograma no se muestra completo, puede:",
+  "Mantener_el_dedo_sobre_el_nombre_durante_1_segundo_para_verlo_completo": "• Mantener el dedo sobre el nombre durante 1 segundo para verlo completo.",
+  "Hacer_clic_en_el_boton_de_editar": "• Hacer clic en el botón de editar.",
+  "Para_ver_la_imagen_con_mas_detalle": "Para ver la imagen con más detalle:",
+  "Hacer_doble_clic_sobre_la_imagen": "• Hacer doble clic sobre la imagen.",
+  "Ayuda": "Ayuda"
 }

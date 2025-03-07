@@ -199,10 +199,14 @@ class _ImageGrid extends StatelessWidget {
           width: 100,
           height: 100,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: $colorTextBlack, width: 0.5),
-              color: $colorTextWhite),
-          child: ImageLoad(urlImage: pictogram.imageUrl),
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: $colorTextBlack, width: 0.5),
+            color: $colorTextWhite,
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: ImageLoad(urlImage: pictogram.imageUrl),
+          ),
         ),
         Container(
           margin: const EdgeInsets.only(top: 10),
@@ -215,7 +219,6 @@ class _ImageGrid extends StatelessWidget {
               pictogram.name,
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
-              maxLines: 1,
             ),
           ),
         ),
@@ -273,8 +276,6 @@ Future<void> _dialogImage(
                         color: $colorTextWhite,
                       ),
                       child: ImageLoad(
-                        height: 180,
-                        width: 180,
                         urlImage: pictogram.imageUrl,
                         isDoubleTap: false,
                       ),

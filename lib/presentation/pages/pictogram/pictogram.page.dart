@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hope_app/generated/l10n.dart';
+import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
 
 class PictogramPage extends StatelessWidget {
@@ -10,7 +11,76 @@ class PictogramPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.current.Lista_de_pictogramas_generales),
+        actions: [
+          Container(
+            margin: const EdgeInsets.only(right: 15),
+            child: IconButton(
+              icon: const Icon(Icons.help),
+              onPressed: () {
+                showDialog<void>(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Container(
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20)),
+                          color: $colorBlueGeneral,
+                        ),
+                        padding: const EdgeInsets.only(
+                            left: 22, top: 20, bottom: 20),
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          S.current.Ayuda,
+                          style: const TextStyle(
+                            color: $colorTextWhite,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      titlePadding: EdgeInsets.zero,
+                      content: SizedBox(
+                        width: 200,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              S.current
+                                  .Si_el_nombre_del_pictograma_no_se_muestra_completo_puede,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              S.current
+                                  .Mantener_el_dedo_sobre_el_nombre_durante_1_segundo_para_verlo_completo,
+                            ),
+                            const SizedBox(height: 5),
+                            Text(S.current.Hacer_clic_en_el_boton_de_editar),
+                            const SizedBox(height: 30),
+                            Text(
+                              S.current.Para_ver_la_imagen_con_mas_detalle,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              S.current.Hacer_doble_clic_sobre_la_imagen,
+                            ),
+                          ],
+                        ),
+                      ),
+                      insetPadding: EdgeInsets.zero,
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
+        title: Text(S.current.Pictogramas_generales),
       ),
       body: const GridImages(isCustomized: false),
     );

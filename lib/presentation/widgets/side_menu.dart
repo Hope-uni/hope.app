@@ -68,10 +68,10 @@ class SideMenu extends ConsumerWidget {
                         width: 100,
                         height: 100,
                         child: ImageLoad(
-                            urlImage: profileState.profile == null
-                                ? ''
-                                : profileState.profile!.image ?? '',
-                            isDoubleTap: false),
+                          urlImage: profileState.profile == null
+                              ? ''
+                              : profileState.profile!.image ?? '',
+                        ),
                       ),
                     ),
                     const SizedBox(height: 10),

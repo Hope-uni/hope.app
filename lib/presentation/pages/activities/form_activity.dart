@@ -29,7 +29,7 @@ class FormActivity extends StatelessWidget {
                 'El niño debe de seleccionar al menos 7 pictogramas de animales',
             enable: isEdit,
             label: S.current.Descripcion,
-            maxLines: 5,
+            linesDynamic: true,
             maxLength: 100,
           ),
           SelectBox(
