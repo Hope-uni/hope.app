@@ -39,7 +39,7 @@ class ChildMapper {
             : currentActivityfromJson(json["currentActivity"]),
         activities: json["activities"] == null
             ? null
-            : List<Activity>.from(
+            : List<ActivityChild>.from(
                 json["activities"].map((x) => activityfromJson(x))),
         pictograms: json["pictograms"] == null
             ? null
@@ -47,7 +47,8 @@ class ChildMapper {
                 .map((x) => PictogramsMapper.pictogramAchievementsfromJson(x))),
       );
 
-  static Activity activityfromJson(Map<String, dynamic> json) => Activity(
+  static ActivityChild activityfromJson(Map<String, dynamic> json) =>
+      ActivityChild(
         id: json["id"],
         phase: CatalogoObjectMapper.catalogObjectfromJson(json["phase"]),
         name: json["name"],

@@ -12,4 +12,11 @@ class ActivitiesRepositoryImpl extends ActivitiesRepository {
       {required int indexPage}) {
     return dataSource.getAllActivities(indexPage: indexPage);
   }
+
+  @override
+  Future<ResponseDataObject<Activity>> createActivity({
+    required CreateActivity activity,
+  }) {
+    return dataSource.createActivity(activity: activity);
+  }
 }

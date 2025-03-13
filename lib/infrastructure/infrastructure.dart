@@ -19,6 +19,9 @@ export 'repositories/activities.repository.impl.dart';
 export 'datasources/pictograms.datasource.impl.dart';
 export 'repositories/pictograms.repository.impl.dart';
 
+export 'datasources/phases.datasource.impl.dart';
+export 'repositories/phases.repository.impl.dart';
+
 export 'mappers/profile_person.mapper.dart';
 export 'mappers/response_data.mapper.dart';
 export 'mappers/token.mapper.dart';
@@ -29,5 +32,8 @@ export 'mappers/child.mapper.dart';
 export 'mappers/person.mapper.dart';
 export 'mappers/activities.mapper.dart';
 export 'mappers/pictograms.mapper.dart';
+export 'mappers/activity.mapper.dart';
+export 'mappers/category.mapper.dart';
+export 'mappers/phase.mapper.dart';
 
 export 'errors/custom_errors.dart';
