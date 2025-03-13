@@ -26,6 +26,13 @@ const String $imageProfile = "image";
 const String $masculino = "Masculino";
 const String $femenino = "Femenino";
 
+//KEYS ACTIVITY
+const String $name = "name";
+const String $description = "description";
+const String $satisfactoryPoints = "satisfactoryPoints";
+const String $phaseId = "phaseId";
+const String $pictogramSentence = "pictogramSentence";
+
 //KEYS AUTH
 const String $emailUsername = "email_username";
 const String $password = "password";

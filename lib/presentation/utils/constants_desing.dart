@@ -9,6 +9,7 @@ const Color $colorGradientSecundary = Color.fromARGB(0, 31, 100, 158);
 
 const Color $colorTextAndIconFooterDrawer = Colors.black87;
 const Color $colorTextBlack = Colors.black;
+const Color $backgroundLine = Color.fromARGB(255, 50, 50, 50);
 
 const Color $colorBorderFooterDrawer = Color.fromARGB(255, 172, 172, 172);
 const Color $colorTextWhite = Colors.white;

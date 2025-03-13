@@ -119,6 +119,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Debe_ingresar_el_nombre_de_usuario_o_correo":
             MessageLookupByLibrary.simpleMessage(
                 "Debe ingresar el nombre de usuario o correo"),
+        "Debe_seleccionar_al_menos_un_pictograma_para_la_solucion":
+            MessageLookupByLibrary.simpleMessage(
+                "Debe seleccionar al menos un pictograma para la solución"),
+        "Debe_seleccionar_una_fase_para_la_actividad":
+            MessageLookupByLibrary.simpleMessage(
+                "Debe seleccionar una fase para la actividad"),
         "Derechos_reservados": m0,
         "Descripcion": MessageLookupByLibrary.simpleMessage("Descripción"),
         "Direccion": MessageLookupByLibrary.simpleMessage("Dirección"),
@@ -138,6 +144,9 @@ class MessageLookup extends MessageLookupByLibrary {
                 "El celular deber ser un numero valido y no estar vacío"),
         "El_correo_no_puede_estar_vacio": MessageLookupByLibrary.simpleMessage(
             "El correo no puede estar vacío"),
+        "El_nombre_de_la_actividad_no_puede_estar_vacio":
+            MessageLookupByLibrary.simpleMessage(
+                "El nombre de la actividad no puede estar vacío"),
         "El_nombre_de_usuario_no_puede_estar_vacio":
             MessageLookupByLibrary.simpleMessage(
                 "El nombre de usuario no puede estar vacío"),
@@ -179,6 +188,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "¿Está seguro de actualizar los datos?"),
         "Esta_seguro_de_avanzar_de_fase_a": m1,
+        "Esta_seguro_de_crear_la_actividad":
+            MessageLookupByLibrary.simpleMessage(
+                "¿Está seguro de crear la actividad?"),
         "Esta_seguro_de_eliminar_permanentemente_la_actividad":
             MessageLookupByLibrary.simpleMessage(
                 "¿Está seguro de eliminar permanentemente la actividad?"),
@@ -249,6 +261,9 @@ class MessageLookup extends MessageLookupByLibrary {
                 "La contraseña debe tener entre 8 y 30 caracteres además contener letras y números"),
         "La_contrasena_es_requerida":
             MessageLookupByLibrary.simpleMessage("La contraseña es requerida"),
+        "La_descripcion_de_la_actividad_no_puede_estar_vacia":
+            MessageLookupByLibrary.simpleMessage(
+                "La descripción de la actividad no puede estar vacía"),
         "La_direccion_no_puede_estar_vacia":
             MessageLookupByLibrary.simpleMessage(
                 "La dirección  no puede estar vacía"),
@@ -266,9 +281,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Los_campos_no_pueden_estar_vacios":
             MessageLookupByLibrary.simpleMessage(
                 "Los campos no pueden estar vacíos"),
+        "Los_puntos_para_completar_la_actividad_no_puede_ser_cero_o_estar_vacio":
+            MessageLookupByLibrary.simpleMessage(
+                "Los puntos para completar la actividad no puede ser cero o estar vacío"),
         "Mantener_el_dedo_sobre_el_nombre_durante_1_segundo_para_verlo_completo":
             MessageLookupByLibrary.simpleMessage(
                 "• Mantener el dedo sobre el nombre durante 1 segundo para verlo completo."),
+        "Mantener_el_dedo_sobre_el_pictograma_de_la_solucion_para_poder_ordenarlo_a_su_voluntad":
+            MessageLookupByLibrary.simpleMessage(
+                "• Mantener el dedo sobre el pictograma de la solución para poder ordenarlo a su voluntad"),
         "Ninos_asignados_Terapeuta":
             MessageLookupByLibrary.simpleMessage("Niños asignados - Terapeuta"),
         "Ninos_asignados_Tutor":
@@ -291,6 +312,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Opciones": MessageLookupByLibrary.simpleMessage("Opciones"),
         "Oracion": MessageLookupByLibrary.simpleMessage("Oración"),
         "Pagina": MessageLookupByLibrary.simpleMessage("Página"),
+        "Para_reordenar_la_solucion":
+            MessageLookupByLibrary.simpleMessage("Para reordenar la solución"),
         "Para_ver_la_imagen_con_mas_detalle":
             MessageLookupByLibrary.simpleMessage(
                 "Para ver la imagen con más detalle:"),
@@ -324,6 +347,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Quitar asignación de actividad"),
         "Restablecer_contrasena":
             MessageLookupByLibrary.simpleMessage("Restablecer contraseña"),
+        "Salir": MessageLookupByLibrary.simpleMessage("Salir"),
         "Se_actualizo_correctamente_el_pictograma_personalizado": m3,
         "Se_actualizo_correctamente_la_informacion_de_la_actividad":
             MessageLookupByLibrary.simpleMessage(
@@ -355,6 +379,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Si_el_nombre_del_pictograma_no_se_muestra_completo_puede":
             MessageLookupByLibrary.simpleMessage(
                 "Si el nombre del pictograma no se muestra completo, puede:"),
+        "Si_guardar": MessageLookupByLibrary.simpleMessage("Si, guardar"),
         "Si_salir": MessageLookupByLibrary.simpleMessage("Si, Salir"),
         "Siguiente": MessageLookupByLibrary.simpleMessage("Siguiente"),
         "Sin_actividad_activa_por_el_momento":

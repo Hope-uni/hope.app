@@ -97,6 +97,8 @@
   "Progreso_general_de_las_fase": "Progreso general de las fase",
   "progreso_de_fase_Actual": "Progreso de fase actual",
   "Crear_actividad": "Crear actividad",
+  "Si_guardar": "Si, guardar",
+  "Esta_seguro_de_crear_la_actividad": "¿Está seguro de crear la actividad?",
   "Nombre": "Nombre",
   "Fase": "Fase",
   "Puntos": "Puntos",
@@ -183,5 +185,13 @@
   "Hacer_clic_en_el_boton_de_editar": "• Hacer clic en el botón de editar.",
   "Para_ver_la_imagen_con_mas_detalle": "Para ver la imagen con más detalle:",
   "Hacer_doble_clic_sobre_la_imagen": "• Hacer doble clic sobre la imagen.",
-  "Ayuda": "Ayuda"
+  "Ayuda": "Ayuda",
+  "Salir": "Salir",
+  "El_nombre_de_la_actividad_no_puede_estar_vacio": "El nombre de la actividad no puede estar vacío",
+  "La_descripcion_de_la_actividad_no_puede_estar_vacia": "La descripción de la actividad no puede estar vacía",
+  "Debe_seleccionar_una_fase_para_la_actividad": "Debe seleccionar una fase para la actividad",
+  "Debe_seleccionar_al_menos_un_pictograma_para_la_solucion": "Debe seleccionar al menos un pictograma para la solución",
+  "Los_puntos_para_completar_la_actividad_no_puede_ser_cero_o_estar_vacio": "Los puntos para completar la actividad no puede ser cero o estar vacío",
+  "Para_reordenar_la_solucion":"Para reordenar la solución",
+  "Mantener_el_dedo_sobre_el_pictograma_de_la_solucion_para_poder_ordenarlo_a_su_voluntad":"• Mantener el dedo sobre el pictograma de la solución para poder ordenarlo a su voluntad"
 }
