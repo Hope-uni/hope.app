@@ -1,3 +1,5 @@
+import 'package:hope_app/domain/domain.dart';
+
 class PictogramAchievements {
   int id;
   String name;
@@ -9,17 +11,5 @@ class PictogramAchievements {
     required this.name,
     required this.imageUrl,
     this.category,
-  });
-}
-
-class Category {
-  int id;
-  String name;
-  String icon;
-
-  Category({
-    required this.id,
-    required this.name,
-    required this.icon,
   });
 }

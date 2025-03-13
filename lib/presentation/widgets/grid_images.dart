@@ -9,8 +9,6 @@ import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
 import 'package:toastification/toastification.dart';
 
-const List<String> _list = <String>['Casa', 'Escuela', 'Comida', 'Animales'];
-
 class GridImages extends ConsumerStatefulWidget {
   final bool isCustomized;
 
@@ -99,7 +97,10 @@ class GridImagesState extends ConsumerState<GridImages> {
             onSelected: (value) {
               ref.read(pictogramsProvider.notifier).onTypePictoChange(value!);
             },
-            listItems: _list,
+            listItems: statePictograms.categoryPictograms
+                .map((item) => CatalogObject(
+                    id: item.id, name: item.name, description: ''))
+                .toList(),
           ),
           InputForm(
             hint: S.current.Busqueda_por_nombre,
