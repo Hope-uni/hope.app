@@ -33,10 +33,7 @@ class ImageLoad extends StatelessWidget {
                             ? $colorTextWhite
                             : null,
                       ),
-                      child: ImageLoad(
-                        urlImage: urlImage,
-                        isDoubleTap: false,
-                      ),
+                      child: ImageLoad(urlImage: urlImage, isDoubleTap: false),
                     ),
                   );
                 },
@@ -49,19 +46,12 @@ class ImageLoad extends StatelessWidget {
                   fit: isDoubleTap == false ? null : BoxFit.cover,
                   placeholderFit: BoxFit.cover,
                   imageErrorBuilder: (context, error, stackTrace) {
-                    return SvgPicture.asset(
-                      fit: BoxFit.contain,
-                      'assets/svg/placeholderImage_bn.svg',
-                    ); //Image.asset('assets/img/no-image.png', fit: BoxFit.cover);
+                    return SvgPicture.asset(fit: BoxFit.contain, noIMage);
                   },
-                  placeholder: const AssetImage('assets/gif/jar-loading.gif'),
+                  placeholder: const AssetImage(loading),
                   image: NetworkImage(urlImage!) as ImageProvider,
                 )
-              : SvgPicture.asset(
-                  fit: BoxFit.contain,
-                  'assets/svg/placeholderImage_bn.svg',
-                  height: 220,
-                )),
+              : SvgPicture.asset(fit: BoxFit.contain, noIMage, height: 220)),
     );
   }
 }
