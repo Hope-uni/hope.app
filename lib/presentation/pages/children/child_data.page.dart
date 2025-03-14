@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hope_app/domain/domain.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/providers/providers.dart';
@@ -770,9 +771,13 @@ List<Widget> _childPersonalData({
       valueInitial: stateChild.child!.gender,
       label: S.current.Sexo,
       onSelected: (value) {
-        notifierChild.updateChildField($genderProfile, value!);
+        notifierChild.updateChildField(
+            $genderProfile, value! == "0" ? $masculino : $femenino);
       },
-      listItems: const [$masculino, $femenino],
+      listItems: [
+        CatalogObject(id: 0, name: $masculino, description: ''),
+        CatalogObject(id: 1, name: $femenino, description: '')
+      ],
       deleteSelection: false,
       errorText: stateChild.validationErrors[$genderProfile],
     ),
@@ -821,7 +826,10 @@ List<Widget> _generalInformation({
       valueInitial: 'Activado',
       label: S.current.Pictogramas_blanco_negro,
       onSelected: (value) {},
-      listItems: const ['Activado', 'Inactivado'],
+      listItems: [
+        CatalogObject(id: 0, name: 'Activado', description: ''),
+        CatalogObject(id: 0, name: 'Desactivado', description: '')
+      ],
     ),
     InputForm(
       label: S.current.Tutor,
@@ -996,12 +1004,7 @@ List<Widget> _childProgressData({
     if (stateChild.child!.achievements != null)
       ImageListVIew(
         images: stateChild.child!.achievements != null
-            ? stateChild.child!.achievements!
-                .map((item) => item.imageUrl)
-                .toList()
-            : [],
-        nameImages: stateChild.child!.achievements != null
-            ? stateChild.child!.achievements!.map((item) => item.name).toList()
+            ? stateChild.child!.achievements!.toList()
             : [],
         isDecoration: false,
         isSelect: false,

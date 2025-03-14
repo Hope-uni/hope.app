@@ -4,4 +4,6 @@ abstract class PictogramsRepository {
   Future<ResponseDataList<PictogramAchievements>> getPictograms({
     required int indexPage,
   });
+
+  Future<ResponseDataList<Category>> getCategoryPictograms();
 }

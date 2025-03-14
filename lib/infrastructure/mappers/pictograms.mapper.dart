@@ -1,4 +1,5 @@
 import 'package:hope_app/domain/domain.dart';
+import 'package:hope_app/infrastructure/infrastructure.dart';
 
 class PictogramsMapper {
   static PictogramAchievements pictogramAchievementsfromJson(
@@ -9,12 +10,6 @@ class PictogramsMapper {
         imageUrl: json["imageUrl"],
         category: json["Category"] == null
             ? null
-            : categoryfromJson(json["Category"]),
-      );
-
-  static Category categoryfromJson(Map<String, dynamic> json) => Category(
-        id: json["id"],
-        name: json["name"],
-        icon: json["icon"],
+            : CategoryMapper.categoryfromJson(json["Category"]),
       );
 }

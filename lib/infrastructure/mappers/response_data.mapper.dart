@@ -15,7 +15,9 @@ class ResponseMapper<T> {
         validationErrors: json["validationErrors"] == null
             ? null
             : fromJsonErrors(json["validationErrors"]),
-        paginate: fromJsonPaginate(json["paginate"]),
+        paginate: json["paginate"] == null
+            ? null
+            : fromJsonPaginate(json["paginate"]),
       );
 
   static ResponseDataObject<T> responseJsonToEntity<T>({

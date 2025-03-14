@@ -13,7 +13,7 @@ class Child extends Person {
   PersonTutorTherapist tutor;
   PersonTutorTherapist? therapist;
   CurrentActivity? currentActivity;
-  List<Activity>? activities;
+  List<ActivityChild>? activities;
   List<PictogramAchievements>? pictograms;
 
   Child({
@@ -66,7 +66,7 @@ class Child extends Person {
     List<PictogramAchievements>? achievements,
     PersonTutorTherapist? therapist,
     CurrentActivity? currentActivity,
-    List<Activity>? activities,
+    List<ActivityChild>? activities,
     List<PictogramAchievements>? pictograms,
   }) =>
       Child(
@@ -97,14 +97,14 @@ class Child extends Person {
       );
 }
 
-class Activity {
+class ActivityChild {
   int id;
   CatalogObject phase;
   String name;
   String description;
   int satisfactoryPoints;
 
-  Activity({
+  ActivityChild({
     required this.id,
     required this.phase,
     required this.name,
