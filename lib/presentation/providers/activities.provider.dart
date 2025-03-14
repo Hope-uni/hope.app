@@ -7,16 +7,19 @@ import 'package:hope_app/presentation/utils/utils.dart';
 final searchNameActivity = StateProvider<String>((ref) => '');
 
 final activitiesProvider =
-    StateNotifierProvider<ActivitiesNotifier, ActivityState>((ref) {
+    StateNotifierProvider.autoDispose<ActivitiesNotifier, ActivitiesState>(
+        (ref) {
   final activityRepository = ActivitiesRepositoryImpl();
   return ActivitiesNotifier(activityRepository: activityRepository);
 });
 
-class ActivitiesNotifier extends StateNotifier<ActivityState> {
+class ActivitiesNotifier extends StateNotifier<ActivitiesState> {
   final ActivitiesRepositoryImpl activityRepository;
 
   ActivitiesNotifier({required this.activityRepository})
-      : super(ActivityState());
+      : super(
+          ActivitiesState(),
+        );
 
   // Método para cargar más actividades
   Future<void> getActivities() async {
@@ -58,21 +61,18 @@ class ActivitiesNotifier extends StateNotifier<ActivityState> {
   }
 
   void resetState() {
-    state = ActivityState();
+    state = ActivitiesState();
   }
 }
 
-class ActivityState {
-  //TODO: Cambiar cuando este listo el endpoint
-  final Activities? newActivity;
+class ActivitiesState {
   final List<Activities> activities;
   final Map<String, int> paginateActivities;
   final bool? isLoading;
   final String? errorMessageApi;
   final bool? isErrorInitial;
 
-  ActivityState({
-    this.newActivity,
+  ActivitiesState({
     this.activities = const [],
     this.paginateActivities = const {$indexPage: 1, $pageCount: 0},
     this.isLoading = true,
@@ -80,16 +80,14 @@ class ActivityState {
     this.errorMessageApi,
   });
 
-  ActivityState copyWith({
-    Activities? newActivity,
+  ActivitiesState copyWith({
     List<Activities>? activities,
     Map<String, int>? paginateActivities,
     bool? isLoading,
     bool? isErrorInitial,
     String? errorMessageApi,
   }) =>
-      ActivityState(
-        newActivity: newActivity ?? this.newActivity,
+      ActivitiesState(
         activities: activities ?? this.activities,
         paginateActivities: paginateActivities ?? this.paginateActivities,
         errorMessageApi: errorMessageApi == ''

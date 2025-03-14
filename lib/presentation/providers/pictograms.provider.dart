@@ -22,6 +22,12 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
       final pictograms =
           await pictogramsDataSource.getPictograms(indexPage: indexPage);
 
+      List<Category>? categoryPictograms = [];
+
+      if (indexPage == 1) {
+        categoryPictograms = await getCategoryPictograms();
+      }
+
       Map<String, int> paginate = {
         $indexPage: indexPage + 1,
         $pageCount: pictograms.paginate!.pageCount
@@ -33,6 +39,9 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
           ...state.pictograms,
           ...pictograms.data!,
         ],
+        categoryPictograms: indexPage == 1
+            ? categoryPictograms ?? []
+            : state.categoryPictograms,
         isLoading: false,
         isErrorInitial: false,
       );
@@ -45,6 +54,28 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
         errorMessageApi: S.current.Error_inesperado,
         isLoading: false,
       );
+    }
+  }
+
+  Future<List<Category>?> getCategoryPictograms() async {
+    state = state.copyWith(isLoading: true);
+    final indexPage = state.paginatePictograms[$indexPage]!;
+    try {
+      final categoryPictograms =
+          await pictogramsDataSource.getCategoryPictograms();
+
+      return categoryPictograms.data;
+    } on CustomError catch (e) {
+      if (indexPage == 1) state = state.copyWith(isErrorInitial: true);
+      state = state.copyWith(errorMessageApi: e.message, isLoading: false);
+      return null;
+    } catch (e) {
+      if (indexPage == 1) state = state.copyWith(isErrorInitial: true);
+      state = state.copyWith(
+        errorMessageApi: S.current.Error_inesperado,
+        isLoading: false,
+      );
+      return null;
     }
   }
 
@@ -77,6 +108,7 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
 
 class PictogramsState {
   final List<PictogramAchievements> pictograms;
+  final List<Category> categoryPictograms;
   final bool? isLoading;
   final String? errorMessageApi;
   final bool? isErrorInitial;
@@ -86,6 +118,7 @@ class PictogramsState {
 
   PictogramsState({
     this.pictograms = const [],
+    this.categoryPictograms = const [],
     this.paginatePictograms = const {$indexPage: 1, $pageCount: 0},
     this.isLoading = true,
     this.isErrorInitial = false,
@@ -96,6 +129,7 @@ class PictogramsState {
 
   PictogramsState copyWith({
     List<PictogramAchievements>? pictograms,
+    List<Category>? categoryPictograms,
     Map<String, int>? paginatePictograms,
     bool? isLoading,
     bool? isErrorInitial,
@@ -105,6 +139,7 @@ class PictogramsState {
   }) =>
       PictogramsState(
         pictograms: pictograms ?? this.pictograms,
+        categoryPictograms: categoryPictograms ?? this.categoryPictograms,
         errorMessageApi: errorMessageApi == ''
             ? null
             : errorMessageApi ?? this.errorMessageApi,

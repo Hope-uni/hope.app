@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hope_app/domain/domain.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/providers/providers.dart';
@@ -317,11 +318,15 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         valueInitial: profileState.profile!.gender,
                         label: S.current.Sexo,
                         onSelected: (value) {
-                          profileNotifier.updateProfileField(
-                              $genderProfile, value!);
+                          profileNotifier.updateProfileField($genderProfile,
+                              value! == "0" ? $masculino : $femenino);
                         },
                         deleteSelection: false,
-                        listItems: const [$masculino, $femenino],
+                        listItems: [
+                          CatalogObject(
+                              id: 0, name: $masculino, description: ''),
+                          CatalogObject(id: 1, name: $femenino, description: '')
+                        ],
                         errorText:
                             profileState.validationErrors[$genderProfile],
                       ),
