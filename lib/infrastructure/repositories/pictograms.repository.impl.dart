@@ -13,4 +13,9 @@ class PictogramsRepositoyImpl extends PictogramsRepository {
   }) {
     return dataSource.getPictograms(indexPage: indexPage);
   }
+
+  @override
+  Future<ResponseDataList<Category>> getCategoryPictograms() {
+    return dataSource.getCategoryPictograms();
+  }
 }

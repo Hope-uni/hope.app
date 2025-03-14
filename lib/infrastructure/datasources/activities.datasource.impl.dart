@@ -48,4 +48,44 @@ class ActivitiesDataSourceImpl extends ActivitiesDataSource {
       );
     }
   }
+
+  @override
+  Future<ResponseDataObject<Activity>> createActivity(
+      {required CreateActivity activity}) async {
+    try {
+      final data = ActivityMapper.toJsonActivity(activity);
+
+      final response = await dioServices.dio.post('/activity', data: data);
+
+      final responseActivity = ResponseMapper.responseJsonToEntity<Activity>(
+          json: response.data, fromJson: ActivityMapper.fromJsonActivity);
+
+      return responseActivity;
+    } on DioException catch (e) {
+      final responseMapper = ResponseMapper.responseJsonToEntity<ResponseData>(
+          json: e.response!.data);
+
+      final String message;
+
+      if (responseMapper.validationErrors != null) {
+        message = responseMapper.validationErrors!.message;
+      } else {
+        message = responseMapper.message.isNotEmpty
+            ? responseMapper.message
+            : S.current.Error_solicitud;
+      }
+
+      throw CustomError(
+        e.response!.statusCode!,
+        message: message,
+        typeNotification: ToastificationType.error,
+      );
+    } catch (e) {
+      throw CustomError(
+        null,
+        message: S.current.Error_inesperado,
+        typeNotification: ToastificationType.error,
+      );
+    }
+  }
 }

@@ -167,7 +167,6 @@ class _BoardPageState extends State<BoardPage> {
                       const Expanded(
                         child: ImageListVIew(
                           images: [],
-                          nameImages: [],
                           isFilterBW: true,
                           backgroundLine: true,
                           isDecoration: false,

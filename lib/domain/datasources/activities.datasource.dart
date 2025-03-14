@@ -4,4 +4,8 @@ abstract class ActivitiesDataSource {
   Future<ResponseDataList<Activities>> getAllActivities({
     required int indexPage,
   });
+
+  Future<ResponseDataObject<Activity>> createActivity({
+    required CreateActivity activity,
+  });
 }

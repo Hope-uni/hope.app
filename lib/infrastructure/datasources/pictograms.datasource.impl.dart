@@ -48,4 +48,42 @@ class PictogramsDataSourceImpl extends PictogramsDataSource {
       );
     }
   }
+
+  @override
+  Future<ResponseDataList<Category>> getCategoryPictograms() async {
+    try {
+      final response = await dioServices.dio.get('/category');
+
+      final responseCategoryPictograms =
+          ResponseMapper.responseJsonListToEntity<Category>(
+              json: response.data, fromJson: CategoryMapper.categoryfromJson);
+
+      return responseCategoryPictograms;
+    } on DioException catch (e) {
+      final responseMapper = ResponseMapper.responseJsonToEntity<ResponseData>(
+          json: e.response!.data);
+
+      final String message;
+
+      if (responseMapper.validationErrors != null) {
+        message = responseMapper.validationErrors!.message;
+      } else {
+        message = responseMapper.message.isNotEmpty
+            ? responseMapper.message
+            : S.current.Error_solicitud;
+      }
+
+      throw CustomError(
+        e.response!.statusCode!,
+        message: message,
+        typeNotification: ToastificationType.error,
+      );
+    } catch (e) {
+      throw CustomError(
+        null,
+        message: S.current.Error_inesperado,
+        typeNotification: ToastificationType.error,
+      );
+    }
+  }
 }

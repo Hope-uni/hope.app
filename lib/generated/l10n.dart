@@ -1032,6 +1032,26 @@ class S {
     );
   }
 
+  /// `Si, guardar`
+  String get Si_guardar {
+    return Intl.message(
+      'Si, guardar',
+      name: 'Si_guardar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `¿Está seguro de crear la actividad?`
+  String get Esta_seguro_de_crear_la_actividad {
+    return Intl.message(
+      '¿Está seguro de crear la actividad?',
+      name: 'Esta_seguro_de_crear_la_actividad',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Nombre`
   String get Nombre {
     return Intl.message(
@@ -1893,6 +1913,90 @@ class S {
     return Intl.message(
       'Ayuda',
       name: 'Ayuda',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Salir`
+  String get Salir {
+    return Intl.message(
+      'Salir',
+      name: 'Salir',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `El nombre de la actividad no puede estar vacío`
+  String get El_nombre_de_la_actividad_no_puede_estar_vacio {
+    return Intl.message(
+      'El nombre de la actividad no puede estar vacío',
+      name: 'El_nombre_de_la_actividad_no_puede_estar_vacio',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `La descripción de la actividad no puede estar vacía`
+  String get La_descripcion_de_la_actividad_no_puede_estar_vacia {
+    return Intl.message(
+      'La descripción de la actividad no puede estar vacía',
+      name: 'La_descripcion_de_la_actividad_no_puede_estar_vacia',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Debe seleccionar una fase para la actividad`
+  String get Debe_seleccionar_una_fase_para_la_actividad {
+    return Intl.message(
+      'Debe seleccionar una fase para la actividad',
+      name: 'Debe_seleccionar_una_fase_para_la_actividad',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Debe seleccionar al menos un pictograma para la solución`
+  String get Debe_seleccionar_al_menos_un_pictograma_para_la_solucion {
+    return Intl.message(
+      'Debe seleccionar al menos un pictograma para la solución',
+      name: 'Debe_seleccionar_al_menos_un_pictograma_para_la_solucion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Los puntos para completar la actividad no puede ser cero o estar vacío`
+  String
+      get Los_puntos_para_completar_la_actividad_no_puede_ser_cero_o_estar_vacio {
+    return Intl.message(
+      'Los puntos para completar la actividad no puede ser cero o estar vacío',
+      name:
+          'Los_puntos_para_completar_la_actividad_no_puede_ser_cero_o_estar_vacio',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Para reordenar la solución`
+  String get Para_reordenar_la_solucion {
+    return Intl.message(
+      'Para reordenar la solución',
+      name: 'Para_reordenar_la_solucion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Mantener el dedo sobre el pictograma de la solución para poder ordenarlo a su voluntad`
+  String
+      get Mantener_el_dedo_sobre_el_pictograma_de_la_solucion_para_poder_ordenarlo_a_su_voluntad {
+    return Intl.message(
+      '• Mantener el dedo sobre el pictograma de la solución para poder ordenarlo a su voluntad',
+      name:
+          'Mantener_el_dedo_sobre_el_pictograma_de_la_solucion_para_poder_ordenarlo_a_su_voluntad',
       desc: '',
       args: [],
     );

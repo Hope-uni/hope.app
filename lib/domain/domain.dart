@@ -9,6 +9,9 @@ export 'entities/child.entities.dart';
 export 'entities/person.entities.dart';
 export 'entities/activities.entities.dart';
 export 'entities/pictogram.entities.dart';
+export 'entities/activity.entities.dart';
+export 'entities/category.entities.dart';
+export 'entities/phase.entities.dart';
 
 export 'datasources/auth.datasource.dart';
 export 'repositories/auth.repository.dart';
@@ -30,3 +33,6 @@ export 'repositories/activities.repository.dart';
 
 export 'datasources/pictograms.datasource.dart';
 export 'repositories/pictograms.repository.dart';
+
+export 'datasources/phases.datasource.dart';
+export 'repositories/phase.repository.dart';

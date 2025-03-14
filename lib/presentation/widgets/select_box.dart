@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hope_app/domain/domain.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 
 class SelectBox extends StatefulWidget {
-  final List<String> listItems;
+  final List<CatalogObject> listItems;
   final bool enable;
   final String? label;
   final String? hint;
@@ -11,6 +12,7 @@ class SelectBox extends StatefulWidget {
   final double? marginHorizontal;
   final String? errorText;
   final bool? deleteSelection;
+  final FocusNode? focus;
 
   const SelectBox({
     super.key,
@@ -23,6 +25,7 @@ class SelectBox extends StatefulWidget {
     this.errorText,
     this.valueInitial,
     this.marginHorizontal,
+    this.focus,
   });
 
   @override
@@ -43,6 +46,7 @@ class _SelectBoxState extends State<SelectBox> {
     return Container(
       margin: const EdgeInsets.only(left: 15, right: 15, bottom: 12.5),
       child: DropdownMenu<String>(
+        requestFocusOnTap: false,
         initialSelection: controller.value.text,
         controller: controller,
         expandedInsets: const EdgeInsets.all(1),
@@ -57,7 +61,7 @@ class _SelectBoxState extends State<SelectBox> {
                     child: const Icon(Icons.clear),
                   )
                 : null,
-        enableSearch: true,
+        enableSearch: false,
         enabled: widget.enable,
         label: widget.label != null
             ? Text(
@@ -68,8 +72,11 @@ class _SelectBoxState extends State<SelectBox> {
                 ),
               )
             : null,
+        enableFilter: false,
+        focusNode: widget.focus,
         hintText: widget.hint,
         errorText: widget.errorText,
+        menuHeight: 250,
         //Dejar el espacio en blanco para que no se descuadre el contenido cuando no tiene counterText,
         helperText: ' ',
         inputDecorationTheme: const InputDecorationTheme(
@@ -78,9 +85,10 @@ class _SelectBoxState extends State<SelectBox> {
             borderRadius: BorderRadius.all(Radius.circular(15)),
           ),
         ),
-        dropdownMenuEntries:
-            widget.listItems.map<DropdownMenuEntry<String>>((String value) {
-          return DropdownMenuEntry<String>(value: value, label: value);
+        dropdownMenuEntries: widget.listItems
+            .map<DropdownMenuEntry<String>>((CatalogObject item) {
+          return DropdownMenuEntry<String>(
+              value: item.id.toString(), label: item.name);
         }).toList(),
       ),
     );
