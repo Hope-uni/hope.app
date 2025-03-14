@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/pages/activities/form_activity.dart';
 import 'package:hope_app/presentation/providers/providers.dart';
@@ -19,10 +20,20 @@ class NewActivityState extends ConsumerState<NewActivityPage> {
   Widget build(BuildContext context) {
     final notifierActivity = ref.read(activityProvider.notifier);
     final profileState = ref.read(profileProvider);
-    final isCreate = ref.watch(isCreateActivity);
 
     final statePictograms = ref.watch(pictogramsProvider);
     final statePhases = ref.watch(phasesProvider);
+
+    ref.listen(activityProvider, (_, next) {
+      if (next.showActivity != null) {
+        context.pushReplacementNamed(
+          $activity,
+          pathParameters: {
+            $idActivity: next.showActivity!.id.toString(),
+          },
+        );
+      }
+    });
 
     return GestureDetector(
       onTap: () {
@@ -98,7 +109,7 @@ class NewActivityState extends ConsumerState<NewActivityPage> {
           ],
           title: Text(S.current.Crear_actividad),
         ),
-        body: const FormActivity(isEdit: true),
+        body: const FormActivity(),
         floatingActionButton: statePictograms.paginatePictograms[$indexPage] ==
                     1 ||
                 statePhases.isLoading == true
@@ -162,7 +173,7 @@ class NewActivityState extends ConsumerState<NewActivityPage> {
                   ),
                   const SizedBox(width: 10),
                   ButtonTextIcon(
-                    title: isCreate ? S.current.Cancelar : S.current.Salir,
+                    title: S.current.Cancelar,
                     icon: const Icon(Icons.cancel),
                     buttonColor: $colorError,
                     onClic: () {

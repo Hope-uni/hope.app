@@ -58,10 +58,9 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             const ActivitiesPage(),
       ),
       GoRoute(
-        path: '/activity/:idActivity/:isEdit',
+        path: '/activity/:idActivity',
         name: $activity,
         builder: (BuildContext context, GoRouterState state) => ActivityPage(
-          isGoEdit: bool.parse(state.pathParameters[$isEdit]!),
           idItem: int.parse(state.pathParameters[$idActivity]!),
         ),
       ),

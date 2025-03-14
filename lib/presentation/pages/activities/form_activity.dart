@@ -8,9 +8,7 @@ import 'package:hope_app/presentation/widgets/widgets.dart';
 import 'package:toastification/toastification.dart';
 
 class FormActivity extends ConsumerStatefulWidget {
-  final bool isEdit;
-
-  const FormActivity({super.key, required this.isEdit});
+  const FormActivity({super.key});
 
   @override
   FormActivityState createState() => FormActivityState();
@@ -29,7 +27,6 @@ class FormActivityState extends ConsumerState<FormActivity> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (mounted) {
         ref.read(activityProvider.notifier).updateErrorMessage();
-        ref.read(isCreateActivity.notifier).state = widget.isEdit;
       }
     });
   }
@@ -52,8 +49,8 @@ class FormActivityState extends ConsumerState<FormActivity> {
       if (statePictograms.paginatePictograms[$indexPage]! == 1) {
         await notifierPictograms.getPictograms();
       }
-      await notifierPhases.getPhases();
 
+      await notifierPhases.getPhases();
       scrollController.addListener(() async {
         final statePictograms = ref.read(pictogramsProvider);
 
@@ -126,8 +123,6 @@ class FormActivityState extends ConsumerState<FormActivity> {
     final statePictograms = ref.watch(pictogramsProvider);
     final statePhases = ref.watch(phasesProvider);
 
-    bool isCreate = ref.watch(isCreateActivity);
-
     ref.listen(activityProvider, (previous, next) {
       if (next.validationErrors.isNotEmpty && next.isSave == true) {
         String firstErrorKey = next.validationErrors.keys.first;
@@ -150,17 +145,16 @@ class FormActivityState extends ConsumerState<FormActivity> {
             description: S.current.La_actividad_se_guardo_correctamente,
             typeAlert: ToastificationType.success,
           );
-          ref.read(isCreateActivity.notifier).state = false;
 
           notifierActivity.updateErrorMessage();
         }
       }
 
-      if (next.errorMessageApiCreate != null) {
+      if (next.errorMessageApi != null) {
         toastAlert(
           context: context,
           title: S.current.Error,
-          description: next.errorMessageApiCreate!,
+          description: next.errorMessageApi!,
           typeAlert: ToastificationType.error,
         );
         notifierActivity.updateErrorMessage();
@@ -180,8 +174,8 @@ class FormActivityState extends ConsumerState<FormActivity> {
                   focusNode: focusNodes[$name],
                   child: InputForm(
                     label: S.current.Nombre,
-                    value: stateWacthActivity.newActivity!.name,
-                    enable: isCreate,
+                    value: stateWacthActivity.activity!.name,
+                    enable: true,
                     maxLength: 100,
                     onChanged: (value) {
                       notifierActivity.updateActivityField($name, value);
@@ -192,8 +186,8 @@ class FormActivityState extends ConsumerState<FormActivity> {
                 Focus(
                   focusNode: focusNodes[$description],
                   child: InputForm(
-                    value: stateWacthActivity.newActivity!.description,
-                    enable: isCreate,
+                    value: stateWacthActivity.activity!.description,
+                    enable: true,
                     label: S.current.Descripcion,
                     linesDynamic: true,
                     maxLength: 250,
@@ -211,7 +205,7 @@ class FormActivityState extends ConsumerState<FormActivity> {
                         .map((item) => CatalogObject(
                             id: item.id, name: item.name, description: ''))
                         .toList(),
-                    enable: isCreate,
+                    enable: true,
                     label: S.current.Fase_del_autismo,
                     errorText: stateWacthActivity.validationErrors[$phaseId],
                     onSelected: (value) {
@@ -225,12 +219,11 @@ class FormActivityState extends ConsumerState<FormActivity> {
                 Focus(
                   focusNode: focusNodes[$satisfactoryPoints],
                   child: InputForm(
-                    value:
-                        stateWacthActivity.newActivity!.satisfactoryPoints == 0
-                            ? ''
-                            : stateWacthActivity.newActivity!.satisfactoryPoints
-                                .toString(),
-                    enable: isCreate,
+                    value: stateWacthActivity.activity!.satisfactoryPoints == 0
+                        ? ''
+                        : stateWacthActivity.activity!.satisfactoryPoints
+                            .toString(),
+                    enable: true,
                     label: S.current.Puntaje,
                     isNumber: true,
                     onChanged: (value) {
@@ -241,50 +234,47 @@ class FormActivityState extends ConsumerState<FormActivity> {
                         .validationErrors[$satisfactoryPoints],
                   ),
                 ),
-                Visibility(
-                  visible: isCreate,
-                  child: Column(
-                    children: [
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        margin: const EdgeInsets.only(
-                          left: 17,
-                          right: 15,
-                          bottom: 20,
-                        ),
-                        child: Text(
-                          S.current.Seleccione_pictogramas_de_la_solucion,
-                          style: const TextStyle(fontSize: 14.5),
-                        ),
+                Column(
+                  children: [
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      margin: const EdgeInsets.only(
+                        left: 17,
+                        right: 15,
+                        bottom: 20,
                       ),
-                      SelectBox(
-                        label: S.current.Categoria_de_pictogramas,
-                        enable: true,
-                        onSelected: (value) {},
-                        listItems: statePictograms.categoryPictograms
-                            .map((item) => CatalogObject(
-                                id: item.id, name: item.name, description: ''))
-                            .toList(),
+                      child: Text(
+                        S.current.Seleccione_pictogramas_de_la_solucion,
+                        style: const TextStyle(fontSize: 14.5),
                       ),
-                      InputForm(
-                        isSearch: true,
-                        label: S.current.Busqueda_por_nombre,
-                        value: '',
-                        enable: true,
-                        onChanged: (value) {},
-                      ),
-                      ImageListVIew(
-                        images: statePictograms.pictograms,
-                        isDecoration: true,
-                        isSelect: true,
-                        controller: scrollController,
-                        backgroundColorIcon: $colorSuccess,
-                        iconSelect: const Icon(Icons.check),
-                        onPressed: onPictogramSelected,
-                      ),
-                      const SizedBox(height: 14.5),
-                    ],
-                  ),
+                    ),
+                    SelectBox(
+                      label: S.current.Categoria_de_pictogramas,
+                      enable: true,
+                      onSelected: (value) {},
+                      listItems: statePictograms.categoryPictograms
+                          .map((item) => CatalogObject(
+                              id: item.id, name: item.name, description: ''))
+                          .toList(),
+                    ),
+                    InputForm(
+                      isSearch: true,
+                      label: S.current.Busqueda_por_nombre,
+                      value: '',
+                      enable: true,
+                      onChanged: (value) {},
+                    ),
+                    ImageListVIew(
+                      images: statePictograms.pictograms,
+                      isDecoration: true,
+                      isSelect: true,
+                      controller: scrollController,
+                      backgroundColorIcon: $colorSuccess,
+                      iconSelect: const Icon(Icons.check),
+                      onPressed: onPictogramSelected,
+                    ),
+                    const SizedBox(height: 14.5),
+                  ],
                 ),
                 Container(
                   alignment: Alignment.centerLeft,
@@ -308,9 +298,9 @@ class FormActivityState extends ConsumerState<FormActivity> {
                     images: selectedPictogram,
                     backgroundDecoration: $colorPrimary50,
                     isDecoration: true,
-                    isSelect: isCreate,
+                    isSelect: true,
                     backgroundColorIcon: $colorError,
-                    iconSelect: isCreate ? const Icon(Icons.delete) : null,
+                    iconSelect: const Icon(Icons.delete),
                     onPressed: deletePictogramSelected,
                     isReorder: true,
                     onReorder: onChangeOrderSolution,

@@ -142,25 +142,8 @@ final List<MenuItem> menuActivity = <MenuItem>[
     onClick: ({required BuildContext context, int? idItem}) {
       context.pushNamed(
         $activity,
-        pathParameters: {
-          $idActivity: idItem.toString(),
-          $isEdit: false.toString()
-        },
+        pathParameters: {$idActivity: idItem.toString()},
       );
-    },
-    roles: [$terapeuta],
-  ),
-  MenuItem(
-    title: S.current.Editar,
-    subTitle: S.current.Editar_la_informacion_general_de_la_actividad,
-    icon: Icons.edit,
-    permission:
-        $findPatients, //TODO: Reemplazar por permiso correcto cuando este listo
-    onClick: ({required BuildContext context, int? idItem}) {
-      context.pushNamed($activity, pathParameters: {
-        $idActivity: idItem.toString(),
-        $isEdit: true.toString()
-      });
     },
     roles: [$terapeuta],
   ),
