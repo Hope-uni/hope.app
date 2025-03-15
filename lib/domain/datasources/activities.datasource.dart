@@ -8,4 +8,8 @@ abstract class ActivitiesDataSource {
   Future<ResponseDataObject<Activity>> createActivity({
     required CreateActivity activity,
   });
+
+  Future<ResponseDataObject<Activity>> getActivity({
+    required int idActivity,
+  });
 }

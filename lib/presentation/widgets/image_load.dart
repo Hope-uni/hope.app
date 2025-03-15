@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 
 class ImageLoad extends StatelessWidget {
@@ -21,35 +22,36 @@ class ImageLoad extends StatelessWidget {
                 context: context,
                 builder: (BuildContext context) {
                   return Dialog(
+                    backgroundColor: Colors.transparent,
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: $colorTextBlack, width: 0.5),
-                        color: $colorTextWhite,
+                        border: urlImage != null && urlImage!.isNotEmpty
+                            ? Border.all(color: $colorTextBlack, width: 0.5)
+                            : null,
+                        color: urlImage != null && urlImage!.isNotEmpty
+                            ? $colorTextWhite
+                            : null,
                       ),
-                      child: ImageLoad(
-                        urlImage: urlImage,
-                        isDoubleTap: false,
-                      ),
+                      child: ImageLoad(urlImage: urlImage, isDoubleTap: false),
                     ),
                   );
                 },
               );
             },
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
-        child: FadeInImage(
-          fit: isDoubleTap == false ? null : BoxFit.cover,
-          placeholderFit: BoxFit.cover,
-          imageErrorBuilder: (context, error, stackTrace) {
-            return Image.asset('assets/img/no-image.png', fit: BoxFit.cover);
-          },
-          placeholder: const AssetImage('assets/gif/jar-loading.gif'),
-          image: urlImage != null && urlImage!.isNotEmpty
-              ? NetworkImage(urlImage!) as ImageProvider
-              : const AssetImage('assets/img/no-image.png'),
-        ),
-      ),
+          borderRadius: BorderRadius.circular(20),
+          child: urlImage != null && urlImage!.isNotEmpty
+              ? FadeInImage(
+                  fit: isDoubleTap == false ? null : BoxFit.cover,
+                  placeholderFit: BoxFit.cover,
+                  imageErrorBuilder: (context, error, stackTrace) {
+                    return SvgPicture.asset(fit: BoxFit.contain, noIMage);
+                  },
+                  placeholder: const AssetImage(loading),
+                  image: NetworkImage(urlImage!) as ImageProvider,
+                )
+              : SvgPicture.asset(fit: BoxFit.contain, noIMage, height: 220)),
     );
   }
 }

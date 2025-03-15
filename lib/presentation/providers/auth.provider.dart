@@ -14,6 +14,9 @@ final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
   final childrenStateNotifier = ref.read(childrenProvider.notifier);
   final activitiesStateNotifier = ref.read(activitiesProvider.notifier);
   final pictogramsStateNotifier = ref.read(pictogramsProvider.notifier);
+  final phaseStateNotifier = ref.read(phasesProvider.notifier);
+  final childStateNotifier = ref.read(childProvider.notifier);
+  final activityStateNotifier = ref.read(activityProvider.notifier);
 
   return AuthNotifier(
     authRepository: authRepository,
@@ -22,6 +25,9 @@ final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
     childrenStateNotifier: childrenStateNotifier,
     activitiesStateNotifier: activitiesStateNotifier,
     pictogramsStateNotifier: pictogramsStateNotifier,
+    activityStateNotifier: activityStateNotifier,
+    phaseStateNotifier: phaseStateNotifier,
+    childStateNotifier: childStateNotifier,
   );
 });
 
@@ -34,6 +40,9 @@ class AuthNotifier extends StateNotifier<AuthState> {
   final ChildrenNotifier childrenStateNotifier;
   final ActivitiesNotifier activitiesStateNotifier;
   final PictogramsNotifier pictogramsStateNotifier;
+  final PhasesNotifier phaseStateNotifier;
+  final ChildNotifier childStateNotifier;
+  final ActivityNotifier activityStateNotifier;
 
   AuthNotifier({
     required this.profileStateNotifier,
@@ -42,6 +51,9 @@ class AuthNotifier extends StateNotifier<AuthState> {
     required this.authRepository,
     required this.activitiesStateNotifier,
     required this.pictogramsStateNotifier,
+    required this.phaseStateNotifier,
+    required this.childStateNotifier,
+    required this.activityStateNotifier,
   }) : super(AuthState());
 
   void setLoggedToken(Token token) async {
@@ -105,6 +117,10 @@ class AuthNotifier extends StateNotifier<AuthState> {
     profileStateNotifier.resetProfile();
     childrenStateNotifier.resetState();
     activitiesStateNotifier.resetState();
+    phaseStateNotifier.resetState();
+    childStateNotifier.resetChild();
+    activityStateNotifier.resetState();
+    pictogramsStateNotifier.resetState();
 
     state = state.copyWith(
       authStatus: AuthStatus.notAuthenticated,

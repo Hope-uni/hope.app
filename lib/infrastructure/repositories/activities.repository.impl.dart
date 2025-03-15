@@ -19,4 +19,9 @@ class ActivitiesRepositoryImpl extends ActivitiesRepository {
   }) {
     return dataSource.createActivity(activity: activity);
   }
+
+  @override
+  Future<ResponseDataObject<Activity>> getActivity({required int idActivity}) {
+    return dataSource.getActivity(idActivity: idActivity);
+  }
 }
