@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hope_app/domain/domain.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/providers/providers.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
@@ -126,8 +127,12 @@ class ChildrenTutorPageState extends ConsumerState<ChildrenTutorPage> {
                                   image:
                                       stateChildren.childrenTutor[index].image,
                                   iconButton: MenuItems(
-                                    idChild:
-                                        stateChildren.childrenTutor[index].id,
+                                    itemObject: CatalogObject(
+                                      id: stateChildren.childrenTutor[index].id,
+                                      name: stateChildren
+                                          .childrenTutor[index].fullName,
+                                      description: "",
+                                    ),
                                     menuItems: menuPacientTutor,
                                   ),
                                 );

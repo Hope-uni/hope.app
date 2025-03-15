@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hope_app/domain/domain.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/interfaces/interface.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 
-class MenuItems extends StatelessWidget {
+class MenuItems extends ConsumerStatefulWidget {
   final List<MenuItem> menuItems;
-  final int idChild;
+  final CatalogObject itemObject;
   const MenuItems({
     super.key,
     required this.menuItems,
-    required this.idChild,
+    required this.itemObject,
   });
 
+  @override
+  MenuItemsState createState() => MenuItemsState();
+}
+
+class MenuItemsState extends ConsumerState<MenuItems> {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
@@ -23,10 +30,10 @@ class MenuItems extends StatelessWidget {
         tooltip: S.current.Opciones,
         onSelected: (item) {
           final MenuItem menuItem = item;
-          menuItem.onClick(context: context, idItem: idChild);
+          menuItem.onClick(context: context, ref: ref, item: widget.itemObject);
         },
         itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-              ...menuItems.map(
+              ...widget.menuItems.map(
                 (value) => PopupMenuItem(
                   value: value,
                   child: ListTile(

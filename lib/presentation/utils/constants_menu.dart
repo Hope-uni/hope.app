@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hope_app/domain/domain.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/interfaces/interface.dart';
+import 'package:hope_app/presentation/providers/providers.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 
 final List<MenuItem> appMenuItemsDrawer = <MenuItem>[
   MenuItem(
     title: S.current.Ninos_terapeuta,
     subTitle: S.current.Ninos_asignados_Terapeuta,
-    onClick: ({required BuildContext context, int? idItem}) {
+    onClick: ({
+      required BuildContext context,
+      required WidgetRef ref,
+      CatalogObject? item,
+    }) {
       context.pushReplacementNamed($childrenTherapist);
     },
     icon: Icons.diversity_3,
@@ -19,7 +26,11 @@ final List<MenuItem> appMenuItemsDrawer = <MenuItem>[
   MenuItem(
     title: S.current.Ninos_tutor,
     subTitle: S.current.Ninos_asignados_Tutor,
-    onClick: ({required BuildContext context, int? idItem}) {
+    onClick: ({
+      required BuildContext context,
+      required WidgetRef ref,
+      CatalogObject? item,
+    }) {
       context.pushReplacementNamed($childrenTutor);
     },
     icon: Icons.family_restroom,
@@ -33,7 +44,11 @@ final List<MenuItem> appMenuItemsDrawer = <MenuItem>[
     icon: Icons.sports_esports,
     permission:
         $updatePatienttherapist, //TODO: Reemplazar por permiso correcto cuando este listo
-    onClick: ({required BuildContext context, int? idItem}) {
+    onClick: ({
+      required BuildContext context,
+      required WidgetRef ref,
+      CatalogObject? item,
+    }) {
       context.pushReplacementNamed($activities);
     },
     roles: [$terapeuta],
@@ -43,7 +58,11 @@ final List<MenuItem> appMenuItemsDrawer = <MenuItem>[
     subTitle: S.current.Datos_personales,
     icon: Icons.account_circle,
     permission: $me,
-    onClick: ({required BuildContext context, int? idItem}) {
+    onClick: ({
+      required BuildContext context,
+      required WidgetRef ref,
+      CatalogObject? item,
+    }) {
       context.pushReplacementNamed($profileRoute);
     },
     roles: [$tutor, $terapeuta],
@@ -57,8 +76,13 @@ final List<MenuItem> menuPacientTutor = <MenuItem>[
     icon: Icons.visibility,
     permission:
         $findPatients, //TODO: Reemplazar por permiso correcto cuando este listo
-    onClick: ({required BuildContext context, int? idItem}) {
-      context.pushNamed($child, pathParameters: {$idChild: idItem.toString()});
+    onClick: ({
+      required BuildContext context,
+      required WidgetRef ref,
+      CatalogObject? item,
+    }) {
+      context
+          .pushNamed($child, pathParameters: {$idChild: item!.id.toString()});
     },
     roles: [$tutor],
   ),
@@ -67,9 +91,14 @@ final List<MenuItem> menuPacientTutor = <MenuItem>[
     subTitle: S.current.Anadir_nuevo_pictograma_personalizado,
     icon: Icons.add,
     permission: $createCustomPictogram,
-    onClick: ({required BuildContext context, int? idItem}) {
-      context
-          .pushNamed($pictogram, pathParameters: {$idChild: idItem.toString()});
+    onClick: ({
+      required BuildContext context,
+      required WidgetRef ref,
+      CatalogObject? item,
+    }) {
+      context.pushNamed($pictogram, pathParameters: {
+        $idChild: item!.id.toString(),
+      });
     },
     roles: [$tutor],
   ),
@@ -78,9 +107,13 @@ final List<MenuItem> menuPacientTutor = <MenuItem>[
     subTitle: S.current.Pictogramas_personalizados_del_nino,
     icon: Icons.format_list_bulleted,
     permission: $listCustomPictograms,
-    onClick: ({required BuildContext context, int? idItem}) {
+    onClick: ({
+      required BuildContext context,
+      required WidgetRef ref,
+      CatalogObject? item,
+    }) {
       context.pushNamed($customPictogram,
-          pathParameters: {$idChild: idItem.toString()});
+          pathParameters: {$idChild: item!.id.toString()});
     },
     roles: [$tutor],
   ),
@@ -90,7 +123,11 @@ final List<MenuItem> menuPacientTutor = <MenuItem>[
     icon: Icons.key,
     permission:
         $findPatients, //TODO: Reemplazar por permiso correcto cuando este listo
-    onClick: ({required BuildContext context, int? idItem}) {
+    onClick: ({
+      required BuildContext context,
+      required WidgetRef ref,
+      CatalogObject? item,
+    }) {
       modalPassword(context: context, isVerifided: true);
     },
     roles: [$tutor],
@@ -104,8 +141,13 @@ final List<MenuItem> menuPacientTherapist = <MenuItem>[
     icon: Icons.visibility,
     permission:
         $findPatients, //TODO: Reemplazar por permiso correcto cuando este listo
-    onClick: ({required BuildContext context, int? idItem}) {
-      context.pushNamed($child, pathParameters: {$idChild: idItem.toString()});
+    onClick: ({
+      required BuildContext context,
+      required WidgetRef ref,
+      CatalogObject? item,
+    }) {
+      context
+          .pushNamed($child, pathParameters: {$idChild: item!.id.toString()});
     },
     roles: [$terapeuta],
   ),
@@ -114,8 +156,13 @@ final List<MenuItem> menuPacientTherapist = <MenuItem>[
     subTitle: S.current.Editar_observaciones_del_nino,
     icon: Icons.edit,
     permission: $updatePatienttherapist,
-    onClick: ({required BuildContext context, int? idItem}) {
-      context.pushNamed($child, pathParameters: {$idChild: idItem.toString()});
+    onClick: ({
+      required BuildContext context,
+      required WidgetRef ref,
+      CatalogObject? item,
+    }) {
+      context
+          .pushNamed($child, pathParameters: {$idChild: item!.id.toString()});
     },
     roles: [$terapeuta],
   ),
@@ -125,7 +172,11 @@ final List<MenuItem> menuPacientTherapist = <MenuItem>[
     icon: Icons.delete_forever,
     permission:
         $findPatients, //TODO: Reemplazar por permiso correcto cuando este listo
-    onClick: ({required BuildContext context, int? idItem}) {
+    onClick: ({
+      required BuildContext context,
+      required WidgetRef ref,
+      CatalogObject? item,
+    }) {
       context.pushNamed($deleteActivity);
     },
     roles: [$terapeuta],
@@ -139,10 +190,14 @@ final List<MenuItem> menuActivity = <MenuItem>[
     icon: Icons.visibility,
     permission:
         $findPatients, //TODO: Reemplazar por permiso correcto cuando este listo
-    onClick: ({required BuildContext context, int? idItem}) {
+    onClick: ({
+      required BuildContext context,
+      required WidgetRef ref,
+      CatalogObject? item,
+    }) {
       context.pushNamed(
         $activity,
-        pathParameters: {$idActivity: idItem.toString()},
+        pathParameters: {$idActivity: item!.id.toString()},
       );
     },
     roles: [$terapeuta],
@@ -153,7 +208,11 @@ final List<MenuItem> menuActivity = <MenuItem>[
     icon: Icons.add,
     permission:
         $findPatients, //TODO: Reemplazar por permiso correcto cuando este listo
-    onClick: ({required BuildContext context, int? idItem}) {
+    onClick: ({
+      required BuildContext context,
+      required WidgetRef ref,
+      CatalogObject? item,
+    }) {
       context.pushNamed($addActivity);
     },
     roles: [$terapeuta],
@@ -164,7 +223,11 @@ final List<MenuItem> menuActivity = <MenuItem>[
     icon: Icons.remove,
     permission:
         $findPatients, //TODO: Reemplazar por permiso correcto cuando este listo
-    onClick: ({required BuildContext context, int? idItem}) {
+    onClick: ({
+      required BuildContext context,
+      required WidgetRef ref,
+      CatalogObject? item,
+    }) {
       context.pushNamed($removeActivity);
     },
     roles: [$terapeuta],
@@ -175,27 +238,38 @@ final List<MenuItem> menuActivity = <MenuItem>[
     icon: Icons.delete_forever,
     permission:
         $findPatients, //TODO: Reemplazar por permiso correcto cuando este listo
-    onClick: ({required BuildContext context, int? idItem}) {
+    onClick: ({
+      required BuildContext context,
+      required WidgetRef ref,
+      CatalogObject? item,
+    }) {
       modalDialogConfirmation(
-        onClic: () {},
+        onClic: () async {
+          await ref
+              .read(activityProvider.notifier)
+              .deleteActivity(idActivity: item.id);
+
+          if (context.mounted) {
+            Navigator.of(context).pop();
+          }
+        },
         context: context,
         question: RichText(
-            textAlign: TextAlign.center,
-            text: TextSpan(
-                style: const TextStyle(color: $colorTextBlack),
-                children: [
-                  TextSpan(
-                    text:
-                        '${S.current.Esta_seguro_de_eliminar_permanentemente_la_actividad}\n\n',
-                  ),
-                  const TextSpan(
-                    text:
-                        'Formar oraciones con animales', //TODO: Cambiar dinamicamente cuando este listo el endpoint
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ])),
+          textAlign: TextAlign.center,
+          text: TextSpan(
+            style: const TextStyle(color: $colorTextBlack),
+            children: [
+              TextSpan(
+                text:
+                    '${S.current.Esta_seguro_de_eliminar_permanentemente_la_actividad}\n\n',
+              ),
+              TextSpan(
+                text: item!.name,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
         titleButtonConfirm: S.current.Si_Eliminar,
       );
     },

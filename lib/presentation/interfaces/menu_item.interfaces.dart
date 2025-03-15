@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hope_app/domain/domain.dart';
 
 class MenuItem {
   final String title;
@@ -6,7 +8,11 @@ class MenuItem {
   final IconData icon;
   final String permission;
   final List<String> roles;
-  final Function({required BuildContext context, int? idItem}) onClick;
+  final void Function({
+    required BuildContext context,
+    required WidgetRef ref,
+    CatalogObject? item,
+  }) onClick;
 
   const MenuItem({
     required this.title,

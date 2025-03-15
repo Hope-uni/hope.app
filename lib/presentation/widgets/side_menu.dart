@@ -44,7 +44,7 @@ class SideMenu extends ConsumerWidget {
           //Aqui se asigna el nuevo valor el index del menu y se redirecciona a la pantalla
           ref.read(selectedOption.notifier).state = value;
           final menuItem = menuPermmisions[value];
-          menuItem.onClick(context: context);
+          menuItem.onClick(context: context, ref: ref);
         },
         tilePadding: EdgeInsets.zero,
         indicatorShape: const BeveledRectangleBorder(),

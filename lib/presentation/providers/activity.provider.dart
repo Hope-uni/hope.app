@@ -75,6 +75,30 @@ class ActivityNotifier extends StateNotifier<ActivityState> {
     }
   }
 
+  Future<void> deleteActivity({required int idActivity}) async {
+    state = state.copyWith(isLoading: true);
+    try {
+      await activityDataSource.deleteActivity(idActivity: idActivity);
+      state = state.copyWith(isLoading: false, isDelete: true);
+    } on CustomError catch (e) {
+      state = state.copyWith(
+        errorMessageApi: e.message,
+        isLoading: false,
+        isDelete: false,
+      );
+    } catch (e) {
+      state = state.copyWith(
+        errorMessageApi: S.current.Error_inesperado,
+        isLoading: false,
+        isDelete: false,
+      );
+    }
+  }
+
+  void updateIsDelete() {
+    state = state.copyWith(isDelete: false);
+  }
+
   void updateActivityField(String fieldName, String newValue) {
     //Borra el error si el usuario ingresa texto
     final Map<String, String?> newValidationErrors =
@@ -181,6 +205,7 @@ class ActivityState {
   final bool? showtoastAlert;
   final bool? isLoading;
   final bool? isSave;
+  final bool? isDelete;
   final bool? isErrorInitial;
   final String? errorMessageApi;
   final Map<String, String?> validationErrors;
@@ -191,6 +216,7 @@ class ActivityState {
     this.showtoastAlert = false,
     this.isLoading = false,
     this.isSave = false,
+    this.isDelete = false,
     this.isErrorInitial = false,
     this.errorMessageApi,
     this.validationErrors = const {},
@@ -202,6 +228,7 @@ class ActivityState {
     bool? showtoastAlert,
     bool? isLoading,
     bool? isSave,
+    bool? isDelete,
     bool? isErrorInitial,
     String? errorMessageApi,
     Map<String, String?>? validationErrors,
@@ -215,6 +242,7 @@ class ActivityState {
             : errorMessageApi ?? this.errorMessageApi,
         isLoading: isLoading ?? this.isLoading,
         isSave: isSave ?? this.isSave,
+        isDelete: isDelete ?? this.isDelete,
         isErrorInitial: isErrorInitial ?? this.isErrorInitial,
         validationErrors: validationErrors ?? this.validationErrors,
       );
