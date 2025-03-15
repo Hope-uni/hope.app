@@ -2001,6 +2001,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Se eliminó correctamente la actividad seleccionada`
+  String get Se_elimino_correctamente_la_actividad_seleccionada {
+    return Intl.message(
+      'Se eliminó correctamente la actividad seleccionada',
+      name: 'Se_elimino_correctamente_la_actividad_seleccionada',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

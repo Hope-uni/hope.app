@@ -359,6 +359,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Se_elimino_correctamente_el_pictograma_personalizado":
             MessageLookupByLibrary.simpleMessage(
                 "Se eliminó correctamente el pictograma personalizado"),
+        "Se_elimino_correctamente_la_actividad_seleccionada":
+            MessageLookupByLibrary.simpleMessage(
+                "Se eliminó correctamente la actividad seleccionada"),
         "Segundo_apellido":
             MessageLookupByLibrary.simpleMessage("Segundo Apellido"),
         "Segundo_nombre":

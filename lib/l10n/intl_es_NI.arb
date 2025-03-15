@@ -193,5 +193,6 @@
   "Debe_seleccionar_al_menos_un_pictograma_para_la_solucion": "Debe seleccionar al menos un pictograma para la solución",
   "Los_puntos_para_completar_la_actividad_no_puede_ser_cero_o_estar_vacio": "Los puntos para completar la actividad no puede ser cero o estar vacío",
   "Para_reordenar_la_solucion": "Para reordenar la solución",
-  "Mantener_el_dedo_sobre_el_pictograma_de_la_solucion_para_poder_ordenarlo_a_su_voluntad": "• Mantener el dedo sobre el pictograma de la solución para poder ordenarlo a su voluntad"
+  "Mantener_el_dedo_sobre_el_pictograma_de_la_solucion_para_poder_ordenarlo_a_su_voluntad": "• Mantener el dedo sobre el pictograma de la solución para poder ordenarlo a su voluntad",
+  "Se_elimino_correctamente_la_actividad_seleccionada": "Se eliminó correctamente la actividad seleccionada"
 }
