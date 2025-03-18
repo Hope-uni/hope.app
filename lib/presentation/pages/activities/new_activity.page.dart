@@ -17,6 +17,17 @@ class NewActivityPage extends ConsumerStatefulWidget {
 
 class NewActivityState extends ConsumerState<NewActivityPage> {
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (mounted) {
+        ref.read(activityProvider.notifier).resetState();
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final notifierActivity = ref.read(activityProvider.notifier);
     final profileState = ref.read(profileProvider);

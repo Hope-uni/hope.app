@@ -158,21 +158,49 @@ class ChildNotifier extends StateNotifier<ChildState> {
     if (state.child!.username.isEmpty) {
       errors[$userNameProfile] =
           S.current.El_nombre_de_usuario_no_puede_estar_vacio;
+    } else {
+      if (state.child!.username.length <= 2 ||
+          state.child!.username.length >= 16) {
+        errors[$userNameProfile] = S.current
+            .El_nombre_del_usuario_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres;
+      }
     }
     if (state.child!.email.isEmpty) {
       errors[$emailProfile] = S.current.El_correo_no_puede_estar_vacio;
     }
+
     if (state.child!.firstName.isEmpty) {
       errors[$firstNameProfile] =
           S.current.El_primer_nombre_no_puede_estar_vacio;
+    } else {
+      if (state.child!.firstName.length <= 2 ||
+          state.child!.firstName.length >= 16) {
+        errors[$firstNameProfile] = S.current
+            .El_primer_nombre_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres;
+      }
     }
+
     if (state.child!.surname.isEmpty) {
       errors[$surnameProfile] =
           S.current.El_primer_apellido_no_puede_estar_vacio;
+    } else {
+      if (state.child!.surname.length <= 2 ||
+          state.child!.surname.length >= 16) {
+        errors[$surnameProfile] = S.current
+            .El_primer_apellido_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres;
+      }
     }
+
     if (state.child!.address.isEmpty) {
       errors[$addressProfile] = S.current.La_direccion_no_puede_estar_vacia;
+    } else {
+      if (state.child!.address.length <= 5 ||
+          state.child!.address.length >= 255) {
+        errors[$addressProfile] = S.current
+            .La_direccion_no_puede_ser_menor_a_seis_o_mayor_a_docientocincuentaycinco_caracteres;
+      }
     }
+
     if (state.child!.birthday.isEmpty) {
       errors[$birthdayProfile] =
           S.current.La_fecha_de_nacimiento_no_puede_estar_vacia;

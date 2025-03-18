@@ -145,8 +145,9 @@ class FormActivityState extends ConsumerState<FormActivity> {
             description: S.current.La_actividad_se_guardo_correctamente,
             typeAlert: ToastificationType.success,
           );
-
           notifierActivity.updateErrorMessage();
+          ref.read(activitiesProvider.notifier).resetState();
+          ref.read(activitiesProvider.notifier).getActivities();
         }
       }
 

@@ -12,4 +12,8 @@ abstract class ActivitiesDataSource {
   Future<ResponseDataObject<Activity>> getActivity({
     required int idActivity,
   });
+
+  Future<ResponseDataObject<ResponseData>> deleteActivity({
+    required int idActivity,
+  });
 }

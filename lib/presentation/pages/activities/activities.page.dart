@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hope_app/domain/domain.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/providers/providers.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
@@ -86,6 +87,32 @@ class ActivitiesPageState extends ConsumerState<ActivitiesPage> {
       }
     });
 
+    ref.listen(activityProvider, (previous, next) {
+      if (next.isDelete == true) {
+        toastAlert(
+          iconAlert: const Icon(Icons.check),
+          context: context,
+          title: S.current.Eliminacion_exitosa,
+          description:
+              S.current.Se_elimino_correctamente_la_actividad_seleccionada,
+          typeAlert: ToastificationType.success,
+        );
+        ref.read(activityProvider.notifier).updateIsDelete();
+        ref.read(activitiesProvider.notifier).resetState();
+        ref.read(activitiesProvider.notifier).getActivities();
+      }
+
+      if (next.errorMessageApi != null) {
+        toastAlert(
+          context: context,
+          title: S.current.Error,
+          description: next.errorMessageApi!,
+          typeAlert: ToastificationType.error,
+        );
+        ref.read(activityProvider.notifier).updateErrorMessage();
+      }
+    });
+
     return Scaffold(
       appBar: AppBar(
         title: Text(S.current.Actividades),
@@ -146,7 +173,13 @@ class ActivitiesPageState extends ConsumerState<ActivitiesPage> {
                                     subTitle:
                                         '${S.current.Fase}: ${item.phase.name}\n${S.current.Puntos_requeridos}s: ${item.satisfactoryPoints}',
                                     iconButton: MenuItems(
-                                      idChild: item.id,
+                                      itemObject: CatalogObject(
+                                        id: stateActivities
+                                            .activities[index].id,
+                                        name: stateActivities
+                                            .activities[index].name,
+                                        description: '',
+                                      ),
                                       menuItems: menuActivity,
                                     ),
                                     noImage: true,

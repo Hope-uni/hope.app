@@ -283,21 +283,54 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
     if (state.userName == null || state.userName!.isEmpty) {
       errors[$userNameProfile] =
           S.current.El_nombre_de_usuario_no_puede_estar_vacio;
+    } else {
+      if (state.userName!.length <= 2 || state.userName!.length >= 16) {
+        errors[$userNameProfile] = S.current
+            .El_nombre_del_usuario_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres;
+      }
     }
+
     if (state.email == null || state.email!.isEmpty) {
       errors[$emailProfile] = S.current.El_correo_no_puede_estar_vacio;
+    } else {
+      if (!$emailRegex.hasMatch(state.email!)) {
+        errors[$emailProfile] =
+            S.current.Formato_incorrecto_de_correo_electronico;
+      }
     }
+
     if (state.profile!.firstName.isEmpty) {
       errors[$firstNameProfile] =
           S.current.El_primer_nombre_no_puede_estar_vacio;
+    } else {
+      if (state.profile!.firstName.length <= 2 ||
+          state.profile!.firstName.length >= 16) {
+        errors[$firstNameProfile] = S.current
+            .El_primer_nombre_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres;
+      }
     }
+
     if (state.profile!.surname.isEmpty) {
       errors[$surnameProfile] =
           S.current.El_primer_apellido_no_puede_estar_vacio;
+    } else {
+      if (state.profile!.surname.length <= 2 ||
+          state.profile!.surname.length >= 16) {
+        errors[$surnameProfile] = S.current
+            .El_primer_apellido_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres;
+      }
     }
+
     if (state.profile!.address.isEmpty) {
       errors[$addressProfile] = S.current.La_direccion_no_puede_estar_vacia;
+    } else {
+      if (state.profile!.address.length <= 5 ||
+          state.profile!.address.length >= 255) {
+        errors[$addressProfile] = S.current
+            .La_direccion_no_puede_ser_menor_a_seis_o_mayor_a_docientocincuentaycinco_caracteres;
+      }
     }
+
     if (state.profile!.birthday.isEmpty) {
       errors[$birthdayProfile] =
           S.current.La_fecha_de_nacimiento_no_puede_estar_vacia;

@@ -18,6 +18,12 @@ class ActivityPageState extends ConsumerState<ActivityPage> {
   @override
   void initState() {
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (mounted) {
+        ref.read(activityProvider.notifier).resetState();
+      }
+    });
   }
 
   @override
@@ -140,23 +146,7 @@ class ActivityPageState extends ConsumerState<ActivityPage> {
         icon: const Icon(Icons.cancel),
         buttonColor: $colorError,
         onClic: () {
-          modalDialogConfirmation(
-            context: context,
-            titleButtonConfirm: S.current.Si_salir,
-            question: RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(
-                text: S
-                    .current.Esta_seguro_de_salir_de_la_edicion_de_la_actividad,
-                style: const TextStyle(fontSize: 16, color: $colorTextBlack),
-              ),
-            ),
-            buttonColorConfirm: $colorSuccess,
-            onClic: () {
-              Navigator.of(context).pop();
-              Navigator.of(context).pop();
-            },
-          );
+          Navigator.of(context).pop();
         },
       ),
     );
