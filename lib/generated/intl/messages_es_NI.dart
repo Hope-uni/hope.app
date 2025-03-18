@@ -54,6 +54,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Actualizar": MessageLookupByLibrary.simpleMessage("Actualizar"),
         "Agregar_observacion":
             MessageLookupByLibrary.simpleMessage("Agregar observación"),
+        "Agregar_observacion_al_nino":
+            MessageLookupByLibrary.simpleMessage("Agregar observación al niño"),
         "Agregar_pictograma":
             MessageLookupByLibrary.simpleMessage("Agregar pictograma"),
         "Anadir_nuevo_pictograma_personalizado":
@@ -133,10 +135,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "Editar_la_informacion_general_de_la_actividad":
             MessageLookupByLibrary.simpleMessage(
                 "Editar la Información general de la actividad"),
-        "Editar_observaciones":
-            MessageLookupByLibrary.simpleMessage("Editar observaciones"),
-        "Editar_observaciones_del_nino": MessageLookupByLibrary.simpleMessage(
-            "Editar observaciones del niño"),
         "Editar_pictograma":
             MessageLookupByLibrary.simpleMessage("Editar pictograma"),
         "El_celular_deber_ser_un_numero_valido_y_no_estar_vacio":
@@ -150,12 +148,24 @@ class MessageLookup extends MessageLookupByLibrary {
         "El_nombre_de_usuario_no_puede_estar_vacio":
             MessageLookupByLibrary.simpleMessage(
                 "El nombre de usuario no puede estar vacío"),
+        "El_nombre_del_usuario_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres":
+            MessageLookupByLibrary.simpleMessage(
+                "El nombre del usuario no puede ser menor a 3 o mayor a 15 caracteres"),
+        "El_nombre_no_puede_ser_menor_a_tres_o_mayor_a_cien_caracteres":
+            MessageLookupByLibrary.simpleMessage(
+                "El nombre no puede ser menor a 3 o mayor a 100 caracteres"),
         "El_primer_apellido_no_puede_estar_vacio":
             MessageLookupByLibrary.simpleMessage(
                 "El primer apellido no puede estar vacío"),
+        "El_primer_apellido_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres":
+            MessageLookupByLibrary.simpleMessage(
+                "El primer apellido no puede ser menor a 3 o mayor a 15 caracteres"),
         "El_primer_nombre_no_puede_estar_vacio":
             MessageLookupByLibrary.simpleMessage(
                 "El primer nombre no puede estar vacío"),
+        "El_primer_nombre_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres":
+            MessageLookupByLibrary.simpleMessage(
+                "El primer nombre no puede ser menor a 3 o mayor a 15 caracteres"),
         "El_sexo_no_puede_estar_vacio": MessageLookupByLibrary.simpleMessage(
             "El sexo no puede estar vacío"),
         "El_telefono_deber_ser_un_numero_valido_y_no_estar_vacio":
@@ -216,6 +226,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Fecha de nacimiento"),
         "Formato_incorrecto_de_cedula": MessageLookupByLibrary.simpleMessage(
             "Formato incorrecto de cédula (###-######-####L)"),
+        "Formato_incorrecto_de_correo_electronico":
+            MessageLookupByLibrary.simpleMessage(
+                "Formato incorrecto de correo electrónico"),
         "Galeria": MessageLookupByLibrary.simpleMessage("Galería"),
         "Grado_de_autismo_actual":
             MessageLookupByLibrary.simpleMessage("Grado de autismo actual"),
@@ -264,9 +277,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "La_descripcion_de_la_actividad_no_puede_estar_vacia":
             MessageLookupByLibrary.simpleMessage(
                 "La descripción de la actividad no puede estar vacía"),
+        "La_descripcion_no_puede_ser_menor_a_seis_o_mayor_a_docientocincuentaycinco_caracteres":
+            MessageLookupByLibrary.simpleMessage(
+                "La descripción no puede ser menor a 6 o mayor a 255 caracteres"),
         "La_direccion_no_puede_estar_vacia":
             MessageLookupByLibrary.simpleMessage(
                 "La dirección  no puede estar vacía"),
+        "La_direccion_no_puede_ser_menor_a_seis_o_mayor_a_docientocincuentaycinco_caracteres":
+            MessageLookupByLibrary.simpleMessage(
+                "La dirección no puede ser menor a 6 o mayor a 255 caracteres"),
         "La_fecha_de_nacimiento_no_puede_estar_vacia":
             MessageLookupByLibrary.simpleMessage(
                 "La fecha de nacimiento no puede estar vacía"),
@@ -359,6 +378,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Se_elimino_correctamente_el_pictograma_personalizado":
             MessageLookupByLibrary.simpleMessage(
                 "Se eliminó correctamente el pictograma personalizado"),
+        "Se_elimino_correctamente_la_actividad_seleccionada":
+            MessageLookupByLibrary.simpleMessage(
+                "Se eliminó correctamente la actividad seleccionada"),
         "Segundo_apellido":
             MessageLookupByLibrary.simpleMessage("Segundo Apellido"),
         "Segundo_nombre":
@@ -372,15 +394,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Seleccione pictogramas de la solución"),
         "Sexo": MessageLookupByLibrary.simpleMessage("Sexo"),
-        "Si_Eliminar": MessageLookupByLibrary.simpleMessage("Si, Eliminar"),
-        "Si_Quitar": MessageLookupByLibrary.simpleMessage("Si, Quitar"),
+        "Si_Eliminar": MessageLookupByLibrary.simpleMessage("Si, eliminar"),
+        "Si_Quitar": MessageLookupByLibrary.simpleMessage("Si, quitar"),
         "Si_actualizar": MessageLookupByLibrary.simpleMessage("Si, actualizar"),
         "Si_avanzar": MessageLookupByLibrary.simpleMessage("Si, avanzar"),
         "Si_el_nombre_del_pictograma_no_se_muestra_completo_puede":
             MessageLookupByLibrary.simpleMessage(
                 "Si el nombre del pictograma no se muestra completo, puede:"),
         "Si_guardar": MessageLookupByLibrary.simpleMessage("Si, guardar"),
-        "Si_salir": MessageLookupByLibrary.simpleMessage("Si, Salir"),
+        "Si_salir": MessageLookupByLibrary.simpleMessage("Si, salir"),
         "Siguiente": MessageLookupByLibrary.simpleMessage("Siguiente"),
         "Sin_actividad_activa_por_el_momento":
             MessageLookupByLibrary.simpleMessage(

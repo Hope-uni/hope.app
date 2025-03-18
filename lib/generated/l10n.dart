@@ -430,10 +430,10 @@ class S {
     );
   }
 
-  /// `Si, Eliminar`
+  /// `Si, eliminar`
   String get Si_Eliminar {
     return Intl.message(
-      'Si, Eliminar',
+      'Si, eliminar',
       name: 'Si_Eliminar',
       desc: '',
       args: [],
@@ -801,16 +801,6 @@ class S {
     );
   }
 
-  /// `Editar observaciones`
-  String get Editar_observaciones {
-    return Intl.message(
-      'Editar observaciones',
-      name: 'Editar_observaciones',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Quitar actividad`
   String get Quitar_actividad {
     return Intl.message(
@@ -821,11 +811,11 @@ class S {
     );
   }
 
-  /// `Editar observaciones del niño`
-  String get Editar_observaciones_del_nino {
+  /// `Agregar observación al niño`
+  String get Agregar_observacion_al_nino {
     return Intl.message(
-      'Editar observaciones del niño',
-      name: 'Editar_observaciones_del_nino',
+      'Agregar observación al niño',
+      name: 'Agregar_observacion_al_nino',
       desc: '',
       args: [],
     );
@@ -901,10 +891,10 @@ class S {
     );
   }
 
-  /// `Si, Salir`
+  /// `Si, salir`
   String get Si_salir {
     return Intl.message(
-      'Si, Salir',
+      'Si, salir',
       name: 'Si_salir',
       desc: '',
       args: [],
@@ -1252,10 +1242,10 @@ class S {
     );
   }
 
-  /// `Si, Quitar`
+  /// `Si, quitar`
   String get Si_Quitar {
     return Intl.message(
-      'Si, Quitar',
+      'Si, quitar',
       name: 'Si_Quitar',
       desc: '',
       args: [],
@@ -1997,6 +1987,96 @@ class S {
       '• Mantener el dedo sobre el pictograma de la solución para poder ordenarlo a su voluntad',
       name:
           'Mantener_el_dedo_sobre_el_pictograma_de_la_solucion_para_poder_ordenarlo_a_su_voluntad',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Se eliminó correctamente la actividad seleccionada`
+  String get Se_elimino_correctamente_la_actividad_seleccionada {
+    return Intl.message(
+      'Se eliminó correctamente la actividad seleccionada',
+      name: 'Se_elimino_correctamente_la_actividad_seleccionada',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `El nombre no puede ser menor a 3 o mayor a 100 caracteres`
+  String get El_nombre_no_puede_ser_menor_a_tres_o_mayor_a_cien_caracteres {
+    return Intl.message(
+      'El nombre no puede ser menor a 3 o mayor a 100 caracteres',
+      name: 'El_nombre_no_puede_ser_menor_a_tres_o_mayor_a_cien_caracteres',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `La descripción no puede ser menor a 6 o mayor a 255 caracteres`
+  String
+      get La_descripcion_no_puede_ser_menor_a_seis_o_mayor_a_docientocincuentaycinco_caracteres {
+    return Intl.message(
+      'La descripción no puede ser menor a 6 o mayor a 255 caracteres',
+      name:
+          'La_descripcion_no_puede_ser_menor_a_seis_o_mayor_a_docientocincuentaycinco_caracteres',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `El nombre del usuario no puede ser menor a 3 o mayor a 15 caracteres`
+  String
+      get El_nombre_del_usuario_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres {
+    return Intl.message(
+      'El nombre del usuario no puede ser menor a 3 o mayor a 15 caracteres',
+      name:
+          'El_nombre_del_usuario_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `El primer nombre no puede ser menor a 3 o mayor a 15 caracteres`
+  String
+      get El_primer_nombre_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres {
+    return Intl.message(
+      'El primer nombre no puede ser menor a 3 o mayor a 15 caracteres',
+      name:
+          'El_primer_nombre_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `El primer apellido no puede ser menor a 3 o mayor a 15 caracteres`
+  String
+      get El_primer_apellido_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres {
+    return Intl.message(
+      'El primer apellido no puede ser menor a 3 o mayor a 15 caracteres',
+      name:
+          'El_primer_apellido_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `La dirección no puede ser menor a 6 o mayor a 255 caracteres`
+  String
+      get La_direccion_no_puede_ser_menor_a_seis_o_mayor_a_docientocincuentaycinco_caracteres {
+    return Intl.message(
+      'La dirección no puede ser menor a 6 o mayor a 255 caracteres',
+      name:
+          'La_direccion_no_puede_ser_menor_a_seis_o_mayor_a_docientocincuentaycinco_caracteres',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Formato incorrecto de correo electrónico`
+  String get Formato_incorrecto_de_correo_electronico {
+    return Intl.message(
+      'Formato incorrecto de correo electrónico',
+      name: 'Formato_incorrecto_de_correo_electronico',
       desc: '',
       args: [],
     );

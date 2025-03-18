@@ -333,7 +333,7 @@ Future<void> _dialogImage(
             onClic: () {
               Navigator.of(context).pop();
               toastAlert(
-                  iconAlert: const Icon(Icons.update),
+                  iconAlert: const Icon(Icons.check),
                   context: context,
                   title: S.current.Actualizado_con_exito,
                   description: S.current
@@ -383,7 +383,7 @@ Future<void> _dialogConfirmation(BuildContext context) {
           description:
               //TODO: Cambiar cuando este  listo el endpoint
               '${S.current.Se_elimino_correctamente_el_pictograma_personalizado}: Manzana',
-          typeAlert: ToastificationType.error);
+          typeAlert: ToastificationType.success);
       Navigator.of(context).pop();
     },
   );

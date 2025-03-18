@@ -5,7 +5,7 @@ import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 
 final activityProvider =
-    StateNotifierProvider.autoDispose<ActivityNotifier, ActivityState>((ref) {
+    StateNotifierProvider<ActivityNotifier, ActivityState>((ref) {
   final activityDataSource = ActivitiesDataSourceImpl();
   return ActivityNotifier(activityDataSource: activityDataSource);
 });
@@ -75,6 +75,30 @@ class ActivityNotifier extends StateNotifier<ActivityState> {
     }
   }
 
+  Future<void> deleteActivity({required int idActivity}) async {
+    state = state.copyWith(isLoading: true);
+    try {
+      await activityDataSource.deleteActivity(idActivity: idActivity);
+      state = state.copyWith(isLoading: false, isDelete: true);
+    } on CustomError catch (e) {
+      state = state.copyWith(
+        errorMessageApi: e.message,
+        isLoading: false,
+        isDelete: false,
+      );
+    } catch (e) {
+      state = state.copyWith(
+        errorMessageApi: S.current.Error_inesperado,
+        isLoading: false,
+        isDelete: false,
+      );
+    }
+  }
+
+  void updateIsDelete() {
+    state = state.copyWith(isDelete: false);
+  }
+
   void updateActivityField(String fieldName, String newValue) {
     //Borra el error si el usuario ingresa texto
     final Map<String, String?> newValidationErrors =
@@ -132,11 +156,23 @@ class ActivityNotifier extends StateNotifier<ActivityState> {
 
     if (state.activity!.name.isEmpty) {
       errors[$name] = S.current.El_nombre_de_la_actividad_no_puede_estar_vacio;
+    } else {
+      if (state.activity!.name.length <= 2 ||
+          state.activity!.name.length >= 100) {
+        errors[$name] = S.current
+            .El_nombre_no_puede_ser_menor_a_tres_o_mayor_a_cien_caracteres;
+      }
     }
 
     if (state.activity!.description.isEmpty) {
       errors[$description] =
           S.current.La_descripcion_de_la_actividad_no_puede_estar_vacia;
+    } else {
+      if (state.activity!.description.length <= 5 ||
+          state.activity!.description.length >= 255) {
+        errors[$description] = S.current
+            .La_descripcion_no_puede_ser_menor_a_seis_o_mayor_a_docientocincuentaycinco_caracteres;
+      }
     }
 
     if (state.activity!.satisfactoryPoints <= 0) {
@@ -171,7 +207,15 @@ class ActivityNotifier extends StateNotifier<ActivityState> {
   }
 
   void resetState() {
-    state = ActivityState();
+    state = ActivityState(
+      activity: CreateActivity(
+        name: '',
+        description: '',
+        satisfactoryPoints: 0,
+        pictogramSentence: [],
+        phaseId: 0,
+      ),
+    );
   }
 }
 
@@ -181,6 +225,7 @@ class ActivityState {
   final bool? showtoastAlert;
   final bool? isLoading;
   final bool? isSave;
+  final bool? isDelete;
   final bool? isErrorInitial;
   final String? errorMessageApi;
   final Map<String, String?> validationErrors;
@@ -191,6 +236,7 @@ class ActivityState {
     this.showtoastAlert = false,
     this.isLoading = false,
     this.isSave = false,
+    this.isDelete = false,
     this.isErrorInitial = false,
     this.errorMessageApi,
     this.validationErrors = const {},
@@ -202,6 +248,7 @@ class ActivityState {
     bool? showtoastAlert,
     bool? isLoading,
     bool? isSave,
+    bool? isDelete,
     bool? isErrorInitial,
     String? errorMessageApi,
     Map<String, String?>? validationErrors,
@@ -215,6 +262,7 @@ class ActivityState {
             : errorMessageApi ?? this.errorMessageApi,
         isLoading: isLoading ?? this.isLoading,
         isSave: isSave ?? this.isSave,
+        isDelete: isDelete ?? this.isDelete,
         isErrorInitial: isErrorInitial ?? this.isErrorInitial,
         validationErrors: validationErrors ?? this.validationErrors,
       );

@@ -24,4 +24,11 @@ class ActivitiesRepositoryImpl extends ActivitiesRepository {
   Future<ResponseDataObject<Activity>> getActivity({required int idActivity}) {
     return dataSource.getActivity(idActivity: idActivity);
   }
+
+  @override
+  Future<ResponseDataObject<ResponseData>> deleteActivity({
+    required int idActivity,
+  }) {
+    return dataSource.deleteActivity(idActivity: idActivity);
+  }
 }
