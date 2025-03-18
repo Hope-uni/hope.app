@@ -5,7 +5,7 @@ import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 
 final activityProvider =
-    StateNotifierProvider.autoDispose<ActivityNotifier, ActivityState>((ref) {
+    StateNotifierProvider<ActivityNotifier, ActivityState>((ref) {
   final activityDataSource = ActivitiesDataSourceImpl();
   return ActivityNotifier(activityDataSource: activityDataSource);
 });
@@ -156,11 +156,23 @@ class ActivityNotifier extends StateNotifier<ActivityState> {
 
     if (state.activity!.name.isEmpty) {
       errors[$name] = S.current.El_nombre_de_la_actividad_no_puede_estar_vacio;
+    } else {
+      if (state.activity!.name.length <= 2 ||
+          state.activity!.name.length >= 100) {
+        errors[$name] = S.current
+            .El_nombre_no_puede_ser_menor_a_tres_o_mayor_a_cien_caracteres;
+      }
     }
 
     if (state.activity!.description.isEmpty) {
       errors[$description] =
           S.current.La_descripcion_de_la_actividad_no_puede_estar_vacia;
+    } else {
+      if (state.activity!.description.length <= 5 ||
+          state.activity!.description.length >= 255) {
+        errors[$description] = S.current
+            .La_descripcion_no_puede_ser_menor_a_seis_o_mayor_a_docientocincuentaycinco_caracteres;
+      }
     }
 
     if (state.activity!.satisfactoryPoints <= 0) {
@@ -195,7 +207,15 @@ class ActivityNotifier extends StateNotifier<ActivityState> {
   }
 
   void resetState() {
-    state = ActivityState();
+    state = ActivityState(
+      activity: CreateActivity(
+        name: '',
+        description: '',
+        satisfactoryPoints: 0,
+        pictogramSentence: [],
+        phaseId: 0,
+      ),
+    );
   }
 }
 

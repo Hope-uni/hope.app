@@ -7,8 +7,7 @@ import 'package:hope_app/presentation/utils/utils.dart';
 final searchNameActivity = StateProvider<String>((ref) => '');
 
 final activitiesProvider =
-    StateNotifierProvider.autoDispose<ActivitiesNotifier, ActivitiesState>(
-        (ref) {
+    StateNotifierProvider<ActivitiesNotifier, ActivitiesState>((ref) {
   final activityRepository = ActivitiesRepositoryImpl();
   return ActivitiesNotifier(activityRepository: activityRepository);
 });

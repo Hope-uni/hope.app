@@ -27,7 +27,7 @@ const Color $colorTransparent = Colors.transparent;
 const String $fontFamilyAnton = 'Anton';
 const TextStyle $fontFamilyPoppins = TextStyle(fontFamily: 'Poppins');
 
-const Color $colorUnSelectTabBar = Color.fromARGB(156, 0, 0, 0);
+const Color $colorUnSelectTabBar = Color.fromARGB(255, 0, 0, 0);
 const Color $colorIndicadorTabBar = Color.fromARGB(255, 255, 78, 0);
 
 const Color $colorRowTable = Color.fromARGB(40, 130, 178, 255);
@@ -40,4 +40,4 @@ const Color $colorSelectMenu = Color.fromARGB(255, 217, 228, 250);
 
 // FINAL IMAGES
 const String noIMage = 'assets/svg/placeholderImage_bn.svg';
-const String loading = 'assets/gif/jar-loading.gif';
+const String loading = 'assets/gif/loading.gif';

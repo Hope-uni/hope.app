@@ -18,6 +18,12 @@ class ActivityPageState extends ConsumerState<ActivityPage> {
   @override
   void initState() {
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (mounted) {
+        ref.read(activityProvider.notifier).resetState();
+      }
+    });
   }
 
   @override

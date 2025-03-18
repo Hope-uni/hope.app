@@ -30,7 +30,18 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     $identificationNumbereProfile: FocusNode(),
     $phoneNumberProfile: FocusNode(),
     $telephoneProfile: FocusNode(),
+    $addressProfile: FocusNode(),
   };
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (mounted) {
+        ref.read(profileProvider.notifier).resetProfile();
+      }
+    });
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,17 +52,27 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
       if (next.validationErrors.isNotEmpty && clickSave) {
         String firstErrorKey = next.validationErrors.keys.first;
         focusNodes[firstErrorKey]?.requestFocus();
+
+        Scrollable.ensureVisible(
+          focusNodes[firstErrorKey]!.context!,
+          duration: const Duration(milliseconds: 1000),
+          curve: Curves.easeInOut,
+          alignment: 0.5, // Opcional: Para centrar el widget en la pantalla
+        );
       }
 
       if (next.isUpdateData == false && next.showtoastAlert == true) {
         if (context.mounted) {
           toastAlert(
-            iconAlert: const Icon(Icons.update),
+            iconAlert: const Icon(Icons.check),
             context: context,
             title: S.current.Actualizado_con_exito,
             description: S.current.Informacion_personal_actualizada,
             typeAlert: ToastificationType.info,
           );
+          setState(() {
+            enableInput = false;
+          });
           profileNotifier.updateErrorMessage();
         }
       }
@@ -240,46 +261,53 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                           ),
                         ),
                       ),
-                      InputForm(
-                        label: S.current.Nombre_de_usuario,
-                        maxLength: 25,
-                        value: profileState.userName!,
-                        enable: enableInput,
-                        onChanged: (value) {
-                          profileNotifier.updateUserName(value);
-                        },
-                        focus: focusNodes[$userNameProfile],
-                        errorText:
-                            profileState.validationErrors[$userNameProfile],
+                      Focus(
+                        focusNode: focusNodes[$userNameProfile],
+                        child: InputForm(
+                          label: S.current.Nombre_de_usuario,
+                          maxLength: 15,
+                          value: profileState.userName!,
+                          enable: enableInput,
+                          onChanged: (value) {
+                            profileNotifier.updateUserName(value);
+                          },
+                          errorText:
+                              profileState.validationErrors[$userNameProfile],
+                        ),
                       ),
-                      InputForm(
-                        label: S.current.Correo_electronico,
-                        maxLength: 50,
-                        value: profileState.email!,
-                        enable: enableInput,
-                        focus: focusNodes[$emailProfile],
-                        onChanged: (value) {
-                          profileNotifier.updateEmail(value);
-                        },
-                        errorText: profileState.validationErrors[$emailProfile],
+                      Focus(
+                        focusNode: focusNodes[$emailProfile],
+                        child: InputForm(
+                          label: S.current.Correo_electronico,
+                          maxLength: 50,
+                          value: profileState.email!,
+                          enable: enableInput,
+                          onChanged: (value) {
+                            profileNotifier.updateEmail(value);
+                          },
+                          errorText:
+                              profileState.validationErrors[$emailProfile],
+                        ),
                       ),
-                      InputForm(
-                        label: S.current.Primer_nombre,
-                        maxLength: 25,
-                        value: profileState.profile!.firstName,
-                        enable: enableInput,
-                        focus: focusNodes[$firstNameProfile],
-                        onChanged: (value) {
-                          profileNotifier.updateProfileField(
-                              $firstNameProfile, value);
-                        },
-                        allCharacters: false,
-                        errorText:
-                            profileState.validationErrors[$firstNameProfile],
+                      Focus(
+                        focusNode: focusNodes[$firstNameProfile],
+                        child: InputForm(
+                          label: S.current.Primer_nombre,
+                          maxLength: 15,
+                          value: profileState.profile!.firstName,
+                          enable: enableInput,
+                          onChanged: (value) {
+                            profileNotifier.updateProfileField(
+                                $firstNameProfile, value);
+                          },
+                          allCharacters: false,
+                          errorText:
+                              profileState.validationErrors[$firstNameProfile],
+                        ),
                       ),
                       InputForm(
                         label: S.current.Segundo_nombre,
-                        maxLength: 25,
+                        maxLength: 15,
                         value: profileState.profile!.secondName ?? '-',
                         enable: enableInput,
                         onChanged: (value) {
@@ -288,23 +316,25 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         },
                         allCharacters: false,
                       ),
-                      InputForm(
-                        label: S.current.Primer_apellido,
-                        maxLength: 25,
-                        value: profileState.profile!.surname,
-                        enable: enableInput,
-                        focus: focusNodes[$surnameProfile],
-                        onChanged: (value) {
-                          profileNotifier.updateProfileField(
-                              $surnameProfile, value);
-                        },
-                        allCharacters: false,
-                        errorText:
-                            profileState.validationErrors[$surnameProfile],
+                      Focus(
+                        focusNode: focusNodes[$surnameProfile],
+                        child: InputForm(
+                          label: S.current.Primer_apellido,
+                          maxLength: 15,
+                          value: profileState.profile!.surname,
+                          enable: enableInput,
+                          onChanged: (value) {
+                            profileNotifier.updateProfileField(
+                                $surnameProfile, value);
+                          },
+                          allCharacters: false,
+                          errorText:
+                              profileState.validationErrors[$surnameProfile],
+                        ),
                       ),
                       InputForm(
                         label: S.current.Segundo_apellido,
-                        maxLength: 25,
+                        maxLength: 15,
                         value: profileState.profile!.secondSurname ?? '-',
                         enable: enableInput,
                         onChanged: (value) {
@@ -330,18 +360,20 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         errorText:
                             profileState.validationErrors[$genderProfile],
                       ),
-                      InputForm(
-                        label: S.current.Cedula,
-                        maxLength: 16,
-                        value: profileState.profile!.identificationNumber,
-                        enable: enableInput,
-                        focus: focusNodes[$identificationNumbereProfile],
-                        onChanged: (value) {
-                          profileNotifier.updateProfileField(
-                              $identificationNumbereProfile, value);
-                        },
-                        errorText: profileState
-                            .validationErrors[$identificationNumbereProfile],
+                      Focus(
+                        focusNode: focusNodes[$identificationNumbereProfile],
+                        child: InputForm(
+                          label: S.current.Cedula,
+                          maxLength: 16,
+                          value: profileState.profile!.identificationNumber,
+                          enable: enableInput,
+                          onChanged: (value) {
+                            profileNotifier.updateProfileField(
+                                $identificationNumbereProfile, value);
+                          },
+                          errorText: profileState
+                              .validationErrors[$identificationNumbereProfile],
+                        ),
                       ),
                       InputForm(
                         label: S.current.Fecha_de_nacimiento,
@@ -362,45 +394,52 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                             profileState.validationErrors[$birthdayProfile],
                       ),
                       if (profileState.roles!.contains($tutor))
-                        InputForm(
-                            label: S.current.Telefono,
-                            maxLength: 8,
-                            isNumber: true,
-                            value: profileState.profile!.telephone ?? '',
-                            enable: enableInput,
-                            focus: focusNodes[$telephoneProfile],
-                            onChanged: (value) {
-                              profileNotifier.updateProfileField(
-                                  $telephoneProfile, value);
-                            },
-                            errorText: profileState
-                                .validationErrors[$telephoneProfile]),
-                      InputForm(
-                        label: S.current.Celular,
-                        maxLength: 8,
-                        isNumber: true,
-                        value: profileState.profile!.phoneNumber,
-                        enable: enableInput,
-                        focus: focusNodes[$phoneNumberProfile],
-                        onChanged: (value) {
-                          profileNotifier.updateProfileField(
-                              $phoneNumberProfile, value);
-                        },
-                        errorText:
-                            profileState.validationErrors[$phoneNumberProfile],
+                        Focus(
+                          focusNode: focusNodes[$telephoneProfile],
+                          child: InputForm(
+                              label: S.current.Telefono,
+                              maxLength: 8,
+                              isNumber: true,
+                              value: profileState.profile!.telephone ?? '',
+                              enable: enableInput,
+                              onChanged: (value) {
+                                profileNotifier.updateProfileField(
+                                    $telephoneProfile, value);
+                              },
+                              errorText: profileState
+                                  .validationErrors[$telephoneProfile]),
+                        ),
+                      Focus(
+                        focusNode: focusNodes[$phoneNumberProfile],
+                        child: InputForm(
+                          label: S.current.Celular,
+                          maxLength: 8,
+                          isNumber: true,
+                          value: profileState.profile!.phoneNumber,
+                          enable: enableInput,
+                          onChanged: (value) {
+                            profileNotifier.updateProfileField(
+                                $phoneNumberProfile, value);
+                          },
+                          errorText: profileState
+                              .validationErrors[$phoneNumberProfile],
+                        ),
                       ),
-                      InputForm(
-                        label: S.current.Direccion,
-                        maxLength: 100,
-                        linesDynamic: true,
-                        enable: enableInput,
-                        onChanged: (value) {
-                          profileNotifier.updateProfileField(
-                              $addressProfile, value);
-                        },
-                        errorText:
-                            profileState.validationErrors[$addressProfile],
-                        value: profileState.profile!.address,
+                      Focus(
+                        focusNode: focusNodes[$addressProfile],
+                        child: InputForm(
+                          label: S.current.Direccion,
+                          maxLength: 255,
+                          linesDynamic: true,
+                          enable: enableInput,
+                          onChanged: (value) {
+                            profileNotifier.updateProfileField(
+                                $addressProfile, value);
+                          },
+                          errorText:
+                              profileState.validationErrors[$addressProfile],
+                          value: profileState.profile!.address,
+                        ),
                       ),
                       const SizedBox(height: 50)
                     ],
@@ -479,9 +518,6 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                             } else {
                               await profileNotifier.updateTherapist();
                             }
-                            setState(() {
-                              enableInput = false;
-                            });
                           },
                         );
                       }

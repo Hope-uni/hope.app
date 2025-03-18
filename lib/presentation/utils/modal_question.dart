@@ -15,27 +15,50 @@ Future<void> modalDialogConfirmation({
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text(
-          S.current.Aviso,
-          style: const TextStyle(fontWeight: FontWeight.w600),
-        ),
-        content: question,
-        actions: <Widget>[
-          ButtonTextIcon(
-            title: titleButtonConfirm,
-            icon: iconButtonConfirm ?? const Icon(Icons.check),
-            buttonColor: buttonColorConfirm ?? $colorBlueGeneral,
-            onClic: onClic,
+        title: Container(
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+            color: $colorBlueGeneral,
           ),
-          ButtonTextIcon(
-            title: S.current.Cancelar,
-            icon: const Icon(
-              Icons.cancel,
+          padding: const EdgeInsets.only(left: 22, top: 20, bottom: 20),
+          alignment: Alignment.centerLeft,
+          child: Text(
+            S.current.Aviso,
+            style: const TextStyle(
+              color: $colorTextWhite,
+              fontWeight: FontWeight.bold,
             ),
-            buttonColor: $colorError,
-            onClic: () {
-              Navigator.of(context).pop();
-            },
+          ),
+        ),
+        titlePadding: EdgeInsets.zero,
+        insetPadding: EdgeInsets.zero,
+        content: SizedBox(width: 200, child: question),
+        actions: <Widget>[
+          Row(
+            children: [
+              Expanded(
+                child: ButtonTextIcon(
+                  title: S.current.Cancelar,
+                  icon: const Icon(
+                    Icons.cancel,
+                  ),
+                  buttonColor: $colorError,
+                  onClic: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ),
+              const SizedBox(width: 5),
+              Expanded(
+                child: ButtonTextIcon(
+                  title: titleButtonConfirm,
+                  icon: iconButtonConfirm ?? const Icon(Icons.check),
+                  buttonColor: buttonColorConfirm ?? $colorBlueGeneral,
+                  onClic: onClic,
+                ),
+              )
+            ],
           )
         ],
       );

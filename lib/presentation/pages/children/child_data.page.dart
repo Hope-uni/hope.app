@@ -35,9 +35,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
     $emailProfile: FocusNode(),
     $firstNameProfile: FocusNode(),
     $surnameProfile: FocusNode(),
-    $identificationNumbereProfile: FocusNode(),
-    $phoneNumberProfile: FocusNode(),
-    $telephoneProfile: FocusNode(),
+    $addressProfile: FocusNode(),
   };
 
   @override
@@ -95,17 +93,25 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
       if (next.validationErrors.isNotEmpty && clickSave) {
         String firstErrorKey = next.validationErrors.keys.first;
         focusNodes[firstErrorKey]?.requestFocus();
+
+        Scrollable.ensureVisible(
+          focusNodes[firstErrorKey]!.context!,
+          duration: const Duration(milliseconds: 1000),
+          curve: Curves.easeInOut,
+          alignment: 0.5, // Opcional: Para centrar el widget en la pantalla
+        );
       }
 
       if (next.isUpdateData == false && next.showtoastAlert == true) {
         if (context.mounted) {
           toastAlert(
-            iconAlert: const Icon(Icons.update),
+            iconAlert: const Icon(Icons.check),
             context: context,
             title: S.current.Actualizado_con_exito,
             description: S.current.Informacion_del_nino_actualizada,
             typeAlert: ToastificationType.info,
           );
+          enableInput = false;
           notifierChild.updateErrorMessage();
         }
       }
@@ -241,23 +247,30 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
             if (stateChild.isLoading == false && stateChild.isError != true)
               TabBarView(
                 children: <Widget>[
-                  Container(
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 15),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          ..._childPersonalData(
-                            enableInput: enableInput,
-                            context: context,
-                            ref: ref,
-                            clickSave: clickSave,
-                            focusNodes: focusNodes,
-                            controllerDate: controllerDate,
-                            selectDate: selectDate,
-                          )
-                        ],
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                      });
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 15),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            ..._childPersonalData(
+                              enableInput: enableInput,
+                              context: context,
+                              ref: ref,
+                              clickSave: clickSave,
+                              focusNodes: focusNodes,
+                              controllerDate: controllerDate,
+                              selectDate: selectDate,
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -390,7 +403,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
             key: _key,
             pos: ExpandableFabPos.right,
             openButtonBuilder: RotateFloatingActionButtonBuilder(
-              child: const Icon(Icons.add),
+              child: const Icon(Icons.expand_less),
               fabSize: ExpandableFabSize.regular,
               foregroundColor: $colorTextWhite,
               backgroundColor: $colorSuccess,
@@ -407,7 +420,8 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
             childrenAnimation: ExpandableFabAnimation.none,
             distance: 60,
             children: [
-              if (!enableInput)
+              if (!enableInput &&
+                  profileState.permmisions!.contains($updatePatientTutor))
                 Row(
                   children: [
                     Text(
@@ -527,7 +541,6 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
                                 Navigator.of(context).pop();
                               }
                               await notifierChild.updateChild();
-                              enableInput = false;
                             },
                           );
                         }
@@ -700,39 +713,45 @@ List<Widget> _childPersonalData({
       ),
     ),
     const SizedBox(height: 10),
-    InputForm(
-      label: S.current.Nombre_de_usuario,
-      maxLength: 25,
-      value: stateChild.child!.username,
-      enable: enableInput,
-      onChanged: (value) {
-        notifierChild.updateChildField($userNameProfile, value);
-      },
-      focus: focusNodes[$userNameProfile],
-      errorText: stateChild.validationErrors[$userNameProfile],
+    Focus(
+      focusNode: focusNodes[$userNameProfile],
+      child: InputForm(
+        label: S.current.Nombre_de_usuario,
+        maxLength: 15,
+        value: stateChild.child!.username,
+        enable: enableInput,
+        onChanged: (value) {
+          notifierChild.updateChildField($userNameProfile, value);
+        },
+        errorText: stateChild.validationErrors[$userNameProfile],
+      ),
     ),
-    InputForm(
-      label: S.current.Correo_electronico,
-      maxLength: 50,
-      value: stateChild.child!.email,
-      enable: enableInput,
-      onChanged: (value) {
-        notifierChild.updateChildField($emailProfile, value);
-      },
-      focus: focusNodes[$emailProfile],
-      errorText: stateChild.validationErrors[$emailProfile],
+    Focus(
+      focusNode: focusNodes[$emailProfile],
+      child: InputForm(
+        label: S.current.Correo_electronico,
+        maxLength: 50,
+        value: stateChild.child!.email,
+        enable: enableInput,
+        onChanged: (value) {
+          notifierChild.updateChildField($emailProfile, value);
+        },
+        errorText: stateChild.validationErrors[$emailProfile],
+      ),
     ),
-    InputForm(
-      label: S.current.Primer_nombre,
-      maxLength: 25,
-      value: stateChild.child!.firstName,
-      enable: enableInput,
-      allCharacters: false,
-      onChanged: (value) {
-        notifierChild.updateChildField($firstNameProfile, value);
-      },
-      focus: focusNodes[$firstNameProfile],
-      errorText: stateChild.validationErrors[$firstNameProfile],
+    Focus(
+      focusNode: focusNodes[$firstNameProfile],
+      child: InputForm(
+        label: S.current.Primer_nombre,
+        maxLength: 15,
+        value: stateChild.child!.firstName,
+        enable: enableInput,
+        allCharacters: false,
+        onChanged: (value) {
+          notifierChild.updateChildField($firstNameProfile, value);
+        },
+        errorText: stateChild.validationErrors[$firstNameProfile],
+      ),
     ),
     InputForm(
       label: S.current.Segundo_nombre,
@@ -744,21 +763,23 @@ List<Widget> _childPersonalData({
         notifierChild.updateChildField($secondNameProfile, value);
       },
     ),
-    InputForm(
-      label: S.current.Primer_apellido,
-      maxLength: 25,
-      value: stateChild.child!.surname,
-      enable: enableInput,
-      allCharacters: false,
-      onChanged: (value) {
-        notifierChild.updateChildField($surnameProfile, value);
-      },
-      focus: focusNodes[$surnameProfile],
-      errorText: stateChild.validationErrors[$surnameProfile],
+    Focus(
+      focusNode: focusNodes[$surnameProfile],
+      child: InputForm(
+        label: S.current.Primer_apellido,
+        maxLength: 15,
+        value: stateChild.child!.surname,
+        enable: enableInput,
+        allCharacters: false,
+        onChanged: (value) {
+          notifierChild.updateChildField($surnameProfile, value);
+        },
+        errorText: stateChild.validationErrors[$surnameProfile],
+      ),
     ),
     InputForm(
       label: S.current.Segundo_apellido,
-      maxLength: 25,
+      maxLength: 15,
       value: stateChild.child!.secondSurname ?? '',
       enable: enableInput,
       allCharacters: false,
@@ -798,16 +819,19 @@ List<Widget> _childPersonalData({
       value: stateChild.child!.age.toString(),
       enable: false,
     ),
-    InputForm(
-      label: S.current.Direccion,
-      maxLength: 100,
-      linesDynamic: true,
-      enable: enableInput,
-      onChanged: (value) {
-        notifierChild.updateChildField($addressProfile, value);
-      },
-      errorText: stateChild.validationErrors[$addressProfile],
-      value: stateChild.child!.address,
+    Focus(
+      focusNode: focusNodes[$addressProfile],
+      child: InputForm(
+        label: S.current.Direccion,
+        maxLength: 255,
+        linesDynamic: true,
+        enable: enableInput,
+        onChanged: (value) {
+          notifierChild.updateChildField($addressProfile, value);
+        },
+        errorText: stateChild.validationErrors[$addressProfile],
+        value: stateChild.child!.address,
+      ),
     ),
     const SizedBox(height: 55),
   ];
