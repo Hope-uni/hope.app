@@ -19,7 +19,7 @@ modalPassword({
       return Consumer(
         builder: (context, ref, child) {
           final notifierChangePassword =
-              ref.watch(changePasswordProvider.notifier);
+              ref.read(changePasswordProvider.notifier);
 
           final stateChangePassword = ref.watch(changePasswordProvider);
 
@@ -28,7 +28,7 @@ modalPassword({
                 next.messageSuccess!.isNotEmpty) {
               if (context.mounted) {
                 toastAlert(
-                  iconAlert: const Icon(Icons.update),
+                  iconAlert: const Icon(Icons.check),
                   context: context,
                   title: S.current.Actualizado_con_exito,
                   description: next.messageSuccess!,
@@ -86,7 +86,9 @@ modalPassword({
                         ),
                         onChanged: (value) {
                           notifierChangePassword.updateErrorField(
-                              $password, value);
+                            $password,
+                            value,
+                          );
                         },
                         errorText:
                             stateChangePassword.validationErrors[$password],
@@ -111,7 +113,9 @@ modalPassword({
                         ),
                         onChanged: (value) {
                           notifierChangePassword.updateErrorField(
-                              $newPassword, value);
+                            $newPassword,
+                            value,
+                          );
                         },
                         errorText:
                             stateChangePassword.validationErrors[$newPassword],
@@ -138,7 +142,9 @@ modalPassword({
                         ),
                         onChanged: (value) {
                           notifierChangePassword.updateErrorField(
-                              $confirmNewPassword, value);
+                            $confirmNewPassword,
+                            value,
+                          );
                         },
                         errorText: stateChangePassword
                             .validationErrors[$confirmNewPassword],
@@ -149,9 +155,7 @@ modalPassword({
                 actions: <Widget>[
                   ButtonTextIcon(
                     title: S.current.Actualizar,
-                    icon: const Icon(
-                      Icons.update,
-                    ),
+                    icon: const Icon(Icons.update),
                     buttonColor: $colorBlueGeneral,
                     onClic: () {
                       if (notifierChangePassword.checkFields()) {
@@ -163,15 +167,14 @@ modalPassword({
                     title: isVerifided
                         ? S.current.Cancelar
                         : S.current.Cerrar_sesion,
-                    icon: const Icon(
-                      Icons.cancel,
-                    ),
+                    icon: const Icon(Icons.cancel),
                     buttonColor: $colorError,
-                    onClic: () {
+                    onClic: () async {
                       if (isVerifided != true) {
-                        ref.read(authProvider.notifier).logout();
+                        await ref.read(authProvider.notifier).logout();
                       } else {
                         Navigator.of(context).pop();
+                        notifierChangePassword.resetState();
                       }
                     },
                   )

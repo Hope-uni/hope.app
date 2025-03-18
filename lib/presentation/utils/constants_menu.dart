@@ -152,8 +152,8 @@ final List<MenuItem> menuPacientTherapist = <MenuItem>[
     roles: [$terapeuta],
   ),
   MenuItem(
-    title: S.current.Editar_observaciones,
-    subTitle: S.current.Editar_observaciones_del_nino,
+    title: S.current.Agregar_observacion,
+    subTitle: S.current.Agregar_observacion_al_nino,
     icon: Icons.edit,
     permission: $updatePatienttherapist,
     onClick: ({
@@ -255,7 +255,7 @@ final List<MenuItem> menuActivity = <MenuItem>[
         },
         context: context,
         question: RichText(
-          textAlign: TextAlign.center,
+          textAlign: TextAlign.left,
           text: TextSpan(
             style: const TextStyle(color: $colorTextBlack),
             children: [

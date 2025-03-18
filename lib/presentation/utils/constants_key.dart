@@ -65,6 +65,7 @@ const String $login = "login";
 const String $newActivity = "newActivity";
 
 //FINALS REGEX
+final $emailRegex = RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$');
 final $regexphoneNumber = RegExp(r'^(5|7|8)[0-9]{7}$');
 final $regexTelephone = RegExp(r'^(2)[0-9]{7}$');
 final $regexPassword = RegExp(r'^[a-zA-z0-9]{8,30}$');

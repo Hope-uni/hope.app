@@ -59,6 +59,7 @@ class ListTileCustom extends StatelessWidget {
               )
             : Container(width: 3, color: $colorBlueGeneral),
         title: Text(title,
+            maxLines: 2,
             style: TextStyle(
                 fontWeight: styleTitle,
                 color: colorTitle == true ? $colorBlueGeneral : null)),

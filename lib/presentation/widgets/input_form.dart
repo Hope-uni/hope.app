@@ -67,8 +67,16 @@ class _InputFormState extends State<InputForm> {
   @override
   void didUpdateWidget(InputForm oldWidget) {
     super.didUpdateWidget(oldWidget);
-    // Verifica si el valor ha cambiado
-    if (widget.value != oldWidget.value) _controller.text = widget.value;
+    // Verifica si el valor ha cambiado y conserva la posicion
+    if (widget.value != oldWidget.value) {
+      final previousPosition = _controller.selection.baseOffset;
+      // Actualizar el texto
+      _controller.text = widget.value;
+      // Validar que la posición del cursor no sea mayor al nuevo texto
+      final newOffset = previousPosition.clamp(0, _controller.text.length);
+      // Asignar la nueva posición corregida
+      _controller.selection = TextSelection.collapsed(offset: newOffset);
+    }
   }
 
   @override

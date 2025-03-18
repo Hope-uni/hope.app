@@ -90,6 +90,7 @@ class ActivitiesPageState extends ConsumerState<ActivitiesPage> {
     ref.listen(activityProvider, (previous, next) {
       if (next.isDelete == true) {
         toastAlert(
+          iconAlert: const Icon(Icons.check),
           context: context,
           title: S.current.Eliminacion_exitosa,
           description:
