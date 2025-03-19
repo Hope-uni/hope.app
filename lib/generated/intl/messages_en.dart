@@ -34,6 +34,9 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m4(numFase, nameChild) =>
       "Se avanzó a la fase ${numFase} a ${nameChild}";
 
+  static String m5(namePictogram) =>
+      "Se creó correctamente el pictograma personalizado: ${namePictogram}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "A": MessageLookupByLibrary.simpleMessage("a"),
@@ -90,7 +93,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Cambio_de_contrasena_de":
             MessageLookupByLibrary.simpleMessage("Cambio de contraseña de"),
         "Cancelar": MessageLookupByLibrary.simpleMessage("Cancelar"),
-        "Cargando": MessageLookupByLibrary.simpleMessage("Cargando...."),
+        "Cargando": MessageLookupByLibrary.simpleMessage("Cargando…"),
         "Categoria_de_pictogramas":
             MessageLookupByLibrary.simpleMessage("Categoría de pictogramas"),
         "Cedula": MessageLookupByLibrary.simpleMessage("Cédula"),
@@ -148,12 +151,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "El_nombre_de_usuario_no_puede_estar_vacio":
             MessageLookupByLibrary.simpleMessage(
                 "El nombre de usuario no puede estar vacío"),
+        "El_nombre_del_pictograma_no_puede_estar_vacio":
+            MessageLookupByLibrary.simpleMessage(
+                "El nombre del pictograma no puede estar vació"),
         "El_nombre_del_usuario_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres":
             MessageLookupByLibrary.simpleMessage(
                 "El nombre del usuario no puede ser menor a 3 o mayor a 15 caracteres"),
         "El_nombre_no_puede_ser_menor_a_tres_o_mayor_a_cien_caracteres":
             MessageLookupByLibrary.simpleMessage(
                 "El nombre no puede ser menor a 3 o mayor a 100 caracteres"),
+        "El_nombre_no_puede_ser_menor_a_tres_o_mayor_a_sesenta_caracteres":
+            MessageLookupByLibrary.simpleMessage(
+                "El nombre no puede ser menor a 3 o mayor a 60 caracteres"),
         "El_primer_apellido_no_puede_estar_vacio":
             MessageLookupByLibrary.simpleMessage(
                 "El primer apellido no puede estar vacío"),
@@ -282,7 +291,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "La descripción no puede ser menor a 6 o mayor a 255 caracteres"),
         "La_direccion_no_puede_estar_vacia":
             MessageLookupByLibrary.simpleMessage(
-                "La dirección  no puede estar vacía"),
+                "La dirección no puede estar vacía"),
         "La_direccion_no_puede_ser_menor_a_seis_o_mayor_a_docientocincuentaycinco_caracteres":
             MessageLookupByLibrary.simpleMessage(
                 "La dirección no puede ser menor a 6 o mayor a 255 caracteres"),
@@ -337,6 +346,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Para ver la imagen con más detalle:"),
         "Perfil": MessageLookupByLibrary.simpleMessage("Perfil"),
+        "Personalizar_pictograma":
+            MessageLookupByLibrary.simpleMessage("Personalizar pictograma"),
         "Peticion_enviada":
             MessageLookupByLibrary.simpleMessage("Petición enviada"),
         "Pictogramas_blanco_negro":
@@ -352,7 +363,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Primer Apellido"),
         "Primer_nombre": MessageLookupByLibrary.simpleMessage("Primer Nombre"),
         "Progreso_general_de_las_fase": MessageLookupByLibrary.simpleMessage(
-            "Progreso general de las fase"),
+            "Progreso general de las fases"),
         "Progresos": MessageLookupByLibrary.simpleMessage("Progresos"),
         "Puntaje": MessageLookupByLibrary.simpleMessage("Puntaje"),
         "Puntos": MessageLookupByLibrary.simpleMessage("Puntos"),
@@ -375,6 +386,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Se asignó correctamente la actividad a los niños seleccionados"),
         "Se_avanzo_a_la_fase": m4,
+        "Se_creo_correctamente_el_pictograma_personalizado": m5,
         "Se_elimino_correctamente_el_pictograma_personalizado":
             MessageLookupByLibrary.simpleMessage(
                 "Se eliminó correctamente el pictograma personalizado"),

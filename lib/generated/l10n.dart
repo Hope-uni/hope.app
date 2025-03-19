@@ -932,6 +932,17 @@ class S {
     );
   }
 
+  /// `Se creó correctamente el pictograma personalizado: {namePictogram}`
+  String Se_creo_correctamente_el_pictograma_personalizado(
+      Object namePictogram) {
+    return Intl.message(
+      'Se creó correctamente el pictograma personalizado: $namePictogram',
+      name: 'Se_creo_correctamente_el_pictograma_personalizado',
+      desc: '',
+      args: [namePictogram],
+    );
+  }
+
   /// `Total de resultados:`
   String get Total_de_resultados {
     return Intl.message(
@@ -992,10 +1003,10 @@ class S {
     );
   }
 
-  /// `Progreso general de las fase`
+  /// `Progreso general de las fases`
   String get Progreso_general_de_las_fase {
     return Intl.message(
-      'Progreso general de las fase',
+      'Progreso general de las fases',
       name: 'Progreso_general_de_las_fase',
       desc: '',
       args: [],
@@ -1664,10 +1675,10 @@ class S {
     );
   }
 
-  /// `La dirección  no puede estar vacía`
+  /// `La dirección no puede estar vacía`
   String get La_direccion_no_puede_estar_vacia {
     return Intl.message(
-      'La dirección  no puede estar vacía',
+      'La dirección no puede estar vacía',
       name: 'La_direccion_no_puede_estar_vacia',
       desc: '',
       args: [],
@@ -1724,10 +1735,10 @@ class S {
     );
   }
 
-  /// `Cargando....`
+  /// `Cargando…`
   String get Cargando {
     return Intl.message(
-      'Cargando....',
+      'Cargando…',
       name: 'Cargando',
       desc: '',
       args: [],
@@ -2077,6 +2088,36 @@ class S {
     return Intl.message(
       'Formato incorrecto de correo electrónico',
       name: 'Formato_incorrecto_de_correo_electronico',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Personalizar pictograma`
+  String get Personalizar_pictograma {
+    return Intl.message(
+      'Personalizar pictograma',
+      name: 'Personalizar_pictograma',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `El nombre no puede ser menor a 3 o mayor a 60 caracteres`
+  String get El_nombre_no_puede_ser_menor_a_tres_o_mayor_a_sesenta_caracteres {
+    return Intl.message(
+      'El nombre no puede ser menor a 3 o mayor a 60 caracteres',
+      name: 'El_nombre_no_puede_ser_menor_a_tres_o_mayor_a_sesenta_caracteres',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `El nombre del pictograma no puede estar vació`
+  String get El_nombre_del_pictograma_no_puede_estar_vacio {
+    return Intl.message(
+      'El nombre del pictograma no puede estar vació',
+      name: 'El_nombre_del_pictograma_no_puede_estar_vacio',
       desc: '',
       args: [],
     );
