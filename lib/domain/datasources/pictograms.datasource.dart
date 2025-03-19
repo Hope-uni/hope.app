@@ -6,4 +6,8 @@ abstract class PictogramsDataSource {
   });
 
   Future<ResponseDataList<Category>> getCategoryPictograms();
+
+  Future<ResponseDataObject<PictogramAchievements>> createCustomPictogram({
+    required CustomPictogram customPictogram,
+  });
 }

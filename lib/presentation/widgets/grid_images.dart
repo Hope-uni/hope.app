@@ -11,8 +11,10 @@ import 'package:toastification/toastification.dart';
 
 class GridImages extends ConsumerStatefulWidget {
   final bool isCustomized;
+  final int idChild;
 
-  const GridImages({super.key, required this.isCustomized});
+  const GridImages(
+      {super.key, required this.idChild, required this.isCustomized});
 
   @override
   GridImagesState createState() => GridImagesState();
@@ -28,6 +30,9 @@ class GridImagesState extends ConsumerState<GridImages> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (mounted) {
         ref.read(pictogramsProvider.notifier).resetIsErrorInitial();
+        ref.read(customPictogramProvider.notifier).setIdChild(
+              idChild: widget.idChild,
+            );
       }
     });
   }
@@ -82,6 +87,30 @@ class GridImagesState extends ConsumerState<GridImages> {
           typeAlert: ToastificationType.error,
         );
         ref.read(pictogramsProvider.notifier).updateErrorMessage();
+      }
+    });
+
+    ref.listen(customPictogramProvider, (previous, next) {
+      if (next.isLoading == false && next.showtoastAlert == true) {
+        toastAlert(
+            iconAlert: const Icon(Icons.check),
+            context: context,
+            title: S.current.Actualizado_con_exito,
+            description: S.current
+                .Se_creo_correctamente_el_pictograma_personalizado(
+                    next.pictogram!.name),
+            typeAlert: ToastificationType.info);
+        ref.read(customPictogramProvider.notifier).updateMessage();
+      }
+
+      if (next.errorMessageApi != null) {
+        toastAlert(
+          context: context,
+          title: S.current.Error,
+          description: next.errorMessageApi!,
+          typeAlert: ToastificationType.error,
+        );
+        ref.read(customPictogramProvider.notifier).updateMessage();
       }
     });
 
@@ -253,106 +282,187 @@ class _ImageGrid extends StatelessWidget {
 Future<void> _dialogImage(
     {required BuildContext context, required PictogramAchievements pictogram}) {
   final image = CameraGalleryDataSourceImpl();
+  bool isCreate = true;
+
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text(S.current.Editar_pictograma),
-        icon: const Icon(Icons.edit),
-        content: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Container(
-                      height: 180,
-                      width: 180,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: $colorTextBlack, width: 0.5),
-                        color: $colorTextWhite,
+      final notifierCustomPicto = ProviderScope.containerOf(context)
+          .read(customPictogramProvider.notifier);
+
+      Future.microtask(() {
+        notifierCustomPicto.resetState();
+        notifierCustomPicto.loadCustomPictogram(pictogram: pictogram);
+      });
+
+      return Consumer(
+        builder: (context, ref, child) {
+          final stateCustomPicto = ref.watch(customPictogramProvider);
+
+          if (stateCustomPicto.pictogram == null) {
+            return Stack(
+              children: [
+                const Opacity(
+                  opacity: 0.5,
+                  child:
+                      ModalBarrier(dismissible: false, color: $colorTextBlack),
+                ),
+                Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const CircularProgressIndicator(),
+                      const SizedBox(height: 25),
+                      Text(
+                        S.current.Cargando,
+                        style: const TextStyle(
+                          color: $colorTextWhite,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.none,
+                        ),
                       ),
-                      child: ImageLoad(
-                        urlImage: pictogram.imageUrl,
-                        isDoubleTap: false,
-                      ),
-                    ),
+                    ],
                   ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  SizedBox(
-                    height: 200,
-                    child: Column(
+                ),
+              ],
+            );
+          }
+
+          return AlertDialog(
+            title: Container(
+              width: 275,
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
+                color: $colorBlueGeneral,
+              ),
+              padding: const EdgeInsets.only(
+                  left: 22, top: 20, bottom: 20, right: 22),
+              alignment: Alignment.centerLeft,
+              child: Text(
+                S.current.Personalizar_pictograma,
+                style: const TextStyle(
+                  color: $colorTextWhite,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            titlePadding: EdgeInsets.zero,
+            insetPadding: EdgeInsets.zero,
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 22, vertical: 5),
+            content: SizedBox(
+              width: 275,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        IconButton(
-                            onPressed: () async {
-                              // ignore: unused_local_variable
-                              final photo = await image.selectImage();
-                            },
-                            icon: const Icon(Icons.photo)),
-                        Text(S.current.Galeria),
-                        IconButton(
-                            onPressed: () async {
-                              // ignore: unused_local_variable
-                              final imagen = await image.takePhoto();
-                            },
-                            icon: const Icon(Icons.add_a_photo)),
-                        Text(S.current.Camara),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Container(
+                            height: 180,
+                            width: 180,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                  color: $colorTextBlack, width: 0.5),
+                              color: $colorTextWhite,
+                            ),
+                            child: ImageLoad(
+                              urlImage: stateCustomPicto.pictogram!.imageUrl,
+                              isDoubleTap: false,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        SizedBox(
+                          height: 200,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              IconButton(
+                                  onPressed: () async {
+                                    // ignore: unused_local_variable
+                                    final photo = await image.selectImage();
+                                  },
+                                  icon: const Icon(Icons.photo)),
+                              Text(S.current.Galeria),
+                              IconButton(
+                                  onPressed: () async {
+                                    // ignore: unused_local_variable
+                                    final imagen = await image.takePhoto();
+                                  },
+                                  icon: const Icon(Icons.add_a_photo)),
+                              Text(S.current.Camara),
+                            ],
+                          ),
+                        )
                       ],
                     ),
-                  )
+                    const SizedBox(height: 15),
+                    InputForm(
+                      label: S.current.Nombre,
+                      colorFilled: $colorTextWhite,
+                      isMargin: false,
+                      maxLength: 60,
+                      linesDynamic: true,
+                      value: stateCustomPicto.pictogram!.name,
+                      enable: isCreate,
+                      onChanged: (value) {
+                        notifierCustomPicto.updateName(value);
+                      },
+                      errorText: stateCustomPicto.validationErrors[$name],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            actions: <Widget>[
+              Row(
+                children: [
+                  Expanded(
+                    child: ButtonTextIcon(
+                      title: isCreate ? S.current.Cancelar : S.current.Salir,
+                      icon: const Icon(
+                        Icons.cancel,
+                      ),
+                      buttonColor: $colorError,
+                      onClic: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ),
+                  if (isCreate) const SizedBox(width: 5),
+                  if (isCreate)
+                    Expanded(
+                      child: ButtonTextIcon(
+                        title: S.current.Guardar,
+                        icon: const Icon(
+                          Icons.save,
+                        ),
+                        buttonColor: $colorSuccess,
+                        onClic: () async {
+                          if (notifierCustomPicto.checkFields()) {
+                            FocusManager.instance.primaryFocus?.unfocus();
+                            isCreate = !await notifierCustomPicto
+                                .createCustomPictogram();
+                          }
+                        },
+                      ),
+                    ),
                 ],
               ),
-              const SizedBox(height: 15),
-              InputForm(
-                label: S.current.Nombre,
-                colorFilled: $colorTextWhite,
-                isMargin: false,
-                maxLength: 60,
-                linesDynamic: true,
-                value: pictogram.name,
-                enable: true,
-                onChanged: (value) {},
-              ),
             ],
-          ),
-        ),
-        actions: <Widget>[
-          ButtonTextIcon(
-            title: S.current.Actualizar,
-            icon: const Icon(
-              Icons.update,
-            ),
-            buttonColor: $colorBlueGeneral,
-            onClic: () {
-              Navigator.of(context).pop();
-              toastAlert(
-                  iconAlert: const Icon(Icons.check),
-                  context: context,
-                  title: S.current.Actualizado_con_exito,
-                  description: S.current
-                      .Se_actualizo_correctamente_el_pictograma_personalizado(
-                          'Manzana'), //TODO: Cambiar cuando este  listo el endpoint
-                  typeAlert: ToastificationType.info);
-            },
-          ),
-          ButtonTextIcon(
-            title: S.current.Cancelar,
-            icon: const Icon(
-              Icons.cancel,
-            ),
-            buttonColor: $colorError,
-            onClic: () {
-              Navigator.of(context).pop();
-            },
-          )
-        ],
+          );
+        },
       );
     },
   );

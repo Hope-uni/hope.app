@@ -82,7 +82,7 @@ class PictogramPage extends StatelessWidget {
         ],
         title: Text(S.current.Pictogramas_generales),
       ),
-      body: const GridImages(isCustomized: false),
+      body: GridImages(isCustomized: false, idChild: idChild),
     );
   }
 }

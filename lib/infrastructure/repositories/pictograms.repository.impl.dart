@@ -18,4 +18,11 @@ class PictogramsRepositoyImpl extends PictogramsRepository {
   Future<ResponseDataList<Category>> getCategoryPictograms() {
     return dataSource.getCategoryPictograms();
   }
+
+  @override
+  Future<ResponseDataObject<PictogramAchievements>> createCustomPictogram({
+    required CustomPictogram customPictogram,
+  }) {
+    return dataSource.createCustomPictogram(customPictogram: customPictogram);
+  }
 }

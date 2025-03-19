@@ -10,3 +10,4 @@ export 'children.provider.dart';
 export 'child.provider.dart';
 export 'activity.provider.dart';
 export 'phases.provider.dart';
+export 'custom_pictogram.provider.dart';

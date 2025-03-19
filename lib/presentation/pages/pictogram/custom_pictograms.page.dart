@@ -13,7 +13,7 @@ class CustomPictogramasPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(S.current.Pictogramas_personalizados),
       ),
-      body: const GridImages(isCustomized: true),
+      body: GridImages(isCustomized: true, idChild: idChild),
     );
   }
 }
