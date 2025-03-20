@@ -12,4 +12,17 @@ class PictogramAchievements {
     required this.imageUrl,
     this.category,
   });
+
+  PictogramAchievements copyWith({
+    int? id,
+    String? name,
+    String? imageUrl,
+    Category? category,
+  }) =>
+      PictogramAchievements(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        imageUrl: imageUrl ?? this.imageUrl,
+        category: category ?? this.category,
+      );
 }
