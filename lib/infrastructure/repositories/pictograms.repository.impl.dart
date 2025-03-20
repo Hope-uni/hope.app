@@ -25,4 +25,15 @@ class PictogramsRepositoyImpl extends PictogramsRepository {
   }) {
     return dataSource.createCustomPictogram(customPictogram: customPictogram);
   }
+
+  @override
+  Future<ResponseDataList<PictogramAchievements>> getCustomPictograms({
+    required int indexPage,
+    required int idChild,
+  }) {
+    return dataSource.getCustomPictograms(
+      indexPage: indexPage,
+      idChild: idChild,
+    );
+  }
 }
