@@ -2113,10 +2113,10 @@ class S {
     );
   }
 
-  /// `El nombre del pictograma no puede estar vació`
+  /// `El nombre del pictograma no puede estar vacío`
   String get El_nombre_del_pictograma_no_puede_estar_vacio {
     return Intl.message(
-      'El nombre del pictograma no puede estar vació',
+      'El nombre del pictograma no puede estar vacío',
       name: 'El_nombre_del_pictograma_no_puede_estar_vacio',
       desc: '',
       args: [],

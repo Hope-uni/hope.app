@@ -153,7 +153,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "El nombre de usuario no puede estar vacío"),
         "El_nombre_del_pictograma_no_puede_estar_vacio":
             MessageLookupByLibrary.simpleMessage(
-                "El nombre del pictograma no puede estar vació"),
+                "El nombre del pictograma no puede estar vacío"),
         "El_nombre_del_usuario_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres":
             MessageLookupByLibrary.simpleMessage(
                 "El nombre del usuario no puede ser menor a 3 o mayor a 15 caracteres"),
