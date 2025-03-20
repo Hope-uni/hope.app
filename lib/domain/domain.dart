@@ -12,6 +12,7 @@ export 'entities/pictogram.entities.dart';
 export 'entities/activity.entities.dart';
 export 'entities/category.entities.dart';
 export 'entities/phase.entities.dart';
+export 'entities/custom_pictogram.dart';
 
 export 'datasources/auth.datasource.dart';
 export 'repositories/auth.repository.dart';
