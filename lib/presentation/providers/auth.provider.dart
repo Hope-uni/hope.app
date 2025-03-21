@@ -90,6 +90,14 @@ class AuthNotifier extends StateNotifier<AuthState> {
     );
   }
 
+  void chagesStateNoAuthenticated() {
+    state = state.copyWith(
+      token: null,
+      authStatus: AuthStatus.notAuthenticated,
+      errorMessage: '',
+    );
+  }
+
   Future<void> loginUser(String emailUsername, String password) async {
     try {
       final token = await authRepository.login(emailUsername, password);
