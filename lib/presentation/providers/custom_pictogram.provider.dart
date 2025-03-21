@@ -2,19 +2,27 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hope_app/domain/domain.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
+import 'package:hope_app/presentation/providers/providers.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
+
+final selectDelete = StateProvider<bool>((ref) => false);
 
 final customPictogramProvider = StateNotifierProvider.autoDispose<
     CustomPictogramNotifier, CustomPictogramState>((ref) {
+  final notifierPictograms = ref.read(pictogramsProvider.notifier);
   return CustomPictogramNotifier(
+      notifierPictograms: notifierPictograms,
       pictogramsRepository: PictogramsRepositoyImpl());
 });
 
 class CustomPictogramNotifier extends StateNotifier<CustomPictogramState> {
   final PictogramsRepositoyImpl pictogramsRepository;
+  final PictogramsNotifier notifierPictograms;
 
-  CustomPictogramNotifier({required this.pictogramsRepository})
-      : super(CustomPictogramState());
+  CustomPictogramNotifier({
+    required this.pictogramsRepository,
+    required this.notifierPictograms,
+  }) : super(CustomPictogramState());
 
   Future<bool> createCustomPictogram() async {
     state = state.copyWith(isLoading: true);
@@ -26,7 +34,7 @@ class CustomPictogramNotifier extends StateNotifier<CustomPictogramState> {
 
       state = state.copyWith(
         isLoading: false,
-        showtoastAlert: true,
+        isCreate: true,
         pictogram: response.data,
       );
       return true;
@@ -48,9 +56,40 @@ class CustomPictogramNotifier extends StateNotifier<CustomPictogramState> {
         idPictogram: state.pictogram!.id,
       );
 
+      notifierPictograms.updateDeletePictogram(state.pictogram!.id);
+
       state = state.copyWith(
         isLoading: false,
         isDelete: true,
+      );
+    } on CustomError catch (e) {
+      state = state.copyWith(
+        errorMessageApi: e.message,
+        isLoading: false,
+      );
+    } catch (e) {
+      state = state.copyWith(
+        errorMessageApi: S.current.Error_inesperado,
+        isLoading: false,
+      );
+    }
+  }
+
+  Future<void> updateCustomPictogram() async {
+    state = state.copyWith(isLoading: true);
+    try {
+      await pictogramsRepository.updateCustomPictograms(
+        pictogram: CustomPictogram(
+          name: state.pictogram!.name,
+          imageUrl: state.pictogram!.imageUrl,
+          patientId: state.idChild,
+        ),
+        idPictogram: state.pictogram!.id,
+      );
+
+      state = state.copyWith(
+        isLoading: false,
+        isUpdate: true,
       );
     } on CustomError catch (e) {
       state = state.copyWith(
@@ -83,8 +122,9 @@ class CustomPictogramNotifier extends StateNotifier<CustomPictogramState> {
   void updateRequest() {
     state = state.copyWith(
       errorMessageApi: '',
-      showtoastAlert: false,
+      isCreate: false,
       isDelete: false,
+      isUpdate: false,
       pictogram: null,
     );
   }
@@ -140,18 +180,20 @@ class CustomPictogramState {
   final int idChild;
   final bool? isLoading;
   final bool? isDelete;
+  final bool? isUpdate;
   final String? errorMessageApi;
   final PictogramAchievements? pictogram;
   final Map<String, String?> validationErrors;
-  final bool? showtoastAlert;
+  final bool? isCreate;
 
   CustomPictogramState({
     this.idChild = 0,
     this.isLoading,
     this.isDelete,
+    this.isUpdate,
     this.errorMessageApi,
     this.pictogram,
-    this.showtoastAlert = false,
+    this.isCreate = false,
     this.validationErrors = const {},
   });
 
@@ -159,9 +201,10 @@ class CustomPictogramState {
     int? idChild,
     bool? isLoading,
     bool? isDelete,
+    bool? isUpdate,
     String? errorMessageApi,
     PictogramAchievements? pictogram,
-    bool? showtoastAlert,
+    bool? isCreate,
     Map<String, String?>? validationErrors,
   }) =>
       CustomPictogramState(
@@ -169,9 +212,10 @@ class CustomPictogramState {
             ? null
             : errorMessageApi ?? this.errorMessageApi,
         idChild: idChild ?? this.idChild,
-        showtoastAlert: showtoastAlert ?? this.showtoastAlert,
+        isCreate: isCreate ?? this.isCreate,
         isLoading: isLoading ?? this.isLoading,
         isDelete: isDelete ?? this.isDelete,
+        isUpdate: isUpdate ?? this.isUpdate,
         pictogram: pictogram ?? this.pictogram,
         validationErrors: validationErrors ?? this.validationErrors,
       );

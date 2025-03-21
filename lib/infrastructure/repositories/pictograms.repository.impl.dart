@@ -47,4 +47,15 @@ class PictogramsRepositoyImpl extends PictogramsRepository {
       idChild: idChild,
     );
   }
+
+  @override
+  Future<ResponseDataObject<PictogramAchievements>> updateCustomPictograms({
+    required CustomPictogram pictogram,
+    required int idPictogram,
+  }) {
+    return dataSource.updateCustomPictograms(
+      pictogram: pictogram,
+      idPictogram: idPictogram,
+    );
+  }
 }
