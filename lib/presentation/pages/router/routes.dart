@@ -11,9 +11,15 @@ final goRouterProvider = Provider<GoRouter>((ref) {
   final keyValueRepository = KeyValueStorageRepositoryImpl();
 
   return GoRouter(
-    initialLocation: '/login',
+    initialLocation: '/splash',
     refreshListenable: goRouterNotifier,
     routes: <RouteBase>[
+      GoRoute(
+        path: '/splash',
+        name: $splash,
+        builder: (BuildContext context, GoRouterState state) =>
+            const SplashScreenPage(),
+      ),
       GoRoute(
         path: '/login',
         name: $login,
@@ -119,7 +125,9 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       }
 
       if (authStatus == AuthStatus.notAuthenticated) {
-        if (isGoingTo == '/login' || isGoingTo == '/resetpassword') return null;
+        if (isGoingTo == '/login' || isGoingTo == '/resetpassword') {
+          return null;
+        }
         return '/login';
       }
 
@@ -129,7 +137,9 @@ final goRouterProvider = Provider<GoRouter>((ref) {
 
         if (token == null) return '/login';
 
-        if (isGoingTo == '/login' || isGoingTo == '/resetpassword') {
+        if (isGoingTo == '/login' ||
+            isGoingTo == '/resetpassword' ||
+            isGoingTo == '/splash') {
           return '/dashboard';
         }
 
