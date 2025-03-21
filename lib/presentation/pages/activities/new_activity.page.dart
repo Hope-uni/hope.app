@@ -170,7 +170,7 @@ class NewActivityState extends ConsumerState<NewActivityPage> {
                         } else {
                           if (context.mounted) {
                             toastAlert(
-                              iconAlert: const Icon(Icons.update),
+                              iconAlert: const Icon(Icons.info),
                               context: context,
                               title: S.current.No_autorizado,
                               description:

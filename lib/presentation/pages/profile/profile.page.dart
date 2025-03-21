@@ -479,12 +479,13 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         );
                       } else {
                         toastAlert(
-                            iconAlert: const Icon(Icons.update),
-                            context: context,
-                            title: S.current.No_autorizado,
-                            description:
-                                S.current.No_cuenta_con_el_permiso_necesario,
-                            typeAlert: ToastificationType.info);
+                          iconAlert: const Icon(Icons.info),
+                          context: context,
+                          title: S.current.No_autorizado,
+                          description:
+                              S.current.No_cuenta_con_el_permiso_necesario,
+                          typeAlert: ToastificationType.info,
+                        );
                       }
                     },
                   ),

@@ -444,7 +444,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
                           notifierChild.assingState();
                         } else {
                           toastAlert(
-                            iconAlert: const Icon(Icons.update),
+                            iconAlert: const Icon(Icons.info),
                             context: context,
                             title: S.current.No_autorizado,
                             description:

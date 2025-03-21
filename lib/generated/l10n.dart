@@ -380,6 +380,16 @@ class S {
     );
   }
 
+  /// `Crear`
+  String get Crear {
+    return Intl.message(
+      'Crear',
+      name: 'Crear',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Eliminar`
   String get Eliminar {
     return Intl.message(
@@ -395,6 +405,16 @@ class S {
     return Intl.message(
       'Editar pictograma',
       name: 'Editar_pictograma',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Actualizar pictograma`
+  String get Actualizar_pictograma {
+    return Intl.message(
+      'Actualizar pictograma',
+      name: 'Actualizar_pictograma',
       desc: '',
       args: [],
     );
@@ -450,14 +470,13 @@ class S {
     );
   }
 
-  /// `¿Está seguro que desea eliminar el pictograma '{nameImage}' de '{nameChild}'?`
-  String Esta_seguro_que_desea_eliminar_el_pictograma(
-      Object nameImage, Object nameChild) {
+  /// `¿Está seguro que desea eliminar el pictograma?`
+  String get Esta_seguro_que_desea_eliminar_el_pictograma {
     return Intl.message(
-      '¿Está seguro que desea eliminar el pictograma \'$nameImage\' de \'$nameChild\'?',
+      '¿Está seguro que desea eliminar el pictograma?',
       name: 'Esta_seguro_que_desea_eliminar_el_pictograma',
       desc: '',
-      args: [nameImage, nameChild],
+      args: [],
     );
   }
 
