@@ -380,6 +380,16 @@ class S {
     );
   }
 
+  /// `Crear`
+  String get Crear {
+    return Intl.message(
+      'Crear',
+      name: 'Crear',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Eliminar`
   String get Eliminar {
     return Intl.message(
@@ -395,6 +405,16 @@ class S {
     return Intl.message(
       'Editar pictograma',
       name: 'Editar_pictograma',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Actualizar pictograma`
+  String get Actualizar_pictograma {
+    return Intl.message(
+      'Actualizar pictograma',
+      name: 'Actualizar_pictograma',
       desc: '',
       args: [],
     );

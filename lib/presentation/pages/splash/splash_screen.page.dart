@@ -41,6 +41,12 @@ class SplashScreenPageState extends State<SplashScreenPage> {
               ),
             ),
             const Flexible(child: HeartCircle()),
+            Container(
+              margin: const EdgeInsets.only(top: 60),
+              alignment: Alignment.center,
+              width: 100,
+              child: const LinearProgressIndicator(),
+            ),
           ],
         ),
       ),
