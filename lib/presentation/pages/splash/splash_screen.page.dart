@@ -1,41 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:hope_app/generated/l10n.dart';
-import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
-import 'package:hope_app/presentation/widgets/widgets.dart';
+import 'package:hope_app/presentation/widgets/heart_circle_background.dart';
 
-class DashboardPage extends StatefulWidget {
-  const DashboardPage({super.key});
+class SplashScreenPage extends StatefulWidget {
+  const SplashScreenPage({super.key});
 
   @override
-  State<DashboardPage> createState() => _DashboardPageState();
+  SplashScreenPageState createState() => SplashScreenPageState();
 }
 
-class _DashboardPageState extends State<DashboardPage> {
+class SplashScreenPageState extends State<SplashScreenPage> {
   @override
   void initState() {
     super.initState();
-    // Llama a la función para verificar la keyStorage al cargar la página
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final bool? verified = await KeyValueStorageRepositoryImpl()
-          .getValueStorage<bool>($verified);
-
-      if (verified != true) {
-        if (mounted) {
-          modalPassword(
-            context: context,
-            isVerifided: verified ?? false,
-          );
-        }
-      }
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(title: Text(S.current.Bienvenido_pagina_de_inicio)),
+      backgroundColor: $colorBlueGeneral, // Cambia el color de fondo
       body: Container(
         height: size.height,
         width: size.width,
@@ -59,7 +44,6 @@ class _DashboardPageState extends State<DashboardPage> {
           ],
         ),
       ),
-      drawer: const SideMenu(),
     );
   }
 }

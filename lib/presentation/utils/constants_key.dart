@@ -62,6 +62,7 @@ const String $board = "board";
 const String $dashboard = "dashboard";
 const String $resetpassword = "resetpassword";
 const String $login = "login";
+const String $splash = "splash";
 const String $newActivity = "newActivity";
 
 //FINALS REGEX
