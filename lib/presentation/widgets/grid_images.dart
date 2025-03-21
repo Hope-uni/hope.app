@@ -29,7 +29,6 @@ class GridImagesState extends ConsumerState<GridImages> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (mounted) {
-        ref.read(pictogramsProvider.notifier).resetIsErrorInitial();
         ref.read(customPictogramProvider.notifier).setIdChild(
               idChild: widget.idChild,
             );
@@ -51,8 +50,14 @@ class GridImagesState extends ConsumerState<GridImages> {
       final notifierPictograms = ref.read(pictogramsProvider.notifier);
       final statePictograms = ref.read(pictogramsProvider);
 
-      if (statePictograms.paginatePictograms[$indexPage]! == 1) {
-        await notifierPictograms.getPictograms();
+      if (widget.isCustomized) {
+        if (statePictograms.paginatePictograms[$indexPage]! == 1) {
+          await notifierPictograms.getCustomPictograms(idChild: widget.idChild);
+        }
+      } else {
+        if (statePictograms.paginatePictograms[$indexPage]! == 1) {
+          await notifierPictograms.getPictograms();
+        }
       }
 
       scrollController.addListener(() async {
@@ -64,7 +69,12 @@ class GridImagesState extends ConsumerState<GridImages> {
           if (statePictograms.paginatePictograms[$indexPage]! > 1 &&
               statePictograms.paginatePictograms[$indexPage]! <=
                   statePictograms.paginatePictograms[$pageCount]!) {
-            await notifierPictograms.getPictograms();
+            if (widget.isCustomized) {
+              await notifierPictograms.getCustomPictograms(
+                  idChild: widget.idChild);
+            } else {
+              await notifierPictograms.getPictograms();
+            }
           }
         }
       });
@@ -226,8 +236,8 @@ class _ImageGrid extends StatelessWidget {
       padding: const EdgeInsets.only(top: 7),
       child: Column(children: [
         Container(
-          width: 100,
-          height: 100,
+          width: 110,
+          height: 110,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             border: Border.all(color: $colorTextBlack, width: 0.5),

@@ -130,4 +130,48 @@ class PictogramsDataSourceImpl extends PictogramsDataSource {
       );
     }
   }
+
+  @override
+  Future<ResponseDataList<PictogramAchievements>> getCustomPictograms({
+    required int indexPage,
+    required int idChild,
+  }) async {
+    try {
+      final response = await dioServices.dio.get(
+          '/patientPictogram/patient-pictograms/$idChild?page=$indexPage&size=15');
+
+      final responseCustomPictograms =
+          ResponseMapper.responseJsonListToEntity<PictogramAchievements>(
+        json: response.data,
+        fromJson: PictogramsMapper.pictogramAchievementsfromJson,
+      );
+
+      return responseCustomPictograms;
+    } on DioException catch (e) {
+      final responseMapper = ResponseMapper.responseJsonToEntity<ResponseData>(
+          json: e.response!.data);
+
+      final String message;
+
+      if (responseMapper.validationErrors != null) {
+        message = responseMapper.validationErrors!.message;
+      } else {
+        message = responseMapper.message.isNotEmpty
+            ? responseMapper.message
+            : S.current.Error_solicitud;
+      }
+
+      throw CustomError(
+        e.response!.statusCode!,
+        message: message,
+        typeNotification: ToastificationType.error,
+      );
+    } catch (e) {
+      throw CustomError(
+        null,
+        message: S.current.Error_inesperado,
+        typeNotification: ToastificationType.error,
+      );
+    }
+  }
 }

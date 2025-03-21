@@ -10,4 +10,9 @@ abstract class PictogramsDataSource {
   Future<ResponseDataObject<PictogramAchievements>> createCustomPictogram({
     required CustomPictogram customPictogram,
   });
+
+  Future<ResponseDataList<PictogramAchievements>> getCustomPictograms({
+    required int indexPage,
+    required int idChild,
+  });
 }

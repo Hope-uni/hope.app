@@ -14,6 +14,7 @@ class ImageLoad extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isError = false;
     return GestureDetector(
       onDoubleTap: isDoubleTap == false
           ? null
@@ -24,13 +25,21 @@ class ImageLoad extends StatelessWidget {
                   return Dialog(
                     backgroundColor: Colors.transparent,
                     child: Container(
+                      height: isError == true ? 200 : null,
+                      width: isError == true ? 200 : null,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         border: urlImage != null && urlImage!.isNotEmpty
-                            ? Border.all(color: $colorTextBlack, width: 0.5)
+                            ? Border.all(
+                                color: isError == true
+                                    ? Colors.transparent
+                                    : $colorTextBlack,
+                                width: 0.5)
                             : null,
                         color: urlImage != null && urlImage!.isNotEmpty
-                            ? $colorTextWhite
+                            ? (isError == true
+                                ? Colors.transparent
+                                : $colorTextWhite)
                             : null,
                       ),
                       child: ImageLoad(urlImage: urlImage, isDoubleTap: false),
@@ -40,18 +49,30 @@ class ImageLoad extends StatelessWidget {
               );
             },
       child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: urlImage != null && urlImage!.isNotEmpty
-              ? FadeInImage(
-                  fit: isDoubleTap == false ? null : BoxFit.cover,
-                  placeholderFit: BoxFit.cover,
-                  imageErrorBuilder: (context, error, stackTrace) {
-                    return SvgPicture.asset(fit: BoxFit.contain, noIMage);
-                  },
-                  placeholder: const AssetImage(loading),
-                  image: NetworkImage(urlImage!) as ImageProvider,
-                )
-              : SvgPicture.asset(fit: BoxFit.contain, noIMage, height: 220)),
+        borderRadius: BorderRadius.circular(20),
+        child: urlImage != null && urlImage!.isNotEmpty
+            ? FadeInImage(
+                fit: isDoubleTap == false ? null : BoxFit.cover,
+                placeholderFit: BoxFit.cover,
+                imageErrorBuilder: (context, error, stackTrace) {
+                  isError = true;
+                  return Container(
+                    padding: const EdgeInsets.all(7.5),
+                    child: SvgPicture.asset(fit: BoxFit.contain, noIMage),
+                  );
+                },
+                placeholder: const AssetImage(loading),
+                image: NetworkImage(urlImage!) as ImageProvider,
+              )
+            : Container(
+                padding: const EdgeInsets.all(7.5),
+                child: SvgPicture.asset(
+                  fit: BoxFit.contain,
+                  noIMage,
+                  height: 220,
+                ),
+              ),
+      ),
     );
   }
 }

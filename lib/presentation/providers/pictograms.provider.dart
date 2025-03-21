@@ -5,7 +5,8 @@ import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 
 final pictogramsProvider =
-    StateNotifierProvider<PictogramsNotifier, PictogramsState>((ref) {
+    StateNotifierProvider.autoDispose<PictogramsNotifier, PictogramsState>(
+        (ref) {
   return PictogramsNotifier(pictogramsDataSource: PictogramsDataSourceImpl());
 });
 
@@ -38,6 +39,50 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
         pictograms: [
           ...state.pictograms,
           ...pictograms.data!,
+        ],
+        categoryPictograms: indexPage == 1
+            ? categoryPictograms ?? []
+            : state.categoryPictograms,
+        isLoading: false,
+        isErrorInitial: false,
+      );
+    } on CustomError catch (e) {
+      if (indexPage == 1) state = state.copyWith(isErrorInitial: true);
+      state = state.copyWith(errorMessageApi: e.message, isLoading: false);
+    } catch (e) {
+      if (indexPage == 1) state = state.copyWith(isErrorInitial: true);
+      state = state.copyWith(
+        errorMessageApi: S.current.Error_inesperado,
+        isLoading: false,
+      );
+    }
+  }
+
+  Future<void> getCustomPictograms({required int idChild}) async {
+    state = state.copyWith(isLoading: true);
+    final indexPage = state.paginatePictograms[$indexPage]!;
+    try {
+      final customPictograms = await pictogramsDataSource.getCustomPictograms(
+        indexPage: indexPage,
+        idChild: idChild,
+      );
+
+      List<Category>? categoryPictograms = [];
+
+      if (indexPage == 1) {
+        categoryPictograms = await getCategoryPictograms();
+      }
+
+      Map<String, int> paginate = {
+        $indexPage: indexPage + 1,
+        $pageCount: customPictograms.paginate!.pageCount
+      };
+
+      state = state.copyWith(
+        paginatePictograms: paginate,
+        pictograms: [
+          ...state.pictograms,
+          ...customPictograms.data!,
         ],
         categoryPictograms: indexPage == 1
             ? categoryPictograms ?? []

@@ -13,7 +13,6 @@ final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
   final profileStateNotifier = ref.read(profileProvider.notifier);
   final childrenStateNotifier = ref.read(childrenProvider.notifier);
   final activitiesStateNotifier = ref.read(activitiesProvider.notifier);
-  final pictogramsStateNotifier = ref.read(pictogramsProvider.notifier);
   final phaseStateNotifier = ref.read(phasesProvider.notifier);
   final childStateNotifier = ref.read(childProvider.notifier);
   final activityStateNotifier = ref.read(activityProvider.notifier);
@@ -24,7 +23,6 @@ final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
     profileStateNotifier: profileStateNotifier,
     childrenStateNotifier: childrenStateNotifier,
     activitiesStateNotifier: activitiesStateNotifier,
-    pictogramsStateNotifier: pictogramsStateNotifier,
     activityStateNotifier: activityStateNotifier,
     phaseStateNotifier: phaseStateNotifier,
     childStateNotifier: childStateNotifier,
@@ -39,7 +37,6 @@ class AuthNotifier extends StateNotifier<AuthState> {
   final ProfileNotifier profileStateNotifier;
   final ChildrenNotifier childrenStateNotifier;
   final ActivitiesNotifier activitiesStateNotifier;
-  final PictogramsNotifier pictogramsStateNotifier;
   final PhasesNotifier phaseStateNotifier;
   final ChildNotifier childStateNotifier;
   final ActivityNotifier activityStateNotifier;
@@ -50,7 +47,6 @@ class AuthNotifier extends StateNotifier<AuthState> {
     required this.keyValueRepository,
     required this.authRepository,
     required this.activitiesStateNotifier,
-    required this.pictogramsStateNotifier,
     required this.phaseStateNotifier,
     required this.childStateNotifier,
     required this.activityStateNotifier,
@@ -120,7 +116,6 @@ class AuthNotifier extends StateNotifier<AuthState> {
     phaseStateNotifier.resetState();
     childStateNotifier.resetChild();
     activityStateNotifier.resetState();
-    pictogramsStateNotifier.resetState();
 
     state = state.copyWith(
       authStatus: AuthStatus.notAuthenticated,
