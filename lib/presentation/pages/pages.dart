@@ -15,3 +15,4 @@ export 'activities/add_activity.page.dart';
 export 'activities/remove_activity.page.dart';
 export 'board/board.page.dart';
 export 'children/children_therapist.page.dart';
+export 'splash/splash_screen.page.dart';

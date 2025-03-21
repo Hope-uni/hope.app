@@ -81,6 +81,9 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
         ref.read(profileProvider.notifier).updateIsLoading(true);
         ref.read(authProvider.notifier).chagesStateAuthenticated(tokenFinal);
       }
+      if (token == null) {
+        ref.read(authProvider.notifier).chagesStateNoAuthenticated();
+      }
     });
   }
 
