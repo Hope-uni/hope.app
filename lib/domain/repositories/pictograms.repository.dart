@@ -15,4 +15,14 @@ abstract class PictogramsRepository {
     required int indexPage,
     required int idChild,
   });
+
+  Future<ResponseDataObject<ResponseData>> deleteCustomPictograms({
+    required int idPictogram,
+    required int idChild,
+  });
+
+  Future<ResponseDataObject<PictogramAchievements>> updateCustomPictograms({
+    required CustomPictogram pictogram,
+    required int idPictogram,
+  });
 }

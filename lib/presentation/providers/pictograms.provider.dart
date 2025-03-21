@@ -132,6 +132,13 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
     state = state.copyWith(isErrorInitial: false);
   }
 
+  void updateDeletePictogram(int idPictogram) {
+    List<PictogramAchievements> listPictogram = state.pictograms;
+    listPictogram.removeWhere((item) => item.id == idPictogram);
+
+    state = state.copyWith(pictograms: listPictogram);
+  }
+
   void resetState() {
     state = PictogramsState();
   }

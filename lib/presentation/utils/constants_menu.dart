@@ -103,7 +103,7 @@ final List<MenuItem> menuPacientTutor = <MenuItem>[
     roles: [$tutor],
   ),
   MenuItem(
-    title: S.current.Listar_pictogramas,
+    title: S.current.Pictogramas_personalizados,
     subTitle: S.current.Pictogramas_personalizados_del_nino,
     icon: Icons.format_list_bulleted,
     permission: $listCustomPictograms,

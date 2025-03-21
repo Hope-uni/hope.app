@@ -52,6 +52,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Actualizado_con_exito":
             MessageLookupByLibrary.simpleMessage("¡Actualizado con éxito!"),
         "Actualizar": MessageLookupByLibrary.simpleMessage("Actualizar"),
+        "Actualizar_pictograma":
+            MessageLookupByLibrary.simpleMessage("Actualizar pictograma"),
         "Agregar_observacion":
             MessageLookupByLibrary.simpleMessage("Agregar observación"),
         "Agregar_observacion_al_nino":
@@ -111,6 +113,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Correo electrónico"),
         "Correo_o_nombre_de_usuario":
             MessageLookupByLibrary.simpleMessage("Correo o nombre de usuario"),
+        "Crear": MessageLookupByLibrary.simpleMessage("Crear"),
         "Crear_actividad":
             MessageLookupByLibrary.simpleMessage("Crear actividad"),
         "Datos_del_usuario":
