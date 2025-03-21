@@ -22,26 +22,27 @@ class MenuItemsState extends ConsumerState<MenuItems> {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-        popUpAnimationStyle: AnimationStyle.noAnimation,
-        icon: const Icon(
-          Icons.more_vert,
-          color: $colorBlueGeneral,
-        ),
-        tooltip: S.current.Opciones,
-        onSelected: (item) {
-          final MenuItem menuItem = item;
-          menuItem.onClick(context: context, ref: ref, item: widget.itemObject);
-        },
-        itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-              ...widget.menuItems.map(
-                (value) => PopupMenuItem(
-                  value: value,
-                  child: ListTile(
-                    leading: Icon(value.icon),
-                    title: Text(value.title),
-                  ),
-                ),
-              )
-            ]);
+      popUpAnimationStyle: AnimationStyle.noAnimation,
+      icon: const Icon(
+        Icons.more_vert,
+        color: $colorBlueGeneral,
+      ),
+      tooltip: S.current.Opciones,
+      onSelected: (item) {
+        final MenuItem menuItem = item;
+        menuItem.onClick(context: context, ref: ref, item: widget.itemObject);
+      },
+      itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+        ...widget.menuItems.map(
+          (value) => PopupMenuItem(
+            value: value,
+            child: ListTile(
+              leading: Icon(value.icon),
+              title: Text(value.title),
+            ),
+          ),
+        )
+      ],
+    );
   }
 }

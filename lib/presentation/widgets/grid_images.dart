@@ -110,7 +110,19 @@ class GridImagesState extends ConsumerState<GridImages> {
                 .Se_creo_correctamente_el_pictograma_personalizado(
                     next.pictogram!.name),
             typeAlert: ToastificationType.info);
-        ref.read(customPictogramProvider.notifier).updateMessage();
+        ref.read(customPictogramProvider.notifier).updateRequest();
+      }
+
+      if (next.isLoading == false && next.isDelete == true) {
+        toastAlert(
+          iconAlert: const Icon(Icons.delete),
+          context: context,
+          title: S.current.Eliminacion_exitosa,
+          description:
+              '${S.current.Se_elimino_correctamente_el_pictograma_personalizado}: ${next.pictogram!.name}',
+          typeAlert: ToastificationType.success,
+        );
+        ref.read(customPictogramProvider.notifier).updateRequest();
       }
 
       if (next.errorMessageApi != null) {
@@ -120,7 +132,7 @@ class GridImagesState extends ConsumerState<GridImages> {
           description: next.errorMessageApi!,
           typeAlert: ToastificationType.error,
         );
-        ref.read(customPictogramProvider.notifier).updateMessage();
+        ref.read(customPictogramProvider.notifier).updateRequest();
       }
     });
 
@@ -167,6 +179,7 @@ class GridImagesState extends ConsumerState<GridImages> {
                               return _ImageGrid(
                                 pictogram: statePictograms.pictograms[index],
                                 isCustomized: widget.isCustomized,
+                                ref: ref,
                               );
                             },
                           )
@@ -228,10 +241,17 @@ class GridImagesState extends ConsumerState<GridImages> {
 class _ImageGrid extends StatelessWidget {
   final PictogramAchievements pictogram;
   final bool isCustomized;
-  const _ImageGrid({required this.pictogram, required this.isCustomized});
+  final WidgetRef ref;
+
+  const _ImageGrid({
+    required this.pictogram,
+    required this.isCustomized,
+    required this.ref,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final profileState = ref.watch(profileProvider);
     return Container(
       padding: const EdgeInsets.only(top: 7),
       child: Column(children: [
@@ -267,7 +287,21 @@ class _ImageGrid extends StatelessWidget {
           children: [
             IconButton(
               onPressed: () => {
-                _dialogImage(context: context, pictogram: pictogram),
+                //TODO: ACTUALIZAR PERMISOS CUANDO EN API ESTEN LISTOS
+                if (profileState.permmisions!.contains($updatePatientTutor))
+                  {
+                    _dialogImage(context: context, pictogram: pictogram),
+                  }
+                else
+                  {
+                    toastAlert(
+                      iconAlert: const Icon(Icons.info),
+                      context: context,
+                      title: S.current.No_autorizado,
+                      description: S.current.No_cuenta_con_el_permiso_necesario,
+                      typeAlert: ToastificationType.info,
+                    )
+                  }
               },
               tooltip: S.current.Editar,
               icon: const Icon(
@@ -277,10 +311,34 @@ class _ImageGrid extends StatelessWidget {
             ),
             Visibility(
               visible: isCustomized,
-              child: IconButton(
-                  tooltip: S.current.Eliminar,
-                  onPressed: () => _dialogConfirmation(context),
-                  icon: const Icon(Icons.delete, color: $colorError)),
+              child: Consumer(
+                builder: (context, ref, child) {
+                  return IconButton(
+                    tooltip: S.current.Eliminar,
+                    onPressed: () {
+                      //TODO: ACTUALIZAR PERMISOS CUANDO EN API ESTEN LISTOS
+                      if (profileState.permmisions!
+                          .contains($updatePatientTutor)) {
+                        _dialogConfirmation(
+                          context: context,
+                          pictogram: pictogram,
+                          ref: ref,
+                        );
+                      } else {
+                        toastAlert(
+                          iconAlert: const Icon(Icons.info),
+                          context: context,
+                          title: S.current.No_autorizado,
+                          description:
+                              S.current.No_cuenta_con_el_permiso_necesario,
+                          typeAlert: ToastificationType.info,
+                        );
+                      }
+                    },
+                    icon: const Icon(Icons.delete, color: $colorError),
+                  );
+                },
+              ),
             )
           ],
         )
@@ -289,8 +347,10 @@ class _ImageGrid extends StatelessWidget {
   }
 }
 
-Future<void> _dialogImage(
-    {required BuildContext context, required PictogramAchievements pictogram}) {
+Future<void> _dialogImage({
+  required BuildContext context,
+  required PictogramAchievements pictogram,
+}) {
   final image = CameraGalleryDataSourceImpl();
   bool isCreate = true;
 
@@ -478,7 +538,14 @@ Future<void> _dialogImage(
   );
 }
 
-Future<void> _dialogConfirmation(BuildContext context) {
+Future<void> _dialogConfirmation({
+  required BuildContext context,
+  required WidgetRef ref,
+  required PictogramAchievements pictogram,
+}) {
+  ref
+      .read(customPictogramProvider.notifier)
+      .loadCustomPictogram(pictogram: pictogram);
   return modalDialogConfirmation(
     context: context,
     buttonColorConfirm: $colorSuccess,
@@ -486,25 +553,24 @@ Future<void> _dialogConfirmation(BuildContext context) {
       Icons.delete,
     ),
     question: RichText(
-      textAlign: TextAlign.center,
+      textAlign: TextAlign.left,
       text: TextSpan(
-        //TODO: Cambiar cuando este  listo el endpoint
-        text: S.current.Esta_seguro_que_desea_eliminar_el_pictograma(
-            'Manzana', 'Alejandra'),
+        children: [
+          TextSpan(
+              text:
+                  '${S.current.Esta_seguro_que_desea_eliminar_el_pictograma}\n\n'),
+          TextSpan(
+            text: pictogram.name,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ],
         style: const TextStyle(fontSize: 16, color: $colorTextBlack),
       ),
     ),
     titleButtonConfirm: S.current.Si_Eliminar,
-    onClic: () {
-      toastAlert(
-          iconAlert: const Icon(Icons.delete),
-          context: context,
-          title: S.current.Eliminacion_exitosa,
-          description:
-              //TODO: Cambiar cuando este  listo el endpoint
-              '${S.current.Se_elimino_correctamente_el_pictograma_personalizado}: Manzana',
-          typeAlert: ToastificationType.success);
+    onClic: () async {
       Navigator.of(context).pop();
+      await ref.read(customPictogramProvider.notifier).deleteCustomPictogram();
     },
   );
 }

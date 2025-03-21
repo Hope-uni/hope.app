@@ -36,4 +36,15 @@ class PictogramsRepositoyImpl extends PictogramsRepository {
       idChild: idChild,
     );
   }
+
+  @override
+  Future<ResponseDataObject<ResponseData>> deleteCustomPictograms({
+    required int idPictogram,
+    required int idChild,
+  }) {
+    return dataSource.deleteCustomPictograms(
+      idPictogram: idPictogram,
+      idChild: idChild,
+    );
+  }
 }

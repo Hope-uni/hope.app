@@ -4,8 +4,8 @@ import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 
-final customPictogramProvider =
-    StateNotifierProvider<CustomPictogramNotifier, CustomPictogramState>((ref) {
+final customPictogramProvider = StateNotifierProvider.autoDispose<
+    CustomPictogramNotifier, CustomPictogramState>((ref) {
   return CustomPictogramNotifier(
       pictogramsRepository: PictogramsRepositoyImpl());
 });
@@ -40,6 +40,31 @@ class CustomPictogramNotifier extends StateNotifier<CustomPictogramState> {
     }
   }
 
+  Future<void> deleteCustomPictogram() async {
+    state = state.copyWith(isLoading: true);
+    try {
+      await pictogramsRepository.deleteCustomPictograms(
+        idChild: state.idChild,
+        idPictogram: state.pictogram!.id,
+      );
+
+      state = state.copyWith(
+        isLoading: false,
+        isDelete: true,
+      );
+    } on CustomError catch (e) {
+      state = state.copyWith(
+        errorMessageApi: e.message,
+        isLoading: false,
+      );
+    } catch (e) {
+      state = state.copyWith(
+        errorMessageApi: S.current.Error_inesperado,
+        isLoading: false,
+      );
+    }
+  }
+
   CustomPictogram setCustomPictogram() {
     final customPictogram = CustomPictogram(
       imageUrl: state.pictogram!.imageUrl,
@@ -55,8 +80,13 @@ class CustomPictogramNotifier extends StateNotifier<CustomPictogramState> {
     state = state.copyWith(pictogram: pictogram);
   }
 
-  void updateMessage() {
-    state = state.copyWith(errorMessageApi: '', showtoastAlert: false);
+  void updateRequest() {
+    state = state.copyWith(
+      errorMessageApi: '',
+      showtoastAlert: false,
+      isDelete: false,
+      pictogram: null,
+    );
   }
 
   bool checkFields() {
@@ -109,6 +139,7 @@ class CustomPictogramNotifier extends StateNotifier<CustomPictogramState> {
 class CustomPictogramState {
   final int idChild;
   final bool? isLoading;
+  final bool? isDelete;
   final String? errorMessageApi;
   final PictogramAchievements? pictogram;
   final Map<String, String?> validationErrors;
@@ -117,6 +148,7 @@ class CustomPictogramState {
   CustomPictogramState({
     this.idChild = 0,
     this.isLoading,
+    this.isDelete,
     this.errorMessageApi,
     this.pictogram,
     this.showtoastAlert = false,
@@ -126,6 +158,7 @@ class CustomPictogramState {
   CustomPictogramState copyWith({
     int? idChild,
     bool? isLoading,
+    bool? isDelete,
     String? errorMessageApi,
     PictogramAchievements? pictogram,
     bool? showtoastAlert,
@@ -138,6 +171,7 @@ class CustomPictogramState {
         idChild: idChild ?? this.idChild,
         showtoastAlert: showtoastAlert ?? this.showtoastAlert,
         isLoading: isLoading ?? this.isLoading,
+        isDelete: isDelete ?? this.isDelete,
         pictogram: pictogram ?? this.pictogram,
         validationErrors: validationErrors ?? this.validationErrors,
       );
