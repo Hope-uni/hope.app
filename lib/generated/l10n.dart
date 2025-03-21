@@ -450,14 +450,13 @@ class S {
     );
   }
 
-  /// `¿Está seguro que desea eliminar el pictograma '{nameImage}' de '{nameChild}'?`
-  String Esta_seguro_que_desea_eliminar_el_pictograma(
-      Object nameImage, Object nameChild) {
+  /// `¿Está seguro que desea eliminar el pictograma?`
+  String get Esta_seguro_que_desea_eliminar_el_pictograma {
     return Intl.message(
-      '¿Está seguro que desea eliminar el pictograma \'$nameImage\' de \'$nameChild\'?',
+      '¿Está seguro que desea eliminar el pictograma?',
       name: 'Esta_seguro_que_desea_eliminar_el_pictograma',
       desc: '',
-      args: [nameImage, nameChild],
+      args: [],
     );
   }
 

@@ -25,16 +25,13 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m1(nameChild) =>
       "¿Está seguro de avanzar de fase a ${nameChild}?";
 
-  static String m2(nameImage, nameChild) =>
-      "¿Está seguro que desea eliminar el pictograma \'${nameImage}\' de \'${nameChild}\'?";
-
-  static String m3(namePictogram) =>
+  static String m2(namePictogram) =>
       "Se actualizó correctamente el pictograma personalizado: ${namePictogram}";
 
-  static String m4(numFase, nameChild) =>
+  static String m3(numFase, nameChild) =>
       "Se avanzó a la fase ${numFase} a ${nameChild}";
 
-  static String m5(namePictogram) =>
+  static String m4(namePictogram) =>
       "Se creó correctamente el pictograma personalizado: ${namePictogram}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -225,7 +222,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Esta_seguro_de_salir_de_la_edicion_de_la_actividad":
             MessageLookupByLibrary.simpleMessage(
                 "Esta seguro de salir de la edición de la actividad"),
-        "Esta_seguro_que_desea_eliminar_el_pictograma": m2,
+        "Esta_seguro_que_desea_eliminar_el_pictograma":
+            MessageLookupByLibrary.simpleMessage(
+                "¿Está seguro que desea eliminar el pictograma?"),
         "Fase": MessageLookupByLibrary.simpleMessage("Fase"),
         "Fase_actual": MessageLookupByLibrary.simpleMessage("Fase actual"),
         "Fase_del_autismo":
@@ -378,15 +377,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Restablecer_contrasena":
             MessageLookupByLibrary.simpleMessage("Restablecer contraseña"),
         "Salir": MessageLookupByLibrary.simpleMessage("Salir"),
-        "Se_actualizo_correctamente_el_pictograma_personalizado": m3,
+        "Se_actualizo_correctamente_el_pictograma_personalizado": m2,
         "Se_actualizo_correctamente_la_informacion_de_la_actividad":
             MessageLookupByLibrary.simpleMessage(
                 "Se actualizo correctamente la información de la actividad"),
         "Se_asigno_correctamente_la_actividad_a_los_ninos_seleccionados":
             MessageLookupByLibrary.simpleMessage(
                 "Se asignó correctamente la actividad a los niños seleccionados"),
-        "Se_avanzo_a_la_fase": m4,
-        "Se_creo_correctamente_el_pictograma_personalizado": m5,
+        "Se_avanzo_a_la_fase": m3,
+        "Se_creo_correctamente_el_pictograma_personalizado": m4,
         "Se_elimino_correctamente_el_pictograma_personalizado":
             MessageLookupByLibrary.simpleMessage(
                 "Se eliminó correctamente el pictograma personalizado"),
