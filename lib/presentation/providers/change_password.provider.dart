@@ -24,15 +24,37 @@ class ChangePasswordNotifier extends StateNotifier<ChangePasswordState> {
       {required this.authProviderNotifier,
       required this.keyValueRepository,
       required this.dataSourceAuth})
-      : super(ChangePasswordState());
+      : super(
+          ChangePasswordState(
+            passwords: ChangePassword(
+              password: '',
+              newPassword: '',
+              confirmNewPassword: '',
+            ),
+          ),
+        );
 
   Future<void> changePassword() async {
     state = state.copyWith(isLoading: true);
     try {
-      final response = await dataSourceAuth.changePassword(
-        confirmNewPassword: state.confirmNewPassword!,
-        newPassword: state.newPassword!,
-        password: state.password!,
+      final response =
+          await dataSourceAuth.changePassword(passwords: state.passwords!);
+      state =
+          state.copyWith(messageSuccess: response.message, isLoading: false);
+    } on CustomError catch (e) {
+      state = state.copyWith(messageError: e.message, isLoading: false);
+    } catch (e) {
+      state = state.copyWith(
+          messageError: S.current.Error_inesperado, isLoading: false);
+    }
+  }
+
+  Future<void> changePasswordChild({required int idChild}) async {
+    state = state.copyWith(isLoading: true);
+    try {
+      final response = await dataSourceAuth.changePasswordChild(
+        passwordsChild: state.passwords!,
+        idChild: idChild,
       );
       state =
           state.copyWith(messageSuccess: response.message, isLoading: false);
@@ -48,55 +70,47 @@ class ChangePasswordNotifier extends StateNotifier<ChangePasswordState> {
     final Map<String, String?> newValidationErrors =
         Map.from(state.validationErrors);
 
+    ChangePassword passwords = state.passwords!;
+
     switch (fieldName) {
       case $password:
         if (newValue.isNotEmpty) {
           newValidationErrors.remove($password);
         }
-
-        state = state.copyWith(
-          validationErrors: newValidationErrors,
-          password: newValue,
-        );
+        passwords = state.passwords!.copyWith(password: newValue);
         break;
       case $newPassword:
         if ($regexPassword.hasMatch(newValue)) {
           newValidationErrors.remove($newPassword);
         }
-
-        state = state.copyWith(
-          validationErrors: newValidationErrors,
-          newPassword: newValue,
-        );
+        passwords = state.passwords!.copyWith(newPassword: newValue);
         break;
       case $confirmNewPassword:
-        if (newValue == state.newPassword) {
+        if (newValue == state.passwords!.newPassword) {
           newValidationErrors.remove($confirmNewPassword);
         }
-
-        state = state.copyWith(
-          validationErrors: newValidationErrors,
-          confirmNewPassword: newValue,
-        );
+        passwords = state.passwords!.copyWith(confirmNewPassword: newValue);
         break;
       default:
         break;
     }
+    state = state.copyWith(
+      passwords: passwords,
+      validationErrors: newValidationErrors,
+    );
   }
 
   bool checkFields() {
     Map<String, String?> errors = {};
 
-    if (state.password == null || state.password!.isEmpty) {
+    if (state.passwords!.password.isEmpty) {
       errors[$password] = S.current.La_contrasena_actual_no_puede_estar_vacia;
     }
-    if (state.newPassword == null ||
-        !$regexPassword.hasMatch(state.newPassword!)) {
+    if (!$regexPassword.hasMatch(state.passwords!.newPassword)) {
       errors[$newPassword] = S.current
           .La_contrasena_debe_tener_entre_caracteres_ademas_contener_letras_y_numeros;
     }
-    if (state.confirmNewPassword == null ||
-        state.newPassword! != state.confirmNewPassword!) {
+    if (state.passwords!.newPassword != state.passwords!.confirmNewPassword) {
       errors[$confirmNewPassword] = S.current.Las_contrasena_no_coinciden;
     }
 
@@ -129,7 +143,13 @@ class ChangePasswordNotifier extends StateNotifier<ChangePasswordState> {
   }
 
   void resetState() {
-    state = ChangePasswordState();
+    state = ChangePasswordState(
+      passwords: ChangePassword(
+        password: '',
+        newPassword: '',
+        confirmNewPassword: '',
+      ),
+    );
   }
 
   void viewPassword(String fieldName, bool newValue) {
@@ -154,9 +174,7 @@ class ChangePasswordNotifier extends StateNotifier<ChangePasswordState> {
 }
 
 class ChangePasswordState {
-  final String? password;
-  final String? newPassword;
-  final String? confirmNewPassword;
+  final ChangePassword? passwords;
   final String? messageError;
   final String? messageSuccess;
   final bool? isLoading;
@@ -164,9 +182,7 @@ class ChangePasswordState {
   final Map<String, bool> viewPasswords;
 
   ChangePasswordState({
-    this.password,
-    this.newPassword,
-    this.confirmNewPassword,
+    this.passwords,
     this.messageError,
     this.messageSuccess,
     this.isLoading,
@@ -179,9 +195,7 @@ class ChangePasswordState {
   });
 
   ChangePasswordState copyWith({
-    final String? password,
-    final String? newPassword,
-    final String? confirmNewPassword,
+    final ChangePassword? passwords,
     final String? messageError,
     final String? messageSuccess,
     final bool? isLoading,
@@ -189,9 +203,7 @@ class ChangePasswordState {
     final Map<String, bool>? viewPasswords,
   }) =>
       ChangePasswordState(
-        password: password ?? this.password,
-        newPassword: newPassword ?? this.newPassword,
-        confirmNewPassword: confirmNewPassword ?? this.confirmNewPassword,
+        passwords: passwords ?? this.passwords,
         messageError:
             messageError == '' ? null : messageError ?? this.messageError,
         messageSuccess: messageSuccess ?? this.messageSuccess,

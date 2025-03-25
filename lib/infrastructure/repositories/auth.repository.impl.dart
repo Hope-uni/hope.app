@@ -9,13 +9,16 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<ResponseDataObject<Token>> login(
-      String emailUsername, String password) {
+    String emailUsername,
+    String password,
+  ) {
     return dataSource.login(emailUsername, password);
   }
 
   @override
   Future<ResponseDataObject<ResponseData>> forgotPassword(
-      String emailOrUserName) {
+    String emailOrUserName,
+  ) {
     return dataSource.forgotPassword(emailOrUserName);
   }
 
@@ -26,14 +29,19 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<ResponseDataObject<ResponseData>> changePassword({
-    required String password,
-    required String newPassword,
-    required String confirmNewPassword,
+    required ChangePassword passwords,
   }) {
-    return dataSource.changePassword(
-      confirmNewPassword: confirmNewPassword,
-      newPassword: newPassword,
-      password: password,
+    return dataSource.changePassword(passwords: passwords);
+  }
+
+  @override
+  Future<ResponseDataObject<ResponseData>> changePasswordChild({
+    required ChangePassword passwordsChild,
+    required int idChild,
+  }) {
+    return dataSource.changePasswordChild(
+      passwordsChild: passwordsChild,
+      idChild: idChild,
     );
   }
 }

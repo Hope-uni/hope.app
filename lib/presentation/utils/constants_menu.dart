@@ -128,7 +128,7 @@ final List<MenuItem> menuPacientTutor = <MenuItem>[
       required WidgetRef ref,
       CatalogObject? item,
     }) {
-      modalPassword(context: context, isVerifided: true);
+      modalPassword(context: context, isVerifided: true, patient: item);
     },
     roles: [$tutor],
   ),

@@ -36,5 +36,6 @@ export 'mappers/activity.mapper.dart';
 export 'mappers/category.mapper.dart';
 export 'mappers/phase.mapper.dart';
 export 'mappers/custom_pictogram.dart';
+export 'mappers/change_password.mapper.dart';
 
 export 'errors/custom_errors.dart';
