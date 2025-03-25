@@ -13,6 +13,7 @@ class ListTileCustom extends StatelessWidget {
   final FontWeight? styleTitle;
   final bool? colorSubTitle;
   final bool? colorTitle;
+  final void Function()? onTap;
 
   const ListTileCustom({
     super.key,
@@ -26,6 +27,7 @@ class ListTileCustom extends StatelessWidget {
     this.colorSubTitle,
     this.colorTitle,
     this.styleTitle,
+    this.onTap,
   });
 
   @override
@@ -70,6 +72,7 @@ class ListTileCustom extends StatelessWidget {
                     fontWeight: styleSubTitle,
                     color: colorSubTitle == true ? $colorBlueGeneral : null))
             : null,
+        onTap: onTap,
         trailing: iconButton,
         contentPadding: const EdgeInsets.only(right: 5, left: 15),
       ),

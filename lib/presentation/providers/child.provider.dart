@@ -5,7 +5,8 @@ import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:intl/intl.dart';
 
-final childProvider = StateNotifierProvider<ChildNotifier, ChildState>((ref) {
+final childProvider =
+    StateNotifierProvider.autoDispose<ChildNotifier, ChildState>((ref) {
   return ChildNotifier(childrenDataSource: ChildrenDataSourceImpl());
 });
 
@@ -101,10 +102,12 @@ class ChildNotifier extends StateNotifier<ChildState> {
         if (newValue.isNotEmpty) newValidationErrors.remove($userNameProfile);
         updatedChild = state.child!.copyWith(username: newValue);
         break;
+
       case $emailProfile:
         if (newValue.isNotEmpty) newValidationErrors.remove($emailProfile);
         updatedChild = state.child!.copyWith(email: newValue);
         break;
+
       case $firstNameProfile:
         if (newValue.isNotEmpty) newValidationErrors.remove($firstNameProfile);
         updatedChild = state.child!.copyWith(firstName: newValue);
@@ -150,6 +153,16 @@ class ChildNotifier extends StateNotifier<ChildState> {
       child: updatedChild,
       validationErrors: newValidationErrors,
     );
+  }
+
+  void updateObservations(Observation newValue) {
+    Child updatedChild = state.child!;
+
+    updatedChild = state.child!.copyWith(
+      observations: [newValue, ...state.child!.observations ?? []],
+    );
+
+    state = state.copyWith(child: updatedChild);
   }
 
   bool checkFields() {

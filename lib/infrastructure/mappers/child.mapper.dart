@@ -24,8 +24,8 @@ class ChildMapper {
         progress: progressfromJson(json["progress"]),
         observations: json["observations"] == null
             ? null
-            : List<Observation>.from(
-                json["observations"].map((x) => observationfromJson(x))),
+            : List<Observation>.from(json["observations"]
+                .map((x) => ObservationMapper.observationfromJson(x))),
         achievements: json["achievements"] == null
             ? null
             : List<PictogramAchievements>.from(json["achievements"]
@@ -65,14 +65,6 @@ class ChildMapper {
         progress: json["progress"],
         description: json["description"],
         phase: CatalogoObjectMapper.catalogObjectfromJson(json["phase"]),
-      );
-
-  static Observation observationfromJson(Map<String, dynamic> json) =>
-      Observation(
-        id: json["id"],
-        description: json["description"],
-        username: json["username"],
-        createdAt: json["createdAt"],
       );
 
   static Progress progressfromJson(Map<String, dynamic> json) => Progress(
