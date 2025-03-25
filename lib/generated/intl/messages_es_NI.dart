@@ -288,6 +288,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "La_descripcion_de_la_actividad_no_puede_estar_vacia":
             MessageLookupByLibrary.simpleMessage(
                 "La descripción de la actividad no puede estar vacía"),
+        "La_descripcion_debe_tener_entre_seis_y_docientocincuentaycinco_caracteres":
+            MessageLookupByLibrary.simpleMessage(
+                "La descripción debe tener entre 6 y 255 caracteres"),
         "La_descripcion_no_puede_ser_menor_a_seis_o_mayor_a_docientocincuentaycinco_caracteres":
             MessageLookupByLibrary.simpleMessage(
                 "La descripción no puede ser menor a 6 o mayor a 255 caracteres"),
@@ -336,6 +339,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Nombre de usuario"),
         "Nueva_contrasena":
             MessageLookupByLibrary.simpleMessage("Nueva contraseña"),
+        "Observacion": MessageLookupByLibrary.simpleMessage("Observación"),
         "Observaciones": MessageLookupByLibrary.simpleMessage("Observaciones"),
         "Olvido_su_contrasena":
             MessageLookupByLibrary.simpleMessage("¿Olvido su contraseña?"),

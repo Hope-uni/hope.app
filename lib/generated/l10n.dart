@@ -740,6 +740,16 @@ class S {
     );
   }
 
+  /// `Observación`
+  String get Observacion {
+    return Intl.message(
+      'Observación',
+      name: 'Observacion',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Pictogramas Blanco/Negro`
   String get Pictogramas_blanco_negro {
     return Intl.message(
@@ -2137,6 +2147,18 @@ class S {
     return Intl.message(
       'El nombre del pictograma no puede estar vacío',
       name: 'El_nombre_del_pictograma_no_puede_estar_vacio',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `La descripción debe tener entre 6 y 255 caracteres`
+  String
+      get La_descripcion_debe_tener_entre_seis_y_docientocincuentaycinco_caracteres {
+    return Intl.message(
+      'La descripción debe tener entre 6 y 255 caracteres',
+      name:
+          'La_descripcion_debe_tener_entre_seis_y_docientocincuentaycinco_caracteres',
       desc: '',
       args: [],
     );

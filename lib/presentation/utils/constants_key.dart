@@ -33,6 +33,10 @@ const String $satisfactoryPoints = "satisfactoryPoints";
 const String $phaseId = "phaseId";
 const String $pictogramSentence = "pictogramSentence";
 
+//KEYS CHILD
+const String $patientId = "patientId";
+const String $descriptionChild = "description";
+
 //KEYS AUTH
 const String $emailUsername = "email_username";
 const String $password = "password";
@@ -64,6 +68,7 @@ const String $resetpassword = "resetpassword";
 const String $login = "login";
 const String $splash = "splash";
 const String $newActivity = "newActivity";
+const String $isTutor = "isTutor";
 
 //FINALS REGEX
 final $emailRegex = RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$');
