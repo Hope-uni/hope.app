@@ -29,4 +29,15 @@ class ChildrenRepositoryImpl extends ChildrenRepository {
   }) {
     return dataSource.updateChild(idChild: idChild, child: child);
   }
+
+  @override
+  Future<ResponseDataObject<Observation>> createObservation({
+    required int idChild,
+    required String description,
+  }) {
+    return dataSource.createObservation(
+      idChild: idChild,
+      description: description,
+    );
+  }
 }

@@ -51,12 +51,15 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             const ChildrenTherapistPage(),
       ),
       GoRoute(
-        path: '/child/:idChild',
-        name: $child,
-        builder: (BuildContext context, GoRouterState state) => ChildDataPage(
-          idChild: int.parse(state.pathParameters[$idChild]!),
-        ),
-      ),
+          path: '/child/:idChild',
+          name: $child,
+          builder: (BuildContext context, GoRouterState state) {
+            final extra = state.extra as Map<String, dynamic>?;
+            return ChildDataPage(
+              idChild: int.parse(state.pathParameters[$idChild]!),
+              extra: extra,
+            );
+          }),
       GoRoute(
         path: '/activities',
         name: $activities,

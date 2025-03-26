@@ -154,15 +154,14 @@ final List<MenuItem> menuPacientTherapist = <MenuItem>[
   MenuItem(
     title: S.current.Agregar_observacion,
     subTitle: S.current.Agregar_observacion_al_nino,
-    icon: Icons.edit,
+    icon: Icons.add,
     permission: $updatePatienttherapist,
     onClick: ({
       required BuildContext context,
       required WidgetRef ref,
       CatalogObject? item,
     }) {
-      context
-          .pushNamed($child, pathParameters: {$idChild: item!.id.toString()});
+      modalObservation(context: context, dataChild: item!, isPageChild: false);
     },
     roles: [$terapeuta],
   ),
