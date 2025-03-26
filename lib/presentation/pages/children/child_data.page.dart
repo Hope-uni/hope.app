@@ -12,7 +12,9 @@ import 'package:toastification/toastification.dart';
 
 class ChildDataPage extends ConsumerStatefulWidget {
   final int idChild;
-  const ChildDataPage({super.key, required this.idChild});
+  final Map<String, dynamic>? extra;
+
+  const ChildDataPage({super.key, required this.idChild, required this.extra});
 
   @override
   ChildDataPageState createState() => ChildDataPageState();
@@ -318,15 +320,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
                   Container(
                     margin: const EdgeInsets.symmetric(
                         horizontal: 10, vertical: 15),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        ..._observationsChild(
-                          scrollController: _scrollControllerObservations,
-                          ref: ref,
-                        )
-                      ],
-                    ),
+                    child: _observationsChild(ref: ref),
                   ),
                 ],
               ),
@@ -420,8 +414,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
             childrenAnimation: ExpandableFabAnimation.none,
             distance: 60,
             children: [
-              if (!enableInput &&
-                  profileState.permmisions!.contains($updatePatientTutor))
+              if (!enableInput && widget.extra![$isTutor] == true)
                 Row(
                   children: [
                     Text(
@@ -553,7 +546,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
                     ),
                   ],
                 ),
-              if (!enableInput)
+              if (widget.extra![$isTutor] == false)
                 Row(
                   children: [
                     Text(
@@ -603,6 +596,37 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
                       },
                       child: const Icon(
                         Icons.show_chart,
+                        color: $colorTextWhite,
+                      ),
+                    ),
+                  ],
+                ),
+              if (widget.extra![$isTutor] == false)
+                Row(
+                  children: [
+                    Text(
+                      S.current.Agregar_observacion,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(width: 20),
+                    FloatingActionButton.small(
+                      shape: const CircleBorder(),
+                      backgroundColor: $colorSuccess,
+                      heroTag: null,
+                      onPressed: () {
+                        _key.currentState?.toggle();
+                        modalObservation(
+                          context: context,
+                          dataChild: CatalogObject(
+                            id: stateChild.child!.id,
+                            name: stateChild.child!.fullName,
+                            description: '',
+                          ),
+                          isPageChild: true,
+                        );
+                      },
+                      child: const Icon(
+                        Icons.add,
                         color: $colorTextWhite,
                       ),
                     ),
@@ -1106,42 +1130,30 @@ List<Widget> _activities({
   ];
 }
 
-List<Widget> _observationsChild({
-  required ScrollController scrollController,
+Widget _observationsChild({
   required WidgetRef ref,
 }) {
   final stateChildObservations = ref.watch(childProvider).child!.observations;
-  return [
-    Container(
-      alignment: Alignment.centerRight,
-      child: ButtonTextIcon(
-          title: S.current.Agregar_observacion,
-          icon: const Icon(Icons.add),
-          onClic: () {}),
-    ),
-    Expanded(
-      child: stateChildObservations != null
-          ? ListView.builder(
-              itemCount: stateChildObservations.length,
-              itemBuilder: (context, index) {
-                if (index < stateChildObservations.length) {
-                  return ListTileCustom(
-                    title: stateChildObservations[index].description,
-                    subTitle:
-                        '\n${stateChildObservations[index].createdAt}     @${stateChildObservations[index].username}',
-                    styleSubTitle: FontWeight.bold,
-                    colorSubTitle: true,
-                    noImage: true,
-                  );
-                } else {
-                  return const SizedBox(height: 75);
-                }
-              },
-            )
-          : SvgPicture.asset(
-              fit: BoxFit.contain,
-              'assets/svg/SinDatos.svg',
-            ),
-    ),
-  ];
+  return stateChildObservations != null
+      ? ListView.builder(
+          itemCount: stateChildObservations.length,
+          itemBuilder: (context, index) {
+            if (index < stateChildObservations.length) {
+              return ListTileCustom(
+                title: stateChildObservations[index].description,
+                subTitle:
+                    '\n${stateChildObservations[index].createdAt}     @${stateChildObservations[index].username}',
+                styleSubTitle: FontWeight.bold,
+                colorSubTitle: true,
+                noImage: true,
+              );
+            } else {
+              return const SizedBox(height: 75);
+            }
+          },
+        )
+      : SvgPicture.asset(
+          fit: BoxFit.contain,
+          'assets/svg/SinDatos.svg',
+        );
 }

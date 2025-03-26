@@ -8,4 +8,8 @@ abstract class ChildrenRepository {
     required int idChild,
     required Person child,
   });
+  Future<ResponseDataObject<Observation>> createObservation({
+    required int idChild,
+    required String description,
+  });
 }

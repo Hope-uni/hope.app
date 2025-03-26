@@ -167,23 +167,30 @@ class ActivitiesPageState extends ConsumerState<ActivitiesPage> {
                                   final item =
                                       stateActivities.activities[index];
                                   return ListTileCustom(
-                                    title: item.name,
-                                    colorTitle: true,
-                                    styleTitle: FontWeight.bold,
-                                    subTitle:
-                                        '${S.current.Fase}: ${item.phase.name}\n${S.current.Puntos_requeridos}s: ${item.satisfactoryPoints}',
-                                    iconButton: MenuItems(
-                                      itemObject: CatalogObject(
-                                        id: stateActivities
-                                            .activities[index].id,
-                                        name: stateActivities
-                                            .activities[index].name,
-                                        description: '',
+                                      title: item.name,
+                                      colorTitle: true,
+                                      styleTitle: FontWeight.bold,
+                                      subTitle:
+                                          '${S.current.Fase}: ${item.phase.name}\n${S.current.Puntos_requeridos}s: ${item.satisfactoryPoints}',
+                                      iconButton: MenuItems(
+                                        itemObject: CatalogObject(
+                                          id: stateActivities
+                                              .activities[index].id,
+                                          name: stateActivities
+                                              .activities[index].name,
+                                          description: '',
+                                        ),
+                                        menuItems: menuActivity,
                                       ),
-                                      menuItems: menuActivity,
-                                    ),
-                                    noImage: true,
-                                  );
+                                      noImage: true,
+                                      onTap: () {
+                                        context.pushNamed(
+                                          $activity,
+                                          pathParameters: {
+                                            $idActivity: item.id.toString()
+                                          },
+                                        );
+                                      });
                                 } else {
                                   return const SizedBox(height: 75);
                                 }
