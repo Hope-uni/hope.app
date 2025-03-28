@@ -81,7 +81,7 @@
   "Agregar_observacion_al_nino": "Agregar observación al niño",
   "Eliminar_actividad_asignada_del_nino": "Eliminar actividad asignada del niño",
   "Avance_de_fase_exitosa": "¡Avance de fase exitosa!",
-  "Se_avanzo_a_la_fase": "Se avanzó a la fase {numFase} a {nameChild}",
+  "Se_avanzo_a_la_fase": "Se avanzó a la fase: {newPhase}",
   "Si_actualizar": "Si, actualizar",
   "Esta_Seguro_de_actualizar_los_datos": "¿Está seguro de actualizar los datos?",
   "Actualizado_con_exito": "¡Actualizado con éxito!",

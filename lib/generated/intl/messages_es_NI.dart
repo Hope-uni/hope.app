@@ -28,8 +28,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m2(namePictogram) =>
       "Se actualizó correctamente el pictograma personalizado: ${namePictogram}";
 
-  static String m3(numFase, nameChild) =>
-      "Se avanzó a la fase ${numFase} a ${nameChild}";
+  static String m3(newPhase) => "Se avanzó a la fase: ${newPhase}";
 
   static String m4(namePictogram) =>
       "Se creó correctamente el pictograma personalizado: ${namePictogram}";

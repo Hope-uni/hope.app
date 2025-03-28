@@ -870,13 +870,13 @@ class S {
     );
   }
 
-  /// `Se avanzó a la fase {numFase} a {nameChild}`
-  String Se_avanzo_a_la_fase(Object numFase, Object nameChild) {
+  /// `Se avanzó a la fase: {newPhase}`
+  String Se_avanzo_a_la_fase(Object newPhase) {
     return Intl.message(
-      'Se avanzó a la fase $numFase a $nameChild',
+      'Se avanzó a la fase: $newPhase',
       name: 'Se_avanzo_a_la_fase',
       desc: '',
-      args: [numFase, nameChild],
+      args: [newPhase],
     );
   }
 
