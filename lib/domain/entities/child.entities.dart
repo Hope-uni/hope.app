@@ -133,16 +133,6 @@ class CurrentActivity {
   });
 }
 
-class Progress {
-  String generalProgress;
-  int phaseProgress;
-
-  Progress({
-    required this.generalProgress,
-    required this.phaseProgress,
-  });
-}
-
 class PersonTutorTherapist {
   int id;
   int userId;
