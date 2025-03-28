@@ -5,15 +5,14 @@ import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 
 final activityProvider =
-    StateNotifierProvider<ActivityNotifier, ActivityState>((ref) {
-  final activityDataSource = ActivitiesDataSourceImpl();
-  return ActivityNotifier(activityDataSource: activityDataSource);
+    StateNotifierProvider.autoDispose<ActivityNotifier, ActivityState>((ref) {
+  return ActivityNotifier(activityRepository: ActivitiesRepositoryImpl());
 });
 
 class ActivityNotifier extends StateNotifier<ActivityState> {
-  final ActivitiesDataSourceImpl activityDataSource;
+  final ActivitiesRepositoryImpl activityRepository;
 
-  ActivityNotifier({required this.activityDataSource})
+  ActivityNotifier({required this.activityRepository})
       : super(
           ActivityState(
             activity: CreateActivity(
@@ -30,7 +29,7 @@ class ActivityNotifier extends StateNotifier<ActivityState> {
     state = state.copyWith(isLoading: true);
     try {
       final activityResponse =
-          await activityDataSource.createActivity(activity: state.activity!);
+          await activityRepository.createActivity(activity: state.activity!);
 
       state = state.copyWith(
         isLoading: false,
@@ -52,7 +51,7 @@ class ActivityNotifier extends StateNotifier<ActivityState> {
     state = state.copyWith(isLoading: true);
     try {
       final activityResponse =
-          await activityDataSource.getActivity(idActivity: idActivity);
+          await activityRepository.getActivity(idActivity: idActivity);
 
       state = state.copyWith(
         isLoading: false,
@@ -78,7 +77,7 @@ class ActivityNotifier extends StateNotifier<ActivityState> {
   Future<void> deleteActivity({required int idActivity}) async {
     state = state.copyWith(isLoading: true);
     try {
-      await activityDataSource.deleteActivity(idActivity: idActivity);
+      await activityRepository.deleteActivity(idActivity: idActivity);
       state = state.copyWith(isLoading: false, isDelete: true);
     } on CustomError catch (e) {
       state = state.copyWith(

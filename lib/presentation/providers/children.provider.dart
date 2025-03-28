@@ -7,7 +7,7 @@ import 'package:hope_app/presentation/utils/utils.dart';
 final searchPatients = StateProvider<String>((ref) => '');
 
 final childrenProvider =
-    StateNotifierProvider<ChildrenNotifier, ChildrenState>((ref) {
+    StateNotifierProvider.autoDispose<ChildrenNotifier, ChildrenState>((ref) {
   return ChildrenNotifier(childrenDataSource: ChildrenDataSourceImpl());
 });
 
