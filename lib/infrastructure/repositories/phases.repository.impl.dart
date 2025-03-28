@@ -11,4 +11,9 @@ class PhasesRepositoryImpl extends PhaseRepository {
   Future<ResponseDataList<Phase>> getPhases() {
     return dataSource.getPhases();
   }
+
+  @override
+  Future<ResponseDataObject<PhaseShift>> changePhase({required int idChild}) {
+    return dataSource.changePhase(idChild: idChild);
+  }
 }

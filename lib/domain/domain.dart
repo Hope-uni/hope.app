@@ -15,6 +15,8 @@ export 'entities/phase.entities.dart';
 export 'entities/custom_pictogram.entities.dart';
 export 'entities/change_password.entities.dart';
 export 'entities/observation.entities.dart';
+export 'entities/phase_shift.entities.dart';
+export 'entities/progress.entities.dart';
 
 export 'datasources/auth.datasource.dart';
 export 'repositories/auth.repository.dart';
