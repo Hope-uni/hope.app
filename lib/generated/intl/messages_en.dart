@@ -97,6 +97,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Categoría de pictogramas"),
         "Cedula": MessageLookupByLibrary.simpleMessage("Cédula"),
         "Celular": MessageLookupByLibrary.simpleMessage("Celular"),
+        "Cerrar": MessageLookupByLibrary.simpleMessage("Cerrar"),
         "Cerrar_sesion": MessageLookupByLibrary.simpleMessage("Cerrar sesión"),
         "Configuracion": MessageLookupByLibrary.simpleMessage("Configuración"),
         "Confirmacion": MessageLookupByLibrary.simpleMessage("Confirmación"),
@@ -381,6 +382,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Quitar actividad a los niños"),
         "Quitar_asignacion_de_actividad": MessageLookupByLibrary.simpleMessage(
             "Quitar asignación de actividad"),
+        "Regresar": MessageLookupByLibrary.simpleMessage("Regresar"),
         "Restablecer_contrasena":
             MessageLookupByLibrary.simpleMessage("Restablecer contraseña"),
         "Salir": MessageLookupByLibrary.simpleMessage("Salir"),
@@ -406,6 +408,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Seleccion_de_ninos_para_actividad":
             MessageLookupByLibrary.simpleMessage(
                 "Selección de niños para actividad"),
+        "Seleccione_al_menos_a_un_paciente_para_la_actividad":
+            MessageLookupByLibrary.simpleMessage(
+                "Seleccione al menos a un paciente para la actividad"),
         "Seleccione_foto_de_perfil":
             MessageLookupByLibrary.simpleMessage("Seleccione foto de perfil"),
         "Seleccione_pictogramas_de_la_solucion":
