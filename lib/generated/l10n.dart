@@ -2163,6 +2163,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Seleccione al menos a un paciente para la actividad`
+  String get Seleccione_al_menos_a_un_paciente_para_la_actividad {
+    return Intl.message(
+      'Seleccione al menos a un paciente para la actividad',
+      name: 'Seleccione_al_menos_a_un_paciente_para_la_actividad',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Regresar`
+  String get Regresar {
+    return Intl.message(
+      'Regresar',
+      name: 'Regresar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cerrar`
+  String get Cerrar {
+    return Intl.message(
+      'Cerrar',
+      name: 'Cerrar',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

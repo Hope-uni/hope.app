@@ -81,8 +81,9 @@ final List<MenuItem> menuPacientTutor = <MenuItem>[
       required WidgetRef ref,
       CatalogObject? item,
     }) {
-      context
-          .pushNamed($child, pathParameters: {$idChild: item!.id.toString()});
+      context.pushNamed($child,
+          pathParameters: {$idChild: item!.id.toString()},
+          extra: {$isTutor: true});
     },
     roles: [$tutor],
   ),
@@ -146,8 +147,9 @@ final List<MenuItem> menuPacientTherapist = <MenuItem>[
       required WidgetRef ref,
       CatalogObject? item,
     }) {
-      context
-          .pushNamed($child, pathParameters: {$idChild: item!.id.toString()});
+      context.pushNamed($child,
+          pathParameters: {$idChild: item!.id.toString()},
+          extra: {$isTutor: false});
     },
     roles: [$terapeuta],
   ),
@@ -155,7 +157,8 @@ final List<MenuItem> menuPacientTherapist = <MenuItem>[
     title: S.current.Agregar_observacion,
     subTitle: S.current.Agregar_observacion_al_nino,
     icon: Icons.add,
-    permission: $updatePatienttherapist,
+    permission:
+        $updatePatienttherapist, //TODO: Reemplazar por permiso correcto cuando este listo
     onClick: ({
       required BuildContext context,
       required WidgetRef ref,
@@ -212,7 +215,10 @@ final List<MenuItem> menuActivity = <MenuItem>[
       required WidgetRef ref,
       CatalogObject? item,
     }) {
-      context.pushNamed($addActivity);
+      context.pushNamed(
+        $addActivity,
+        pathParameters: {$idActivity: item!.id.toString()},
+      );
     },
     roles: [$terapeuta],
   ),

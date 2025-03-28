@@ -70,7 +70,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         path: '/activity/:idActivity',
         name: $activity,
         builder: (BuildContext context, GoRouterState state) => ActivityPage(
-          idItem: int.parse(state.pathParameters[$idActivity]!),
+          idActivity: int.parse(state.pathParameters[$idActivity]!),
         ),
       ),
       GoRoute(
@@ -80,10 +80,10 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             const NewActivityPage(),
       ),
       GoRoute(
-        path: '/addActivity',
+        path: '/addActivity/:idActivity',
         name: $addActivity,
-        builder: (BuildContext context, GoRouterState state) =>
-            const AddActivityPage(),
+        builder: (BuildContext context, GoRouterState state) => AddActivityPage(
+            idActivity: int.parse(state.pathParameters[$idActivity]!)),
       ),
       GoRoute(
         path: '/removeActivity',

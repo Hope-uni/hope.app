@@ -7,6 +7,7 @@ class Activity {
   int satisfactoryPoints;
   CatalogObject phase;
   List<int> assignments;
+  User user;
   List<PictogramAchievements> activitySolution;
 
   Activity({
@@ -16,7 +17,18 @@ class Activity {
     required this.satisfactoryPoints,
     required this.phase,
     required this.assignments,
+    required this.user,
     required this.activitySolution,
+  });
+}
+
+class User {
+  int id;
+  String username;
+
+  User({
+    required this.id,
+    required this.username,
   });
 }
 

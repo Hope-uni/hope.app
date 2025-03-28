@@ -60,17 +60,24 @@ class ListTileCustom extends StatelessWidget {
                 ),
               )
             : Container(width: 3, color: $colorBlueGeneral),
-        title: Text(title,
-            maxLines: 2,
-            style: TextStyle(
-                fontWeight: styleTitle,
-                color: colorTitle == true ? $colorBlueGeneral : null)),
+        title: Container(
+          padding: EdgeInsets.only(right: noImage == false ? 0 : 25),
+          child: Text(title,
+              maxLines: 2,
+              style: TextStyle(
+                  fontWeight: styleTitle,
+                  color: colorTitle == true ? $colorBlueGeneral : null)),
+        ),
         subtitle: subTitle != null
-            ? Text(subTitle!,
-                style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: styleSubTitle,
-                    color: colorSubTitle == true ? $colorBlueGeneral : null))
+            ? Container(
+                padding: EdgeInsets.only(right: noImage == false ? 0 : 25),
+                child: Text(subTitle!,
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: styleSubTitle,
+                        color:
+                            colorSubTitle == true ? $colorBlueGeneral : null)),
+              )
             : null,
         onTap: onTap,
         trailing: iconButton,
