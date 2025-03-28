@@ -43,12 +43,6 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      if (mounted) {
-        ref.read(childProvider.notifier).resetChild();
-      }
-    });
-
     _scrollController.addListener(() {
       // Oculta la flecha si el scroll está al final
       if (_scrollController.offset >=
@@ -86,9 +80,12 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
 
   @override
   Widget build(BuildContext context) {
+    final stateProfile = ref.watch(profileProvider);
     final stateChild = ref.watch(childProvider);
+    final statePhases = ref.watch(phasesProvider);
+
     final notifierChild = ref.read(childProvider.notifier);
-    final profileState = ref.watch(profileProvider);
+    final notifierPhases = ref.read(phasesProvider.notifier);
 
     ref.listen(childProvider, (previous, next) {
       if (next.validationErrors.isNotEmpty && clickSave) {
@@ -113,7 +110,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
             typeAlert: ToastificationType.info,
           );
           enableInput = false;
-          notifierChild.updateErrorMessage();
+          notifierChild.updateResponse();
         }
       }
 
@@ -124,7 +121,31 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
           description: next.errorMessageApi!,
           typeAlert: ToastificationType.error,
         );
-        notifierChild.updateErrorMessage();
+        notifierChild.updateResponse();
+      }
+    });
+
+    ref.listen(phasesProvider, (previous, next) {
+      if (next.isLoading == false && next.isUpdate == true) {
+        if (context.mounted) {
+          toastAlert(
+            context: context,
+            title: S.current.Avance_de_fase_exitosa,
+            description: S.current.Se_avanzo_a_la_fase(next.newPhase!),
+            typeAlert: ToastificationType.success,
+          );
+          notifierChild.updateResponse();
+        }
+      }
+
+      if (next.errorMessageApi != null) {
+        toastAlert(
+          context: context,
+          title: S.current.Error,
+          description: next.errorMessageApi!,
+          typeAlert: ToastificationType.error,
+        );
+        notifierChild.updateResponse();
       }
     });
 
@@ -347,7 +368,8 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
                   ),
                 ],
               ),
-            if (stateChild.isUpdateData == true)
+            if (stateChild.isUpdateData == true ||
+                statePhases.isLoading == true)
               Stack(
                 children: [
                   const Opacity(
@@ -364,7 +386,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
                         Text(
                           S.current.Cargando,
                           style: const TextStyle(
-                            color: $colorButtonDisable,
+                            color: $colorTextWhite,
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                             decoration: TextDecoration.none,
@@ -406,7 +428,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
                     backgroundColor: $colorBlueGeneral,
                     label: S.current.Editar,
                     onTap: () {
-                      if (profileState.permmisions!
+                      if (stateProfile.permmisions!
                           .contains($updatePatientTutor)) {
                         setState(() {
                           enableInput = true;
@@ -501,39 +523,57 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
                     label: S.current.Avanzar_de_fase,
                     visible: widget.extra![$isTutor] == false,
                     onTap: () {
-                      modalDialogConfirmation(
-                        context: context,
-                        titleButtonConfirm: S.current.Si_avanzar,
-                        question: RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            style: const TextStyle(
-                                fontSize: 16, color: $colorTextBlack),
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: S.current.Esta_seguro_de_avanzar_de_fase_a(
-                                    'Mario Jose Ramos Mejia'), //TODO: Cambiar cuando este listo el endpoint
+                      //TODO: ACTUALIZAR CUANDO ESTEN LISTOS LOS PERMISOS EN API
+                      if (stateProfile.permmisions!
+                          .contains($updatePatientTutor)) {
+                        modalDialogConfirmation(
+                          context: context,
+                          titleButtonConfirm: S.current.Si_avanzar,
+                          question: RichText(
+                            text: TextSpan(
+                              style: const TextStyle(
+                                fontSize: 16,
+                                color: $colorTextBlack,
                               ),
-                              const TextSpan(
-                                //TODO: Cambiar cuando este listo el endpoint
-                                text: '\n\nFase 3 \u2192 Fase 4',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                            ],
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: S.current
+                                      .Esta_seguro_de_avanzar_de_fase_a(
+                                          stateChild.child!.fullName),
+                                ),
+                                TextSpan(
+                                  text: '\n\n${S.current.Fase_actual}: ',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: stateChild.child!.currentPhase.name,
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        buttonColorConfirm: $colorSuccess,
-                        onClic: () {
-                          Navigator.of(context).pop();
-                          toastAlert(
-                            context: context,
-                            title: S.current.Avance_de_fase_exitosa,
-                            description: S.current.Se_avanzo_a_la_fase(4,
-                                'Mario Jose Ramos Mejia'), //TODO: Cambiar cuando este listo el endpoint
-                            typeAlert: ToastificationType.success,
-                          );
-                        },
-                      );
+                          buttonColorConfirm: $colorSuccess,
+                          onClic: () async {
+                            Navigator.of(context).pop();
+                            final newPhase = await notifierPhases.changePhase(
+                                idChild: stateChild.child!.id);
+
+                            if (newPhase != null) {
+                              notifierChild.updateProgress(newPhase);
+                            }
+                          },
+                        );
+                      } else {
+                        toastAlert(
+                          iconAlert: const Icon(Icons.info),
+                          context: context,
+                          title: S.current.No_autorizado,
+                          description:
+                              S.current.No_cuenta_con_el_permiso_necesario,
+                          typeAlert: ToastificationType.info,
+                        );
+                      }
                     },
                   ),
                   SpeedDialChild(
@@ -543,15 +583,28 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
                     label: S.current.Agregar_observacion,
                     visible: widget.extra![$isTutor] == false,
                     onTap: () {
-                      modalObservation(
-                        context: context,
-                        dataChild: CatalogObject(
-                          id: stateChild.child!.id,
-                          name: stateChild.child!.fullName,
-                          description: '',
-                        ),
-                        isPageChild: true,
-                      );
+                      //TODO: ACTUALIZAR CUANDO ESTEN LISTOS LOS PERMISOS EN API
+                      if (stateProfile.permmisions!
+                          .contains($updatePatientTutor)) {
+                        modalObservation(
+                          context: context,
+                          dataChild: CatalogObject(
+                            id: stateChild.child!.id,
+                            name: stateChild.child!.fullName,
+                            description: '',
+                          ),
+                          isPageChild: true,
+                        );
+                      } else {
+                        toastAlert(
+                          iconAlert: const Icon(Icons.info),
+                          context: context,
+                          title: S.current.No_autorizado,
+                          description:
+                              S.current.No_cuenta_con_el_permiso_necesario,
+                          typeAlert: ToastificationType.info,
+                        );
+                      }
                     },
                   ),
                 ],
@@ -911,7 +964,9 @@ List<Widget> _childProgressData({
                         height: 100,
                         width: 100,
                         child: CircularProgressIndicator(
-                          value: stateChild.child!.progress.phaseProgress / 100,
+                          value: double.parse(
+                                  stateChild.child!.progress.phaseProgress) /
+                              100,
                           backgroundColor: $colorButtonDisable,
                           strokeWidth: 10,
                           color: $colorBlueGeneral,

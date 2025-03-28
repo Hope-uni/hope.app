@@ -21,7 +21,7 @@ class ChildMapper {
             CatalogoObjectMapper.catalogObjectfromJson(json["teaDegree"]),
         currentPhase:
             CatalogoObjectMapper.catalogObjectfromJson(json["currentPhase"]),
-        progress: progressfromJson(json["progress"]),
+        progress: ProgressMapper.progressfromJson(json["progress"]),
         observations: json["observations"] == null
             ? null
             : List<Observation>.from(json["observations"]
@@ -65,11 +65,6 @@ class ChildMapper {
         progress: json["progress"],
         description: json["description"],
         phase: CatalogoObjectMapper.catalogObjectfromJson(json["phase"]),
-      );
-
-  static Progress progressfromJson(Map<String, dynamic> json) => Progress(
-        generalProgress: json["generalProgress"],
-        phaseProgress: json["phaseProgress"],
       );
 
   static PersonTutorTherapist personfromJson(Map<String, dynamic> json) =>

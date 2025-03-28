@@ -165,6 +165,17 @@ class ChildNotifier extends StateNotifier<ChildState> {
     state = state.copyWith(child: updatedChild);
   }
 
+  void updateProgress(PhaseShift newValue) {
+    Child updatedChild = state.child!;
+
+    updatedChild = state.child!.copyWith(
+      currentPhase: newValue.currentPhase,
+      progress: newValue.progress,
+    );
+
+    state = state.copyWith(child: updatedChild);
+  }
+
   bool checkFields() {
     Map<String, String?> errors = {};
 
@@ -238,7 +249,7 @@ class ChildNotifier extends StateNotifier<ChildState> {
     state = state;
   }
 
-  void updateErrorMessage() {
+  void updateResponse() {
     state = state.copyWith(errorMessageApi: '', showtoastAlert: false);
   }
 
