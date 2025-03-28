@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hope_app/domain/domain.dart';
@@ -8,7 +7,9 @@ import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/providers/providers.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
+import 'package:intl/intl.dart';
 import 'package:toastification/toastification.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 class ChildDataPage extends ConsumerStatefulWidget {
   final int idChild;
@@ -29,8 +30,6 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
   final ScrollController _scrollController = ScrollController();
   final ScrollController _scrollControllerObservations = ScrollController();
   late final TextEditingController controllerDate = TextEditingController();
-
-  final _key = GlobalKey<ExpandableFabState>();
 
   final Map<String, FocusNode> focusNodes = {
     $userNameProfile: FocusNode(),
@@ -256,8 +255,8 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
                       });
                     },
                     child: Container(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 15),
+                      margin:
+                          const EdgeInsets.only(left: 10, right: 10, top: 15),
                       child: SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -277,8 +276,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
                     ),
                   ),
                   Container(
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 15),
+                    margin: const EdgeInsets.only(left: 10, right: 10, top: 15),
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
@@ -291,8 +289,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
                     ),
                   ),
                   Container(
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 15),
+                    margin: const EdgeInsets.only(left: 10, right: 10, top: 15),
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
@@ -305,8 +302,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
                     ),
                   ),
                   Container(
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 15),
+                    margin: const EdgeInsets.only(left: 10, right: 10, top: 15),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -318,8 +314,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
                     ),
                   ),
                   Container(
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 15),
+                    margin: const EdgeInsets.only(left: 10, right: 10, top: 15),
                     child: _observationsChild(ref: ref),
                   ),
                 ],
@@ -387,90 +382,100 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
               ),
           ],
         ),
-        floatingActionButtonLocation: ExpandableFab.location,
-        floatingActionButton: IgnorePointer(
-          ignoring:
-              stateChild.isLoading == true || stateChild.isUpdateData == true
-                  ? true
-                  : false,
-          child: ExpandableFab(
-            key: _key,
-            pos: ExpandableFabPos.right,
-            openButtonBuilder: RotateFloatingActionButtonBuilder(
-              child: const Icon(Icons.expand_less),
-              fabSize: ExpandableFabSize.regular,
-              foregroundColor: $colorTextWhite,
-              backgroundColor: $colorSuccess,
-              shape: const CircleBorder(),
-            ),
-            closeButtonBuilder: DefaultFloatingActionButtonBuilder(
-              child: const Icon(Icons.expand_more),
-              fabSize: ExpandableFabSize.small,
-              foregroundColor: $colorTextWhite,
-              backgroundColor: const Color.fromARGB(255, 120, 120, 120),
-              shape: const CircleBorder(),
-            ),
-            type: ExpandableFabType.up,
-            childrenAnimation: ExpandableFabAnimation.none,
-            distance: 60,
-            children: [
-              if (!enableInput && widget.extra![$isTutor] == true)
-                Row(
-                  children: [
-                    Text(
-                      S.current.Editar,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(width: 20),
-                    FloatingActionButton.small(
-                      shape: const CircleBorder(),
-                      backgroundColor: $colorBlueGeneral,
-                      heroTag: null,
-                      child: const Icon(Icons.edit, color: $colorTextWhite),
-                      onPressed: () {
-                        if (profileState.permmisions!
-                            .contains($updatePatientTutor)) {
+        floatingActionButton: stateChild.isLoading == true ||
+                stateChild.isUpdateData == true
+            ? null
+            : SpeedDial(
+                icon: Icons.expand_less,
+                activeIcon: Icons.expand_more,
+                animationDuration: const Duration(milliseconds: 300),
+                spacing: 3,
+                overlayColor: $colorShadow,
+                overlayOpacity: 0.2,
+                childPadding: const EdgeInsets.all(5),
+                spaceBetweenChildren: 4,
+                elevation: 8.0,
+                animationCurve: Curves.easeInOut,
+                isOpenOnStart: false,
+                shape: const CircleBorder(),
+                children: [
+                  SpeedDialChild(
+                    visible: !enableInput && widget.extra![$isTutor] == true,
+                    shape: const CircleBorder(),
+                    child: const Icon(Icons.edit, color: $colorTextWhite),
+                    backgroundColor: $colorBlueGeneral,
+                    label: S.current.Editar,
+                    onTap: () {
+                      if (profileState.permmisions!
+                          .contains($updatePatientTutor)) {
+                        setState(() {
+                          enableInput = true;
+                        });
+                        notifierChild.assingState();
+                      } else {
+                        toastAlert(
+                          iconAlert: const Icon(Icons.info),
+                          context: context,
+                          title: S.current.No_autorizado,
+                          description:
+                              S.current.No_cuenta_con_el_permiso_necesario,
+                          typeAlert: ToastificationType.info,
+                        );
+                      }
+                    },
+                  ),
+                  SpeedDialChild(
+                    visible: enableInput,
+                    shape: const CircleBorder(),
+                    child: const Icon(Icons.close, color: $colorTextWhite),
+                    backgroundColor: $colorError,
+                    label: S.current.Cancelar,
+                    onTap: () {
+                      modalDialogConfirmation(
+                        context: context,
+                        titleButtonConfirm: S.current.Si_salir,
+                        question: RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            text: S.current.Esta_seguro_de_salir_de_la_edicion,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: $colorTextBlack,
+                            ),
+                          ),
+                        ),
+                        buttonColorConfirm: $colorSuccess,
+                        onClic: () {
+                          Navigator.of(context).pop();
                           setState(() {
-                            enableInput = true;
+                            enableInput = false;
                           });
-                          _key.currentState?.toggle();
-                          notifierChild.assingState();
-                        } else {
-                          toastAlert(
-                            iconAlert: const Icon(Icons.info),
-                            context: context,
-                            title: S.current.No_autorizado,
-                            description:
-                                S.current.No_cuenta_con_el_permiso_necesario,
-                            typeAlert: ToastificationType.info,
-                          );
-                        }
-                      },
-                    ),
-                  ],
-                ),
-              if (enableInput)
-                Row(
-                  children: [
-                    Text(
-                      S.current.Cancelar,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(width: 20),
-                    FloatingActionButton.small(
-                      shape: const CircleBorder(),
-                      backgroundColor: $colorError,
-                      heroTag: null,
-                      onPressed: () {
-                        _key.currentState?.toggle();
+                          WidgetsBinding.instance.addPostFrameCallback((_) {
+                            // Aquí puedes actualizar el estado o realizar alguna acción
+                            ref.read(childProvider.notifier).restoredState();
+                          });
+                        },
+                      );
+                    },
+                  ),
+                  SpeedDialChild(
+                    shape: const CircleBorder(),
+                    child: const Icon(Icons.update, color: $colorTextWhite),
+                    backgroundColor: $colorBlueGeneral,
+                    label: S.current.Actualizar,
+                    visible: enableInput,
+                    onTap: () {
+                      clickSave = true;
+
+                      if (notifierChild.checkFields()) {
                         modalDialogConfirmation(
                           context: context,
-                          titleButtonConfirm: S.current.Si_salir,
+                          titleButtonConfirm: S.current.Si_actualizar,
                           question: RichText(
                             textAlign: TextAlign.center,
                             text: TextSpan(
                               text:
-                                  S.current.Esta_seguro_de_salir_de_la_edicion,
+                                  S.current.Esta_Seguro_de_actualizar_los_datos,
                               style: const TextStyle(
                                 fontSize: 16,
                                 color: $colorTextBlack,
@@ -478,163 +483,79 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
                             ),
                           ),
                           buttonColorConfirm: $colorSuccess,
-                          onClic: () {
-                            Navigator.of(context).pop();
-                            setState(() {
-                              enableInput = false;
-                            });
-                            WidgetsBinding.instance.addPostFrameCallback((_) {
-                              // Aquí puedes actualizar el estado o realizar alguna acción
-                              ref.read(childProvider.notifier).restoredState();
-                            });
+                          onClic: () async {
+                            if (context.mounted) {
+                              Navigator.of(context).pop();
+                            }
+                            await notifierChild.updateChild();
                           },
                         );
-                      },
-                      child: const Icon(
-                        Icons.close,
-                        color: $colorTextWhite,
-                      ),
-                    ),
-                  ],
-                ),
-              if (enableInput)
-                Row(
-                  children: [
-                    Text(
-                      S.current.Actualizar,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(width: 20),
-                    FloatingActionButton.small(
-                      shape: const CircleBorder(),
-                      backgroundColor: $colorBlueGeneral,
-                      heroTag: null,
-                      onPressed: () {
-                        _key.currentState?.toggle();
-                        clickSave = true;
-
-                        if (notifierChild.checkFields()) {
-                          modalDialogConfirmation(
-                            context: context,
-                            titleButtonConfirm: S.current.Si_actualizar,
-                            question: RichText(
-                              textAlign: TextAlign.center,
-                              text: TextSpan(
-                                text: S.current
-                                    .Esta_Seguro_de_actualizar_los_datos,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  color: $colorTextBlack,
-                                ),
+                      }
+                      clickSave = false;
+                    },
+                  ),
+                  SpeedDialChild(
+                    shape: const CircleBorder(),
+                    child: const Icon(Icons.show_chart, color: $colorTextWhite),
+                    backgroundColor: $colorSuccess,
+                    label: S.current.Avanzar_de_fase,
+                    visible: widget.extra![$isTutor] == false,
+                    onTap: () {
+                      modalDialogConfirmation(
+                        context: context,
+                        titleButtonConfirm: S.current.Si_avanzar,
+                        question: RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            style: const TextStyle(
+                                fontSize: 16, color: $colorTextBlack),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: S.current.Esta_seguro_de_avanzar_de_fase_a(
+                                    'Mario Jose Ramos Mejia'), //TODO: Cambiar cuando este listo el endpoint
                               ),
-                            ),
-                            buttonColorConfirm: $colorSuccess,
-                            onClic: () async {
-                              if (context.mounted) {
-                                Navigator.of(context).pop();
-                              }
-                              await notifierChild.updateChild();
-                            },
+                              const TextSpan(
+                                //TODO: Cambiar cuando este listo el endpoint
+                                text: '\n\nFase 3 \u2192 Fase 4',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                        buttonColorConfirm: $colorSuccess,
+                        onClic: () {
+                          Navigator.of(context).pop();
+                          toastAlert(
+                            context: context,
+                            title: S.current.Avance_de_fase_exitosa,
+                            description: S.current.Se_avanzo_a_la_fase(4,
+                                'Mario Jose Ramos Mejia'), //TODO: Cambiar cuando este listo el endpoint
+                            typeAlert: ToastificationType.success,
                           );
-                        }
-                        clickSave = false;
-                      },
-                      child: const Icon(
-                        Icons.update,
-                        color: $colorTextWhite,
-                      ),
-                    ),
-                  ],
-                ),
-              if (widget.extra![$isTutor] == false)
-                Row(
-                  children: [
-                    Text(
-                      S.current.Avanzar_de_fase,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(width: 20),
-                    FloatingActionButton.small(
-                      shape: const CircleBorder(),
-                      backgroundColor: $colorSuccess,
-                      heroTag: null,
-                      onPressed: () {
-                        _key.currentState?.toggle();
-                        modalDialogConfirmation(
-                          context: context,
-                          titleButtonConfirm: S.current.Si_avanzar,
-                          question: RichText(
-                            textAlign: TextAlign.center,
-                            text: TextSpan(
-                              style: const TextStyle(
-                                  fontSize: 16, color: $colorTextBlack),
-                              children: <TextSpan>[
-                                TextSpan(
-                                  text: S.current.Esta_seguro_de_avanzar_de_fase_a(
-                                      'Mario Jose Ramos Mejia'), //TODO: Cambiar cuando este listo el endpoint
-                                ),
-                                const TextSpan(
-                                  //TODO: Cambiar cuando este listo el endpoint
-                                  text: '\n\nFase 3 \u2192 Fase 4',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                          ),
-                          buttonColorConfirm: $colorSuccess,
-                          onClic: () {
-                            Navigator.of(context).pop();
-                            toastAlert(
-                              context: context,
-                              title: S.current.Avance_de_fase_exitosa,
-                              description: S.current.Se_avanzo_a_la_fase(4,
-                                  'Mario Jose Ramos Mejia'), //TODO: Cambiar cuando este listo el endpoint
-                              typeAlert: ToastificationType.success,
-                            );
-                          },
-                        );
-                      },
-                      child: const Icon(
-                        Icons.show_chart,
-                        color: $colorTextWhite,
-                      ),
-                    ),
-                  ],
-                ),
-              if (widget.extra![$isTutor] == false)
-                Row(
-                  children: [
-                    Text(
-                      S.current.Agregar_observacion,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(width: 20),
-                    FloatingActionButton.small(
-                      shape: const CircleBorder(),
-                      backgroundColor: $colorSuccess,
-                      heroTag: null,
-                      onPressed: () {
-                        _key.currentState?.toggle();
-                        modalObservation(
-                          context: context,
-                          dataChild: CatalogObject(
-                            id: stateChild.child!.id,
-                            name: stateChild.child!.fullName,
-                            description: '',
-                          ),
-                          isPageChild: true,
-                        );
-                      },
-                      child: const Icon(
-                        Icons.add,
-                        color: $colorTextWhite,
-                      ),
-                    ),
-                  ],
-                ),
-            ],
-          ),
-        ),
+                        },
+                      );
+                    },
+                  ),
+                  SpeedDialChild(
+                    shape: const CircleBorder(),
+                    child: const Icon(Icons.add, color: $colorTextWhite),
+                    backgroundColor: $colorSuccess,
+                    label: S.current.Agregar_observacion,
+                    visible: widget.extra![$isTutor] == false,
+                    onTap: () {
+                      modalObservation(
+                        context: context,
+                        dataChild: CatalogObject(
+                          id: stateChild.child!.id,
+                          name: stateChild.child!.fullName,
+                          description: '',
+                        ),
+                        isPageChild: true,
+                      );
+                    },
+                  ),
+                ],
+              ),
       ),
     );
   }
@@ -1107,7 +1028,7 @@ List<Widget> _activities({
     Expanded(
       child: stateChildActivities != null
           ? ListView.builder(
-              itemCount: stateChildActivities.length,
+              itemCount: stateChildActivities.length + 1,
               itemBuilder: (context, index) {
                 if (index < stateChildActivities.length) {
                   return ListTileCustom(
@@ -1136,13 +1057,17 @@ Widget _observationsChild({
   final stateChildObservations = ref.watch(childProvider).child!.observations;
   return stateChildObservations != null
       ? ListView.builder(
-          itemCount: stateChildObservations.length,
+          itemCount: stateChildObservations.length + 1,
           itemBuilder: (context, index) {
             if (index < stateChildObservations.length) {
+              DateTime date =
+                  DateTime.parse(stateChildObservations[index].createdAt);
+              final dateFormat = DateFormat("dd-MM-yyyy HH:mm").format(date);
+
               return ListTileCustom(
                 title: stateChildObservations[index].description,
                 subTitle:
-                    '\n${stateChildObservations[index].createdAt}     @${stateChildObservations[index].username}',
+                    '\n$dateFormat     @${stateChildObservations[index].username}',
                 styleSubTitle: FontWeight.bold,
                 colorSubTitle: true,
                 noImage: true,

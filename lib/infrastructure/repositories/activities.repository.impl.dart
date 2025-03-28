@@ -31,4 +31,15 @@ class ActivitiesRepositoryImpl extends ActivitiesRepository {
   }) {
     return dataSource.deleteActivity(idActivity: idActivity);
   }
+
+  @override
+  Future<ResponseDataObject<ResponseData>> assingActivity({
+    required int idActivity,
+    required List<int> idsPatients,
+  }) {
+    return dataSource.assingActivity(
+      idActivity: idActivity,
+      idsPatients: idsPatients,
+    );
+  }
 }

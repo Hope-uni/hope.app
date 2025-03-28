@@ -7,8 +7,8 @@ import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
 
 class ActivityPage extends ConsumerStatefulWidget {
-  final int idItem;
-  const ActivityPage({super.key, required this.idItem});
+  final int idActivity;
+  const ActivityPage({super.key, required this.idActivity});
 
   @override
   ActivityPageState createState() => ActivityPageState();
@@ -34,7 +34,7 @@ class ActivityPageState extends ConsumerState<ActivityPage> {
       final stateActivity = ref.read(activityProvider);
       if (stateActivity.showActivity == null) {
         final notifierActivity = ref.read(activityProvider.notifier);
-        await notifierActivity.getActivity(idActivity: widget.idItem);
+        await notifierActivity.getActivity(idActivity: widget.idActivity);
       }
     });
   }

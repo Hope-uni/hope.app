@@ -16,4 +16,9 @@ abstract class ActivitiesDataSource {
   Future<ResponseDataObject<ResponseData>> deleteActivity({
     required int idActivity,
   });
+
+  Future<ResponseDataObject<ResponseData>> assingActivity({
+    required int idActivity,
+    required List<int> idsPatients,
+  });
 }

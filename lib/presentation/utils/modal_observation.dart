@@ -115,7 +115,7 @@ modalObservation({
                         child: ButtonTextIcon(
                           title: newObservation == null
                               ? S.current.Cancelar
-                              : S.current.Salir,
+                              : S.current.Cerrar,
                           icon: const Icon(Icons.cancel),
                           buttonColor: $colorError,
                           onClic: () async {

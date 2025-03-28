@@ -32,6 +32,8 @@ const String $description = "description";
 const String $satisfactoryPoints = "satisfactoryPoints";
 const String $phaseId = "phaseId";
 const String $pictogramSentence = "pictogramSentence";
+const String $activityId = "activityId";
+const String $patients = "patients";
 
 //KEYS CHILD
 const String $patientId = "patientId";
