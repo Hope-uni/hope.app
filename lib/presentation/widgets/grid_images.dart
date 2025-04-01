@@ -303,7 +303,7 @@ class _ImageGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final profileState = ref.watch(profileProvider);
+    final profileState = ref.read(profileProvider);
 
     return Container(
       padding: const EdgeInsets.only(top: 7),

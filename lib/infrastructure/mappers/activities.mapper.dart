@@ -10,11 +10,6 @@ class ActivitiesMapper {
         phase: CatalogoObjectMapper.catalogObjectfromJson(json["phase"]),
         assignments: json["assignments"] == null
             ? null
-            : List<Assignment>.from(
-                json["assignments"].map((x) => assignmentFromJson(x))),
-      );
-
-  static Assignment assignmentFromJson(Map<String, dynamic> json) => Assignment(
-        id: json["id"],
+            : List<int>.from(json["assignments"].map((x) => x)).toList(),
       );
 }

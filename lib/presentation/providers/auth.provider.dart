@@ -11,21 +11,11 @@ final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
   final authRepository = AuthRepositoryImpl();
   final keyValueRepository = KeyValueStorageRepositoryImpl();
   final profileStateNotifier = ref.read(profileProvider.notifier);
-  final childrenStateNotifier = ref.read(childrenProvider.notifier);
-  final activitiesStateNotifier = ref.read(activitiesProvider.notifier);
-  final phaseStateNotifier = ref.read(phasesProvider.notifier);
-  final childStateNotifier = ref.read(childProvider.notifier);
-  final activityStateNotifier = ref.read(activityProvider.notifier);
 
   return AuthNotifier(
     authRepository: authRepository,
     keyValueRepository: keyValueRepository,
     profileStateNotifier: profileStateNotifier,
-    childrenStateNotifier: childrenStateNotifier,
-    activitiesStateNotifier: activitiesStateNotifier,
-    activityStateNotifier: activityStateNotifier,
-    phaseStateNotifier: phaseStateNotifier,
-    childStateNotifier: childStateNotifier,
   );
 });
 
@@ -35,21 +25,11 @@ class AuthNotifier extends StateNotifier<AuthState> {
   final DioService dio = DioService();
 
   final ProfileNotifier profileStateNotifier;
-  final ChildrenNotifier childrenStateNotifier;
-  final ActivitiesNotifier activitiesStateNotifier;
-  final PhasesNotifier phaseStateNotifier;
-  final ChildNotifier childStateNotifier;
-  final ActivityNotifier activityStateNotifier;
 
   AuthNotifier({
     required this.profileStateNotifier,
-    required this.childrenStateNotifier,
     required this.keyValueRepository,
     required this.authRepository,
-    required this.activitiesStateNotifier,
-    required this.phaseStateNotifier,
-    required this.childStateNotifier,
-    required this.activityStateNotifier,
   }) : super(AuthState());
 
   void setLoggedToken(Token token) async {
@@ -119,11 +99,6 @@ class AuthNotifier extends StateNotifier<AuthState> {
     await keyValueRepository.deleteKeyStorage($roles);
 
     profileStateNotifier.resetProfile();
-    childrenStateNotifier.resetState();
-    activitiesStateNotifier.resetState();
-    phaseStateNotifier.resetState();
-    childStateNotifier.resetChild();
-    activityStateNotifier.resetState();
 
     state = state.copyWith(
       authStatus: AuthStatus.notAuthenticated,

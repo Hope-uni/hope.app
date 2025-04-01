@@ -6,7 +6,7 @@ class Activities {
   String description;
   int satisfactoryPoints;
   CatalogObject phase;
-  List<Assignment>? assignments;
+  List<int>? assignments;
 
   Activities({
     required this.id,
@@ -15,13 +15,5 @@ class Activities {
     required this.satisfactoryPoints,
     required this.phase,
     this.assignments,
-  });
-}
-
-class Assignment {
-  int id;
-
-  Assignment({
-    required this.id,
   });
 }

@@ -10,11 +10,17 @@ class ChildrenDataSourceImpl extends ChildrenDataSource {
   final dioServices = DioService();
 
   @override
-  Future<ResponseDataList<Children>> getChildrenTherapist(
-      {required int page}) async {
+  Future<ResponseDataList<Children>> getChildrenTherapist({
+    required int page,
+    int? activityId,
+  }) async {
     try {
-      final response =
-          await dioServices.dio.get('/therapist/patients?page=$page&size=15');
+      // Construir la URL dinámicamente
+      String url = '/therapist/patients?page=$page&size=15';
+
+      if (activityId != null) url += '&activityId=$activityId';
+
+      final response = await dioServices.dio.get(url);
 
       final responseChildren =
           ResponseMapper.responseJsonListToEntity<Children>(

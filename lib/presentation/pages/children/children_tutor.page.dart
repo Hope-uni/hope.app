@@ -20,16 +20,6 @@ class ChildrenTutorPageState extends ConsumerState<ChildrenTutorPage> {
   final scrollController = ScrollController();
 
   @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      if (mounted) {
-        ref.read(childrenProvider.notifier).resetIsErrorInitial();
-      }
-    });
-  }
-
-  @override
   void dispose() {
     scrollController.dispose();
     super.dispose();
@@ -77,7 +67,7 @@ class ChildrenTutorPageState extends ConsumerState<ChildrenTutorPage> {
           description: next.errorMessageApi!,
           typeAlert: ToastificationType.error,
         );
-        ref.read(childrenProvider.notifier).updateErrorMessage();
+        ref.read(childrenProvider.notifier).updateResponse();
       }
     });
 
