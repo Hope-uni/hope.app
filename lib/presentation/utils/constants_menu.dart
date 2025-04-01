@@ -233,7 +233,9 @@ final List<MenuItem> menuActivity = <MenuItem>[
       required WidgetRef ref,
       CatalogObject? item,
     }) {
-      context.pushNamed($removeActivity);
+      context.pushNamed($removeActivity,
+          pathParameters: {$idActivity: item!.id.toString()},
+          extra: {'nameActivity': item.name});
     },
     roles: [$terapeuta],
   ),

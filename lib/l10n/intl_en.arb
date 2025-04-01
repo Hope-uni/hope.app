@@ -120,8 +120,8 @@
   "Asignar_actividad": "Asignar actividad",
   "Esta_seguro_de_eliminar_permanentemente_la_actividad": "¿Está seguro de eliminar permanentemente la actividad?",
   "Quitar_asignacion_de_actividad": "Quitar asignación de actividad",
-  "Esta_seguro_de_quitarle_la_actividad": "¿Está seguro de quitarle la actividad?",
-  "A": "a",
+  "Esta_seguro_de_quitarle_la_actividad": "¿Está seguro de quitarle la actividad {nameActivity}?",
+  "Al_paiente": "Al paciente",
   "Si_Quitar": "Si, quitar",
   "Seleccion_de_ninos_para_actividad": "Selección de niños para actividad",
   "Confirmacion": "Confirmación",
@@ -211,5 +211,7 @@
   "La_descripcion_debe_tener_entre_seis_y_docientocincuentaycinco_caracteres": "La descripción debe tener entre 6 y 255 caracteres",
   "Seleccione_al_menos_a_un_paciente_para_la_actividad": "Seleccione al menos a un paciente para la actividad",
   "Regresar": "Regresar",
-  "Cerrar": "Cerrar"
+  "Cerrar": "Cerrar",
+  "Actividad_desasignada_exitosamente": "Actividad desasignada exitosamente",
+  "Se_removio_la_actividad_del_paciente": "Se removió la actividad del paciente"
 }

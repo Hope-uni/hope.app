@@ -1262,21 +1262,21 @@ class S {
     );
   }
 
-  /// `¿Está seguro de quitarle la actividad?`
-  String get Esta_seguro_de_quitarle_la_actividad {
+  /// `¿Está seguro de quitarle la actividad {nameActivity}?`
+  String Esta_seguro_de_quitarle_la_actividad(Object nameActivity) {
     return Intl.message(
-      '¿Está seguro de quitarle la actividad?',
+      '¿Está seguro de quitarle la actividad $nameActivity?',
       name: 'Esta_seguro_de_quitarle_la_actividad',
       desc: '',
-      args: [],
+      args: [nameActivity],
     );
   }
 
-  /// `a`
-  String get A {
+  /// `Al paciente`
+  String get Al_paiente {
     return Intl.message(
-      'a',
-      name: 'A',
+      'Al paciente',
+      name: 'Al_paiente',
       desc: '',
       args: [],
     );
@@ -2189,6 +2189,26 @@ class S {
     return Intl.message(
       'Cerrar',
       name: 'Cerrar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Actividad desasignada exitosamente`
+  String get Actividad_desasignada_exitosamente {
+    return Intl.message(
+      'Actividad desasignada exitosamente',
+      name: 'Actividad_desasignada_exitosamente',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Se removió la actividad del paciente`
+  String get Se_removio_la_actividad_del_paciente {
+    return Intl.message(
+      'Se removió la actividad del paciente',
+      name: 'Se_removio_la_actividad_del_paciente',
       desc: '',
       args: [],
     );

@@ -34,6 +34,7 @@ const String $phaseId = "phaseId";
 const String $pictogramSentence = "pictogramSentence";
 const String $activityId = "activityId";
 const String $patients = "patients";
+const String $patientIdActivity = "patientId";
 
 //KEYS CHILD
 const String $patientId = "patientId";

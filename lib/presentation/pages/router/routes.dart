@@ -86,11 +86,14 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             idActivity: int.parse(state.pathParameters[$idActivity]!)),
       ),
       GoRoute(
-        path: '/removeActivity',
-        name: $removeActivity,
-        builder: (BuildContext context, GoRouterState state) =>
-            const RemoveAcivityPage(),
-      ),
+          path: '/removeActivity/:idActivity',
+          name: $removeActivity,
+          builder: (BuildContext context, GoRouterState state) {
+            final extra = state.extra as Map<String, dynamic>?;
+            return RemoveAcivityPage(
+                idActivity: int.parse(state.pathParameters[$idActivity]!),
+                nameActivity: extra);
+          }),
       GoRoute(
         path: '/profile',
         name: $profileRoute,
