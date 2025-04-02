@@ -45,6 +45,7 @@ class ChildMapper {
             ? null
             : List<PictogramAchievements>.from(json["pictograms"]
                 .map((x) => PictogramsMapper.pictogramAchievementsfromJson(x))),
+        isMonochrome: json["isMonochrome"],
       );
 
   static ActivityChild activityfromJson(Map<String, dynamic> json) =>

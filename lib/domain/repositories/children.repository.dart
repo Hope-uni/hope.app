@@ -19,4 +19,7 @@ abstract class ChildrenRepository {
     required int idChild,
     required String description,
   });
+  Future<ResponseDataObject<Monochrome>> updateMonochrome({
+    required int idChild,
+  });
 }

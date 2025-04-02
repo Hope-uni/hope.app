@@ -17,6 +17,7 @@ export 'entities/change_password.entities.dart';
 export 'entities/observation.entities.dart';
 export 'entities/phase_shift.entities.dart';
 export 'entities/progress.entities.dart';
+export 'entities/monochrome.entities.dart';
 
 export 'datasources/auth.datasource.dart';
 export 'repositories/auth.repository.dart';
