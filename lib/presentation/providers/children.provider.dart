@@ -46,12 +46,14 @@ class ChildrenNotifier extends StateNotifier<ChildrenState> {
     }
   }
 
-  Future<void> getChildrenTherapist() async {
+  Future<void> getChildrenTherapist({int? activityId}) async {
     state = state.copyWith(isLoading: true);
     final indexPage = state.paginateTherapist[$indexPage]!;
     try {
-      final children =
-          await childrenDataSource.getChildrenTherapist(page: indexPage);
+      final children = await childrenDataSource.getChildrenTherapist(
+        page: indexPage,
+        activityId: activityId,
+      );
 
       Map<String, int> paginate = {
         $indexPage: indexPage + 1,
@@ -79,12 +81,16 @@ class ChildrenNotifier extends StateNotifier<ChildrenState> {
     }
   }
 
-  void updateErrorMessage() {
-    state = state.copyWith(errorMessageApi: '');
+  void updateResponse() {
+    state = state.copyWith(errorMessageApi: '', isErrorInitial: false);
   }
 
-  void resetIsErrorInitial() {
-    state = state.copyWith(isErrorInitial: false);
+  void removeChildTherapist(Children child) {
+    final List<Children> oldList = state.childrenTherapist;
+
+    oldList.remove(child);
+
+    state = state.copyWith(childrenTherapist: oldList);
   }
 
   void resetState() {

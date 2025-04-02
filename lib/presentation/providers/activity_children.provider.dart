@@ -35,6 +35,25 @@ class ActivityChildrenStateNotifier
     }
   }
 
+  Future<bool> unassingActivity({required int idChild}) async {
+    state = state.copyWith(isLoading: true);
+    try {
+      await activityRepository.unassingActivity(idChild: idChild);
+
+      state = state.copyWith(isLoading: false, isDelete: true);
+      return true;
+    } on CustomError catch (e) {
+      state = state.copyWith(errorMessageApi: e.message, isLoading: false);
+      return false;
+    } catch (e) {
+      state = state.copyWith(
+        errorMessageApi: S.current.Error_inesperado,
+        isLoading: false,
+      );
+      return false;
+    }
+  }
+
   void addChild(Children child) {
     state = state.copyWith(children: [child, ...state.children]);
   }
@@ -48,7 +67,7 @@ class ActivityChildrenStateNotifier
   }
 
   void updateResponse() {
-    state = state.copyWith(errorMessageApi: '', isSave: false);
+    state = state.copyWith(errorMessageApi: '', isSave: false, isDelete: false);
   }
 }
 
@@ -56,6 +75,7 @@ class ActivityChildrenState {
   final List<Children> children;
   final bool? isLoading;
   final bool? isSave;
+  final bool? isDelete;
   final bool? isComplete;
   final String? errorMessageApi;
 
@@ -63,6 +83,7 @@ class ActivityChildrenState {
     this.children = const [],
     this.isLoading = false,
     this.isSave = false,
+    this.isDelete = false,
     this.isComplete = false,
     this.errorMessageApi,
   });
@@ -71,6 +92,7 @@ class ActivityChildrenState {
     List<Children>? children,
     bool? isLoading,
     bool? isSave,
+    bool? isDelete,
     bool? isComplete,
     String? errorMessageApi,
   }) =>
@@ -81,6 +103,7 @@ class ActivityChildrenState {
         children: children ?? this.children,
         isLoading: isLoading ?? this.isLoading,
         isSave: isSave ?? this.isSave,
+        isDelete: isDelete ?? this.isDelete,
         isComplete: isComplete ?? this.isComplete,
       );
 }
