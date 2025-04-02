@@ -254,8 +254,13 @@ class FormActivityState extends ConsumerState<FormActivity> {
                       enable: true,
                       onSelected: (value) {},
                       listItems: statePictograms.categoryPictograms
-                          .map((item) => CatalogObject(
-                              id: item.id, name: item.name, description: ''))
+                          .map(
+                            (item) => CatalogObject(
+                              id: item.id,
+                              name: item.name,
+                              description: '',
+                            ),
+                          )
                           .toList(),
                     ),
                     InputForm(
@@ -267,12 +272,13 @@ class FormActivityState extends ConsumerState<FormActivity> {
                     ),
                     ImageListVIew(
                       images: statePictograms.pictograms,
+                      newImages: selectedPictogram,
                       isDecoration: true,
                       isSelect: true,
                       controller: scrollController,
                       backgroundColorIcon: $colorSuccess,
-                      iconSelect: const Icon(Icons.check),
                       onPressed: onPictogramSelected,
+                      newOnPressed: deletePictogramSelected,
                     ),
                     const SizedBox(height: 14.5),
                   ],

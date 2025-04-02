@@ -21,4 +21,8 @@ abstract class ActivitiesRepository {
     required int idActivity,
     required List<int> idsPatients,
   });
+
+  Future<ResponseDataObject<ResponseData>> unassingActivity({
+    required int idChild,
+  });
 }

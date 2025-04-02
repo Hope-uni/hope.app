@@ -8,8 +8,11 @@ class ChildrenRepositoryImpl extends ChildrenRepository {
       : dataSource = dataSource ?? ChildrenDataSourceImpl();
 
   @override
-  Future<ResponseDataList<Children>> getChildrenTherapist({required int page}) {
-    return dataSource.getChildrenTherapist(page: page);
+  Future<ResponseDataList<Children>> getChildrenTherapist({
+    required int page,
+    int? activityId,
+  }) {
+    return dataSource.getChildrenTherapist(page: page, activityId: activityId);
   }
 
   @override

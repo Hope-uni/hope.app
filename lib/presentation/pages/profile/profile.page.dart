@@ -34,16 +34,6 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
   };
 
   @override
-  void dispose() {
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      if (mounted) {
-        ref.read(profileProvider.notifier).resetProfile();
-      }
-    });
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final profileState = ref.watch(profileProvider);
     final profileNotifier = ref.read(profileProvider.notifier);

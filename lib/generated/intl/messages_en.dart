@@ -25,22 +25,27 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m1(nameChild) =>
       "¿Está seguro de avanzar de fase a ${nameChild}?";
 
-  static String m2(namePictogram) =>
+  static String m2(nameActivity) =>
+      "¿Está seguro de quitarle la actividad ${nameActivity}?";
+
+  static String m3(namePictogram) =>
       "Se actualizó correctamente el pictograma personalizado: ${namePictogram}";
 
-  static String m3(newPhase) => "Se avanzó a la fase: ${newPhase}";
+  static String m4(newPhase) => "Se avanzó a la fase: ${newPhase}";
 
-  static String m4(namePictogram) =>
+  static String m5(namePictogram) =>
       "Se creó correctamente el pictograma personalizado: ${namePictogram}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "A": MessageLookupByLibrary.simpleMessage("a"),
         "Actividad": MessageLookupByLibrary.simpleMessage("Actividad"),
         "Actividad_Actual":
             MessageLookupByLibrary.simpleMessage("Actividad actual"),
         "Actividad_actual":
             MessageLookupByLibrary.simpleMessage("Actividad actual"),
+        "Actividad_desasignada_exitosamente":
+            MessageLookupByLibrary.simpleMessage(
+                "Actividad desasignada exitosamente"),
         "Actividad_pendiente":
             MessageLookupByLibrary.simpleMessage("Actividad pendiente"),
         "Actividades": MessageLookupByLibrary.simpleMessage("Actividades"),
@@ -59,6 +64,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Agregar observación al niño"),
         "Agregar_pictograma":
             MessageLookupByLibrary.simpleMessage("Agregar pictograma"),
+        "Al_paiente": MessageLookupByLibrary.simpleMessage("Al paciente"),
         "Anadir_nuevo_pictograma_personalizado":
             MessageLookupByLibrary.simpleMessage(
                 "Añadir nuevo pictograma personalizado"),
@@ -213,9 +219,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Esta_seguro_de_eliminar_permanentemente_la_actividad":
             MessageLookupByLibrary.simpleMessage(
                 "¿Está seguro de eliminar permanentemente la actividad?"),
-        "Esta_seguro_de_quitarle_la_actividad":
-            MessageLookupByLibrary.simpleMessage(
-                "¿Está seguro de quitarle la actividad?"),
+        "Esta_seguro_de_quitarle_la_actividad": m2,
         "Esta_seguro_de_salir_de_la_creacion_de_la_actividad":
             MessageLookupByLibrary.simpleMessage(
                 "¿Está seguro de salir de la creación de la actividad?"),
@@ -385,21 +389,24 @@ class MessageLookup extends MessageLookupByLibrary {
         "Restablecer_contrasena":
             MessageLookupByLibrary.simpleMessage("Restablecer contraseña"),
         "Salir": MessageLookupByLibrary.simpleMessage("Salir"),
-        "Se_actualizo_correctamente_el_pictograma_personalizado": m2,
+        "Se_actualizo_correctamente_el_pictograma_personalizado": m3,
         "Se_actualizo_correctamente_la_informacion_de_la_actividad":
             MessageLookupByLibrary.simpleMessage(
                 "Se actualizo correctamente la información de la actividad"),
         "Se_asigno_correctamente_la_actividad_a_los_ninos_seleccionados":
             MessageLookupByLibrary.simpleMessage(
                 "Se asignó correctamente la actividad a los niños seleccionados"),
-        "Se_avanzo_a_la_fase": m3,
-        "Se_creo_correctamente_el_pictograma_personalizado": m4,
+        "Se_avanzo_a_la_fase": m4,
+        "Se_creo_correctamente_el_pictograma_personalizado": m5,
         "Se_elimino_correctamente_el_pictograma_personalizado":
             MessageLookupByLibrary.simpleMessage(
                 "Se eliminó correctamente el pictograma personalizado"),
         "Se_elimino_correctamente_la_actividad_seleccionada":
             MessageLookupByLibrary.simpleMessage(
                 "Se eliminó correctamente la actividad seleccionada"),
+        "Se_removio_la_actividad_del_paciente":
+            MessageLookupByLibrary.simpleMessage(
+                "Se removió la actividad del paciente"),
         "Segundo_apellido":
             MessageLookupByLibrary.simpleMessage("Segundo Apellido"),
         "Segundo_nombre":

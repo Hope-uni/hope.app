@@ -42,4 +42,11 @@ class ActivitiesRepositoryImpl extends ActivitiesRepository {
       idsPatients: idsPatients,
     );
   }
+
+  @override
+  Future<ResponseDataObject<ResponseData>> unassingActivity({
+    required int idChild,
+  }) {
+    return dataSource.unassingActivity(idChild: idChild);
+  }
 }
