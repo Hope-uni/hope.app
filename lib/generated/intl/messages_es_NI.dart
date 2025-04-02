@@ -31,9 +31,12 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m3(namePictogram) =>
       "Se actualizó correctamente el pictograma personalizado: ${namePictogram}";
 
-  static String m4(newPhase) => "Se avanzó a la fase: ${newPhase}";
+  static String m4(isMonochrome) =>
+      "Se actualizo el filtro blanco y negro con exito: ${isMonochrome}";
 
-  static String m5(namePictogram) =>
+  static String m5(newPhase) => "Se avanzó a la fase: ${newPhase}";
+
+  static String m6(namePictogram) =>
       "Se creó correctamente el pictograma personalizado: ${namePictogram}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -53,9 +56,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Actividades para los niños"),
         "Actividades_terminadas":
             MessageLookupByLibrary.simpleMessage("Actividades terminadas"),
+        "Activo": MessageLookupByLibrary.simpleMessage("Activo"),
         "Actualizado_con_exito":
             MessageLookupByLibrary.simpleMessage("¡Actualizado con éxito!"),
         "Actualizar": MessageLookupByLibrary.simpleMessage("Actualizar"),
+        "Actualizar_filtro_blanco_negro": MessageLookupByLibrary.simpleMessage(
+            "Actualizar filtro Blanco/Negro"),
         "Actualizar_pictograma":
             MessageLookupByLibrary.simpleMessage("Actualizar pictograma"),
         "Agregar_observacion":
@@ -213,6 +219,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "¿Está seguro de actualizar los datos?"),
         "Esta_seguro_de_avanzar_de_fase_a": m1,
+        "Esta_seguro_de_cambiar_el_filtro_blanco_negro":
+            MessageLookupByLibrary.simpleMessage(
+                "Está seguro de cambiar el filtro blanco/negro?"),
         "Esta_seguro_de_crear_la_actividad":
             MessageLookupByLibrary.simpleMessage(
                 "¿Está seguro de crear la actividad?"),
@@ -257,6 +266,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "• Hacer doble clic sobre la imagen."),
         "Hope": MessageLookupByLibrary.simpleMessage("hope"),
+        "Inactivo": MessageLookupByLibrary.simpleMessage("Inactivo"),
         "Informacion_del_nino":
             MessageLookupByLibrary.simpleMessage("Información del niño"),
         "Informacion_del_nino_actualizada":
@@ -343,6 +353,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Nombre de usuario"),
         "Nueva_contrasena":
             MessageLookupByLibrary.simpleMessage("Nueva contraseña"),
+        "Nuevo_valor": MessageLookupByLibrary.simpleMessage("Nuevo valor"),
         "Observacion": MessageLookupByLibrary.simpleMessage("Observación"),
         "Observaciones": MessageLookupByLibrary.simpleMessage("Observaciones"),
         "Olvido_su_contrasena":
@@ -393,11 +404,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Se_actualizo_correctamente_la_informacion_de_la_actividad":
             MessageLookupByLibrary.simpleMessage(
                 "Se actualizo correctamente la información de la actividad"),
+        "Se_actualizo_el_filtro_blanco_y_negro_con_exito": m4,
         "Se_asigno_correctamente_la_actividad_a_los_ninos_seleccionados":
             MessageLookupByLibrary.simpleMessage(
                 "Se asignó correctamente la actividad a los niños seleccionados"),
-        "Se_avanzo_a_la_fase": m4,
-        "Se_creo_correctamente_el_pictograma_personalizado": m5,
+        "Se_avanzo_a_la_fase": m5,
+        "Se_creo_correctamente_el_pictograma_personalizado": m6,
         "Se_elimino_correctamente_el_pictograma_personalizado":
             MessageLookupByLibrary.simpleMessage(
                 "Se eliminó correctamente el pictograma personalizado"),
@@ -427,6 +439,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Si_Quitar": MessageLookupByLibrary.simpleMessage("Si, quitar"),
         "Si_actualizar": MessageLookupByLibrary.simpleMessage("Si, actualizar"),
         "Si_avanzar": MessageLookupByLibrary.simpleMessage("Si, avanzar"),
+        "Si_cambiar": MessageLookupByLibrary.simpleMessage("Si, cambiar"),
         "Si_el_nombre_del_pictograma_no_se_muestra_completo_puede":
             MessageLookupByLibrary.simpleMessage(
                 "Si el nombre del pictograma no se muestra completo, puede:"),

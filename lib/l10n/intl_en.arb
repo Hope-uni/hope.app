@@ -213,5 +213,12 @@
   "Regresar": "Regresar",
   "Cerrar": "Cerrar",
   "Actividad_desasignada_exitosamente": "Actividad desasignada exitosamente",
-  "Se_removio_la_actividad_del_paciente": "Se removió la actividad del paciente"
+  "Se_removio_la_actividad_del_paciente": "Se removió la actividad del paciente",
+  "Actualizar_filtro_blanco_negro": "Actualizar filtro Blanco/Negro",
+  "Si_cambiar": "Si, cambiar",
+  "Esta_seguro_de_cambiar_el_filtro_blanco_negro": "Está seguro de cambiar el filtro blanco/negro?",
+  "Nuevo_valor": "Nuevo valor",
+  "Inactivo": "Inactivo",
+  "Activo": "Activo",
+  "Se_actualizo_el_filtro_blanco_y_negro_con_exito": "Se actualizo el filtro blanco y negro con exito: {isMonochrome}"
 }
