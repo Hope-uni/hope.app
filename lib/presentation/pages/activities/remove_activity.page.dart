@@ -38,9 +38,9 @@ class RemoveAcivityPageState extends ConsumerState<RemoveAcivityPage> {
       final notifierChildren = ref.read(childrenProvider.notifier);
       final statechildren = ref.read(childrenProvider);
 
-      if (statechildren.paginateTherapist[$indexPage]! == 1) {
+      if (statechildren.paginateChildren[$indexPage]! == 1) {
         await notifierChildren.getChildrenTherapist(
-          activityId: widget.idActivity,
+          idActivity: widget.idActivity,
         );
       }
 
@@ -49,11 +49,11 @@ class RemoveAcivityPageState extends ConsumerState<RemoveAcivityPage> {
         if ((scrollController.position.pixels + 50) >=
                 scrollController.position.maxScrollExtent &&
             stateChildren.isLoading == false) {
-          if (stateChildren.paginateTherapist[$indexPage]! > 1 &&
-              stateChildren.paginateTherapist[$indexPage]! <=
-                  stateChildren.paginateTherapist[$pageCount]!) {
+          if (stateChildren.paginateChildren[$indexPage]! > 1 &&
+              stateChildren.paginateChildren[$indexPage]! <=
+                  stateChildren.paginateChildren[$pageCount]!) {
             await notifierChildren.getChildrenTherapist(
-              activityId: widget.idActivity,
+              idActivity: widget.idActivity,
             );
           }
         }
@@ -120,22 +120,20 @@ class RemoveAcivityPageState extends ConsumerState<RemoveAcivityPage> {
             Expanded(
               child: Stack(
                 children: [
-                  if (stateChildren.paginateTherapist[$indexPage] != 1)
+                  if (stateChildren.paginateChildren[$indexPage] != 1)
                     SizedBox.expand(
-                      child: stateChildren.childrenTherapist.isNotEmpty
+                      child: stateChildren.children.isNotEmpty
                           ? ListView.builder(
                               controller: scrollController,
-                              itemCount: stateChildren.childrenTherapist.length,
+                              itemCount: stateChildren.children.length,
                               itemBuilder: (context, index) {
                                 return ListTileCustom(
-                                  title: stateChildren
-                                      .childrenTherapist[index].fullName,
+                                  title: stateChildren.children[index].fullName,
                                   colorTitle: true,
                                   styleTitle: FontWeight.bold,
                                   subTitle:
-                                      '${stateChildren.childrenTherapist[index].age} ${S.current.Anos}\n${S.current.Fase}: ${stateChildren.childrenTherapist[index].currentPhase.name}',
-                                  image: stateChildren
-                                      .childrenTherapist[index].image,
+                                      '${stateChildren.children[index].age} ${S.current.Anos}\n${S.current.Fase}: ${stateChildren.children[index].currentPhase.name}',
+                                  image: stateChildren.children[index].image,
                                   iconButton: IconButton(
                                     onPressed: () {
                                       //TODO: ACTUALIZAR PERMISOS CUANDO EN API ESTEN LISTOS
@@ -147,14 +145,11 @@ class RemoveAcivityPageState extends ConsumerState<RemoveAcivityPage> {
                                             if (await notifierActivityChildren
                                                 .unassingActivity(
                                                     idChild: stateChildren
-                                                        .childrenTherapist[
-                                                            index]
-                                                        .id)) {
+                                                        .children[index].id)) {
                                               notifierChildren
                                                   .removeChildTherapist(
                                                       stateChildren
-                                                              .childrenTherapist[
-                                                          index]);
+                                                          .children[index]);
                                             }
                                             if (context.mounted) {
                                               Navigator.of(context).pop();
@@ -180,8 +175,7 @@ class RemoveAcivityPageState extends ConsumerState<RemoveAcivityPage> {
                                                 ),
                                                 TextSpan(
                                                   text: stateChildren
-                                                      .childrenTherapist[index]
-                                                      .fullName,
+                                                      .children[index].fullName,
                                                   style: const TextStyle(
                                                     color: $colorTextBlack,
                                                   ),
@@ -217,7 +211,7 @@ class RemoveAcivityPageState extends ConsumerState<RemoveAcivityPage> {
                             ),
                     ),
                   if (stateChildren.isLoading == true &&
-                      stateChildren.paginateTherapist[$indexPage] != 1)
+                      stateChildren.paginateChildren[$indexPage] != 1)
                     const Align(
                       alignment: Alignment.bottomCenter,
                       child: Padding(
@@ -226,7 +220,7 @@ class RemoveAcivityPageState extends ConsumerState<RemoveAcivityPage> {
                       ),
                     ),
                   // 🔄 LOADING
-                  if (stateChildren.paginateTherapist[$indexPage] == 1) ...[
+                  if (stateChildren.paginateChildren[$indexPage] == 1) ...[
                     const Opacity(
                       opacity: 0.5,
                       child: ModalBarrier(

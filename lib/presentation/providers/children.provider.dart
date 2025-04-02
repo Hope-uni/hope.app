@@ -18,7 +18,7 @@ class ChildrenNotifier extends StateNotifier<ChildrenState> {
 
   Future<void> getChildrenTutor() async {
     state = state.copyWith(isLoading: true);
-    final indexPage = state.paginateTutor[$indexPage]!;
+    final indexPage = state.paginateChildren[$indexPage]!;
     try {
       final children =
           await childrenDataSource.getChildrenTutor(page: indexPage);
@@ -29,8 +29,8 @@ class ChildrenNotifier extends StateNotifier<ChildrenState> {
       };
 
       state = state.copyWith(
-        paginateTutor: paginate,
-        childrenTutor: [...state.childrenTutor, ...children.data!],
+        paginateChildren: paginate,
+        children: [...state.children, ...children.data!],
         isLoading: false,
         isErrorInitial: false,
       );
@@ -46,13 +46,13 @@ class ChildrenNotifier extends StateNotifier<ChildrenState> {
     }
   }
 
-  Future<void> getChildrenTherapist({int? activityId}) async {
+  Future<void> getChildrenTherapist({int? idActivity}) async {
     state = state.copyWith(isLoading: true);
-    final indexPage = state.paginateTherapist[$indexPage]!;
+    final indexPage = state.paginateChildren[$indexPage]!;
     try {
       final children = await childrenDataSource.getChildrenTherapist(
         page: indexPage,
-        activityId: activityId,
+        activityId: idActivity,
       );
 
       Map<String, int> paginate = {
@@ -61,11 +61,43 @@ class ChildrenNotifier extends StateNotifier<ChildrenState> {
       };
 
       state = state.copyWith(
-        paginateTherapist: paginate,
-        childrenTherapist: [
-          ...state.childrenTherapist,
+        paginateChildren: paginate,
+        children: [
+          ...state.children,
           ...children.data!,
         ],
+        isLoading: false,
+        isErrorInitial: false,
+      );
+    } on CustomError catch (e) {
+      if (indexPage == 1) state = state.copyWith(isErrorInitial: true);
+      state = state.copyWith(errorMessageApi: e.message, isLoading: false);
+    } catch (e) {
+      if (indexPage == 1) state = state.copyWith(isErrorInitial: true);
+      state = state.copyWith(
+        errorMessageApi: S.current.Error_inesperado,
+        isLoading: false,
+      );
+    }
+  }
+
+  Future<void> getChildrenforActivity({required int idActivity}) async {
+    state = state.copyWith(isLoading: true);
+    final indexPage = state.paginateChildren[$indexPage]!;
+    try {
+      final children = await childrenDataSource.getChildrenforActivity(
+        page: indexPage,
+        idActivity: idActivity,
+      );
+
+      Map<String, int> paginate = {
+        $indexPage: indexPage + 1,
+        $pageCount: children.paginate!.pageCount
+      };
+
+      state = state.copyWith(
+        paginateChildren: paginate,
+        children: [...state.children, ...children.data!],
         isLoading: false,
         isErrorInitial: false,
       );
@@ -86,55 +118,45 @@ class ChildrenNotifier extends StateNotifier<ChildrenState> {
   }
 
   void removeChildTherapist(Children child) {
-    final List<Children> oldList = state.childrenTherapist;
+    final List<Children> oldList = state.children;
 
     oldList.remove(child);
 
-    state = state.copyWith(childrenTherapist: oldList);
+    state = state.copyWith(children: oldList);
   }
 
-  void resetState() {
-    state = ChildrenState();
-  }
+  void resetState() => state = ChildrenState();
 }
 
 class ChildrenState {
-  final List<Children> childrenTutor;
-  final List<Children> childrenTherapist;
+  final List<Children> children;
   final bool? isLoading;
   final String? errorMessageApi;
-  final Map<String, int> paginateTutor;
-  final Map<String, int> paginateTherapist;
+  final Map<String, int> paginateChildren;
   final bool? isErrorInitial;
 
   ChildrenState({
-    this.childrenTutor = const [],
-    this.childrenTherapist = const [],
-    this.paginateTutor = const {$indexPage: 1, $pageCount: 0},
-    this.paginateTherapist = const {$indexPage: 1, $pageCount: 0},
+    this.children = const [],
+    this.paginateChildren = const {$indexPage: 1, $pageCount: 0},
     this.isLoading = true,
     this.isErrorInitial = false,
     this.errorMessageApi,
   });
 
   ChildrenState copyWith({
-    List<Children>? childrenTutor,
-    List<Children>? childrenTherapist,
-    Map<String, int>? paginateTutor,
-    Map<String, int>? paginateTherapist,
+    List<Children>? children,
+    Map<String, int>? paginateChildren,
     bool? isLoading,
     bool? isErrorInitial,
     String? errorMessageApi,
   }) =>
       ChildrenState(
-        childrenTutor: childrenTutor ?? this.childrenTutor,
-        childrenTherapist: childrenTherapist ?? this.childrenTherapist,
+        children: children ?? this.children,
         errorMessageApi: errorMessageApi == ''
             ? null
             : errorMessageApi ?? this.errorMessageApi,
         isLoading: isLoading ?? this.isLoading,
         isErrorInitial: isErrorInitial ?? this.isErrorInitial,
-        paginateTutor: paginateTutor ?? this.paginateTutor,
-        paginateTherapist: paginateTherapist ?? this.paginateTherapist,
+        paginateChildren: paginateChildren ?? this.paginateChildren,
       );
 }

@@ -36,8 +36,10 @@ class AddActivityPageState extends ConsumerState<AddActivityPage> {
       final notifierChildren = ref.read(childrenProvider.notifier);
       final statechildren = ref.read(childrenProvider);
 
-      if (statechildren.paginateTherapist[$indexPage]! == 1) {
-        await notifierChildren.getChildrenTherapist();
+      if (statechildren.paginateChildren[$indexPage]! == 1) {
+        await notifierChildren.getChildrenforActivity(
+          idActivity: widget.idActivity,
+        );
       }
 
       scrollController.addListener(() async {
@@ -45,10 +47,12 @@ class AddActivityPageState extends ConsumerState<AddActivityPage> {
         if ((scrollController.position.pixels + 50) >=
                 scrollController.position.maxScrollExtent &&
             stateChildren.isLoading == false) {
-          if (stateChildren.paginateTherapist[$indexPage]! > 1 &&
-              stateChildren.paginateTherapist[$indexPage]! <=
-                  stateChildren.paginateTherapist[$pageCount]!) {
-            await notifierChildren.getChildrenTherapist();
+          if (stateChildren.paginateChildren[$indexPage]! > 1 &&
+              stateChildren.paginateChildren[$indexPage]! <=
+                  stateChildren.paginateChildren[$pageCount]!) {
+            await notifierChildren.getChildrenforActivity(
+              idActivity: widget.idActivity,
+            );
           }
         }
       });
@@ -62,7 +66,7 @@ class AddActivityPageState extends ConsumerState<AddActivityPage> {
     final notifierActiviyChildren = ref.read(activityChildrenProvider.notifier);
     final stateActiviyChildren = ref.watch(activityChildrenProvider);
     final stateWacthChildren = ref.watch(childrenProvider);
-    final stateChildren = ref.watch(childrenProvider).childrenTherapist;
+    final stateChildren = ref.watch(childrenProvider).children;
 
     ref.listen(activityChildrenProvider, (previous, next) {
       if (next.isLoading == false && next.isSave == true) {
@@ -92,7 +96,7 @@ class AddActivityPageState extends ConsumerState<AddActivityPage> {
       appBar: AppBar(title: Text(S.current.Asignar_actividad)),
       body: SizedBox(
         height: size.height,
-        child: stateWacthChildren.paginateTherapist[$indexPage] != 1
+        child: stateWacthChildren.paginateChildren[$indexPage] != 1
             ? Stack(children: [
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 7.5),
@@ -224,7 +228,7 @@ class AddActivityPageState extends ConsumerState<AddActivityPage> {
                   ),
                 ),
                 if (stateWacthChildren.isLoading == true &&
-                    stateWacthChildren.paginateTherapist[$indexPage] != 1)
+                    stateWacthChildren.paginateChildren[$indexPage] != 1)
                   const Align(
                     alignment: Alignment.bottomCenter,
                     child: Padding(
@@ -294,7 +298,7 @@ class AddActivityPageState extends ConsumerState<AddActivityPage> {
       floatingActionButton: SpeedDial(
         visible: stateActiviyChildren.isComplete == false &&
             stateActiviyChildren.isLoading == false &&
-            stateWacthChildren.paginateTherapist[$indexPage] != 1,
+            stateWacthChildren.paginateChildren[$indexPage] != 1,
         icon: currentStep > 1 ? Icons.expand_less : Icons.keyboard_arrow_right,
         activeIcon: Icons.expand_more,
         animationDuration: const Duration(milliseconds: 300),

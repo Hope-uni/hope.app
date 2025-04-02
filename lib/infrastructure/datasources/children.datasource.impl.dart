@@ -223,4 +223,45 @@ class ChildrenDataSourceImpl extends ChildrenDataSource {
       );
     }
   }
+
+  @override
+  Future<ResponseDataList<Children>> getChildrenforActivity({
+    required int page,
+    required int idActivity,
+  }) async {
+    try {
+      final response = await dioServices.dio
+          .get('/patient/availableForActivity/$idActivity?page=$page&size=15');
+
+      final responseChild = ResponseMapper.responseJsonListToEntity<Children>(
+          json: response.data, fromJson: ChildrenMapper.childrenJsonToEntity);
+
+      return responseChild;
+    } on DioException catch (e) {
+      final responseMapper = ResponseMapper.responseJsonToEntity<ResponseData>(
+          json: e.response!.data);
+
+      final String message;
+
+      if (responseMapper.validationErrors != null) {
+        message = responseMapper.validationErrors!.message;
+      } else {
+        message = responseMapper.message.isNotEmpty
+            ? responseMapper.message
+            : S.current.Error_solicitud;
+      }
+
+      throw CustomError(
+        e.response!.statusCode!,
+        message: message,
+        typeNotification: ToastificationType.error,
+      );
+    } catch (e) {
+      throw CustomError(
+        null,
+        message: S.current.Error_inesperado,
+        typeNotification: ToastificationType.error,
+      );
+    }
+  }
 }
