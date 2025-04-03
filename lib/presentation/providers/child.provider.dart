@@ -80,13 +80,48 @@ class ChildNotifier extends StateNotifier<ChildState> {
       originalState = null;
 
       state = state.copyWith(
-          child: child, isUpdateData: false, showtoastAlert: true);
+        child: child,
+        isUpdateData: false,
+        isComplete: true,
+      );
     } on CustomError catch (e) {
       state = state.copyWith(errorMessageApi: e.message, isUpdateData: false);
     } catch (e) {
       state = state.copyWith(
         errorMessageApi: S.current.Error_inesperado,
         isUpdateData: false,
+      );
+    }
+  }
+
+  Future<void> updateMonochrome({required int idChild}) async {
+    state = state.copyWith(isUpdateData: true);
+    try {
+      final responseMonochrome =
+          await childrenDataSource.updateMonochrome(idChild: idChild);
+
+      Child updatedChild = state.child!;
+
+      updatedChild = state.child!.copyWith(
+        isMonochrome: responseMonochrome.data!.isMonochrome,
+      );
+
+      state = state.copyWith(
+        child: updatedChild,
+        isUpdateData: false,
+        isUpdateMonochrome: true,
+      );
+    } on CustomError catch (e) {
+      state = state.copyWith(
+        errorMessageApi: e.message,
+        isLoading: false,
+        isError: true,
+      );
+    } catch (e) {
+      state = state.copyWith(
+        errorMessageApi: S.current.Error_inesperado,
+        isLoading: false,
+        isError: true,
       );
     }
   }
@@ -250,12 +285,14 @@ class ChildNotifier extends StateNotifier<ChildState> {
   }
 
   void updateResponse() {
-    state = state.copyWith(errorMessageApi: '', showtoastAlert: false);
+    state = state.copyWith(
+      errorMessageApi: '',
+      isComplete: false,
+      isUpdateMonochrome: false,
+    );
   }
 
-  void resetChild() {
-    state = ChildState();
-  }
+  void resetChild() => state = ChildState();
 
   void restoredState() {
     if (originalState != null) {
@@ -264,25 +301,25 @@ class ChildNotifier extends StateNotifier<ChildState> {
     }
   }
 
-  void assingState() {
-    originalState = state;
-  }
+  void assingState() => originalState = state;
 }
 
 class ChildState {
   final Child? child;
   final bool isLoading;
   final bool isUpdateData;
-  final bool showtoastAlert;
+  final bool isComplete;
+  final bool isUpdateMonochrome;
   final bool? isError;
   final String? errorMessageApi;
   final Map<String, String?> validationErrors;
 
   ChildState({
     this.child,
-    this.isLoading = true,
+    this.isLoading = false,
     this.isUpdateData = false,
-    this.showtoastAlert = false,
+    this.isComplete = false,
+    this.isUpdateMonochrome = false,
     this.isError,
     this.errorMessageApi,
     this.validationErrors = const {},
@@ -292,7 +329,8 @@ class ChildState {
     Child? child,
     bool? isLoading,
     bool? isUpdateData,
-    bool? showtoastAlert,
+    bool? isComplete,
+    bool? isUpdateMonochrome,
     bool? isError,
     Map<String, String?>? validationErrors,
     String? errorMessageApi,
@@ -302,8 +340,9 @@ class ChildState {
         isLoading: isLoading ?? this.isLoading,
         isUpdateData: isUpdateData ?? this.isUpdateData,
         isError: isError ?? this.isError,
+        isUpdateMonochrome: isUpdateMonochrome ?? this.isUpdateMonochrome,
         validationErrors: validationErrors ?? this.validationErrors,
-        showtoastAlert: showtoastAlert ?? this.showtoastAlert,
+        isComplete: isComplete ?? this.isComplete,
         errorMessageApi: errorMessageApi == ''
             ? null
             : errorMessageApi ?? this.errorMessageApi,

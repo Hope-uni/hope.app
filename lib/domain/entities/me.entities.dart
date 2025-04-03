@@ -40,7 +40,7 @@ class Permission {
 
 class Profile {
   int profileId;
-  String? fullName;
+  String fullName;
   String firstName;
   String? secondName;
   String surname;
@@ -52,10 +52,11 @@ class Profile {
   String address;
   String birthday;
   String gender;
+  bool? isMonochrome;
 
   Profile({
     required this.profileId,
-    this.fullName,
+    required this.fullName,
     required this.firstName,
     required this.secondName,
     required this.surname,
@@ -67,6 +68,7 @@ class Profile {
     required this.address,
     required this.birthday,
     required this.gender,
+    this.isMonochrome,
   });
 
   Profile copyWith({
@@ -83,6 +85,7 @@ class Profile {
     String? image,
     int? profileId,
     String? gender,
+    bool? isMonochrome,
   }) {
     return Profile(
       fullName: fullName ?? this.fullName,
@@ -98,6 +101,7 @@ class Profile {
       image: image ?? this.image,
       profileId: profileId ?? this.profileId,
       gender: gender ?? this.gender,
+      isMonochrome: isMonochrome ?? this.isMonochrome,
     );
   }
 }
