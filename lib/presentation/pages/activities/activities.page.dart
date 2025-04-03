@@ -24,7 +24,7 @@ class ActivitiesPageState extends ConsumerState<ActivitiesPage> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (mounted) {
-        ref.read(activitiesProvider.notifier).resetIsErrorInitial();
+        ref.read(activitiesProvider.notifier).updateResponse();
       }
     });
   }
@@ -83,7 +83,7 @@ class ActivitiesPageState extends ConsumerState<ActivitiesPage> {
           description: next.errorMessageApi!,
           typeAlert: ToastificationType.error,
         );
-        ref.read(activitiesProvider.notifier).updateErrorMessage();
+        ref.read(activitiesProvider.notifier).updateResponse();
       }
     });
 
@@ -109,7 +109,7 @@ class ActivitiesPageState extends ConsumerState<ActivitiesPage> {
           description: next.errorMessageApi!,
           typeAlert: ToastificationType.error,
         );
-        ref.read(activityProvider.notifier).updateErrorMessage();
+        ref.read(activityProvider.notifier).updateResponse();
       }
     });
 

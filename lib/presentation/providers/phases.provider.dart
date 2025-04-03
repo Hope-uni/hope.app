@@ -5,19 +5,18 @@ import 'package:hope_app/infrastructure/infrastructure.dart';
 
 final phasesProvider =
     StateNotifierProvider.autoDispose<PhasesNotifier, PhaseState>((ref) {
-  final phasesDatasource = PhasesDataSourceImpl();
-  return PhasesNotifier(phaseDatasource: phasesDatasource);
+  return PhasesNotifier(phaseRepository: PhasesRepositoryImpl());
 });
 
 class PhasesNotifier extends StateNotifier<PhaseState> {
-  final PhasesDataSourceImpl phaseDatasource;
+  final PhasesRepositoryImpl phaseRepository;
 
-  PhasesNotifier({required this.phaseDatasource}) : super(PhaseState());
+  PhasesNotifier({required this.phaseRepository}) : super(PhaseState());
 
   Future<void> getPhases() async {
     state = state.copyWith(isLoading: true);
     try {
-      final phases = await phaseDatasource.getPhases();
+      final phases = await phaseRepository.getPhases();
 
       state = state.copyWith(
         phases: phases.data!,
@@ -36,7 +35,7 @@ class PhasesNotifier extends StateNotifier<PhaseState> {
   Future<PhaseShift?> changePhase({required int idChild}) async {
     state = state.copyWith(isLoading: true);
     try {
-      final response = await phaseDatasource.changePhase(idChild: idChild);
+      final response = await phaseRepository.changePhase(idChild: idChild);
 
       state = state.copyWith(
         isLoading: false,
@@ -58,10 +57,6 @@ class PhasesNotifier extends StateNotifier<PhaseState> {
 
   void updateResponse() {
     state = state.copyWith(errorMessageApi: '', isUpdate: false, newPhase: '');
-  }
-
-  void resetState() {
-    state = PhaseState();
   }
 }
 
