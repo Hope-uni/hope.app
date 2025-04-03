@@ -32,7 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Se actualizó correctamente el pictograma personalizado: ${namePictogram}";
 
   static String m4(isMonochrome) =>
-      "Se actualizo el filtro blanco y negro con exito: ${isMonochrome}";
+      "Se actualizo el filtro blanco y negro con éxito: ${isMonochrome}";
 
   static String m5(newPhase) => "Se avanzó a la fase: ${newPhase}";
 
@@ -221,7 +221,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Esta_seguro_de_avanzar_de_fase_a": m1,
         "Esta_seguro_de_cambiar_el_filtro_blanco_negro":
             MessageLookupByLibrary.simpleMessage(
-                "Está seguro de cambiar el filtro blanco/negro?"),
+                "¿Está seguro de cambiar el filtro blanco/negro?"),
         "Esta_seguro_de_crear_la_actividad":
             MessageLookupByLibrary.simpleMessage(
                 "¿Está seguro de crear la actividad?"),

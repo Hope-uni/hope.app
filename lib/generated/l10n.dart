@@ -2234,10 +2234,10 @@ class S {
     );
   }
 
-  /// `Está seguro de cambiar el filtro blanco/negro?`
+  /// `¿Está seguro de cambiar el filtro blanco/negro?`
   String get Esta_seguro_de_cambiar_el_filtro_blanco_negro {
     return Intl.message(
-      'Está seguro de cambiar el filtro blanco/negro?',
+      '¿Está seguro de cambiar el filtro blanco/negro?',
       name: 'Esta_seguro_de_cambiar_el_filtro_blanco_negro',
       desc: '',
       args: [],
@@ -2274,10 +2274,10 @@ class S {
     );
   }
 
-  /// `Se actualizo el filtro blanco y negro con exito: {isMonochrome}`
+  /// `Se actualizo el filtro blanco y negro con éxito: {isMonochrome}`
   String Se_actualizo_el_filtro_blanco_y_negro_con_exito(Object isMonochrome) {
     return Intl.message(
-      'Se actualizo el filtro blanco y negro con exito: $isMonochrome',
+      'Se actualizo el filtro blanco y negro con éxito: $isMonochrome',
       name: 'Se_actualizo_el_filtro_blanco_y_negro_con_exito',
       desc: '',
       args: [isMonochrome],
