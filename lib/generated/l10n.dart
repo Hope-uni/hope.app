@@ -1402,10 +1402,10 @@ class S {
     );
   }
 
-  /// `Se actualizo correctamente la información de la actividad`
+  /// `Se actualizó correctamente la información de la actividad`
   String get Se_actualizo_correctamente_la_informacion_de_la_actividad {
     return Intl.message(
-      'Se actualizo correctamente la información de la actividad',
+      'Se actualizó correctamente la información de la actividad',
       name: 'Se_actualizo_correctamente_la_informacion_de_la_actividad',
       desc: '',
       args: [],
@@ -2274,10 +2274,10 @@ class S {
     );
   }
 
-  /// `Se actualizo el filtro blanco y negro con éxito: {isMonochrome}`
+  /// `Se actualizó el filtro blanco y negro con exito: {isMonochrome}`
   String Se_actualizo_el_filtro_blanco_y_negro_con_exito(Object isMonochrome) {
     return Intl.message(
-      'Se actualizo el filtro blanco y negro con éxito: $isMonochrome',
+      'Se actualizó el filtro blanco y negro con exito: $isMonochrome',
       name: 'Se_actualizo_el_filtro_blanco_y_negro_con_exito',
       desc: '',
       args: [isMonochrome],

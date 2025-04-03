@@ -32,7 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Se actualizó correctamente el pictograma personalizado: ${namePictogram}";
 
   static String m4(isMonochrome) =>
-      "Se actualizo el filtro blanco y negro con éxito: ${isMonochrome}";
+      "Se actualizó el filtro blanco y negro con exito: ${isMonochrome}";
 
   static String m5(newPhase) => "Se avanzó a la fase: ${newPhase}";
 
@@ -403,7 +403,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Se_actualizo_correctamente_el_pictograma_personalizado": m3,
         "Se_actualizo_correctamente_la_informacion_de_la_actividad":
             MessageLookupByLibrary.simpleMessage(
-                "Se actualizo correctamente la información de la actividad"),
+                "Se actualizó correctamente la información de la actividad"),
         "Se_actualizo_el_filtro_blanco_y_negro_con_exito": m4,
         "Se_asigno_correctamente_la_actividad_a_los_ninos_seleccionados":
             MessageLookupByLibrary.simpleMessage(
