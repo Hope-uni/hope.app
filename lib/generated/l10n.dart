@@ -1402,10 +1402,10 @@ class S {
     );
   }
 
-  /// `Se actualizo correctamente la información de la actividad`
+  /// `Se actualizó correctamente la información de la actividad`
   String get Se_actualizo_correctamente_la_informacion_de_la_actividad {
     return Intl.message(
-      'Se actualizo correctamente la información de la actividad',
+      'Se actualizó correctamente la información de la actividad',
       name: 'Se_actualizo_correctamente_la_informacion_de_la_actividad',
       desc: '',
       args: [],
@@ -2211,6 +2211,76 @@ class S {
       name: 'Se_removio_la_actividad_del_paciente',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `Actualizar filtro Blanco/Negro`
+  String get Actualizar_filtro_blanco_negro {
+    return Intl.message(
+      'Actualizar filtro Blanco/Negro',
+      name: 'Actualizar_filtro_blanco_negro',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Si, cambiar`
+  String get Si_cambiar {
+    return Intl.message(
+      'Si, cambiar',
+      name: 'Si_cambiar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `¿Está seguro de cambiar el filtro blanco/negro?`
+  String get Esta_seguro_de_cambiar_el_filtro_blanco_negro {
+    return Intl.message(
+      '¿Está seguro de cambiar el filtro blanco/negro?',
+      name: 'Esta_seguro_de_cambiar_el_filtro_blanco_negro',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nuevo valor`
+  String get Nuevo_valor {
+    return Intl.message(
+      'Nuevo valor',
+      name: 'Nuevo_valor',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Inactivo`
+  String get Inactivo {
+    return Intl.message(
+      'Inactivo',
+      name: 'Inactivo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Activo`
+  String get Activo {
+    return Intl.message(
+      'Activo',
+      name: 'Activo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Se actualizó el filtro blanco y negro con exito: {isMonochrome}`
+  String Se_actualizo_el_filtro_blanco_y_negro_con_exito(Object isMonochrome) {
+    return Intl.message(
+      'Se actualizó el filtro blanco y negro con exito: $isMonochrome',
+      name: 'Se_actualizo_el_filtro_blanco_y_negro_con_exito',
+      desc: '',
+      args: [isMonochrome],
     );
   }
 }

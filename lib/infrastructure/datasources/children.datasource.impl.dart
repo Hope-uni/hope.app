@@ -264,4 +264,46 @@ class ChildrenDataSourceImpl extends ChildrenDataSource {
       );
     }
   }
+
+  @override
+  Future<ResponseDataObject<Monochrome>> updateMonochrome({
+    required int idChild,
+  }) async {
+    try {
+      final response = await dioServices.dio
+          .patch('/healthRecord/change-monochrome/$idChild');
+
+      final responseMonochrome =
+          ResponseMapper.responseJsonToEntity<Monochrome>(
+              json: response.data,
+              fromJson: MonochromeMapper.fromJsonMonochrome);
+
+      return responseMonochrome;
+    } on DioException catch (e) {
+      final responseMapper = ResponseMapper.responseJsonToEntity<ResponseData>(
+          json: e.response!.data);
+
+      final String message;
+
+      if (responseMapper.validationErrors != null) {
+        message = responseMapper.validationErrors!.message;
+      } else {
+        message = responseMapper.message.isNotEmpty
+            ? responseMapper.message
+            : S.current.Error_solicitud;
+      }
+
+      throw CustomError(
+        e.response!.statusCode!,
+        message: message,
+        typeNotification: ToastificationType.error,
+      );
+    } catch (e) {
+      throw CustomError(
+        null,
+        message: S.current.Error_inesperado,
+        typeNotification: ToastificationType.error,
+      );
+    }
+  }
 }

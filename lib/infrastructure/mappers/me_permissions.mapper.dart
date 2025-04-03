@@ -40,6 +40,7 @@ class MePermissionsMapper {
         address: json["address"],
         birthday: json["birthday"],
         gender: json["gender"],
+        isMonochrome: json["isMonochrome"],
       );
 
   static Map<String, dynamic> toJsonProfile(Profile profile) => {

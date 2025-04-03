@@ -15,6 +15,7 @@ class Child extends Person {
   CurrentActivity? currentActivity;
   List<ActivityChild>? activities;
   List<PictogramAchievements>? pictograms;
+  bool isMonochrome;
 
   Child({
     required this.id,
@@ -41,6 +42,7 @@ class Child extends Person {
     this.currentActivity,
     this.activities,
     this.pictograms,
+    required this.isMonochrome,
   });
 
   Child copyWith({
@@ -68,6 +70,7 @@ class Child extends Person {
     CurrentActivity? currentActivity,
     List<ActivityChild>? activities,
     List<PictogramAchievements>? pictograms,
+    bool? isMonochrome,
   }) =>
       Child(
         firstName: firstName ?? super.firstName,
@@ -94,6 +97,7 @@ class Child extends Person {
         currentActivity: currentActivity ?? this.currentActivity,
         activities: activities ?? this.activities,
         pictograms: pictograms ?? this.pictograms,
+        isMonochrome: isMonochrome ?? this.isMonochrome,
       );
 }
 

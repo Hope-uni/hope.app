@@ -54,4 +54,11 @@ class ChildrenRepositoryImpl extends ChildrenRepository {
       page: page,
     );
   }
+
+  @override
+  Future<ResponseDataObject<Monochrome>> updateMonochrome({
+    required int idChild,
+  }) {
+    return dataSource.updateMonochrome(idChild: idChild);
+  }
 }
