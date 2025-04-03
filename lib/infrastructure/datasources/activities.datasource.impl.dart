@@ -1,17 +1,15 @@
-import 'package:dio/dio.dart';
 import 'package:hope_app/domain/domain.dart';
-import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/services/services.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
-import 'package:toastification/toastification.dart';
 
 class ActivitiesDataSourceImpl extends ActivitiesDataSource {
   final dioServices = DioService();
 
   @override
-  Future<ResponseDataList<Activities>> getAllActivities(
-      {required int indexPage}) async {
+  Future<ResponseDataList<Activities>> getAllActivities({
+    required int indexPage,
+  }) async {
     try {
       final response =
           await dioServices.dio.get('/activity?page=$indexPage&size=15');
@@ -22,37 +20,15 @@ class ActivitiesDataSourceImpl extends ActivitiesDataSource {
               fromJson: ActivitiesMapper.activitiesFromJson);
 
       return responseActivities;
-    } on DioException catch (e) {
-      final responseMapper = ResponseMapper.responseJsonToEntity<ResponseData>(
-          json: e.response!.data);
-
-      final String message;
-
-      if (responseMapper.validationErrors != null) {
-        message = responseMapper.validationErrors!.message;
-      } else {
-        message = responseMapper.message.isNotEmpty
-            ? responseMapper.message
-            : S.current.Error_solicitud;
-      }
-
-      throw CustomError(
-        e.response!.statusCode!,
-        message: message,
-        typeNotification: ToastificationType.error,
-      );
     } catch (e) {
-      throw CustomError(
-        null,
-        message: S.current.Error_inesperado,
-        typeNotification: ToastificationType.error,
-      );
+      ErrorHandler.handleError(e);
     }
   }
 
   @override
-  Future<ResponseDataObject<Activity>> createActivity(
-      {required CreateActivity activity}) async {
+  Future<ResponseDataObject<Activity>> createActivity({
+    required CreateActivity activity,
+  }) async {
     try {
       final data = ActivityMapper.toJsonActivity(activity);
 
@@ -62,37 +38,15 @@ class ActivitiesDataSourceImpl extends ActivitiesDataSource {
           json: response.data, fromJson: ActivityMapper.fromJsonActivity);
 
       return responseActivity;
-    } on DioException catch (e) {
-      final responseMapper = ResponseMapper.responseJsonToEntity<ResponseData>(
-          json: e.response!.data);
-
-      final String message;
-
-      if (responseMapper.validationErrors != null) {
-        message = responseMapper.validationErrors!.message;
-      } else {
-        message = responseMapper.message.isNotEmpty
-            ? responseMapper.message
-            : S.current.Error_solicitud;
-      }
-
-      throw CustomError(
-        e.response!.statusCode!,
-        message: message,
-        typeNotification: ToastificationType.error,
-      );
     } catch (e) {
-      throw CustomError(
-        null,
-        message: S.current.Error_inesperado,
-        typeNotification: ToastificationType.error,
-      );
+      ErrorHandler.handleError(e);
     }
   }
 
   @override
-  Future<ResponseDataObject<Activity>> getActivity(
-      {required int idActivity}) async {
+  Future<ResponseDataObject<Activity>> getActivity({
+    required int idActivity,
+  }) async {
     try {
       final response = await dioServices.dio.get('/activity/$idActivity');
 
@@ -100,31 +54,8 @@ class ActivitiesDataSourceImpl extends ActivitiesDataSource {
           json: response.data, fromJson: ActivityMapper.fromJsonActivity);
 
       return responseActivity;
-    } on DioException catch (e) {
-      final responseMapper = ResponseMapper.responseJsonToEntity<ResponseData>(
-          json: e.response!.data);
-
-      final String message;
-
-      if (responseMapper.validationErrors != null) {
-        message = responseMapper.validationErrors!.message;
-      } else {
-        message = responseMapper.message.isNotEmpty
-            ? responseMapper.message
-            : S.current.Error_solicitud;
-      }
-
-      throw CustomError(
-        e.response!.statusCode!,
-        message: message,
-        typeNotification: ToastificationType.error,
-      );
     } catch (e) {
-      throw CustomError(
-        null,
-        message: S.current.Error_inesperado,
-        typeNotification: ToastificationType.error,
-      );
+      ErrorHandler.handleError(e);
     }
   }
 
@@ -140,31 +71,8 @@ class ActivitiesDataSourceImpl extends ActivitiesDataSource {
               json: response.data);
 
       return responseActivity;
-    } on DioException catch (e) {
-      final responseMapper = ResponseMapper.responseJsonToEntity<ResponseData>(
-          json: e.response!.data);
-
-      final String message;
-
-      if (responseMapper.validationErrors != null) {
-        message = responseMapper.validationErrors!.message;
-      } else {
-        message = responseMapper.message.isNotEmpty
-            ? responseMapper.message
-            : S.current.Error_solicitud;
-      }
-
-      throw CustomError(
-        e.response!.statusCode!,
-        message: message,
-        typeNotification: ToastificationType.error,
-      );
     } catch (e) {
-      throw CustomError(
-        null,
-        message: S.current.Error_inesperado,
-        typeNotification: ToastificationType.error,
-      );
+      ErrorHandler.handleError(e);
     }
   }
 
@@ -181,31 +89,8 @@ class ActivitiesDataSourceImpl extends ActivitiesDataSource {
           json: response.data);
 
       return responseAssing;
-    } on DioException catch (e) {
-      final responseMapper = ResponseMapper.responseJsonToEntity<ResponseData>(
-          json: e.response!.data);
-
-      final String message;
-
-      if (responseMapper.validationErrors != null) {
-        message = responseMapper.validationErrors!.message;
-      } else {
-        message = responseMapper.message.isNotEmpty
-            ? responseMapper.message
-            : S.current.Error_solicitud;
-      }
-
-      throw CustomError(
-        e.response!.statusCode!,
-        message: message,
-        typeNotification: ToastificationType.error,
-      );
     } catch (e) {
-      throw CustomError(
-        null,
-        message: S.current.Error_inesperado,
-        typeNotification: ToastificationType.error,
-      );
+      ErrorHandler.handleError(e);
     }
   }
 
@@ -222,31 +107,8 @@ class ActivitiesDataSourceImpl extends ActivitiesDataSource {
               json: response.data);
 
       return responseUnassing;
-    } on DioException catch (e) {
-      final responseMapper = ResponseMapper.responseJsonToEntity<ResponseData>(
-          json: e.response!.data);
-
-      final String message;
-
-      if (responseMapper.validationErrors != null) {
-        message = responseMapper.validationErrors!.message;
-      } else {
-        message = responseMapper.message.isNotEmpty
-            ? responseMapper.message
-            : S.current.Error_solicitud;
-      }
-
-      throw CustomError(
-        e.response!.statusCode!,
-        message: message,
-        typeNotification: ToastificationType.error,
-      );
     } catch (e) {
-      throw CustomError(
-        null,
-        message: S.current.Error_inesperado,
-        typeNotification: ToastificationType.error,
-      );
+      ErrorHandler.handleError(e);
     }
   }
 }

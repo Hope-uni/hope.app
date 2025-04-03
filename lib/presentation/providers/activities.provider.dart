@@ -9,17 +9,14 @@ final searchNameActivity = StateProvider<String>((ref) => '');
 final activitiesProvider =
     StateNotifierProvider.autoDispose<ActivitiesNotifier, ActivitiesState>(
         (ref) {
-  final activityRepository = ActivitiesRepositoryImpl();
-  return ActivitiesNotifier(activityRepository: activityRepository);
+  return ActivitiesNotifier(activityRepository: ActivitiesRepositoryImpl());
 });
 
 class ActivitiesNotifier extends StateNotifier<ActivitiesState> {
   final ActivitiesRepositoryImpl activityRepository;
 
   ActivitiesNotifier({required this.activityRepository})
-      : super(
-          ActivitiesState(),
-        );
+      : super(ActivitiesState());
 
   // Método para cargar más actividades
   Future<void> getActivities() async {
@@ -52,17 +49,11 @@ class ActivitiesNotifier extends StateNotifier<ActivitiesState> {
     }
   }
 
-  void updateErrorMessage() {
-    state = state.copyWith(errorMessageApi: '');
+  void updateResponse() {
+    state = state.copyWith(errorMessageApi: '', isErrorInitial: false);
   }
 
-  void resetIsErrorInitial() {
-    state = state.copyWith(isErrorInitial: false);
-  }
-
-  void resetState() {
-    state = ActivitiesState();
-  }
+  void resetState() => state = ActivitiesState();
 }
 
 class ActivitiesState {

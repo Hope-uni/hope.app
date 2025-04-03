@@ -94,11 +94,12 @@ class ActivityNotifier extends StateNotifier<ActivityState> {
     }
   }
 
-  void updateIsDelete() {
-    state = state.copyWith(isDelete: false);
-  }
+  void updateIsDelete() => state = state.copyWith(isDelete: false);
 
-  void updateActivityField(String fieldName, String newValue) {
+  void updateActivityField({
+    required String fieldName,
+    required String newValue,
+  }) {
     //Borra el error si el usuario ingresa texto
     final Map<String, String?> newValidationErrors =
         Map.from(state.validationErrors);
@@ -197,11 +198,11 @@ class ActivityNotifier extends StateNotifier<ActivityState> {
     }
   }
 
-  void updateErrorMessage() {
+  void updateResponse() {
     state = state.copyWith(errorMessageApi: '', showtoastAlert: false);
   }
 
-  void updateIsSave(bool isSave) {
+  void updateIsSave({required bool isSave}) {
     state = state.copyWith(isSave: isSave);
   }
 

@@ -32,7 +32,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     required this.authRepository,
   }) : super(AuthState());
 
-  void setLoggedToken(Token token) async {
+  void setLoggedToken({required Token token}) async {
     try {
       await keyValueRepository.setValueStorage<String>(
         token.accessToken,
@@ -47,22 +47,22 @@ class AuthNotifier extends StateNotifier<AuthState> {
       final mePermisson = await authRepository.mePermissions();
 
       final dataMe = mePermisson.data;
-      settearDataMe(dataMe!, token);
+      settearDataMe(me: dataMe!, token: token);
     } on CustomError catch (e) {
       if (e.errorCode == 401) {
         await keyValueRepository.setValueStorage<bool>(false, $verified);
-        profileStateNotifier.updateIsLoading(false);
+        profileStateNotifier.updateIsLoading(isLoading: false);
 
-        chagesStateAuthenticated(token);
+        chagesStateAuthenticated(token: token);
         return;
       }
-      _settearError(e.message);
+      _settearError(error: e.message);
     } catch (e) {
-      _settearError(S.current.Error_no_controlado);
+      _settearError(error: S.current.Error_no_controlado);
     }
   }
 
-  void chagesStateAuthenticated(Token token) {
+  void chagesStateAuthenticated({required Token token}) {
     state = state.copyWith(
       token: token,
       authStatus: AuthStatus.authenticated,
@@ -78,14 +78,17 @@ class AuthNotifier extends StateNotifier<AuthState> {
     );
   }
 
-  Future<void> loginUser(String emailUsername, String password) async {
+  Future<void> loginUser({
+    required String emailUsername,
+    required String password,
+  }) async {
     try {
       final token = await authRepository.login(emailUsername, password);
-      setLoggedToken(token.data!);
+      setLoggedToken(token: token.data!);
     } on CustomError catch (e) {
-      _settearError(e.message);
+      _settearError(error: e.message);
     } catch (e) {
-      _settearError(S.current.Error_no_controlado);
+      _settearError(error: S.current.Error_no_controlado);
     }
   }
 
@@ -106,7 +109,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     );
   }
 
-  void _settearError(String error) {
+  void _settearError({required String error}) {
     _resetTokens();
     state = state.copyWith(
         authStatus: AuthStatus.notAuthenticated,
@@ -119,7 +122,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     await keyValueRepository.deleteKeyStorage($refreshToken);
   }
 
-  void settearDataMe(Me me, token) async {
+  void settearDataMe({required Me me, required Token token}) async {
     await keyValueRepository.setValueStorage<bool>(true, $verified);
     await keyValueRepository.setValueStorage<String>(me.username, $userName);
     await keyValueRepository.setValueStorage<String>(me.email, $email);
@@ -141,7 +144,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
     profileStateNotifier.loadProfileAndPermmisions();
 
-    chagesStateAuthenticated(token);
+    chagesStateAuthenticated(token: token);
   }
 }
 

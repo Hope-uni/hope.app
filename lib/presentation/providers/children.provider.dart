@@ -8,20 +8,20 @@ final searchPatients = StateProvider<String>((ref) => '');
 
 final childrenProvider =
     StateNotifierProvider.autoDispose<ChildrenNotifier, ChildrenState>((ref) {
-  return ChildrenNotifier(childrenDataSource: ChildrenDataSourceImpl());
+  return ChildrenNotifier(childrenRepository: ChildrenRepositoryImpl());
 });
 
 class ChildrenNotifier extends StateNotifier<ChildrenState> {
-  final ChildrenDataSourceImpl childrenDataSource;
+  final ChildrenRepositoryImpl childrenRepository;
 
-  ChildrenNotifier({required this.childrenDataSource}) : super(ChildrenState());
+  ChildrenNotifier({required this.childrenRepository}) : super(ChildrenState());
 
   Future<void> getChildrenTutor() async {
     state = state.copyWith(isLoading: true);
     final indexPage = state.paginateChildren[$indexPage]!;
     try {
       final children =
-          await childrenDataSource.getChildrenTutor(page: indexPage);
+          await childrenRepository.getChildrenTutor(page: indexPage);
 
       Map<String, int> paginate = {
         $indexPage: indexPage + 1,
@@ -50,7 +50,7 @@ class ChildrenNotifier extends StateNotifier<ChildrenState> {
     state = state.copyWith(isLoading: true);
     final indexPage = state.paginateChildren[$indexPage]!;
     try {
-      final children = await childrenDataSource.getChildrenTherapist(
+      final children = await childrenRepository.getChildrenTherapist(
         page: indexPage,
         activityId: idActivity,
       );
@@ -85,7 +85,7 @@ class ChildrenNotifier extends StateNotifier<ChildrenState> {
     state = state.copyWith(isLoading: true);
     final indexPage = state.paginateChildren[$indexPage]!;
     try {
-      final children = await childrenDataSource.getChildrenforActivity(
+      final children = await childrenRepository.getChildrenforActivity(
         page: indexPage,
         idActivity: idActivity,
       );
@@ -117,7 +117,7 @@ class ChildrenNotifier extends StateNotifier<ChildrenState> {
     state = state.copyWith(errorMessageApi: '', isErrorInitial: false);
   }
 
-  void removeChildTherapist(Children child) {
+  void removeChildTherapist({required Children child}) {
     final List<Children> oldList = state.children;
 
     oldList.remove(child);

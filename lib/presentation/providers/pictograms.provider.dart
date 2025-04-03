@@ -7,13 +7,13 @@ import 'package:hope_app/presentation/utils/utils.dart';
 final pictogramsProvider =
     StateNotifierProvider.autoDispose<PictogramsNotifier, PictogramsState>(
         (ref) {
-  return PictogramsNotifier(pictogramsDataSource: PictogramsDataSourceImpl());
+  return PictogramsNotifier(pictogramsRepository: PictogramsRepositoyImpl());
 });
 
 class PictogramsNotifier extends StateNotifier<PictogramsState> {
-  final PictogramsDataSourceImpl pictogramsDataSource;
+  final PictogramsRepositoyImpl pictogramsRepository;
 
-  PictogramsNotifier({required this.pictogramsDataSource})
+  PictogramsNotifier({required this.pictogramsRepository})
       : super(PictogramsState());
 
   Future<void> getPictograms() async {
@@ -21,7 +21,7 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
     final indexPage = state.paginatePictograms[$indexPage]!;
     try {
       final pictograms =
-          await pictogramsDataSource.getPictograms(indexPage: indexPage);
+          await pictogramsRepository.getPictograms(indexPage: indexPage);
 
       List<Category>? categoryPictograms = [];
 
@@ -62,7 +62,7 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
     state = state.copyWith(isLoading: true);
     final indexPage = state.paginatePictograms[$indexPage]!;
     try {
-      final customPictograms = await pictogramsDataSource.getCustomPictograms(
+      final customPictograms = await pictogramsRepository.getCustomPictograms(
         indexPage: indexPage,
         idChild: idChild,
       );
@@ -107,7 +107,7 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
     final indexPage = state.paginatePictograms[$indexPage]!;
     try {
       final categoryPictograms =
-          await pictogramsDataSource.getCategoryPictograms();
+          await pictogramsRepository.getCategoryPictograms();
 
       return categoryPictograms.data;
     } on CustomError catch (e) {
@@ -124,35 +124,25 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
     }
   }
 
-  void updateErrorMessage() {
-    state = state.copyWith(errorMessageApi: '');
+  void updateResponse() {
+    state = state.copyWith(errorMessageApi: '', isErrorInitial: false);
   }
 
-  void resetIsErrorInitial() {
-    state = state.copyWith(isErrorInitial: false);
-  }
-
-  void updateDeletePictogram(int idPictogram) {
+  void updateDeletePictogram({required int idPictogram}) {
     List<PictogramAchievements> listPictogram = state.pictograms;
     listPictogram.removeWhere((item) => item.id == idPictogram);
 
     state = state.copyWith(pictograms: listPictogram);
   }
 
-  void resetState() {
-    state = PictogramsState();
-  }
+  void resetFilter() => state = state.copyWith(namePicto: '', typePicto: '');
 
-  void resetFilter() {
-    state = state.copyWith(namePicto: '', typePicto: '');
-  }
-
-  void onNamePictoChange(String value) {
+  void onNamePictoChange({required String value}) {
     final newNamePicto = value;
     state = state.copyWith(namePicto: newNamePicto);
   }
 
-  void onTypePictoChange(String value) {
+  void onTypePictoChange({required String value}) {
     final newTypePicto = value;
     state = state.copyWith(typePicto: newTypePicto);
   }

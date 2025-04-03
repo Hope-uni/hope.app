@@ -17,32 +17,39 @@ class ResetPasswordNotifier extends StateNotifier<ResetPasswordState> {
 
   void sendResetPassword() async {
     state = state.copyWith(isFormPosted: true);
-    await sendEmailForgotPassword(state.emailOrUser);
+    await _sendEmailForgotPassword(emailOrUsername: state.emailOrUser);
     state = state.copyWith(isFormPosted: false);
   }
 
-  Future<void> sendEmailForgotPassword(String emailOrUsername) async {
+  Future<void> _sendEmailForgotPassword({
+    required String emailOrUsername,
+  }) async {
     try {
       final responseForgotPassword =
           await authRepository.forgotPassword(emailOrUsername);
 
       _setStatePassword(
-        responseForgotPassword.message,
-        ToastificationType.success,
+        message: responseForgotPassword.message,
+        messageType: ToastificationType.success,
       );
     } on CustomError catch (e) {
-      _setStatePassword(e.message, e.typeNotification);
+      _setStatePassword(message: e.message, messageType: e.typeNotification);
     } catch (e) {
       _setStatePassword(
-          S.current.Error_no_controlado, ToastificationType.error);
+        message: S.current.Error_no_controlado,
+        messageType: ToastificationType.error,
+      );
     }
   }
 
-  void _setStatePassword(String message, ToastificationType messageType) {
+  void _setStatePassword({
+    required String message,
+    required ToastificationType messageType,
+  }) {
     state = state.copyWith(message: message, typeMessage: messageType);
   }
 
-  void onEmailOrUser(String emailOrUser) {
+  void onEmailOrUser({required String emailOrUser}) {
     state = state.copyWith(
       emailOrUser: emailOrUser,
       errorEmailOrUser: emailOrUser.isNotEmpty ? '' : null,

@@ -7,20 +7,20 @@ import 'package:intl/intl.dart';
 
 final childProvider =
     StateNotifierProvider.autoDispose<ChildNotifier, ChildState>((ref) {
-  return ChildNotifier(childrenDataSource: ChildrenDataSourceImpl());
+  return ChildNotifier(childrenRepository: ChildrenRepositoryImpl());
 });
 
 class ChildNotifier extends StateNotifier<ChildState> {
-  final ChildrenDataSourceImpl childrenDataSource;
+  final ChildrenRepositoryImpl childrenRepository;
 
   ChildState? originalState;
 
-  ChildNotifier({required this.childrenDataSource}) : super(ChildState());
+  ChildNotifier({required this.childrenRepository}) : super(ChildState());
 
   Future<void> getChild({required int idChild}) async {
     state = state.copyWith(isLoading: true);
     try {
-      final responseChild = await childrenDataSource.getChild(idChild: idChild);
+      final responseChild = await childrenRepository.getChild(idChild: idChild);
       state = state.copyWith(
         child: responseChild.data,
         isLoading: false,
@@ -61,7 +61,7 @@ class ChildNotifier extends StateNotifier<ChildState> {
   Future<void> updateChild() async {
     state = state.copyWith(isUpdateData: true);
     try {
-      final responseChild = await childrenDataSource.updateChild(
+      final responseChild = await childrenRepository.updateChild(
           idChild: state.child!.id, child: _jsonPerson());
 
       final child = state.child!.copyWith(
@@ -98,7 +98,7 @@ class ChildNotifier extends StateNotifier<ChildState> {
     state = state.copyWith(isUpdateData: true);
     try {
       final responseMonochrome =
-          await childrenDataSource.updateMonochrome(idChild: idChild);
+          await childrenRepository.updateMonochrome(idChild: idChild);
 
       Child updatedChild = state.child!;
 
@@ -126,7 +126,7 @@ class ChildNotifier extends StateNotifier<ChildState> {
     }
   }
 
-  void updateChildField(String fieldName, String newValue) {
+  void updateChildField({required String fieldName, required String newValue}) {
     //Borra el error si el usuario ingresa texto
     final Map<String, String?> newValidationErrors =
         Map.from(state.validationErrors);
@@ -190,22 +190,22 @@ class ChildNotifier extends StateNotifier<ChildState> {
     );
   }
 
-  void updateObservations(Observation newValue) {
+  void updateObservations({required Observation newObservation}) {
     Child updatedChild = state.child!;
 
     updatedChild = state.child!.copyWith(
-      observations: [newValue, ...state.child!.observations ?? []],
+      observations: [newObservation, ...state.child!.observations ?? []],
     );
 
     state = state.copyWith(child: updatedChild);
   }
 
-  void updateProgress(PhaseShift newValue) {
+  void updateProgress({required PhaseShift newPhase}) {
     Child updatedChild = state.child!;
 
     updatedChild = state.child!.copyWith(
-      currentPhase: newValue.currentPhase,
-      progress: newValue.progress,
+      currentPhase: newPhase.currentPhase,
+      progress: newPhase.progress,
     );
 
     state = state.copyWith(child: updatedChild);
@@ -277,7 +277,7 @@ class ChildNotifier extends StateNotifier<ChildState> {
     }
   }
 
-  void updateBirthday(DateTime newDate) {
+  void updateBirthday({required DateTime newDate}) {
     if (state.child == null) return; // Evita errores si profile es null
     String dateFormat = DateFormat('yyyy-MM-dd').format(newDate);
     state.child!.birthday = dateFormat;

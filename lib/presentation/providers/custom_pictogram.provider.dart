@@ -10,9 +10,11 @@ final selectDelete = StateProvider<bool>((ref) => false);
 final customPictogramProvider = StateNotifierProvider.autoDispose<
     CustomPictogramNotifier, CustomPictogramState>((ref) {
   final notifierPictograms = ref.read(pictogramsProvider.notifier);
+
   return CustomPictogramNotifier(
-      notifierPictograms: notifierPictograms,
-      pictogramsRepository: PictogramsRepositoyImpl());
+    notifierPictograms: notifierPictograms,
+    pictogramsRepository: PictogramsRepositoyImpl(),
+  );
 });
 
 class CustomPictogramNotifier extends StateNotifier<CustomPictogramState> {
@@ -27,7 +29,7 @@ class CustomPictogramNotifier extends StateNotifier<CustomPictogramState> {
   Future<bool> createCustomPictogram() async {
     state = state.copyWith(isLoading: true);
     try {
-      final customPicto = setCustomPictogram();
+      final customPicto = _setCustomPictogram();
       final response = await pictogramsRepository.createCustomPictogram(
         customPictogram: customPicto,
       );
@@ -56,7 +58,9 @@ class CustomPictogramNotifier extends StateNotifier<CustomPictogramState> {
         idPictogram: state.pictogram!.id,
       );
 
-      notifierPictograms.updateDeletePictogram(state.pictogram!.id);
+      notifierPictograms.updateDeletePictogram(
+        idPictogram: state.pictogram!.id,
+      );
 
       state = state.copyWith(
         isLoading: false,
@@ -104,7 +108,7 @@ class CustomPictogramNotifier extends StateNotifier<CustomPictogramState> {
     }
   }
 
-  CustomPictogram setCustomPictogram() {
+  CustomPictogram _setCustomPictogram() {
     final customPictogram = CustomPictogram(
       imageUrl: state.pictogram!.imageUrl,
       name: state.pictogram!.name,
@@ -169,10 +173,6 @@ class CustomPictogramNotifier extends StateNotifier<CustomPictogramState> {
 
   void setIdChild({required int idChild}) {
     state = state.copyWith(idChild: idChild);
-  }
-
-  void resetState() {
-    state = CustomPictogramState(idChild: state.idChild);
   }
 }
 

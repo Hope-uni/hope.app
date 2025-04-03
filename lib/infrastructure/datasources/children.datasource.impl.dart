@@ -1,10 +1,7 @@
-import 'package:dio/dio.dart';
 import 'package:hope_app/domain/domain.dart';
-import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/services/services.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
-import 'package:toastification/toastification.dart';
 
 class ChildrenDataSourceImpl extends ChildrenDataSource {
   final dioServices = DioService();
@@ -28,31 +25,8 @@ class ChildrenDataSourceImpl extends ChildrenDataSource {
               fromJson: ChildrenMapper.childrenJsonToEntity);
 
       return responseChildren;
-    } on DioException catch (e) {
-      final responseMapper = ResponseMapper.responseJsonToEntity<ResponseData>(
-          json: e.response!.data);
-
-      final String message;
-
-      if (responseMapper.validationErrors != null) {
-        message = responseMapper.validationErrors!.message;
-      } else {
-        message = responseMapper.message.isNotEmpty
-            ? responseMapper.message
-            : S.current.Error_solicitud;
-      }
-
-      throw CustomError(
-        e.response!.statusCode!,
-        message: message,
-        typeNotification: ToastificationType.error,
-      );
     } catch (e) {
-      throw CustomError(
-        null,
-        message: S.current.Error_inesperado,
-        typeNotification: ToastificationType.error,
-      );
+      ErrorHandler.handleError(e);
     }
   }
 
@@ -69,31 +43,8 @@ class ChildrenDataSourceImpl extends ChildrenDataSource {
               fromJson: ChildrenMapper.childrenJsonToEntity);
 
       return responseChildren;
-    } on DioException catch (e) {
-      final responseMapper = ResponseMapper.responseJsonToEntity<ResponseData>(
-          json: e.response!.data);
-
-      final String message;
-
-      if (responseMapper.validationErrors != null) {
-        message = responseMapper.validationErrors!.message;
-      } else {
-        message = responseMapper.message.isNotEmpty
-            ? responseMapper.message
-            : S.current.Error_solicitud;
-      }
-
-      throw CustomError(
-        e.response!.statusCode!,
-        message: message,
-        typeNotification: ToastificationType.error,
-      );
     } catch (e) {
-      throw CustomError(
-        null,
-        message: S.current.Error_inesperado,
-        typeNotification: ToastificationType.error,
-      );
+      ErrorHandler.handleError(e);
     }
   }
 
@@ -106,31 +57,8 @@ class ChildrenDataSourceImpl extends ChildrenDataSource {
           json: response.data, fromJson: ChildMapper.childfromJson);
 
       return responseChild;
-    } on DioException catch (e) {
-      final responseMapper = ResponseMapper.responseJsonToEntity<ResponseData>(
-          json: e.response!.data);
-
-      final String message;
-
-      if (responseMapper.validationErrors != null) {
-        message = responseMapper.validationErrors!.message;
-      } else {
-        message = responseMapper.message.isNotEmpty
-            ? responseMapper.message
-            : S.current.Error_solicitud;
-      }
-
-      throw CustomError(
-        e.response!.statusCode!,
-        message: message,
-        typeNotification: ToastificationType.error,
-      );
     } catch (e) {
-      throw CustomError(
-        null,
-        message: S.current.Error_inesperado,
-        typeNotification: ToastificationType.error,
-      );
+      ErrorHandler.handleError(e);
     }
   }
 
@@ -150,31 +78,8 @@ class ChildrenDataSourceImpl extends ChildrenDataSource {
           json: response.data, fromJson: PersonMapper.personFromJson);
 
       return responseChild;
-    } on DioException catch (e) {
-      final responseMapper = ResponseMapper.responseJsonToEntity<ResponseData>(
-          json: e.response!.data);
-
-      final String message;
-
-      if (responseMapper.validationErrors != null) {
-        message = responseMapper.validationErrors!.message;
-      } else {
-        message = responseMapper.message.isNotEmpty
-            ? responseMapper.message
-            : S.current.Error_solicitud;
-      }
-
-      throw CustomError(
-        e.response!.statusCode!,
-        message: message,
-        typeNotification: ToastificationType.error,
-      );
     } catch (e) {
-      throw CustomError(
-        null,
-        message: S.current.Error_inesperado,
-        typeNotification: ToastificationType.error,
-      );
+      ErrorHandler.handleError(e);
     }
   }
 
@@ -196,31 +101,8 @@ class ChildrenDataSourceImpl extends ChildrenDataSource {
               fromJson: ObservationMapper.observationfromJson);
 
       return responseObservation;
-    } on DioException catch (e) {
-      final responseMapper = ResponseMapper.responseJsonToEntity<ResponseData>(
-          json: e.response!.data);
-
-      final String message;
-
-      if (responseMapper.validationErrors != null) {
-        message = responseMapper.validationErrors!.message;
-      } else {
-        message = responseMapper.message.isNotEmpty
-            ? responseMapper.message
-            : S.current.Error_solicitud;
-      }
-
-      throw CustomError(
-        e.response!.statusCode!,
-        message: message,
-        typeNotification: ToastificationType.error,
-      );
     } catch (e) {
-      throw CustomError(
-        null,
-        message: S.current.Error_inesperado,
-        typeNotification: ToastificationType.error,
-      );
+      ErrorHandler.handleError(e);
     }
   }
 
@@ -237,31 +119,8 @@ class ChildrenDataSourceImpl extends ChildrenDataSource {
           json: response.data, fromJson: ChildrenMapper.childrenJsonToEntity);
 
       return responseChild;
-    } on DioException catch (e) {
-      final responseMapper = ResponseMapper.responseJsonToEntity<ResponseData>(
-          json: e.response!.data);
-
-      final String message;
-
-      if (responseMapper.validationErrors != null) {
-        message = responseMapper.validationErrors!.message;
-      } else {
-        message = responseMapper.message.isNotEmpty
-            ? responseMapper.message
-            : S.current.Error_solicitud;
-      }
-
-      throw CustomError(
-        e.response!.statusCode!,
-        message: message,
-        typeNotification: ToastificationType.error,
-      );
     } catch (e) {
-      throw CustomError(
-        null,
-        message: S.current.Error_inesperado,
-        typeNotification: ToastificationType.error,
-      );
+      ErrorHandler.handleError(e);
     }
   }
 
@@ -279,31 +138,8 @@ class ChildrenDataSourceImpl extends ChildrenDataSource {
               fromJson: MonochromeMapper.fromJsonMonochrome);
 
       return responseMonochrome;
-    } on DioException catch (e) {
-      final responseMapper = ResponseMapper.responseJsonToEntity<ResponseData>(
-          json: e.response!.data);
-
-      final String message;
-
-      if (responseMapper.validationErrors != null) {
-        message = responseMapper.validationErrors!.message;
-      } else {
-        message = responseMapper.message.isNotEmpty
-            ? responseMapper.message
-            : S.current.Error_solicitud;
-      }
-
-      throw CustomError(
-        e.response!.statusCode!,
-        message: message,
-        typeNotification: ToastificationType.error,
-      );
     } catch (e) {
-      throw CustomError(
-        null,
-        message: S.current.Error_inesperado,
-        typeNotification: ToastificationType.error,
-      );
+      ErrorHandler.handleError(e);
     }
   }
 }

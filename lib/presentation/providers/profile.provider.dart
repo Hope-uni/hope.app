@@ -19,9 +19,10 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
 
   ProfileState? originalState;
 
-  ProfileNotifier(
-      {required this.storageProfile, required this.profileRepository})
-      : super(ProfileState());
+  ProfileNotifier({
+    required this.storageProfile,
+    required this.profileRepository,
+  }) : super(ProfileState());
 
   ProfilePerson _convertProfilePerson() {
     final ProfilePerson profilePerson = ProfilePerson(
@@ -43,7 +44,7 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
     return profilePerson;
   }
 
-  void _convertProfile(ProfilePerson profile) {
+  void _convertProfile({required ProfilePerson profile}) {
     state = state.copyWith(
       userName: profile.username,
       email: profile.email,
@@ -71,10 +72,12 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
     try {
       final profilePerson = _convertProfilePerson();
       final response = await profileRepository.updateProfileTherapist(
-          profilePerson: profilePerson, idTherapist: state.profile!.profileId);
+        profilePerson: profilePerson,
+        idTherapist: state.profile!.profileId,
+      );
 
-      _convertProfile(response.data!);
-      _updateProfileStorage(response.data!);
+      _convertProfile(profile: response.data!);
+      _updateProfileStorage(profilePerson: response.data!);
 
       originalState = null;
       state = state.copyWith(isUpdateData: false, showtoastAlert: true);
@@ -82,7 +85,9 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
       state = state.copyWith(errorMessageApi: e.message, isUpdateData: false);
     } catch (e) {
       state = state.copyWith(
-          errorMessageApi: S.current.Error_inesperado, isUpdateData: false);
+        errorMessageApi: S.current.Error_inesperado,
+        isUpdateData: false,
+      );
     }
   }
 
@@ -91,48 +96,58 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
     try {
       final profilePerson = _convertProfilePerson();
       final response = await profileRepository.updateProfileTutor(
-          profilePerson: profilePerson, idTutor: state.profile!.profileId);
+        profilePerson: profilePerson,
+        idTutor: state.profile!.profileId,
+      );
 
-      _convertProfile(response.data!);
-      _updateProfileStorage(response.data!);
+      _convertProfile(profile: response.data!);
+      _updateProfileStorage(profilePerson: response.data!);
+
       originalState = null;
       state = state.copyWith(isUpdateData: false, showtoastAlert: true);
     } on CustomError catch (e) {
       state = state.copyWith(errorMessageApi: e.message, isUpdateData: false);
     } catch (e) {
       state = state.copyWith(
-          errorMessageApi: S.current.Error_inesperado, isUpdateData: false);
+        errorMessageApi: S.current.Error_inesperado,
+        isUpdateData: false,
+      );
     }
   }
 
-  Future<void> _updateProfileStorage(ProfilePerson profilePerson) async {
+  Future<void> _updateProfileStorage({
+    required ProfilePerson profilePerson,
+  }) async {
     await storageProfile.setValueStorage<String>(
-        profilePerson.username, $userName);
+      profilePerson.username,
+      $userName,
+    );
 
     await storageProfile.setValueStorage<String>(profilePerson.email, $email);
 
     await storageProfile.setValueStorage<String>(
-        jsonEncode(MePermissionsMapper.toJsonProfile(
-          Profile(
-            profileId: profilePerson.id!,
-            fullName: profilePerson.firstName +
-                (profilePerson.secondName ?? '') +
-                profilePerson.surname +
-                (profilePerson.secondSurname ?? ''),
-            firstName: profilePerson.firstName,
-            secondName: profilePerson.secondName,
-            surname: profilePerson.surname,
-            secondSurname: profilePerson.secondSurname,
-            image: profilePerson.image,
-            identificationNumber: profilePerson.identificationNumber,
-            phoneNumber: profilePerson.phoneNumber,
-            telephone: profilePerson.telephone,
-            address: profilePerson.address,
-            birthday: profilePerson.birthday,
-            gender: profilePerson.gender,
-          ),
-        )),
-        $profile);
+      jsonEncode(MePermissionsMapper.toJsonProfile(
+        Profile(
+          profileId: profilePerson.id!,
+          fullName: profilePerson.firstName +
+              (profilePerson.secondName ?? '') +
+              profilePerson.surname +
+              (profilePerson.secondSurname ?? ''),
+          firstName: profilePerson.firstName,
+          secondName: profilePerson.secondName,
+          surname: profilePerson.surname,
+          secondSurname: profilePerson.secondSurname,
+          image: profilePerson.image,
+          identificationNumber: profilePerson.identificationNumber,
+          phoneNumber: profilePerson.phoneNumber,
+          telephone: profilePerson.telephone,
+          address: profilePerson.address,
+          birthday: profilePerson.birthday,
+          gender: profilePerson.gender,
+        ),
+      )),
+      $profile,
+    );
   }
 
   Future<void> loadProfileAndPermmisions() async {
@@ -151,27 +166,31 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
         await storageProfile.getValueStorage<List<String>>($roles);
 
     state = state.copyWith(
-        roles: storedRoles,
-        userName: storedUserName,
-        email: storedEmail,
-        permmisions: storedPermissions,
-        profile: storedProfile != null
-            ? MePermissionsMapper.fromJsonProfile(jsonDecode(storedProfile))
-            : null,
-        isLoading: false);
+      roles: storedRoles,
+      userName: storedUserName,
+      email: storedEmail,
+      permmisions: storedPermissions,
+      profile: storedProfile != null
+          ? MePermissionsMapper.fromJsonProfile(jsonDecode(storedProfile))
+          : null,
+      isLoading: false,
+    );
   }
 
-  void updateIsLoading(bool isLoading) {
+  void updateIsLoading({required bool isLoading}) {
     state = state.copyWith(isLoading: isLoading);
   }
 
-  void updateBirthday(DateTime newDate) {
+  void updateBirthday({required DateTime newDate}) {
     if (state.profile == null) return; // Evita errores si profile es null
     String dateFormat = DateFormat('yyyy-MM-dd').format(newDate);
     state.profile!.birthday = dateFormat;
   }
 
-  void updateProfileField(String fieldName, String newValue) {
+  void updateProfileField({
+    required String fieldName,
+    required String newValue,
+  }) {
     //Borra el error si el usuario ingresa texto
     final Map<String, String?> newValidationErrors =
         Map.from(state.validationErrors);
@@ -248,7 +267,7 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
     );
   }
 
-  void updateUserName(String value) {
+  void updateUserName({required String value}) {
     // Borra el error si el usuario ingresa texto
     final Map<String, String?> newValidationErrors =
         Map.from(state.validationErrors);
@@ -261,7 +280,7 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
     );
   }
 
-  void updateEmail(String value) {
+  void updateEmail({required String value}) {
     // Borra el error si el usuario ingresa texto
     final Map<String, String?> newValidationErrors =
         Map.from(state.validationErrors);
@@ -273,7 +292,7 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
     );
   }
 
-  void updateErrorMessage() {
+  void updateResponse() {
     state = state.copyWith(errorMessageApi: '', showtoastAlert: false);
   }
 
@@ -376,9 +395,7 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
     originalState = state;
   }
 
-  void resetProfile() {
-    state = ProfileState();
-  }
+  void resetProfile() => state = ProfileState();
 }
 
 class ProfileState {
