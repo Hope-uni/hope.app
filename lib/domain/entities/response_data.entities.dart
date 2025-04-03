@@ -25,12 +25,14 @@ class Paginate {
   int pageCount;
   int page;
   int pageSize;
+  int size;
 
   Paginate({
     required this.total,
     required this.pageCount,
     required this.page,
     required this.pageSize,
+    required this.size,
   });
 }
 

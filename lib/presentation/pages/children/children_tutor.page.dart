@@ -20,6 +20,16 @@ class ChildrenTutorPageState extends ConsumerState<ChildrenTutorPage> {
   final scrollController = ScrollController();
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (mounted) {
+        ref.read(childrenProvider.notifier).resetState();
+      }
+    });
+  }
+
+  @override
   void dispose() {
     scrollController.dispose();
     super.dispose();
@@ -33,7 +43,7 @@ class ChildrenTutorPageState extends ConsumerState<ChildrenTutorPage> {
       final notifierChildren = ref.read(childrenProvider.notifier);
       final statechildren = ref.read(childrenProvider);
 
-      if (statechildren.paginateTutor[$indexPage]! == 1) {
+      if (statechildren.paginateChildren[$indexPage]! == 1) {
         await notifierChildren.getChildrenTutor();
       }
 
@@ -42,9 +52,9 @@ class ChildrenTutorPageState extends ConsumerState<ChildrenTutorPage> {
         if ((scrollController.position.pixels + 50) >=
                 scrollController.position.maxScrollExtent &&
             stateChildren.isLoading == false) {
-          if (stateChildren.paginateTutor[$indexPage]! > 1 &&
-              stateChildren.paginateTutor[$indexPage]! <=
-                  stateChildren.paginateTutor[$pageCount]!) {
+          if (stateChildren.paginateChildren[$indexPage]! > 1 &&
+              stateChildren.paginateChildren[$indexPage]! <=
+                  stateChildren.paginateChildren[$pageCount]!) {
             await notifierChildren.getChildrenTutor();
           }
         }
@@ -101,35 +111,32 @@ class ChildrenTutorPageState extends ConsumerState<ChildrenTutorPage> {
             Expanded(
               child: Stack(
                 children: [
-                  if (stateWacthChildren.paginateTutor[$indexPage] != 1)
+                  if (stateWacthChildren.paginateChildren[$indexPage] != 1)
                     SizedBox.expand(
-                      child: stateWacthChildren.childrenTutor.isNotEmpty
+                      child: stateWacthChildren.children.isNotEmpty
                           ? ListView.builder(
                               controller: scrollController,
-                              itemCount: stateChildren.childrenTutor.length,
+                              itemCount: stateChildren.children.length,
                               itemBuilder: (context, index) {
                                 return ListTileCustom(
-                                  title: stateChildren
-                                      .childrenTutor[index].fullName,
+                                  title: stateChildren.children[index].fullName,
                                   colorTitle: true,
                                   styleTitle: FontWeight.bold,
                                   subTitle:
-                                      '${stateChildren.childrenTutor[index].age} ${S.current.Anos}\n${S.current.Fase}: ${stateChildren.childrenTutor[index].currentPhase.name} ',
-                                  image:
-                                      stateChildren.childrenTutor[index].image,
+                                      '${stateChildren.children[index].age} ${S.current.Anos}\n${S.current.Fase}: ${stateChildren.children[index].currentPhase.name} ',
+                                  image: stateChildren.children[index].image,
                                   iconButton: MenuItems(
                                     itemObject: CatalogObject(
-                                      id: stateChildren.childrenTutor[index].id,
+                                      id: stateChildren.children[index].id,
                                       name: stateChildren
-                                          .childrenTutor[index].fullName,
+                                          .children[index].fullName,
                                       description: "",
                                     ),
                                     menuItems: menuPacientTutor,
                                   ),
                                   onTap: () {
                                     context.pushNamed($child, pathParameters: {
-                                      $idChild: stateChildren
-                                          .childrenTutor[index].id
+                                      $idChild: stateChildren.children[index].id
                                           .toString()
                                     }, extra: {
                                       $isTutor: true
@@ -144,7 +151,7 @@ class ChildrenTutorPageState extends ConsumerState<ChildrenTutorPage> {
                             ),
                     ),
                   if (stateWacthChildren.isLoading == true &&
-                      stateWacthChildren.paginateTutor[$indexPage]! != 1)
+                      stateWacthChildren.paginateChildren[$indexPage]! != 1)
                     const Align(
                       alignment: Alignment.bottomCenter,
                       child: Padding(
@@ -153,7 +160,8 @@ class ChildrenTutorPageState extends ConsumerState<ChildrenTutorPage> {
                       ),
                     ),
                   // 🔄 LOADING
-                  if (stateWacthChildren.paginateTutor[$indexPage]! == 1) ...[
+                  if (stateWacthChildren.paginateChildren[$indexPage]! ==
+                      1) ...[
                     const Opacity(
                       opacity: 0.5,
                       child: ModalBarrier(

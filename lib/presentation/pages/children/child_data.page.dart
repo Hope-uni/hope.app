@@ -100,7 +100,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
         );
       }
 
-      if (next.isUpdateData == false && next.showtoastAlert == true) {
+      if (next.isUpdateData == false && next.isComplete == true) {
         if (context.mounted) {
           toastAlert(
             iconAlert: const Icon(Icons.check),
@@ -110,6 +110,23 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
             typeAlert: ToastificationType.info,
           );
           enableInput = false;
+          notifierChild.updateResponse();
+        }
+      }
+
+      if (next.isUpdateData == false && next.isUpdateMonochrome == true) {
+        if (context.mounted) {
+          toastAlert(
+            iconAlert: const Icon(Icons.check),
+            context: context,
+            title: S.current.Actualizado_con_exito,
+            description: S.current
+                .Se_actualizo_el_filtro_blanco_y_negro_con_exito(
+                    next.child!.isMonochrome == true
+                        ? S.current.Activo
+                        : S.current.Inactivo),
+            typeAlert: ToastificationType.info,
+          );
           notifierChild.updateResponse();
         }
       }
@@ -149,7 +166,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
       }
     });
 
-    if (stateChild.isError != true &&
+    if (stateChild.isError == false &&
         stateChild.isLoading == false &&
         context.mounted) {
       controllerDate.text =
@@ -266,7 +283,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
                 ))),
         body: Stack(
           children: [
-            if (stateChild.isLoading == false && stateChild.isError != true)
+            if (stateChild.isLoading == false && stateChild.isError == false)
               TabBarView(
                 children: <Widget>[
                   GestureDetector(
@@ -607,6 +624,63 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
                       }
                     },
                   ),
+                  SpeedDialChild(
+                    shape: const CircleBorder(),
+                    child: const Icon(Icons.color_lens, color: $colorTextWhite),
+                    backgroundColor: $colorBlueGeneral,
+                    label: S.current.Actualizar_filtro_blanco_negro,
+                    visible: widget.extra![$isTutor] == true && !enableInput,
+                    onTap: () {
+                      //TODO: ACTUALIZAR CUANDO ESTEN LISTOS LOS PERMISOS EN API
+                      if (stateProfile.permmisions!
+                          .contains($updatePatientTutor)) {
+                        modalDialogConfirmation(
+                          context: context,
+                          titleButtonConfirm: S.current.Si_cambiar,
+                          question: RichText(
+                            text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  color: $colorTextBlack,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text:
+                                        '¿${S.current.Esta_seguro_de_cambiar_el_filtro_blanco_negro}\n\n',
+                                  ),
+                                  TextSpan(text: '${S.current.Nuevo_valor}: '),
+                                  TextSpan(
+                                    text: stateChild.child!.isMonochrome == true
+                                        ? S.current.Inactivo
+                                        : S.current.Activo,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  )
+                                ]),
+                          ),
+                          buttonColorConfirm: $colorSuccess,
+                          onClic: () async {
+                            if (context.mounted) {
+                              Navigator.of(context).pop();
+                            }
+                            await notifierChild.updateMonochrome(
+                              idChild: stateChild.child!.id,
+                            );
+                          },
+                        );
+                      } else {
+                        toastAlert(
+                          iconAlert: const Icon(Icons.info),
+                          context: context,
+                          title: S.current.No_autorizado,
+                          description:
+                              S.current.No_cuenta_con_el_permiso_necesario,
+                          typeAlert: ToastificationType.info,
+                        );
+                      }
+                    },
+                  ),
                 ],
               ),
       ),
@@ -842,16 +916,12 @@ List<Widget> _generalInformation({
   final stateChild = ref.watch(childProvider);
   return [
     const SizedBox(height: 15),
-    //TODO: Cambiar cuando este listo el endpoint
-    SelectBox(
-      enable: enableInput,
-      valueInitial: 'Activado',
+    InputForm(
       label: S.current.Pictogramas_blanco_negro,
-      onSelected: (value) {},
-      listItems: [
-        CatalogObject(id: 0, name: 'Activado', description: ''),
-        CatalogObject(id: 0, name: 'Desactivado', description: '')
-      ],
+      value: stateChild.child!.isMonochrome == true
+          ? S.current.Activo
+          : S.current.Inactivo,
+      enable: false,
     ),
     InputForm(
       label: S.current.Tutor,
@@ -868,7 +938,6 @@ List<Widget> _generalInformation({
       value: stateChild.child!.tutor.phoneNumber,
       enable: false,
     ),
-
     InputForm(
       label: S.current.Terapeuta,
       value: stateChild.child!.therapist != null

@@ -43,4 +43,22 @@ class ChildrenRepositoryImpl extends ChildrenRepository {
       description: description,
     );
   }
+
+  @override
+  Future<ResponseDataList<Children>> getChildrenforActivity({
+    required int page,
+    required int idActivity,
+  }) {
+    return dataSource.getChildrenforActivity(
+      idActivity: idActivity,
+      page: page,
+    );
+  }
+
+  @override
+  Future<ResponseDataObject<Monochrome>> updateMonochrome({
+    required int idChild,
+  }) {
+    return dataSource.updateMonochrome(idChild: idChild);
+  }
 }

@@ -134,7 +134,7 @@
   "Nueva_contrasena": "Nueva contraseña",
   "Confirmar_nueva_contrasena": "Confirmar nueva contraseña",
   "Actividad": "Actividad",
-  "Se_actualizo_correctamente_la_informacion_de_la_actividad": "Se actualizo correctamente la información de la actividad",
+  "Se_actualizo_correctamente_la_informacion_de_la_actividad": "Se actualizó correctamente la información de la actividad",
   "Esta_seguro_de_salir_de_la_edicion_de_la_actividad": "Esta seguro de salir de la edición de la actividad",
   "Buscar_por_nombre_de_actividad": "Buscar por nombre de actividad",
   "Descripcion": "Descripción",
@@ -213,5 +213,12 @@
   "Regresar": "Regresar",
   "Cerrar": "Cerrar",
   "Actividad_desasignada_exitosamente": "Actividad desasignada exitosamente",
-  "Se_removio_la_actividad_del_paciente": "Se removió la actividad del paciente"
+  "Se_removio_la_actividad_del_paciente": "Se removió la actividad del paciente",
+  "Actualizar_filtro_blanco_negro": "Actualizar filtro Blanco/Negro",
+  "Si_cambiar": "Si, cambiar",
+  "Esta_seguro_de_cambiar_el_filtro_blanco_negro": "¿Está seguro de cambiar el filtro blanco/negro?",
+  "Nuevo_valor": "Nuevo valor",
+  "Inactivo": "Inactivo",
+  "Activo": "Activo",
+  "Se_actualizo_el_filtro_blanco_y_negro_con_exito": "Se actualizó el filtro blanco y negro con exito: {isMonochrome}"
 }

@@ -48,5 +48,6 @@ class ResponseMapper<T> {
         pageCount: json["page_count"],
         page: json["page"],
         pageSize: json["page_size"],
+        size: json["size"],
       );
 }
