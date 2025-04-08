@@ -50,7 +50,7 @@ modalPassword({
                     description: next.messageError!,
                     typeAlert: ToastificationType.error,
                   );
-                  notifierChangePassword.updateErrorMessage();
+                  notifierChangePassword.updateResponse();
                 }
               });
 
@@ -114,15 +114,16 @@ modalPassword({
                                     : const Icon(Icons.visibility),
                                 onPressed: () {
                                   notifierChangePassword.viewPassword(
-                                      $password,
-                                      !stateChangePassword
-                                          .viewPasswords[$password]!);
+                                    fieldName: $password,
+                                    newValue: !stateChangePassword
+                                        .viewPasswords[$password]!,
+                                  );
                                 },
                               ),
                               onChanged: (value) {
                                 notifierChangePassword.updateErrorField(
-                                  $password,
-                                  value,
+                                  fieldName: $password,
+                                  newValue: value,
                                 );
                               },
                               errorText: stateChangePassword
@@ -142,16 +143,16 @@ modalPassword({
                                     : const Icon(Icons.visibility),
                                 onPressed: () {
                                   notifierChangePassword.viewPassword(
-                                    $newPassword,
-                                    !stateChangePassword
+                                    fieldName: $newPassword,
+                                    newValue: !stateChangePassword
                                         .viewPasswords[$newPassword]!,
                                   );
                                 },
                               ),
                               onChanged: (value) {
                                 notifierChangePassword.updateErrorField(
-                                  $newPassword,
-                                  value,
+                                  fieldName: $newPassword,
+                                  newValue: value,
                                 );
                               },
                               errorText: stateChangePassword
@@ -172,16 +173,16 @@ modalPassword({
                                     : const Icon(Icons.visibility),
                                 onPressed: () {
                                   notifierChangePassword.viewPassword(
-                                    $confirmNewPassword,
-                                    !stateChangePassword
+                                    fieldName: $confirmNewPassword,
+                                    newValue: !stateChangePassword
                                         .viewPasswords[$confirmNewPassword]!,
                                   );
                                 },
                               ),
                               onChanged: (value) {
                                 notifierChangePassword.updateErrorField(
-                                  $confirmNewPassword,
-                                  value,
+                                  fieldName: $confirmNewPassword,
+                                  newValue: value,
                                 );
                               },
                               errorText: stateChangePassword

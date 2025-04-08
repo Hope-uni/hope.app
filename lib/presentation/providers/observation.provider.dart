@@ -5,19 +5,19 @@ import 'package:hope_app/infrastructure/infrastructure.dart';
 
 final observationProvider = StateNotifierProvider.autoDispose<
     ObservationStateNotifier, ObservationState>((ref) {
-  return ObservationStateNotifier(childrenDataSource: ChildrenRepositoryImpl());
+  return ObservationStateNotifier(childrenRepository: ChildrenRepositoryImpl());
 });
 
 class ObservationStateNotifier extends StateNotifier<ObservationState> {
-  final ChildrenRepositoryImpl childrenDataSource;
+  final ChildrenRepositoryImpl childrenRepository;
 
-  ObservationStateNotifier({required this.childrenDataSource})
+  ObservationStateNotifier({required this.childrenRepository})
       : super(ObservationState());
 
   Future<Observation?> addObservation({required int idChild}) async {
     state = state.copyWith(isLoading: true);
     try {
-      final responseObservation = await childrenDataSource.createObservation(
+      final responseObservation = await childrenRepository.createObservation(
           idChild: idChild, description: state.description!);
 
       state = state.copyWith(isLoading: false, isCreate: true);
@@ -37,7 +37,7 @@ class ObservationStateNotifier extends StateNotifier<ObservationState> {
     }
   }
 
-  void updateDescription(String value) {
+  void updateDescription({required String value}) {
     if (value.isNotEmpty) {
       state = state.copyWith(description: value, validationError: '');
     } else {
@@ -59,11 +59,7 @@ class ObservationStateNotifier extends StateNotifier<ObservationState> {
     }
   }
 
-  void resetObservation() {
-    state = ObservationState();
-  }
-
-  void updateErrorMessage() {
+  void updateResponse() {
     state = state.copyWith(errorMessageApi: '', isCreate: false);
   }
 }

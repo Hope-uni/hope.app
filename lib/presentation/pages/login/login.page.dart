@@ -8,17 +8,48 @@ import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
 import 'package:toastification/toastification.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
 
   @override
+  LoginPageState createState() => LoginPageState();
+}
+
+class LoginPageState extends ConsumerState<LoginPage> {
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SingleChildScrollView(
-        child: AuthBackground(
-          isLogin: true,
-          formChild: LoginForsm(),
-        ),
+    final loginProvider = ref.watch(loginFormProvider);
+
+    return Scaffold(
+      body: Stack(
+        children: [
+          const SingleChildScrollView(
+              child: AuthBackground(isLogin: true, formChild: LoginForsm())),
+          if (loginProvider.isFormPosted)
+            const Opacity(
+              opacity: 0.5,
+              child: ModalBarrier(dismissible: false, color: $colorTextBlack),
+            ),
+          if (loginProvider.isFormPosted)
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const CircularProgressIndicator(),
+                  const SizedBox(height: 25),
+                  Text(
+                    S.current.Cargando,
+                    style: const TextStyle(
+                      color: $colorTextWhite,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.none,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+        ],
       ),
     );
   }
@@ -103,7 +134,8 @@ class _InputUserName extends ConsumerWidget {
             hint: S.current.Usuario,
             inputFormatters: [
               FilteringTextInputFormatter.deny(
-                  RegExp(r'\s')), // Denegar espacios
+                RegExp(r'\s'),
+              ), // Denegar espacios
             ],
             onChanged: ref.read(loginFormProvider.notifier).onUserNameChange,
           ),
@@ -181,18 +213,22 @@ class _ButtonLogin extends ConsumerWidget {
         onPressed: loginProvider.isFormPosted
             ? null
             : () {
+                FocusManager.instance.primaryFocus?.unfocus();
                 if (!ref.read(loginFormProvider.notifier).validInputs()) return;
                 ref.read(loginFormProvider.notifier).onFormSubmit();
               },
         style: ButtonStyle(
-          backgroundColor: WidgetStateProperty.resolveWith((states) =>
-              loginProvider.isFormPosted
-                  ? $colorButtonDisable
-                  : $colorBlueGeneral),
+          backgroundColor: WidgetStateProperty.resolveWith(
+            (states) => loginProvider.isFormPosted
+                ? $colorButtonDisable
+                : $colorBlueGeneral,
+          ),
         ),
-        child: Text(loginProvider.isFormPosted
-            ? S.current.Cargando
-            : S.current.Iniciar_sesion),
+        child: Text(
+          loginProvider.isFormPosted
+              ? S.current.Cargando
+              : S.current.Iniciar_sesion,
+        ),
       ),
     );
   }

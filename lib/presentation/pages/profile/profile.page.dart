@@ -63,7 +63,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
           setState(() {
             enableInput = false;
           });
-          profileNotifier.updateErrorMessage();
+          profileNotifier.updateResponse();
         }
       }
       if (next.errorMessageApi != null) {
@@ -73,7 +73,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
           description: next.errorMessageApi!,
           typeAlert: ToastificationType.error,
         );
-        profileNotifier.updateErrorMessage();
+        profileNotifier.updateResponse();
       }
     });
 
@@ -103,7 +103,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
       );
 
       if (pickedDate != null) {
-        profileNotifier.updateBirthday(pickedDate);
+        profileNotifier.updateBirthday(newDate: pickedDate);
 
         setState(() {
           controller.text =
@@ -259,7 +259,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                           value: profileState.userName!,
                           enable: enableInput,
                           onChanged: (value) {
-                            profileNotifier.updateUserName(value);
+                            profileNotifier.updateUserName(value: value);
                           },
                           errorText:
                               profileState.validationErrors[$userNameProfile],
@@ -273,7 +273,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                           value: profileState.email!,
                           enable: enableInput,
                           onChanged: (value) {
-                            profileNotifier.updateEmail(value);
+                            profileNotifier.updateEmail(value: value);
                           },
                           errorText:
                               profileState.validationErrors[$emailProfile],
@@ -288,7 +288,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                           enable: enableInput,
                           onChanged: (value) {
                             profileNotifier.updateProfileField(
-                                $firstNameProfile, value);
+                              fieldName: $firstNameProfile,
+                              newValue: value,
+                            );
                           },
                           allCharacters: false,
                           errorText:
@@ -302,7 +304,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         enable: enableInput,
                         onChanged: (value) {
                           profileNotifier.updateProfileField(
-                              $secondNameProfile, value);
+                            fieldName: $secondNameProfile,
+                            newValue: value,
+                          );
                         },
                         allCharacters: false,
                       ),
@@ -315,7 +319,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                           enable: enableInput,
                           onChanged: (value) {
                             profileNotifier.updateProfileField(
-                                $surnameProfile, value);
+                              fieldName: $surnameProfile,
+                              newValue: value,
+                            );
                           },
                           allCharacters: false,
                           errorText:
@@ -329,7 +335,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         enable: enableInput,
                         onChanged: (value) {
                           profileNotifier.updateProfileField(
-                              $secondSurnameProfile, value);
+                            fieldName: $secondSurnameProfile,
+                            newValue: value,
+                          );
                         },
                         allCharacters: false,
                       ),
@@ -338,8 +346,10 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         valueInitial: profileState.profile!.gender,
                         label: S.current.Sexo,
                         onSelected: (value) {
-                          profileNotifier.updateProfileField($genderProfile,
-                              value! == "0" ? $masculino : $femenino);
+                          profileNotifier.updateProfileField(
+                            fieldName: $genderProfile,
+                            newValue: value! == "0" ? $masculino : $femenino,
+                          );
                         },
                         deleteSelection: false,
                         listItems: [
@@ -359,7 +369,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                           enable: enableInput,
                           onChanged: (value) {
                             profileNotifier.updateProfileField(
-                                $identificationNumbereProfile, value);
+                              fieldName: $identificationNumbereProfile,
+                              newValue: value,
+                            );
                           },
                           errorText: profileState
                               .validationErrors[$identificationNumbereProfile],
@@ -378,7 +390,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                             selectDate(context, profileState.profile!.birthday),
                         onChanged: (value) {
                           profileNotifier.updateProfileField(
-                              $birthdayProfile, value);
+                            fieldName: $birthdayProfile,
+                            newValue: value,
+                          );
                         },
                         errorText:
                             profileState.validationErrors[$birthdayProfile],
@@ -394,7 +408,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                               enable: enableInput,
                               onChanged: (value) {
                                 profileNotifier.updateProfileField(
-                                    $telephoneProfile, value);
+                                  fieldName: $telephoneProfile,
+                                  newValue: value,
+                                );
                               },
                               errorText: profileState
                                   .validationErrors[$telephoneProfile]),
@@ -409,7 +425,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                           enable: enableInput,
                           onChanged: (value) {
                             profileNotifier.updateProfileField(
-                                $phoneNumberProfile, value);
+                              fieldName: $phoneNumberProfile,
+                              newValue: value,
+                            );
                           },
                           errorText: profileState
                               .validationErrors[$phoneNumberProfile],
@@ -424,7 +442,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                           enable: enableInput,
                           onChanged: (value) {
                             profileNotifier.updateProfileField(
-                                $addressProfile, value);
+                              fieldName: $addressProfile,
+                              newValue: value,
+                            );
                           },
                           errorText:
                               profileState.validationErrors[$addressProfile],

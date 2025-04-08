@@ -148,8 +148,9 @@ class RemoveAcivityPageState extends ConsumerState<RemoveAcivityPage> {
                                                         .children[index].id)) {
                                               notifierChildren
                                                   .removeChildTherapist(
-                                                      stateChildren
-                                                          .children[index]);
+                                                child: stateChildren
+                                                    .children[index],
+                                              );
                                             }
                                             if (context.mounted) {
                                               Navigator.of(context).pop();

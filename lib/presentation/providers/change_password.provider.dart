@@ -5,25 +5,26 @@ import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/providers/providers.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 
-final changePasswordProvider =
-    StateNotifierProvider<ChangePasswordNotifier, ChangePasswordState>((ref) {
+final changePasswordProvider = StateNotifierProvider.autoDispose<
+    ChangePasswordNotifier, ChangePasswordState>((ref) {
   final authRepository = ref.watch(authProvider.notifier);
+
   return ChangePasswordNotifier(
-    dataSourceAuth: AuthRepositoryImpl(),
+    authRepository: AuthRepositoryImpl(),
     keyValueRepository: KeyValueStorageRepositoryImpl(),
     authProviderNotifier: authRepository,
   );
 });
 
 class ChangePasswordNotifier extends StateNotifier<ChangePasswordState> {
-  final AuthRepositoryImpl dataSourceAuth;
+  final AuthRepositoryImpl authRepository;
   final KeyValueStorageRepository keyValueRepository;
   final AuthNotifier authProviderNotifier;
 
   ChangePasswordNotifier(
       {required this.authProviderNotifier,
       required this.keyValueRepository,
-      required this.dataSourceAuth})
+      required this.authRepository})
       : super(
           ChangePasswordState(
             passwords: ChangePassword(
@@ -38,7 +39,7 @@ class ChangePasswordNotifier extends StateNotifier<ChangePasswordState> {
     state = state.copyWith(isLoading: true);
     try {
       final response =
-          await dataSourceAuth.changePassword(passwords: state.passwords!);
+          await authRepository.changePassword(passwords: state.passwords!);
       state =
           state.copyWith(messageSuccess: response.message, isLoading: false);
     } on CustomError catch (e) {
@@ -52,12 +53,15 @@ class ChangePasswordNotifier extends StateNotifier<ChangePasswordState> {
   Future<void> changePasswordChild({required int idChild}) async {
     state = state.copyWith(isLoading: true);
     try {
-      final response = await dataSourceAuth.changePasswordChild(
+      final response = await authRepository.changePasswordChild(
         passwordsChild: state.passwords!,
         idChild: idChild,
       );
-      state =
-          state.copyWith(messageSuccess: response.message, isLoading: false);
+
+      state = state.copyWith(
+        messageSuccess: response.message,
+        isLoading: false,
+      );
     } on CustomError catch (e) {
       state = state.copyWith(messageError: e.message, isLoading: false);
     } catch (e) {
@@ -66,7 +70,7 @@ class ChangePasswordNotifier extends StateNotifier<ChangePasswordState> {
     }
   }
 
-  void updateErrorField(String fieldName, String newValue) {
+  void updateErrorField({required String fieldName, required String newValue}) {
     final Map<String, String?> newValidationErrors =
         Map.from(state.validationErrors);
 
@@ -123,9 +127,7 @@ class ChangePasswordNotifier extends StateNotifier<ChangePasswordState> {
     }
   }
 
-  void updateErrorMessage() {
-    state = state.copyWith(messageError: '');
-  }
+  void updateResponse() => state = state.copyWith(messageError: '');
 
   Future<void> updateMe() async {
     await keyValueRepository.setValueStorage<bool>(true, $verified);
@@ -136,10 +138,12 @@ class ChangePasswordNotifier extends StateNotifier<ChangePasswordState> {
     final refreshToken = await KeyValueStorageRepositoryImpl()
         .getValueStorage<String>($refreshToken);
 
-    final Token tokenFinal =
-        Token(accessToken: token!, refreshToken: refreshToken!);
+    final Token tokenFinal = Token(
+      accessToken: token!,
+      refreshToken: refreshToken!,
+    );
 
-    authProviderNotifier.setLoggedToken(tokenFinal);
+    authProviderNotifier.setLoggedToken(token: tokenFinal);
   }
 
   void resetState() {
@@ -152,7 +156,7 @@ class ChangePasswordNotifier extends StateNotifier<ChangePasswordState> {
     );
   }
 
-  void viewPassword(String fieldName, bool newValue) {
+  void viewPassword({required String fieldName, required bool newValue}) {
     final Map<String, bool> newViewPasswords = Map.from(state.viewPasswords);
 
     switch (fieldName) {

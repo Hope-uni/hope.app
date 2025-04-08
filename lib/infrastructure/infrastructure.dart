@@ -43,3 +43,4 @@ export 'mappers/phase_shift.mapper.dart';
 export 'mappers/monochrome.mapper.dart';
 
 export 'errors/custom_errors.dart';
+export 'errors/error_handler.dart';

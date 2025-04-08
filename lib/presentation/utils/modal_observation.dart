@@ -31,7 +31,7 @@ modalObservation({
                 description: S.current.Guardado_con_exito,
                 typeAlert: ToastificationType.success,
               );
-              ref.read(observationProvider.notifier).updateErrorMessage();
+              ref.read(observationProvider.notifier).updateResponse();
             }
 
             if (next.errorMessageApi != null) {
@@ -41,7 +41,7 @@ modalObservation({
                 description: next.errorMessageApi!,
                 typeAlert: ToastificationType.error,
               );
-              ref.read(observationProvider.notifier).updateErrorMessage();
+              ref.read(observationProvider.notifier).updateResponse();
             }
           });
 
@@ -102,7 +102,7 @@ modalObservation({
                       linesDynamic: true,
                       label: S.current.Observacion,
                       onChanged: (value) {
-                        notifierObservation.updateDescription(value);
+                        notifierObservation.updateDescription(value: value);
                       },
                       errorText: stateObservation.validationError,
                     ),
@@ -140,8 +140,9 @@ modalObservation({
                                 );
 
                                 if (newObservation != null && isPageChild) {
-                                  notifierChild
-                                      .updateObservations(newObservation!);
+                                  notifierChild.updateObservations(
+                                    newObservation: newObservation!,
+                                  );
                                 }
                               }
                             },

@@ -6,7 +6,8 @@ import 'package:hope_app/infrastructure/infrastructure.dart';
 final activityChildrenProvider = StateNotifierProvider.autoDispose<
     ActivityChildrenStateNotifier, ActivityChildrenState>((ref) {
   return ActivityChildrenStateNotifier(
-      activityRepository: ActivitiesRepositoryImpl());
+    activityRepository: ActivitiesRepositoryImpl(),
+  );
 });
 
 class ActivityChildrenStateNotifier
@@ -54,11 +55,11 @@ class ActivityChildrenStateNotifier
     }
   }
 
-  void addChild(Children child) {
+  void addChild({required Children child}) {
     state = state.copyWith(children: [child, ...state.children]);
   }
 
-  void removeChild(Children child) {
+  void removeChild({required Children child}) {
     final List<Children> oldList = state.children;
 
     oldList.remove(child);

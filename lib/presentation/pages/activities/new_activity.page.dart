@@ -140,7 +140,7 @@ class NewActivityState extends ConsumerState<NewActivityPage> {
                         //TODO: Actualizar permiso cuando esten listos en la api
                         if (profileState.permmisions!
                             .contains($updateProfile)) {
-                          notifierActivity.updateIsSave(true);
+                          notifierActivity.updateIsSave(isSave: true);
 
                           if (notifierActivity.checkFields()) {
                             if (context.mounted) {
@@ -166,7 +166,7 @@ class NewActivityState extends ConsumerState<NewActivityPage> {
                               );
                             }
                           }
-                          notifierActivity.updateIsSave(false);
+                          notifierActivity.updateIsSave(isSave: false);
                         } else {
                           if (context.mounted) {
                             toastAlert(

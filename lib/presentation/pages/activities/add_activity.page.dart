@@ -163,12 +163,14 @@ class AddActivityPageState extends ConsumerState<AddActivityPage> {
                                             : false,
                                         onChange: (bool? value) {
                                           if (value == true) {
-                                            notifierActiviyChildren
-                                                .addChild(stateChildren[index]);
+                                            notifierActiviyChildren.addChild(
+                                              child: stateChildren[index],
+                                            );
                                           }
                                           if (value == false) {
                                             notifierActiviyChildren.removeChild(
-                                                stateChildren[index]);
+                                              child: stateChildren[index],
+                                            );
                                           }
                                         },
                                       ),
@@ -208,9 +210,11 @@ class AddActivityPageState extends ConsumerState<AddActivityPage> {
                                                     onPressed: () {
                                                       notifierActiviyChildren
                                                           .removeChild(
-                                                              stateActiviyChildren
-                                                                      .children[
-                                                                  index]);
+                                                        child:
+                                                            stateActiviyChildren
+                                                                    .children[
+                                                                index],
+                                                      );
                                                     },
                                                     icon: const Icon(
                                                       Icons.delete,
