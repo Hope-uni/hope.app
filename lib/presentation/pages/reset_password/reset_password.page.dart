@@ -7,17 +7,51 @@ import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
 import 'package:toastification/toastification.dart';
 
-class ResetPasswordPage extends StatelessWidget {
+class ResetPasswordPage extends ConsumerStatefulWidget {
   const ResetPasswordPage({super.key});
 
   @override
+  ResetPasswordPageState createState() => ResetPasswordPageState();
+}
+
+class ResetPasswordPageState extends ConsumerState<ResetPasswordPage> {
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SingleChildScrollView(
-        child: AuthBackground(
-          isLogin: false,
-          formChild: ResetPasswordForm(),
-        ),
+    final isFormPosted = ref.watch(passwordProvider).isFormPosted;
+    return Scaffold(
+      body: Stack(
+        children: [
+          const SingleChildScrollView(
+            child: AuthBackground(
+              isLogin: false,
+              formChild: ResetPasswordForm(),
+            ),
+          ),
+          if (isFormPosted)
+            const Opacity(
+              opacity: 0.5,
+              child: ModalBarrier(dismissible: false, color: $colorTextBlack),
+            ),
+          if (isFormPosted)
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const CircularProgressIndicator(),
+                  const SizedBox(height: 25),
+                  Text(
+                    S.current.Cargando,
+                    style: const TextStyle(
+                      color: $colorTextWhite,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.none,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+        ],
       ),
     );
   }
@@ -113,9 +147,14 @@ class _InputUserEmail extends ConsumerWidget {
             hint: S.current.Correo_o_nombre_de_usuario,
             inputFormatters: [
               FilteringTextInputFormatter.deny(
-                  RegExp(r'\s')), // Denegar espacios
+                RegExp(r'\s'),
+              ), // Denegar espacios
             ],
-            onChanged: ref.read(passwordProvider.notifier).onEmailOrUser,
+            onChanged: (value) {
+              ref
+                  .read(passwordProvider.notifier)
+                  .onEmailOrUser(emailOrUser: value);
+            },
             errorText: resetPasswordProvider.errorEmailOrUser,
           ),
         ),
@@ -151,9 +190,8 @@ class _ButtonSendEmail extends ConsumerWidget {
         onPressed: isFormPosted
             ? null
             : () {
-                if (!ref.read(passwordProvider.notifier).validInput()) {
-                  return;
-                }
+                FocusManager.instance.primaryFocus?.unfocus();
+                if (!ref.read(passwordProvider.notifier).validInput()) return;
                 ref.read(passwordProvider.notifier).sendResetPassword();
               },
         style: ButtonStyle(

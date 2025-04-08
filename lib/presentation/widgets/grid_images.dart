@@ -98,7 +98,7 @@ class GridImagesState extends ConsumerState<GridImages> {
           description: next.errorMessageApi!,
           typeAlert: ToastificationType.error,
         );
-        ref.read(pictogramsProvider.notifier).updateErrorMessage();
+        ref.read(pictogramsProvider.notifier).updateResponse();
       }
     });
 
@@ -165,7 +165,7 @@ class GridImagesState extends ConsumerState<GridImages> {
                 onSelected: (value) {
                   ref
                       .read(pictogramsProvider.notifier)
-                      .onTypePictoChange(value!);
+                      .onTypePictoChange(value: value!);
                 },
                 listItems: statePictograms.categoryPictograms
                     .map((item) => CatalogObject(
@@ -179,7 +179,7 @@ class GridImagesState extends ConsumerState<GridImages> {
                 onChanged: (value) {
                   ref
                       .read(pictogramsProvider.notifier)
-                      .onNamePictoChange(value);
+                      .onNamePictoChange(value: value);
                 },
               ),
               Expanded(
@@ -454,7 +454,6 @@ Future<void> _dialogImage({
           .read(customPictogramProvider.notifier);
 
       Future.microtask(() {
-        notifierCustomPicto.resetState();
         notifierCustomPicto.loadCustomPictogram(pictogram: pictogram);
       });
 

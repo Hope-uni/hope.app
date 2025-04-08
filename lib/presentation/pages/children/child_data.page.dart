@@ -190,7 +190,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
       );
 
       if (pickedDate != null) {
-        ref.read(childProvider.notifier).updateBirthday(pickedDate);
+        ref.read(childProvider.notifier).updateBirthday(newDate: pickedDate);
 
         if (context.mounted) {
           controllerDate.text =
@@ -577,7 +577,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
                                 idChild: stateChild.child!.id);
 
                             if (newPhase != null) {
-                              notifierChild.updateProgress(newPhase);
+                              notifierChild.updateProgress(newPhase: newPhase);
                             }
                           },
                         );
@@ -793,7 +793,10 @@ List<Widget> _childPersonalData({
         value: stateChild.child!.username,
         enable: enableInput,
         onChanged: (value) {
-          notifierChild.updateChildField($userNameProfile, value);
+          notifierChild.updateChildField(
+            fieldName: $userNameProfile,
+            newValue: value,
+          );
         },
         errorText: stateChild.validationErrors[$userNameProfile],
       ),
@@ -806,7 +809,10 @@ List<Widget> _childPersonalData({
         value: stateChild.child!.email,
         enable: enableInput,
         onChanged: (value) {
-          notifierChild.updateChildField($emailProfile, value);
+          notifierChild.updateChildField(
+            fieldName: $emailProfile,
+            newValue: value,
+          );
         },
         errorText: stateChild.validationErrors[$emailProfile],
       ),
@@ -820,7 +826,10 @@ List<Widget> _childPersonalData({
         enable: enableInput,
         allCharacters: false,
         onChanged: (value) {
-          notifierChild.updateChildField($firstNameProfile, value);
+          notifierChild.updateChildField(
+            fieldName: $firstNameProfile,
+            newValue: value,
+          );
         },
         errorText: stateChild.validationErrors[$firstNameProfile],
       ),
@@ -832,7 +841,10 @@ List<Widget> _childPersonalData({
       enable: enableInput,
       allCharacters: false,
       onChanged: (value) {
-        notifierChild.updateChildField($secondNameProfile, value);
+        notifierChild.updateChildField(
+          fieldName: $secondNameProfile,
+          newValue: value,
+        );
       },
     ),
     Focus(
@@ -844,7 +856,10 @@ List<Widget> _childPersonalData({
         enable: enableInput,
         allCharacters: false,
         onChanged: (value) {
-          notifierChild.updateChildField($surnameProfile, value);
+          notifierChild.updateChildField(
+            fieldName: $surnameProfile,
+            newValue: value,
+          );
         },
         errorText: stateChild.validationErrors[$surnameProfile],
       ),
@@ -856,7 +871,10 @@ List<Widget> _childPersonalData({
       enable: enableInput,
       allCharacters: false,
       onChanged: (value) {
-        notifierChild.updateChildField($secondSurnameProfile, value);
+        notifierChild.updateChildField(
+          fieldName: $secondSurnameProfile,
+          newValue: value,
+        );
       },
     ),
     SelectBox(
@@ -865,7 +883,9 @@ List<Widget> _childPersonalData({
       label: S.current.Sexo,
       onSelected: (value) {
         notifierChild.updateChildField(
-            $genderProfile, value! == "0" ? $masculino : $femenino);
+          fieldName: $genderProfile,
+          newValue: value! == "0" ? $masculino : $femenino,
+        );
       },
       listItems: [
         CatalogObject(id: 0, name: $masculino, description: ''),
@@ -881,7 +901,10 @@ List<Widget> _childPersonalData({
       enable: enableInput,
       readOnly: true,
       onChanged: (value) {
-        notifierChild.updateChildField($birthdayProfile, value);
+        notifierChild.updateChildField(
+          fieldName: $birthdayProfile,
+          newValue: value,
+        );
       },
       errorText: stateChild.validationErrors[$birthdayProfile],
       onTap: () => selectDate(context, stateChild.child!.birthday),
@@ -899,7 +922,10 @@ List<Widget> _childPersonalData({
         linesDynamic: true,
         enable: enableInput,
         onChanged: (value) {
-          notifierChild.updateChildField($addressProfile, value);
+          notifierChild.updateChildField(
+            fieldName: $addressProfile,
+            newValue: value,
+          );
         },
         errorText: stateChild.validationErrors[$addressProfile],
         value: stateChild.child!.address,

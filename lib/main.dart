@@ -52,16 +52,20 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
           final dataMe = mePermisson.data;
           if (dataMe != null) {
             // Guarda los datos del perfil en el almacenamiento local o en el estado global
-            ref.read(authProvider.notifier).settearDataMe(dataMe, tokenFinal);
+            ref
+                .read(authProvider.notifier)
+                .settearDataMe(me: dataMe, token: tokenFinal);
           }
         } on CustomError catch (e) {
           if (e.errorCode == 401) {
             final Token tokenFinal =
                 Token(accessToken: token, refreshToken: refreshToken!);
-            ref.read(profileProvider.notifier).updateIsLoading(false);
+            ref
+                .read(profileProvider.notifier)
+                .updateIsLoading(isLoading: false);
             ref
                 .read(authProvider.notifier)
-                .chagesStateAuthenticated(tokenFinal);
+                .chagesStateAuthenticated(token: tokenFinal);
 
             return;
           }
@@ -78,8 +82,10 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
       if (token != null && verified != true) {
         final Token tokenFinal =
             Token(accessToken: token, refreshToken: refreshToken!);
-        ref.read(profileProvider.notifier).updateIsLoading(true);
-        ref.read(authProvider.notifier).chagesStateAuthenticated(tokenFinal);
+        ref.read(profileProvider.notifier).updateIsLoading(isLoading: true);
+        ref
+            .read(authProvider.notifier)
+            .chagesStateAuthenticated(token: tokenFinal);
       }
       if (token == null) {
         ref.read(authProvider.notifier).chagesStateNoAuthenticated();

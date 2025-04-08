@@ -26,7 +26,7 @@ class FormActivityState extends ConsumerState<FormActivity> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (mounted) {
-        ref.read(activityProvider.notifier).updateErrorMessage();
+        ref.read(activityProvider.notifier).updateResponse();
       }
     });
   }
@@ -75,8 +75,10 @@ class FormActivityState extends ConsumerState<FormActivity> {
           selectedPictogram.map((item) => item.name).toList().join(' ');
 
       ref.read(activityProvider.notifier).updateActivityField(
-          $pictogramSentence,
-          selectedPictogram.map((item) => item.id.toString()).join(','));
+            fieldName: $pictogramSentence,
+            newValue:
+                selectedPictogram.map((item) => item.id.toString()).join(','),
+          );
     });
   }
 
@@ -88,8 +90,10 @@ class FormActivityState extends ConsumerState<FormActivity> {
           selectedPictogram.map((item) => item.name).toList().join(' ');
 
       ref.read(activityProvider.notifier).updateActivityField(
-          $pictogramSentence,
-          selectedPictogram.map((item) => item.id.toString()).join(','));
+            fieldName: $pictogramSentence,
+            newValue:
+                selectedPictogram.map((item) => item.id.toString()).join(','),
+          );
     });
   }
 
@@ -145,7 +149,7 @@ class FormActivityState extends ConsumerState<FormActivity> {
             description: S.current.La_actividad_se_guardo_correctamente,
             typeAlert: ToastificationType.success,
           );
-          notifierActivity.updateErrorMessage();
+          notifierActivity.updateResponse();
           ref.read(activitiesProvider.notifier).resetState();
           ref.read(activitiesProvider.notifier).getActivities();
         }
@@ -158,7 +162,7 @@ class FormActivityState extends ConsumerState<FormActivity> {
           description: next.errorMessageApi!,
           typeAlert: ToastificationType.error,
         );
-        notifierActivity.updateErrorMessage();
+        notifierActivity.updateResponse();
       }
     });
 
@@ -179,7 +183,10 @@ class FormActivityState extends ConsumerState<FormActivity> {
                     enable: true,
                     maxLength: 100,
                     onChanged: (value) {
-                      notifierActivity.updateActivityField($name, value);
+                      notifierActivity.updateActivityField(
+                        fieldName: $name,
+                        newValue: value,
+                      );
                     },
                     errorText: stateWacthActivity.validationErrors[$name],
                   ),
@@ -193,7 +200,10 @@ class FormActivityState extends ConsumerState<FormActivity> {
                     linesDynamic: true,
                     maxLength: 250,
                     onChanged: (value) {
-                      notifierActivity.updateActivityField($description, value);
+                      notifierActivity.updateActivityField(
+                        fieldName: $description,
+                        newValue: value,
+                      );
                     },
                     errorText:
                         stateWacthActivity.validationErrors[$description],
@@ -213,7 +223,10 @@ class FormActivityState extends ConsumerState<FormActivity> {
                       setState(() {
                         FocusManager.instance.primaryFocus?.unfocus();
                       });
-                      notifierActivity.updateActivityField($phaseId, value!);
+                      notifierActivity.updateActivityField(
+                        fieldName: $phaseId,
+                        newValue: value!,
+                      );
                     },
                   ),
                 ),
@@ -229,7 +242,9 @@ class FormActivityState extends ConsumerState<FormActivity> {
                     isNumber: true,
                     onChanged: (value) {
                       notifierActivity.updateActivityField(
-                          $satisfactoryPoints, value);
+                        fieldName: $satisfactoryPoints,
+                        newValue: value,
+                      );
                     },
                     errorText: stateWacthActivity
                         .validationErrors[$satisfactoryPoints],
