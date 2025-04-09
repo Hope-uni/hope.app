@@ -22,6 +22,8 @@ class GridImages extends ConsumerStatefulWidget {
 
 class GridImagesState extends ConsumerState<GridImages> {
   final scrollController = ScrollController();
+  String? namePicto;
+  int? idCategory;
 
   @override
   void initState() {
@@ -71,7 +73,8 @@ class GridImagesState extends ConsumerState<GridImages> {
                   statePictograms.paginatePictograms[$pageCount]!) {
             if (widget.isCustomized) {
               await notifierPictograms.getCustomPictograms(
-                  idChild: widget.idChild);
+                idChild: widget.idChild,
+              );
             } else {
               await notifierPictograms.getPictograms();
             }
@@ -83,10 +86,8 @@ class GridImagesState extends ConsumerState<GridImages> {
 
   @override
   Widget build(BuildContext context) {
-    final typePicto = ref.watch(pictogramsProvider).typePicto;
-
-    final statePictograms = ref.read(pictogramsProvider);
-    final stateWacthPictograms = ref.watch(pictogramsProvider);
+    final statePictograms = ref.watch(pictogramsProvider);
+    final notifierPictograms = ref.read(pictogramsProvider.notifier);
     final stateWacthCustomPictograms = ref.watch(customPictogramProvider);
     final selectedDelete = ref.watch(selectDelete);
 
@@ -151,141 +152,174 @@ class GridImagesState extends ConsumerState<GridImages> {
       }
     });
 
-    return Stack(
-      children: [
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10),
-          child: Column(
-            children: [
-              const SizedBox(height: 20),
-              SelectBox(
-                valueInitial: typePicto,
-                hint: S.current.Categoria_de_pictogramas,
-                enable: true,
-                onSelected: (value) {
-                  ref
-                      .read(pictogramsProvider.notifier)
-                      .onTypePictoChange(value: value!);
-                },
-                listItems: statePictograms.categoryPictograms
-                    .map((item) => CatalogObject(
-                        id: item.id, name: item.name, description: ''))
-                    .toList(),
-              ),
-              InputForm(
-                hint: S.current.Busqueda_por_nombre,
-                value: '',
-                enable: true,
-                onChanged: (value) {
-                  ref
-                      .read(pictogramsProvider.notifier)
-                      .onNamePictoChange(value: value);
-                },
-              ),
-              Expanded(
-                child: Stack(
-                  children: [
-                    if (stateWacthPictograms.paginatePictograms[$indexPage] !=
-                        1)
-                      SizedBox.expand(
-                        child: stateWacthPictograms.pictograms.isNotEmpty
-                            ? GridView.builder(
-                                controller: scrollController,
-                                gridDelegate:
-                                    const SliverGridDelegateWithMaxCrossAxisExtent(
-                                  maxCrossAxisExtent: 150,
-                                  childAspectRatio: 0.6,
-                                ),
-                                itemCount: statePictograms.pictograms.length,
-                                itemBuilder: (context, index) {
-                                  return _ImageGrid(
-                                    pictogram:
-                                        statePictograms.pictograms[index],
-                                    isCustomized: widget.isCustomized,
-                                    ref: ref,
-                                  );
-                                },
-                              )
-                            : SvgPicture.asset(
-                                fit: BoxFit.contain,
-                                'assets/svg/SinDatos.svg',
-                              ),
-                      ),
-                    if (stateWacthPictograms.isLoading == true &&
-                        stateWacthPictograms.paginatePictograms[$indexPage]! !=
-                            1)
-                      const Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Padding(
-                          padding: EdgeInsets.all(16),
-                          child: CircularProgressIndicator(),
-                        ),
-                      ),
-                    // 🔄 LOADING
-                    if (stateWacthPictograms.paginatePictograms[$indexPage]! ==
-                        1) ...[
-                      const Opacity(
-                        opacity: 0.5,
-                        child: ModalBarrier(
-                            dismissible: false, color: $colorTransparent),
-                      ),
-                      Center(
-                        child: stateWacthPictograms.isErrorInitial == true
-                            ? SvgPicture.asset(
-                                fit: BoxFit.contain,
-                                'assets/svg/SinDatos.svg',
-                              )
-                            : Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const CircularProgressIndicator(),
-                                  const SizedBox(height: 25),
-                                  Text(
-                                    S.current.Cargando,
-                                    style: const TextStyle(
-                                      color: $colorButtonDisable,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      decoration: TextDecoration.none,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                      ),
-                    ],
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        if (stateWacthCustomPictograms.isLoading == true &&
-            selectedDelete == true)
-          const Opacity(
-            opacity: 0.5,
-            child: ModalBarrier(dismissible: false, color: $colorTextBlack),
-          ),
-        if (stateWacthCustomPictograms.isLoading == true &&
-            selectedDelete == true)
-          Center(
+    return GestureDetector(
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: Stack(
+        children: [
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 10),
             child: Column(
-              mainAxisSize: MainAxisSize.min,
               children: [
-                const CircularProgressIndicator(),
-                const SizedBox(height: 25),
-                Text(
-                  S.current.Cargando,
-                  style: const TextStyle(
-                    color: $colorTextWhite,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    decoration: TextDecoration.none,
+                const SizedBox(height: 20),
+                SelectBox(
+                  hint: S.current.Categoria_de_pictogramas,
+                  enable: true,
+                  onSelected: (value) async {
+                    if (widget.isCustomized) {
+                      await notifierPictograms.getCustomPictograms(
+                        idChild: widget.idChild,
+                        idCategory: int.parse(value!),
+                      );
+                    } else {
+                      await notifierPictograms.getPictograms(
+                        idCategory: int.parse(value!),
+                      );
+                    }
+                    idCategory = int.parse(value);
+                  },
+                  deleteSelection: true,
+                  reset: () {
+                    idCategory = null;
+                    notifierPictograms.resetFilters(
+                      namePictogram: namePicto,
+                      isCustom: widget.isCustomized,
+                      idChild: widget.idChild,
+                    );
+                  },
+                  listItems: statePictograms.categoryPictograms
+                      .map((item) => CatalogObject(
+                            id: item.id,
+                            name: item.name,
+                            description: '',
+                          ))
+                      .toList(),
+                ),
+                InputForm(
+                    hint: S.current.Busqueda_por_nombre,
+                    value: '',
+                    enable: true,
+                    onSearch: () async {
+                      if (widget.isCustomized) {
+                        await notifierPictograms.getCustomPictograms(
+                          idChild: widget.idChild,
+                          namePictogram: namePicto,
+                          idCategory: idCategory,
+                        );
+                      } else {
+                        await notifierPictograms.getPictograms(
+                          namePictogram: namePicto,
+                          idCategory: idCategory,
+                        );
+                      }
+                    },
+                    onChanged: (String value) {
+                      namePicto = value.isNotEmpty ? value : null;
+                    }),
+                Expanded(
+                  child: Stack(
+                    children: [
+                      if (statePictograms.paginatePictograms[$indexPage] != 1)
+                        SizedBox.expand(
+                          child: statePictograms.pictograms.isNotEmpty
+                              ? GridView.builder(
+                                  controller: scrollController,
+                                  gridDelegate:
+                                      const SliverGridDelegateWithMaxCrossAxisExtent(
+                                    maxCrossAxisExtent: 150,
+                                    childAspectRatio: 0.6,
+                                  ),
+                                  itemCount: statePictograms.pictograms.length,
+                                  itemBuilder: (context, index) {
+                                    return _ImageGrid(
+                                      pictogram:
+                                          statePictograms.pictograms[index],
+                                      isCustomized: widget.isCustomized,
+                                      ref: ref,
+                                    );
+                                  },
+                                )
+                              : SvgPicture.asset(
+                                  fit: BoxFit.contain,
+                                  'assets/svg/SinDatos.svg',
+                                ),
+                        ),
+                      if (statePictograms.isLoading == true &&
+                          statePictograms.paginatePictograms[$indexPage]! != 1)
+                        const Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Padding(
+                            padding: EdgeInsets.all(16),
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
+                      // 🔄 LOADING
+                      if (statePictograms.paginatePictograms[$indexPage]! ==
+                          1) ...[
+                        const Opacity(
+                          opacity: 0.5,
+                          child: ModalBarrier(
+                              dismissible: false, color: $colorTransparent),
+                        ),
+                        Center(
+                          child: statePictograms.isErrorInitial == true
+                              ? SvgPicture.asset(
+                                  fit: BoxFit.contain,
+                                  'assets/svg/SinDatos.svg',
+                                )
+                              : Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const CircularProgressIndicator(),
+                                    const SizedBox(height: 25),
+                                    Text(
+                                      S.current.Cargando,
+                                      style: const TextStyle(
+                                        color: $colorButtonDisable,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        decoration: TextDecoration.none,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                        ),
+                      ],
+                    ],
                   ),
                 ),
               ],
             ),
           ),
-      ],
+          if (stateWacthCustomPictograms.isLoading == true &&
+              selectedDelete == true)
+            const Opacity(
+              opacity: 0.5,
+              child: ModalBarrier(dismissible: false, color: $colorTextBlack),
+            ),
+          if (stateWacthCustomPictograms.isLoading == true &&
+              selectedDelete == true)
+            Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const CircularProgressIndicator(),
+                  const SizedBox(height: 25),
+                  Text(
+                    S.current.Cargando,
+                    style: const TextStyle(
+                      color: $colorTextWhite,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.none,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+        ],
+      ),
     );
   }
 }

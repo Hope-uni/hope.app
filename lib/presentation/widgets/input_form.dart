@@ -1,37 +1,48 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 
 class InputForm extends StatefulWidget {
+  final int? maxLength;
+
+  final double? marginBottom;
+
   final String value;
-  final bool enable;
   final String? label;
   final String? hint;
   final String? errorText;
-  final int? maxLength;
+
+  final bool enable;
+  final bool isMargin;
   final bool linesDynamic;
-  final double? marginBottom;
   final bool? obscureText;
-  final Widget? suffixIcon;
   final bool? isNumber;
   final bool? allCharacters;
   final bool? readOnly;
+
+  final Widget? suffixIcon;
+
   final FocusNode? focus;
+
   final List<TextInputFormatter>? inputFormatters;
+
   final Function(String)? onChanged;
   final Function()? onTap;
-  final bool? isSearch;
+  final void Function()? onSearch;
+
   final TextEditingController? controllerExt;
+
   final Color? colorFilled;
-  final bool isMargin;
 
   const InputForm({
     super.key,
     required this.value,
     required this.enable,
+    this.linesDynamic = false,
+    this.isMargin = true,
     this.label,
     this.readOnly,
-    this.linesDynamic = false,
     this.maxLength,
     this.onTap,
     this.onChanged,
@@ -44,10 +55,9 @@ class InputForm extends StatefulWidget {
     this.errorText,
     this.isNumber,
     this.allCharacters,
-    this.isSearch,
     this.controllerExt,
     this.colorFilled,
-    this.isMargin = true,
+    this.onSearch,
   });
 
   @override
@@ -56,12 +66,30 @@ class InputForm extends StatefulWidget {
 
 class _InputFormState extends State<InputForm> {
   late TextEditingController _controller;
+  Timer? _debounceTimer;
+  bool _hasStartedTyping = false;
 
   @override
   void initState() {
     super.initState();
     _controller =
         widget.controllerExt ?? TextEditingController(text: widget.value);
+    if (widget.onSearch != null) _controller.addListener(_onSearchTextChanged);
+  }
+
+  void _onSearchTextChanged() {
+    // Evitamos ejecutar la lógica si es la primera vez que se hace focus o se inicializa
+    if (!_hasStartedTyping) {
+      _hasStartedTyping = true;
+      return;
+    }
+    // Si ya existe un timer activo, lo cancelamos
+    if (_debounceTimer?.isActive ?? false) _debounceTimer?.cancel();
+
+    // Creamos un nuevo timer que espere 600ms después de que el usuario haya dejado de escribir
+    _debounceTimer = Timer(const Duration(milliseconds: 600), () {
+      if (widget.onSearch != null) widget.onSearch!.call();
+    });
   }
 
   @override
@@ -82,6 +110,8 @@ class _InputFormState extends State<InputForm> {
   @override
   void dispose() {
     super.dispose();
+    _controller.dispose();
+    _debounceTimer?.cancel();
   }
 
   @override
@@ -104,9 +134,6 @@ class _InputFormState extends State<InputForm> {
         maxLength: widget.enable ? widget.maxLength : null,
         style: const TextStyle(color: $colorTextBlack),
         textCapitalization: TextCapitalization.sentences,
-        textInputAction: widget.isSearch == true
-            ? TextInputAction.search
-            : TextInputAction.done,
         inputFormatters: widget.isNumber == true
             ? [FilteringTextInputFormatter.digitsOnly]
             : (widget.allCharacters != false

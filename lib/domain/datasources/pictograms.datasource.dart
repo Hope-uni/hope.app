@@ -3,6 +3,8 @@ import 'package:hope_app/domain/domain.dart';
 abstract class PictogramsDataSource {
   Future<ResponseDataList<PictogramAchievements>> getPictograms({
     required int indexPage,
+    required int? idCategory,
+    required String? namePictogram,
   });
 
   Future<ResponseDataList<Category>> getCategoryPictograms();
@@ -14,6 +16,8 @@ abstract class PictogramsDataSource {
   Future<ResponseDataList<PictogramAchievements>> getCustomPictograms({
     required int indexPage,
     required int idChild,
+    required int? idCategory,
+    required String? namePictogram,
   });
 
   Future<ResponseDataObject<ResponseData>> deleteCustomPictograms({

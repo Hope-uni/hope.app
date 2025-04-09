@@ -58,7 +58,7 @@ class CustomPictogramNotifier extends StateNotifier<CustomPictogramState> {
         idPictogram: state.pictogram!.id,
       );
 
-      notifierPictograms.updateDeletePictogram(
+      notifierPictograms.deleteCustomPictogram(
         idPictogram: state.pictogram!.id,
       );
 
@@ -82,7 +82,7 @@ class CustomPictogramNotifier extends StateNotifier<CustomPictogramState> {
   Future<void> updateCustomPictogram() async {
     state = state.copyWith(isLoading: true);
     try {
-      await pictogramsRepository.updateCustomPictograms(
+      final pictogram = await pictogramsRepository.updateCustomPictograms(
         pictogram: CustomPictogram(
           name: state.pictogram!.name,
           imageUrl: state.pictogram!.imageUrl,
@@ -90,6 +90,8 @@ class CustomPictogramNotifier extends StateNotifier<CustomPictogramState> {
         ),
         idPictogram: state.pictogram!.id,
       );
+
+      notifierPictograms.updateCustomPictogram(pictogram: pictogram.data!);
 
       state = state.copyWith(
         isLoading: false,

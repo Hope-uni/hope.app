@@ -4,15 +4,21 @@ import 'package:hope_app/presentation/utils/utils.dart';
 
 class SelectBox extends StatefulWidget {
   final List<CatalogObject> listItems;
-  final bool enable;
+
   final String? label;
   final String? hint;
   final String? valueInitial;
-  final void Function(String?)? onSelected;
-  final double? marginHorizontal;
   final String? errorText;
+
+  final double? marginHorizontal;
+
   final bool? deleteSelection;
+  final bool enable;
+
   final FocusNode? focus;
+
+  final void Function(String?)? onSelected;
+  final void Function()? reset;
 
   const SelectBox({
     super.key,
@@ -26,6 +32,7 @@ class SelectBox extends StatefulWidget {
     this.valueInitial,
     this.marginHorizontal,
     this.focus,
+    this.reset,
   });
 
   @override
@@ -46,21 +53,29 @@ class _SelectBoxState extends State<SelectBox> {
     return Container(
       margin: const EdgeInsets.only(left: 15, right: 15, bottom: 12.5),
       child: DropdownMenu<String>(
+        controller: controller,
         requestFocusOnTap: false,
         initialSelection: controller.value.text,
-        controller: controller,
         expandedInsets: const EdgeInsets.all(1),
-        onSelected: widget.onSelected,
-        trailingIcon: widget.deleteSelection != true
-            ? null
-            : controller.value.text.isNotEmpty
-                ? GestureDetector(
-                    onTap: () {
-                      setState(() => controller.text = '');
-                    },
-                    child: const Icon(Icons.clear),
-                  )
-                : null,
+        onSelected: (value) {
+          final selected = widget.listItems.firstWhere(
+            (item) => item.id.toString() == value,
+          );
+          controller.text = selected.name;
+          widget.onSelected?.call(value);
+          setState(() {});
+        },
+        trailingIcon: controller.value.text.isNotEmpty == true &&
+                widget.deleteSelection == true
+            ? GestureDetector(
+                onTap: () {
+                  controller.clear();
+                  widget.reset!.call();
+                  setState(() {});
+                },
+                child: const Icon(Icons.clear),
+              )
+            : null,
         enableSearch: false,
         enabled: widget.enable,
         label: widget.label != null
@@ -88,7 +103,9 @@ class _SelectBoxState extends State<SelectBox> {
         dropdownMenuEntries: widget.listItems
             .map<DropdownMenuEntry<String>>((CatalogObject item) {
           return DropdownMenuEntry<String>(
-              value: item.id.toString(), label: item.name);
+            value: item.id.toString(),
+            label: item.name,
+          );
         }).toList(),
       ),
     );

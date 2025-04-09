@@ -279,7 +279,6 @@ class FormActivityState extends ConsumerState<FormActivity> {
                           .toList(),
                     ),
                     InputForm(
-                      isSearch: true,
                       label: S.current.Busqueda_por_nombre,
                       value: '',
                       enable: true,
