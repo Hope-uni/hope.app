@@ -109,7 +109,6 @@ class RemoveAcivityPageState extends ConsumerState<RemoveAcivityPage> {
               enable: true,
               label: S.current.Busqueda_por_nombre,
               marginBottom: 0,
-              isSearch: true,
               //TODO: Implementar condicional con provider cuando este listo el endpoint
               suffixIcon: true
                   ? const Icon(

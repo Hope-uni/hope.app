@@ -96,7 +96,6 @@ class ChildrenTherapistPageState extends ConsumerState<ChildrenTherapistPage> {
               marginBottom: 0,
               onChanged: (value) =>
                   ref.read(searchPatients.notifier).state = value,
-              isSearch: true,
               suffixIcon: searchsPatients.isEmpty
                   ? const Icon(
                       Icons.search,

@@ -96,7 +96,6 @@ class ChildrenTutorPageState extends ConsumerState<ChildrenTutorPage> {
               marginBottom: 0,
               onChanged: (value) =>
                   ref.read(searchPatients.notifier).state = value,
-              isSearch: true,
               suffixIcon: searchsPatients.isEmpty
                   ? const Icon(
                       Icons.search,

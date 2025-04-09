@@ -131,7 +131,6 @@ class ActivitiesPageState extends ConsumerState<ActivitiesPage> {
               marginBottom: 0,
               onChanged: (value) =>
                   ref.read(searchNameActivity.notifier).state = value,
-              isSearch: true,
               suffixIcon: searchActivity.isEmpty
                   ? const Icon(
                       Icons.search,

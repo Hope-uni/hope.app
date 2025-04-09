@@ -10,8 +10,14 @@ class PictogramsRepositoyImpl extends PictogramsRepository {
   @override
   Future<ResponseDataList<PictogramAchievements>> getPictograms({
     required int indexPage,
+    required int? idCategory,
+    required String? namePictogram,
   }) {
-    return dataSource.getPictograms(indexPage: indexPage);
+    return dataSource.getPictograms(
+      indexPage: indexPage,
+      idCategory: idCategory,
+      namePictogram: namePictogram,
+    );
   }
 
   @override
@@ -30,10 +36,14 @@ class PictogramsRepositoyImpl extends PictogramsRepository {
   Future<ResponseDataList<PictogramAchievements>> getCustomPictograms({
     required int indexPage,
     required int idChild,
+    required int? idCategory,
+    required String? namePictogram,
   }) {
     return dataSource.getCustomPictograms(
       indexPage: indexPage,
       idChild: idChild,
+      idCategory: idCategory,
+      namePictogram: namePictogram,
     );
   }
 

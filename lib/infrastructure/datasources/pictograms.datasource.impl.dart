@@ -7,10 +7,17 @@ class PictogramsDataSourceImpl extends PictogramsDataSource {
   @override
   Future<ResponseDataList<PictogramAchievements>> getPictograms({
     required int indexPage,
+    required int? idCategory,
+    required String? namePictogram,
   }) async {
     try {
-      final response =
-          await dioServices.dio.get('/pictogram/?page=$indexPage&size=15');
+      // Construir la URL dinámicamente
+      String url = '/pictogram/?page=$indexPage&size=15';
+
+      if (idCategory != null) url += '&categoryId=$idCategory';
+      if (namePictogram != null) url += '&pictogramName=$namePictogram';
+
+      final response = await dioServices.dio.get(url);
 
       final responsePictograms =
           ResponseMapper.responseJsonListToEntity<PictogramAchievements>(
@@ -63,10 +70,18 @@ class PictogramsDataSourceImpl extends PictogramsDataSource {
   Future<ResponseDataList<PictogramAchievements>> getCustomPictograms({
     required int indexPage,
     required int idChild,
+    required int? idCategory,
+    required String? namePictogram,
   }) async {
     try {
-      final response = await dioServices.dio.get(
-          '/patientPictogram/patient-pictograms/$idChild?page=$indexPage&size=15');
+      // Construir la URL dinámicamente
+      String url =
+          '/patientPictogram/patient-pictograms/$idChild?page=$indexPage&size=15';
+
+      if (idCategory != null) url += '&categoryId=$idCategory';
+      if (namePictogram != null) url += '&pictogramName=$namePictogram';
+
+      final response = await dioServices.dio.get(url);
 
       final responseCustomPictograms =
           ResponseMapper.responseJsonListToEntity<PictogramAchievements>(
