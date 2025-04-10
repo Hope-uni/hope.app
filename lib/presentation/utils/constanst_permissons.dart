@@ -15,3 +15,4 @@ const String $updateCustomPictogram = "actualizar pictogramas-personalizados";
 const String $tutor = "Tutor";
 const String $terapeuta = "Terapeuta";
 const String $paciente = "Paciente";
+const String $admin = "Admin";

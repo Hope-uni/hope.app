@@ -6,6 +6,7 @@ import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/providers/providers.dart';
 import 'package:hope_app/presentation/services/services.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
+import 'package:toastification/toastification.dart';
 
 final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
   final authRepository = AuthRepositoryImpl();
@@ -46,14 +47,47 @@ class AuthNotifier extends StateNotifier<AuthState> {
       await dio.configureBearer();
       final mePermisson = await authRepository.mePermissions();
 
+      // 🔐 Validar el rol antes de continuar
       final dataMe = mePermisson.data;
-      settearDataMe(me: dataMe!, token: token);
+
+      final roles = dataMe!.roles.map((item) => item.name);
+      if (!roles.contains($paciente) &&
+          !roles.contains($tutor) &&
+          !roles.contains($terapeuta)) {
+        state = state.copyWith(isloading: false);
+        throw CustomError(
+          errorCode: null,
+          dataError: null,
+          message: S.current.No_esta_autorizado_para_iniciar_sesion_en_la_APP,
+          typeNotification: ToastificationType.error,
+        );
+      }
+
+      settearDataMe(me: dataMe, token: token);
+      state = state.copyWith(isloading: false);
     } on CustomError catch (e) {
       if (e.errorCode == 401) {
+        //Validando el Rol si el usuario no esta verificado
         await keyValueRepository.setValueStorage<bool>(false, $verified);
+
+        final rol = e.dataError!.role.name;
+
+        await keyValueRepository.setValueStorage<List<String>>([rol], $roles);
+
         profileStateNotifier.updateIsLoading(isLoading: false);
 
         chagesStateAuthenticated(token: token);
+
+        if (rol == $paciente) {
+          _settearError(error: e.message);
+        }
+
+        if (rol != $terapeuta && rol != $paciente && rol != $tutor) {
+          _settearError(
+            error: S.current.No_esta_autorizado_para_iniciar_sesion_en_la_APP,
+          );
+        }
+
         return;
       }
       _settearError(error: e.message);
@@ -83,12 +117,15 @@ class AuthNotifier extends StateNotifier<AuthState> {
     required String password,
   }) async {
     try {
+      state = state.copyWith(isloading: true);
       final token = await authRepository.login(emailUsername, password);
       setLoggedToken(token: token.data!);
     } on CustomError catch (e) {
       _settearError(error: e.message);
+      state = state.copyWith(isloading: false);
     } catch (e) {
       _settearError(error: S.current.Error_no_controlado);
+      state = state.copyWith(isloading: false);
     }
   }
 
@@ -112,9 +149,15 @@ class AuthNotifier extends StateNotifier<AuthState> {
   void _settearError({required String error}) {
     _resetTokens();
     state = state.copyWith(
-        authStatus: AuthStatus.notAuthenticated,
-        token: null,
-        errorMessage: error);
+      authStatus: AuthStatus.notAuthenticated,
+      token: null,
+      errorMessage: error,
+      isloading: false,
+    );
+  }
+
+  void updateResponse() {
+    state = state.copyWith(errorMessage: '');
   }
 
   void _resetTokens() async {
@@ -128,13 +171,14 @@ class AuthNotifier extends StateNotifier<AuthState> {
     await keyValueRepository.setValueStorage<String>(me.email, $email);
 
     await keyValueRepository.setValueStorage<String>(
-        jsonEncode(MePermissionsMapper.toJsonProfile(me.profile)), $profile);
+        jsonEncode(MePermissionsMapper.toJsonProfile(me.profile!)), $profile);
 
     final roles = me.roles.map((e) => e.name).toList();
 
     await keyValueRepository.setValueStorage<List<String>>(roles, $roles);
 
-    final permissonsList = me.roles.expand((role) => role.permissions).toList();
+    final permissonsList =
+        me.roles.expand((role) => role.permissions!).toList();
 
     final descriptionsPermissons =
         permissonsList.map((e) => e.description).toList();
@@ -151,18 +195,29 @@ class AuthNotifier extends StateNotifier<AuthState> {
 enum AuthStatus { checking, authenticated, notAuthenticated }
 
 class AuthState {
+  final bool? isloading;
   final AuthStatus authStatus;
   final Token? token;
   final String? errorMessage;
 
-  AuthState(
-      {this.token, this.errorMessage, this.authStatus = AuthStatus.checking});
+  AuthState({
+    this.isloading,
+    this.token,
+    this.errorMessage,
+    this.authStatus = AuthStatus.checking,
+  });
 
-  AuthState copyWith(
-          {AuthStatus? authStatus, Token? token, String? errorMessage}) =>
+  AuthState copyWith({
+    AuthStatus? authStatus,
+    bool? isloading,
+    Token? token,
+    String? errorMessage,
+  }) =>
       AuthState(
-          authStatus: authStatus ?? this.authStatus,
-          errorMessage:
-              errorMessage == '' ? null : errorMessage ?? this.errorMessage,
-          token: token ?? this.token);
+        authStatus: authStatus ?? this.authStatus,
+        isloading: isloading ?? this.isloading,
+        errorMessage:
+            errorMessage == '' ? null : errorMessage ?? this.errorMessage,
+        token: token ?? this.token,
+      );
 }

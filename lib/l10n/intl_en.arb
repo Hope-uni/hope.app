@@ -220,5 +220,6 @@
   "Nuevo_valor": "Nuevo valor",
   "Inactivo": "Inactivo",
   "Activo": "Activo",
-  "Se_actualizo_el_filtro_blanco_y_negro_con_exito": "Se actualizó el filtro blanco y negro con exito: {isMonochrome}"
+  "Se_actualizo_el_filtro_blanco_y_negro_con_exito": "Se actualizó el filtro blanco y negro con exito: {isMonochrome}",
+  "No_esta_autorizado_para_iniciar_sesion_en_la_APP": "No está autorizado para iniciar sesión en la APP"
 }
