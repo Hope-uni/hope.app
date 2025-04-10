@@ -2283,6 +2283,16 @@ class S {
       args: [isMonochrome],
     );
   }
+
+  /// `No está autorizado para iniciar sesión en la APP`
+  String get No_esta_autorizado_para_iniciar_sesion_en_la_APP {
+    return Intl.message(
+      'No está autorizado para iniciar sesión en la APP',
+      name: 'No_esta_autorizado_para_iniciar_sesion_en_la_APP',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -348,6 +348,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "No_cuenta_con_el_permiso_necesario":
             MessageLookupByLibrary.simpleMessage(
                 "No cuenta con el permiso necesario"),
+        "No_esta_autorizado_para_iniciar_sesion_en_la_APP":
+            MessageLookupByLibrary.simpleMessage(
+                "No está autorizado para iniciar sesión en la APP"),
         "Nombre": MessageLookupByLibrary.simpleMessage("Nombre"),
         "Nombre_de_usuario":
             MessageLookupByLibrary.simpleMessage("Nombre de usuario"),
