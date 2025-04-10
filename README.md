@@ -50,7 +50,11 @@ _Sigue estos pasos sencillos para configurar y ejecutar el proyecto localmente._
    git clone https://github.com/Hope-uni/hope.app.git
    ```
 
-2. Run the app
+2. Importar dependencias
+   ```bash
+   flutter pub get
+   ```
+3. Run the app
    ```bash
    Ctr + Shit + P
    Seleccionar Flutter: Select device
