@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hope_app/generated/l10n.dart';
+import 'package:hope_app/presentation/providers/providers.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
 import 'package:color_filter_extension/color_filter_extension.dart';
 
-class BoardPage extends StatefulWidget {
+class BoardPage extends ConsumerStatefulWidget {
   const BoardPage({super.key});
 
   @override
-  State<BoardPage> createState() => _BoardPageState();
+  BoardPageState createState() => BoardPageState();
 }
 
-class _BoardPageState extends State<BoardPage> {
+class BoardPageState extends ConsumerState<BoardPage> {
   int acceptedData = 0;
   int indexSeleccionado = 0;
   @override
@@ -70,7 +72,9 @@ class _BoardPageState extends State<BoardPage> {
                             loadingColor: $colorBlueGeneral,
                             duration: 2500,
                             radius: 20,
-                            onConfirm: () {},
+                            onConfirm: () async {
+                              await ref.read(authProvider.notifier).logout();
+                            },
                             strokeWidth: 10,
                             width: 170,
                             height: 43,

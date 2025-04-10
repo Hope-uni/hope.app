@@ -31,13 +31,13 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
       firstName: state.profile!.firstName,
       secondSurname: state.profile!.secondSurname ?? '',
       image: state.profile!.image ?? '',
-      identificationNumber: state.profile!.identificationNumber,
+      identificationNumber: state.profile!.identificationNumber ?? '',
       username: state.userName!,
       email: state.email!,
       birthday: state.profile!.birthday,
       telephone: state.profile!.telephone ?? '',
       gender: state.profile!.gender,
-      phoneNumber: state.profile!.phoneNumber,
+      phoneNumber: state.profile!.phoneNumber ?? '',
       surname: state.profile!.surname,
     );
 
@@ -359,12 +359,12 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
     }
 
     if (!$regexidentificationNumber
-        .hasMatch(state.profile!.identificationNumber)) {
+        .hasMatch(state.profile!.identificationNumber!)) {
       errors[$identificationNumbereProfile] =
           S.current.Formato_incorrecto_de_cedula;
     }
 
-    if (!$regexphoneNumber.hasMatch(state.profile!.phoneNumber)) {
+    if (!$regexphoneNumber.hasMatch(state.profile!.phoneNumber!)) {
       errors[$phoneNumberProfile] =
           S.current.El_celular_deber_ser_un_numero_valido_y_no_estar_vacio;
     }

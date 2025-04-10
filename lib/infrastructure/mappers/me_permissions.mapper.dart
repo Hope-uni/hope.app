@@ -1,4 +1,5 @@
 import 'package:hope_app/domain/domain.dart';
+import 'package:hope_app/infrastructure/infrastructure.dart';
 
 class MePermissionsMapper {
   static Me mePermissionsJsonToEntity(
@@ -8,22 +9,11 @@ class MePermissionsMapper {
         id: json["id"],
         username: json["username"],
         email: json["email"],
-        profile: fromJsonProfile(json["profile"]),
-        roles:
-            List<Role>.from((json["roles"] ?? []).map((x) => roleFromJson(x))),
-      );
-
-  static Role roleFromJson(Map<String, dynamic> json) => Role(
-        id: json["id"],
-        name: json["name"],
-        permissions: List<Permission>.from(
-            (json["permissions"] ?? []).map((x) => permissionFromJson(x))),
-      );
-
-  static Permission permissionFromJson(Map<String, dynamic> json) => Permission(
-        id: json["id"],
-        description: json["description"],
-        status: json["status"],
+        userVerified: json["userVerified"],
+        profile:
+            json["profile"] == null ? null : fromJsonProfile(json["profile"]),
+        roles: List<Role>.from(
+            (json["roles"] ?? []).map((x) => RoleMapper.roleFromJson(x))),
       );
 
   static Profile fromJsonProfile(Map<String, dynamic> json) => Profile(

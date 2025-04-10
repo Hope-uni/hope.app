@@ -2,27 +2,29 @@ class Me {
   int id;
   String username;
   String email;
-  Profile profile;
+  bool userVerified;
+  Profile? profile;
   List<Role> roles;
 
   Me({
     required this.id,
     required this.username,
     required this.email,
-    required this.profile,
+    required this.userVerified,
     required this.roles,
+    this.profile,
   });
 }
 
 class Role {
   int id;
   String name;
-  List<Permission> permissions;
+  List<Permission>? permissions;
 
   Role({
     required this.id,
     required this.name,
-    required this.permissions,
+    this.permissions,
   });
 }
 
@@ -46,8 +48,8 @@ class Profile {
   String surname;
   String? secondSurname;
   String? image;
-  String identificationNumber;
-  String phoneNumber;
+  String? identificationNumber;
+  String? phoneNumber;
   String? telephone;
   String address;
   String birthday;

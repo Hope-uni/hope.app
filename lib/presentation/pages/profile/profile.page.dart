@@ -365,7 +365,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         child: InputForm(
                           label: S.current.Cedula,
                           maxLength: 16,
-                          value: profileState.profile!.identificationNumber,
+                          value: profileState.profile!.identificationNumber!,
                           enable: enableInput,
                           onChanged: (value) {
                             profileNotifier.updateProfileField(
@@ -421,7 +421,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                           label: S.current.Celular,
                           maxLength: 8,
                           isNumber: true,
-                          value: profileState.profile!.phoneNumber,
+                          value: profileState.profile!.phoneNumber!,
                           enable: enableInput,
                           onChanged: (value) {
                             profileNotifier.updateProfileField(
