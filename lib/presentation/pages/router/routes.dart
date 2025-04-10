@@ -141,17 +141,37 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         final String? token =
             await keyValueRepository.getValueStorage<String>($token);
 
+        final List<String>? roles =
+            await keyValueRepository.getValueStorage<List<String>>($roles);
+
+        final bool? verified =
+            await keyValueRepository.getValueStorage<bool>($verified);
+
         if (token == null) return '/login';
 
         if (isGoingTo == '/login' ||
             isGoingTo == '/resetpassword' ||
             isGoingTo == '/splash') {
-          return '/dashboard';
+          if (verified != true && roles!.contains($paciente)) {
+            return '/login';
+          }
+
+          if (!roles!.contains($admin) &&
+              !roles.contains($terapeuta) &&
+              !roles.contains($tutor) &&
+              !roles.contains($paciente)) {
+            return '/login';
+          }
+
+          if (roles.contains($tutor) || roles.contains($terapeuta)) {
+            return '/dashboard';
+          }
+          if (roles.contains($paciente)) return '/board';
+
+          if (roles.contains($admin)) return '/login';
         }
 
         final profileState = ref.read(profileProvider);
-        final bool? verified =
-            await keyValueRepository.getValueStorage<bool>($verified);
 
         if (profileState.isLoading && verified == true) {
           ref.read(profileProvider.notifier).loadProfileAndPermmisions();

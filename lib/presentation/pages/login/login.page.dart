@@ -18,19 +18,19 @@ class LoginPage extends ConsumerStatefulWidget {
 class LoginPageState extends ConsumerState<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    final loginProvider = ref.watch(loginFormProvider);
+    final stateAuth = ref.watch(authProvider);
 
     return Scaffold(
       body: Stack(
         children: [
           const SingleChildScrollView(
               child: AuthBackground(isLogin: true, formChild: LoginForsm())),
-          if (loginProvider.isFormPosted)
+          if (stateAuth.isloading == true)
             const Opacity(
               opacity: 0.5,
               child: ModalBarrier(dismissible: false, color: $colorTextBlack),
             ),
-          if (loginProvider.isFormPosted)
+          if (stateAuth.isloading == true)
             Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -197,13 +197,15 @@ class _ButtonLogin extends ConsumerWidget {
     final loginProvider = ref.watch(loginFormProvider);
 
     ref.listen(authProvider, (previous, next) {
-      if (next.errorMessage == null) return;
-      toastAlert(
-        context: context,
-        title: S.current.Error,
-        description: next.errorMessage!,
-        typeAlert: ToastificationType.error,
-      );
+      if (next.errorMessage != null) {
+        toastAlert(
+          context: context,
+          title: S.current.Error,
+          description: next.errorMessage!,
+          typeAlert: ToastificationType.error,
+        );
+        ref.read(authProvider.notifier).updateResponse();
+      }
     });
 
     return Container(

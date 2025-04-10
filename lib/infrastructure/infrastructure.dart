@@ -41,6 +41,8 @@ export 'mappers/observation.mapper.dart';
 export 'mappers/progress.mapper.dart';
 export 'mappers/phase_shift.mapper.dart';
 export 'mappers/monochrome.mapper.dart';
+export 'mappers/role.mapper.dart';
+export 'mappers/rol.mapper.dart';
 
 export 'errors/custom_errors.dart';
 export 'errors/error_handler.dart';
