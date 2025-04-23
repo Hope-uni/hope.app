@@ -44,7 +44,75 @@ class ActivityPageState extends ConsumerState<ActivityPage> {
     final stateWacthActivity = ref.watch(activityProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text(S.current.Actividad)),
+      appBar: AppBar(
+        title: Text(S.current.Actividad),
+        actions: [
+          Container(
+            margin: const EdgeInsets.only(right: 15),
+            child: IconButton(
+              icon: const Icon(Icons.help),
+              onPressed: () {
+                showDialog<void>(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Container(
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20)),
+                          color: $colorBlueGeneral,
+                        ),
+                        padding: const EdgeInsets.only(
+                            left: 22, top: 20, bottom: 20),
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          S.current.Ayuda,
+                          style: const TextStyle(
+                            color: $colorTextWhite,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      titlePadding: EdgeInsets.zero,
+                      content: SizedBox(
+                        width: 200,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              S.current.Para_ver_la_imagen_con_mas_detalle,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              S.current.Hacer_doble_clic_sobre_la_imagen,
+                            ),
+                            const SizedBox(height: 30),
+                            Text(
+                              S.current.Acciones_en_el_listado_de_pictogramas,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              S.current
+                                  .Puede_desplazarse_de_manera_horizontal_en_los_pictogramas_para_poder_ver_mas_registros,
+                            ),
+                          ],
+                        ),
+                      ),
+                      insetPadding: EdgeInsets.zero,
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
+      ),
       body: Container(
         margin: const EdgeInsets.symmetric(vertical: 10),
         child: Stack(
@@ -140,14 +208,6 @@ class ActivityPageState extends ConsumerState<ActivityPage> {
             ],
           ],
         ),
-      ),
-      floatingActionButton: ButtonTextIcon(
-        title: S.current.Salir,
-        icon: const Icon(Icons.cancel),
-        buttonColor: $colorError,
-        onClic: () {
-          Navigator.of(context).pop();
-        },
       ),
     );
   }

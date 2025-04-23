@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/pages/activities/form_activity.dart';
 import 'package:hope_app/presentation/providers/providers.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
-import 'package:hope_app/presentation/widgets/widgets.dart';
 import 'package:toastification/toastification.dart';
 
 class NewActivityPage extends ConsumerStatefulWidget {
@@ -107,6 +107,25 @@ class NewActivityState extends ConsumerState<NewActivityPage> {
                               Text(
                                 S.current.Hacer_doble_clic_sobre_la_imagen,
                               ),
+                              const SizedBox(height: 30),
+                              Text(
+                                S.current.Acciones_en_el_listado_de_pictogramas,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                S.current
+                                    .Puede_desplazarse_de_manera_horizontal_en_los_pictogramas_para_poder_ver_mas_registros,
+                              ),
+                              const SizedBox(height: 10),
+                              Text(S.current
+                                  .Si_desea_agregar_un_pictograma_a_la_solucion_debe_dar_clic_en_el_boton_verde_con_el_icono_de_listo),
+                              const SizedBox(height: 10),
+                              Text(
+                                S.current
+                                    .Si_desea_eliminar_un_pictograma_a_la_solucion_debe_dar_clic_en_el_boton_rojo_con_el_icono_del_basurero,
+                              ),
                             ],
                           ),
                         ),
@@ -125,14 +144,31 @@ class NewActivityState extends ConsumerState<NewActivityPage> {
                     1 ||
                 statePhases.isLoading == true
             ? null
-            : Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+            : SpeedDial(
+                icon: Icons.expand_less,
+                activeIcon: Icons.expand_more,
+                animationDuration: const Duration(milliseconds: 300),
+                spacing: 3,
+                overlayColor: $colorShadow,
+                overlayOpacity: 0.2,
+                childPadding: const EdgeInsets.all(5),
+                spaceBetweenChildren: 4,
+                elevation: 8.0,
+                animationCurve: Curves.easeInOut,
+                isOpenOnStart: false,
+                shape: const CircleBorder(),
+                onOpen: () {
+                  setState(() {
+                    FocusManager.instance.primaryFocus?.unfocus();
+                  });
+                },
                 children: [
-                  ButtonTextIcon(
-                    title: S.current.Guardar,
-                    icon: const Icon(Icons.save),
-                    buttonColor: $colorSuccess,
-                    onClic: () {
+                  SpeedDialChild(
+                    shape: const CircleBorder(),
+                    child: const Icon(Icons.save, color: $colorTextWhite),
+                    backgroundColor: $colorSuccess,
+                    label: S.current.Guardar,
+                    onTap: () {
                       setState(() {
                         FocusManager.instance.primaryFocus?.unfocus();
                       });
@@ -182,12 +218,12 @@ class NewActivityState extends ConsumerState<NewActivityPage> {
                       });
                     },
                   ),
-                  const SizedBox(width: 10),
-                  ButtonTextIcon(
-                    title: S.current.Cancelar,
-                    icon: const Icon(Icons.cancel),
-                    buttonColor: $colorError,
-                    onClic: () {
+                  SpeedDialChild(
+                    shape: const CircleBorder(),
+                    child: const Icon(Icons.cancel, color: $colorTextWhite),
+                    backgroundColor: $colorError,
+                    label: S.current.Cancelar,
+                    onTap: () {
                       modalDialogConfirmation(
                         context: context,
                         titleButtonConfirm: S.current.Si_salir,

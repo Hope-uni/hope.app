@@ -93,7 +93,85 @@ class AddActivityPageState extends ConsumerState<AddActivityPage> {
     });
 
     return Scaffold(
-      appBar: AppBar(title: Text(S.current.Asignar_actividad)),
+      appBar: AppBar(
+        title: Text(S.current.Asignar_actividad),
+        actions: [
+          Container(
+            margin: const EdgeInsets.only(right: 15),
+            child: IconButton(
+              icon: const Icon(Icons.help),
+              onPressed: () {
+                showDialog<void>(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Container(
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20)),
+                          color: $colorBlueGeneral,
+                        ),
+                        padding: const EdgeInsets.only(
+                            left: 22, top: 20, bottom: 20),
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          S.current.Ayuda,
+                          style: const TextStyle(
+                            color: $colorTextWhite,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      titlePadding: EdgeInsets.zero,
+                      content: SizedBox(
+                        width: 200,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              S.current
+                                  .Para_ver_la_foto_de_perfil_de_los_pacientes_con_mas_detalle,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              S.current.Hacer_doble_clic_sobre_la_imagen,
+                            ),
+                            const SizedBox(height: 30),
+                            Text(
+                              S.current.Flujo_para_asignacion_de_actividad,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              S.current
+                                  .Seleccione_los_pacientes_a_los_cuales_desea_agregar_la_actividad_dando_clic_en_el_cuadro_a_la_derecha_del_registro,
+                            ),
+                            const SizedBox(height: 10),
+                            Text(S.current
+                                .Avanzar_al_siguiente_paso_dando_clic_en_el_boton_de_la_esquina_inferior_derecha),
+                            const SizedBox(height: 10),
+                            Text(S.current
+                                .Si_desea_eliminar_un_paciente_de_la_lista_de_asignacion_hacer_clic_sobre_el_icono_rojo_del_basurero),
+                            const SizedBox(height: 10),
+                            Text(S.current
+                                .Para_finalizar_asignacion_hacer_clic_sobre_el_boton_en_la_esquina_inferior_derecha_y_seleccionar_la_opcion_de_guardar),
+                          ],
+                        ),
+                      ),
+                      insetPadding: EdgeInsets.zero,
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
+      ),
       body: SizedBox(
         height: size.height,
         child: stateWacthChildren.paginateChildren[$indexPage] != 1

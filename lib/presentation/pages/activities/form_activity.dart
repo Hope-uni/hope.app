@@ -16,6 +16,9 @@ class FormActivity extends ConsumerStatefulWidget {
 
 class FormActivityState extends ConsumerState<FormActivity> {
   final scrollController = ScrollController();
+  String? namePicto;
+  int? idCategory;
+  bool isFirst = true;
 
   final List<PictogramAchievements> selectedPictogram = [];
   String textSolution = '';
@@ -126,6 +129,7 @@ class FormActivityState extends ConsumerState<FormActivity> {
     final notifierActivity = ref.read(activityProvider.notifier);
     final statePictograms = ref.watch(pictogramsProvider);
     final statePhases = ref.watch(phasesProvider);
+    final notifierPictograms = ref.read(pictogramsProvider.notifier);
 
     ref.listen(activityProvider, (previous, next) {
       if (next.validationErrors.isNotEmpty && next.isSave == true) {
@@ -267,7 +271,23 @@ class FormActivityState extends ConsumerState<FormActivity> {
                     SelectBox(
                       label: S.current.Categoria_de_pictogramas,
                       enable: true,
-                      onSelected: (value) {},
+                      onSelected: (value) async {
+                        isFirst = false;
+                        await notifierPictograms.getPictograms(
+                          idCategory: int.parse(value!),
+                        );
+
+                        idCategory = int.parse(value);
+                      },
+                      deleteSelection: true,
+                      reset: () {
+                        idCategory = null;
+                        notifierPictograms.resetFilters(
+                          namePictogram: namePicto,
+                          isCustom: false,
+                          idChild: null,
+                        );
+                      },
                       listItems: statePictograms.categoryPictograms
                           .map(
                             (item) => CatalogObject(
@@ -279,21 +299,64 @@ class FormActivityState extends ConsumerState<FormActivity> {
                           .toList(),
                     ),
                     InputForm(
-                      label: S.current.Busqueda_por_nombre,
+                      hint: S.current.Busqueda_por_nombre,
                       value: '',
                       enable: true,
-                      onChanged: (value) {},
+                      onSearch: () async {
+                        await notifierPictograms.getPictograms(
+                          namePictogram: namePicto,
+                          idCategory: idCategory,
+                        );
+                      },
+                      onChanged: (String value) {
+                        isFirst = false;
+                        namePicto = value.isNotEmpty ? value : null;
+                      },
                     ),
-                    ImageListVIew(
-                      images: statePictograms.pictograms,
-                      newImages: selectedPictogram,
-                      isDecoration: true,
-                      isSelect: true,
-                      controller: scrollController,
-                      backgroundColorIcon: $colorSuccess,
-                      onPressed: onPictogramSelected,
-                      newOnPressed: deletePictogramSelected,
-                    ),
+                    (isFirst == false &&
+                            statePictograms.paginatePictograms[$indexPage] ==
+                                1 &&
+                            statePictograms.isLoading == true)
+                        ? Container(
+                            margin: const EdgeInsets.only(
+                                left: 15, right: 15, bottom: 12.5),
+                            decoration: BoxDecoration(
+                              color: $colorSuccess100,
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(width: 0.5),
+                            ),
+                            width: double.infinity,
+                            height: 150,
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const CircularProgressIndicator(),
+                                  const SizedBox(height: 25),
+                                  Text(
+                                    S.current.Cargando,
+                                    style: const TextStyle(
+                                      color: $colorTextWhite,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      decoration: TextDecoration.none,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        : ImageListVIew(
+                            images: statePictograms.pictograms,
+                            newImages: selectedPictogram,
+                            isDecoration: true,
+                            isShowSvg: true,
+                            isSelect: true,
+                            controller: scrollController,
+                            backgroundColorIcon: $colorSuccess,
+                            onPressed: onPictogramSelected,
+                            newOnPressed: deletePictogramSelected,
+                          ),
                     const SizedBox(height: 14.5),
                   ],
                 ),
@@ -332,7 +395,8 @@ class FormActivityState extends ConsumerState<FormActivity> {
             ),
           ),
         ),
-        if (statePictograms.paginatePictograms[$indexPage] == 1 ||
+        if (isFirst == true &&
+                statePictograms.paginatePictograms[$indexPage] == 1 ||
             statePhases.isLoading == true) ...[
           const ModalBarrier(dismissible: false, color: $colorTextWhite),
           Center(
@@ -368,7 +432,7 @@ class FormActivityState extends ConsumerState<FormActivity> {
                 Text(
                   S.current.Cargando,
                   style: const TextStyle(
-                    color: $colorButtonDisable,
+                    color: $colorTextWhite,
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     decoration: TextDecoration.none,
