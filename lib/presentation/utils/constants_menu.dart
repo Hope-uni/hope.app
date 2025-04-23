@@ -252,13 +252,10 @@ final List<MenuItem> menuActivity = <MenuItem>[
     }) {
       modalDialogConfirmation(
         onClic: () async {
+          Navigator.of(context).pop();
           await ref
               .read(activityProvider.notifier)
               .deleteActivity(idActivity: item.id);
-
-          if (context.mounted) {
-            Navigator.of(context).pop();
-          }
         },
         context: context,
         question: RichText(
