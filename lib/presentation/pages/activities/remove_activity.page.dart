@@ -98,7 +98,75 @@ class RemoveAcivityPageState extends ConsumerState<RemoveAcivityPage> {
     });
 
     return Scaffold(
-      appBar: AppBar(title: Text(S.current.Quitar_asignacion_de_actividad)),
+      appBar: AppBar(
+        title: Text(S.current.Quitar_asignacion_de_actividad),
+        actions: [
+          Container(
+            margin: const EdgeInsets.only(right: 15),
+            child: IconButton(
+              icon: const Icon(Icons.help),
+              onPressed: () {
+                showDialog<void>(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Container(
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20)),
+                          color: $colorBlueGeneral,
+                        ),
+                        padding: const EdgeInsets.only(
+                            left: 22, top: 20, bottom: 20),
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          S.current.Ayuda,
+                          style: const TextStyle(
+                            color: $colorTextWhite,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      titlePadding: EdgeInsets.zero,
+                      content: SizedBox(
+                        width: 200,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              S.current
+                                  .Para_ver_la_foto_de_perfil_de_los_pacientes_con_mas_detalle,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              S.current.Hacer_doble_clic_sobre_la_imagen,
+                            ),
+                            const SizedBox(height: 30),
+                            Text(
+                              S.current
+                                  .Para_quitar_asignacion_de_actividad_a_los_pacientes,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 10),
+                            Text(S.current
+                                .Hacer_clic_sobre_el_icono_rojo_del_basurero_al_paciente_que_le_desee_quitar_la_actividad)
+                          ],
+                        ),
+                      ),
+                      insetPadding: EdgeInsets.zero,
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
+      ),
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 7.5),
         child: Column(

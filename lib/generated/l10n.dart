@@ -2293,6 +2293,350 @@ class S {
       args: [],
     );
   }
+
+  /// `Para ver el detalle de la actividad`
+  String get Para_ver_el_detalle_de_la_actividad {
+    return Intl.message(
+      'Para ver el detalle de la actividad',
+      name: 'Para_ver_el_detalle_de_la_actividad',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Hacer clic sobre el registro deseado`
+  String get Hacer_clic_sobre_el_registro_deseado {
+    return Intl.message(
+      '• Hacer clic sobre el registro deseado',
+      name: 'Hacer_clic_sobre_el_registro_deseado',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Para refrescar el listado de actividades`
+  String get Para_refrescar_el_listado_de_actividades {
+    return Intl.message(
+      'Para refrescar el listado de actividades',
+      name: 'Para_refrescar_el_listado_de_actividades',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Deslizar el dedo desde arriba hacia abajo en la parte superior de la pantalla`
+  String
+      get Deslizar_el_dedo_desde_arriba_hacia_abajo_en_la_parte_superior_de_la_pantalla {
+    return Intl.message(
+      '• Deslizar el dedo desde arriba hacia abajo en la parte superior de la pantalla',
+      name:
+          'Deslizar_el_dedo_desde_arriba_hacia_abajo_en_la_parte_superior_de_la_pantalla',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Para crear actividades`
+  String get Para_crear_actividades {
+    return Intl.message(
+      'Para crear actividades',
+      name: 'Para_crear_actividades',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Hacer clic sobre el botón verde en la parte inferior derecha de la pantalla`
+  String
+      get Hacer_clic_sobre_el_boton_verde_en_la_parte_inferior_derecha_de_la_pantalla {
+    return Intl.message(
+      '• Hacer clic sobre el botón verde en la parte inferior derecha de la pantalla',
+      name:
+          'Hacer_clic_sobre_el_boton_verde_en_la_parte_inferior_derecha_de_la_pantalla',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Acciones en el listado de pictogramas`
+  String get Acciones_en_el_listado_de_pictogramas {
+    return Intl.message(
+      'Acciones en el listado de pictogramas',
+      name: 'Acciones_en_el_listado_de_pictogramas',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Puede desplazarse de manera horizontal en los pictogramas para poder ver más registros`
+  String
+      get Puede_desplazarse_de_manera_horizontal_en_los_pictogramas_para_poder_ver_mas_registros {
+    return Intl.message(
+      '• Puede desplazarse de manera horizontal en los pictogramas para poder ver más registros',
+      name:
+          'Puede_desplazarse_de_manera_horizontal_en_los_pictogramas_para_poder_ver_mas_registros',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Para ver la foto de perfil de los pacientes con más detalle`
+  String get Para_ver_la_foto_de_perfil_de_los_pacientes_con_mas_detalle {
+    return Intl.message(
+      'Para ver la foto de perfil de los pacientes con más detalle',
+      name: 'Para_ver_la_foto_de_perfil_de_los_pacientes_con_mas_detalle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Flujo para asignación de actividad`
+  String get Flujo_para_asignacion_de_actividad {
+    return Intl.message(
+      'Flujo para asignación de actividad',
+      name: 'Flujo_para_asignacion_de_actividad',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Seleccione los pacientes a los cuales desea agregar la actividad dando clic en el cuadro a la derecha del registro`
+  String
+      get Seleccione_los_pacientes_a_los_cuales_desea_agregar_la_actividad_dando_clic_en_el_cuadro_a_la_derecha_del_registro {
+    return Intl.message(
+      '• Seleccione los pacientes a los cuales desea agregar la actividad dando clic en el cuadro a la derecha del registro',
+      name:
+          'Seleccione_los_pacientes_a_los_cuales_desea_agregar_la_actividad_dando_clic_en_el_cuadro_a_la_derecha_del_registro',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Avanzar al siguiente paso dando clic en el botón de la esquina inferior derecha`
+  String
+      get Avanzar_al_siguiente_paso_dando_clic_en_el_boton_de_la_esquina_inferior_derecha {
+    return Intl.message(
+      '• Avanzar al siguiente paso dando clic en el botón de la esquina inferior derecha',
+      name:
+          'Avanzar_al_siguiente_paso_dando_clic_en_el_boton_de_la_esquina_inferior_derecha',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Si desea eliminar un paciente de la lista de asignación, hacer clic sobre el icono rojo del basurero`
+  String
+      get Si_desea_eliminar_un_paciente_de_la_lista_de_asignacion_hacer_clic_sobre_el_icono_rojo_del_basurero {
+    return Intl.message(
+      '• Si desea eliminar un paciente de la lista de asignación, hacer clic sobre el icono rojo del basurero',
+      name:
+          'Si_desea_eliminar_un_paciente_de_la_lista_de_asignacion_hacer_clic_sobre_el_icono_rojo_del_basurero',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Para finalizar asignación, hacer clic sobre el botón en la esquina inferior derecha y seleccionar la opción de guardar`
+  String
+      get Para_finalizar_asignacion_hacer_clic_sobre_el_boton_en_la_esquina_inferior_derecha_y_seleccionar_la_opcion_de_guardar {
+    return Intl.message(
+      '• Para finalizar asignación, hacer clic sobre el botón en la esquina inferior derecha y seleccionar la opción de guardar',
+      name:
+          'Para_finalizar_asignacion_hacer_clic_sobre_el_boton_en_la_esquina_inferior_derecha_y_seleccionar_la_opcion_de_guardar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Si desea agregar un pictograma a la solución, debe dar clic en el botón verde con el icono de listo`
+  String
+      get Si_desea_agregar_un_pictograma_a_la_solucion_debe_dar_clic_en_el_boton_verde_con_el_icono_de_listo {
+    return Intl.message(
+      '• Si desea agregar un pictograma a la solución, debe dar clic en el botón verde con el icono de listo',
+      name:
+          'Si_desea_agregar_un_pictograma_a_la_solucion_debe_dar_clic_en_el_boton_verde_con_el_icono_de_listo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Si desea eliminar un pictograma a la solución, debe dar clic en el botón rojo con el icono del basurero`
+  String
+      get Si_desea_eliminar_un_pictograma_a_la_solucion_debe_dar_clic_en_el_boton_rojo_con_el_icono_del_basurero {
+    return Intl.message(
+      '• Si desea eliminar un pictograma a la solución, debe dar clic en el botón rojo con el icono del basurero',
+      name:
+          'Si_desea_eliminar_un_pictograma_a_la_solucion_debe_dar_clic_en_el_boton_rojo_con_el_icono_del_basurero',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Para quitar asignación de actividad a los pacientes`
+  String get Para_quitar_asignacion_de_actividad_a_los_pacientes {
+    return Intl.message(
+      'Para quitar asignación de actividad a los pacientes',
+      name: 'Para_quitar_asignacion_de_actividad_a_los_pacientes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Hacer clic sobre el icono rojo del basurero al paciente que le desee quitar la actividad`
+  String
+      get Hacer_clic_sobre_el_icono_rojo_del_basurero_al_paciente_que_le_desee_quitar_la_actividad {
+    return Intl.message(
+      '• Hacer clic sobre el icono rojo del basurero al paciente que le desee quitar la actividad',
+      name:
+          'Hacer_clic_sobre_el_icono_rojo_del_basurero_al_paciente_que_le_desee_quitar_la_actividad',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Para ver la foto de perfil con más detalle`
+  String get Para_ver_la_foto_de_perfil_con_mas_detalle {
+    return Intl.message(
+      'Para ver la foto de perfil con más detalle',
+      name: 'Para_ver_la_foto_de_perfil_con_mas_detalle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pestañas de información`
+  String get Pestanas_de_informacion {
+    return Intl.message(
+      'Pestañas de información',
+      name: 'Pestanas_de_informacion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Se puede desplazar a través de las pestañas desde el menú superior o deslizando horizontalmente en la pantalla`
+  String
+      get Se_puede_desplazar_atraves_de_las_pestanas_desde_el_menu_superior_o_deslizando_horizontalmente_en_la_pantalla {
+    return Intl.message(
+      '• Se puede desplazar a través de las pestañas desde el menú superior o deslizando horizontalmente en la pantalla',
+      name:
+          'Se_puede_desplazar_atraves_de_las_pestanas_desde_el_menu_superior_o_deslizando_horizontalmente_en_la_pantalla',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Para ver los logros con más detalle`
+  String get Para_ver_los_logros_con_mas_detalle {
+    return Intl.message(
+      'Para ver los logros con más detalle',
+      name: 'Para_ver_los_logros_con_mas_detalle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Menú de opciones`
+  String get Menu_de_opciones {
+    return Intl.message(
+      'Menú de opciones',
+      name: 'Menu_de_opciones',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Para saber que acciones puede realizar en el registro, dar clic en el botón inferior a la derecha de la pantalla`
+  String
+      get Para_saber_que_acciones_puede_realizar_en_el_registro_dar_clic_en_el_boton_inferior_a_la_derecha_de_la_pantalla {
+    return Intl.message(
+      '• Para saber que acciones puede realizar en el registro, dar clic en el botón inferior a la derecha de la pantalla',
+      name:
+          'Para_saber_que_acciones_puede_realizar_en_el_registro_dar_clic_en_el_boton_inferior_a_la_derecha_de_la_pantalla',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Para ver el detalle del paciente`
+  String get Para_ver_el_detalle_del_paciente {
+    return Intl.message(
+      'Para ver el detalle del paciente',
+      name: 'Para_ver_el_detalle_del_paciente',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Para refrescar el listado de los pacientes asignados`
+  String get Para_refrescar_el_listado_de_los_pacientes_asignados {
+    return Intl.message(
+      'Para refrescar el listado de los pacientes asignados',
+      name: 'Para_refrescar_el_listado_de_los_pacientes_asignados',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Para ver el detalle del/la niñ@`
+  String get Para_ver_el_detalle_del_la_nino {
+    return Intl.message(
+      'Para ver el detalle del/la niñ@',
+      name: 'Para_ver_el_detalle_del_la_nino',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Para refrescar el listado de los niños asignados`
+  String get Para_refrescar_el_listado_de_los_ninos_asignados {
+    return Intl.message(
+      'Para refrescar el listado de los niños asignados',
+      name: 'Para_refrescar_el_listado_de_los_ninos_asignados',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Para ver la foto de perfil de los niños asignados con más detalle`
+  String get Para_ver_la_foto_de_perfil_de_los_ninos_asignados_con_mas_detalle {
+    return Intl.message(
+      'Para ver la foto de perfil de los niños asignados con más detalle',
+      name: 'Para_ver_la_foto_de_perfil_de_los_ninos_asignados_con_mas_detalle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Verificar`
+  String get Verificar {
+    return Intl.message(
+      'Verificar',
+      name: 'Verificar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `El paciente no tiene actividad asignada actualmente`
+  String get El_paciente_no_tiene_actividad_asignada_actualmente {
+    return Intl.message(
+      'El paciente no tiene actividad asignada actualmente',
+      name: 'El_paciente_no_tiene_actividad_asignada_actualmente',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `El límite de pictogramas para la solución es de 30`
+  String get El_limite_de_pictogramas_para_la_solucion_es_de_treinta {
+    return Intl.message(
+      'El límite de pictogramas para la solución es de 30',
+      name: 'El_limite_de_pictogramas_para_la_solucion_es_de_treinta',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

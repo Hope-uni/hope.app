@@ -168,21 +168,6 @@ final List<MenuItem> menuPacientTherapist = <MenuItem>[
     },
     roles: [$terapeuta],
   ),
-  MenuItem(
-    title: S.current.Quitar_actividad,
-    subTitle: S.current.Eliminar_actividad_asignada_del_nino,
-    icon: Icons.delete_forever,
-    permission:
-        $findPatients, //TODO: Reemplazar por permiso correcto cuando este listo
-    onClick: ({
-      required BuildContext context,
-      required WidgetRef ref,
-      CatalogObject? item,
-    }) {
-      context.pushNamed($deleteActivity);
-    },
-    roles: [$terapeuta],
-  ),
 ];
 
 final List<MenuItem> menuActivity = <MenuItem>[
@@ -252,13 +237,10 @@ final List<MenuItem> menuActivity = <MenuItem>[
     }) {
       modalDialogConfirmation(
         onClic: () async {
+          Navigator.of(context).pop();
           await ref
               .read(activityProvider.notifier)
               .deleteActivity(idActivity: item.id);
-
-          if (context.mounted) {
-            Navigator.of(context).pop();
-          }
         },
         context: context,
         question: RichText(

@@ -59,7 +59,6 @@ const String $child = "child";
 const String $idChild = "idChild";
 const String $pictogram = "pictogram";
 const String $customPictogram = "customPictogram";
-const String $deleteActivity = "deleteActivity";
 const String $idActivity = "idActivity";
 const String $activity = "activity";
 const String $isEdit = "isEdit";

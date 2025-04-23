@@ -110,7 +110,6 @@ class _InputFormState extends State<InputForm> {
   @override
   void dispose() {
     super.dispose();
-    _controller.dispose();
     _debounceTimer?.cancel();
   }
 

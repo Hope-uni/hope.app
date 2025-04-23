@@ -18,10 +18,10 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
   PictogramsNotifier({required this.pictogramsRepository})
       : super(PictogramsState());
 
-  Future<void> getPictograms({
+  void _validateFilter({
     int? idCategory,
     String? namePictogram,
-  }) async {
+  }) {
     if (idCategory != null || namePictogram != null) {
       state = state.copyWith(
         isLoading: true,
@@ -37,6 +37,36 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
       state = state.copyWith(isLoading: true);
       isFilter = false;
     }
+  }
+
+  void _updatePictograms({
+    required int indexPage,
+    required int pageCount,
+    required List<PictogramAchievements>? pictogramData,
+    required List<Category>? categoryPictograms,
+  }) {
+    Map<String, int> paginate = {
+      $indexPage: indexPage + 1,
+      $pageCount: pageCount
+    };
+
+    state = state.copyWith(
+      paginatePictograms: paginate,
+      pictograms: indexPage == 1
+          ? pictogramData ?? []
+          : [...state.pictograms, ...pictogramData!],
+      categoryPictograms:
+          indexPage == 1 ? categoryPictograms ?? [] : state.categoryPictograms,
+      isLoading: false,
+      isErrorInitial: false,
+    );
+  }
+
+  Future<void> getPictograms({
+    int? idCategory,
+    String? namePictogram,
+  }) async {
+    _validateFilter(idCategory: idCategory, namePictogram: namePictogram);
 
     final indexPage = state.paginatePictograms[$indexPage]!;
     try {
@@ -52,21 +82,11 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
         categoryPictograms = await getCategoryPictograms();
       }
 
-      Map<String, int> paginate = {
-        $indexPage: indexPage + 1,
-        $pageCount: pictograms.paginate!.pageCount
-      };
-
-      state = state.copyWith(
-        paginatePictograms: paginate,
-        pictograms: indexPage == 1
-            ? pictograms.data ?? []
-            : [...state.pictograms, ...pictograms.data!],
-        categoryPictograms: indexPage == 1
-            ? categoryPictograms ?? []
-            : state.categoryPictograms,
-        isLoading: false,
-        isErrorInitial: false,
+      _updatePictograms(
+        indexPage: indexPage,
+        pageCount: pictograms.paginate!.pageCount,
+        categoryPictograms: categoryPictograms,
+        pictogramData: pictograms.data,
       );
     } on CustomError catch (e) {
       if (indexPage == 1) state = state.copyWith(isErrorInitial: true);
@@ -85,21 +105,7 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
     int? idCategory,
     String? namePictogram,
   }) async {
-    if (idCategory != null || namePictogram != null) {
-      state = state.copyWith(
-        isLoading: true,
-        paginatePictograms: {$indexPage: 1, $pageCount: 0},
-      );
-      isFilter = true;
-    } else {
-      if (isFilter == true) {
-        state = state.copyWith(
-          paginatePictograms: {$indexPage: 1, $pageCount: 0},
-        );
-      }
-      state = state.copyWith(isLoading: true);
-      isFilter = false;
-    }
+    _validateFilter(idCategory: idCategory, namePictogram: namePictogram);
     final indexPage = state.paginatePictograms[$indexPage]!;
     try {
       final customPictograms = await pictogramsRepository.getCustomPictograms(
@@ -115,21 +121,44 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
         categoryPictograms = await getCategoryPictograms();
       }
 
-      Map<String, int> paginate = {
-        $indexPage: indexPage + 1,
-        $pageCount: customPictograms.paginate!.pageCount
-      };
-
+      _updatePictograms(
+        indexPage: indexPage,
+        pageCount: customPictograms.paginate!.pageCount,
+        categoryPictograms: categoryPictograms,
+        pictogramData: customPictograms.data,
+      );
+    } on CustomError catch (e) {
+      if (indexPage == 1) state = state.copyWith(isErrorInitial: true);
+      state = state.copyWith(errorMessageApi: e.message, isLoading: false);
+    } catch (e) {
+      if (indexPage == 1) state = state.copyWith(isErrorInitial: true);
       state = state.copyWith(
-        paginatePictograms: paginate,
-        pictograms: indexPage == 1
-            ? customPictograms.data ?? []
-            : [...state.pictograms, ...customPictograms.data!],
-        categoryPictograms: indexPage == 1
-            ? categoryPictograms ?? []
-            : state.categoryPictograms,
+        errorMessageApi: S.current.Error_inesperado,
         isLoading: false,
-        isErrorInitial: false,
+      );
+    }
+  }
+
+  Future<void> getPictogramsPatient({int? idCategory}) async {
+    _validateFilter(idCategory: idCategory, namePictogram: null);
+    final indexPage = state.paginatePictograms[$indexPage]!;
+    try {
+      final pictogramsPatient = await pictogramsRepository.getPictogramsPatient(
+        indexPage: indexPage,
+        idCategory: idCategory,
+      );
+
+      List<Category>? categoryPictograms = state.categoryPictograms;
+
+      if (indexPage == 1 && idCategory == null) {
+        categoryPictograms = await getCategoryPictograms();
+      }
+
+      _updatePictograms(
+        indexPage: indexPage,
+        pageCount: pictogramsPatient.paginate!.pageCount,
+        categoryPictograms: categoryPictograms,
+        pictogramData: pictogramsPatient.data,
       );
     } on CustomError catch (e) {
       if (indexPage == 1) state = state.copyWith(isErrorInitial: true);
@@ -168,11 +197,11 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
   void resetFilters({
     required String? namePictogram,
     required bool isCustom,
-    required int idChild,
+    required int? idChild,
   }) {
     state = state.copyWith(paginatePictograms: {$indexPage: 1, $pageCount: 0});
     if (isCustom) {
-      getCustomPictograms(idChild: idChild, namePictogram: namePictogram);
+      getCustomPictograms(idChild: idChild!, namePictogram: namePictogram);
     } else {
       getPictograms(namePictogram: namePictogram);
     }

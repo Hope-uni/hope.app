@@ -21,12 +21,14 @@ class ChildDataPage extends ConsumerStatefulWidget {
   ChildDataPageState createState() => ChildDataPageState();
 }
 
-class ChildDataPageState extends ConsumerState<ChildDataPage> {
+class ChildDataPageState extends ConsumerState<ChildDataPage>
+    with SingleTickerProviderStateMixin {
   bool enableInput = false;
   bool clickSave = false;
   bool _showRightArrow = true;
   bool _showLeftArrow = false;
 
+  late TabController _tabController;
   final ScrollController _scrollController = ScrollController();
   final ScrollController _scrollControllerObservations = ScrollController();
   late final TextEditingController controllerDate = TextEditingController();
@@ -42,7 +44,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
   @override
   void initState() {
     super.initState();
-
+    _tabController = TabController(length: 5, vsync: this);
     _scrollController.addListener(() {
       // Oculta la flecha si el scroll está al final
       if (_scrollController.offset >=
@@ -83,9 +85,12 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
     final stateProfile = ref.watch(profileProvider);
     final stateChild = ref.watch(childProvider);
     final statePhases = ref.watch(phasesProvider);
+    final stateActivity = ref.watch(activityChildrenProvider);
 
     final notifierChild = ref.read(childProvider.notifier);
     final notifierPhases = ref.read(phasesProvider.notifier);
+    final notifierActivityChildren =
+        ref.read(activityChildrenProvider.notifier);
 
     ref.listen(childProvider, (previous, next) {
       if (next.validationErrors.isNotEmpty && clickSave) {
@@ -166,6 +171,31 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
       }
     });
 
+    ref.listen(activityChildrenProvider, (previous, next) {
+      if (next.isLoading == false && next.isDelete == true) {
+        if (context.mounted) {
+          toastAlert(
+            iconAlert: const Icon(Icons.delete),
+            context: context,
+            title: S.current.Actividad_desasignada_exitosamente,
+            description: S.current.Se_removio_la_actividad_del_paciente,
+            typeAlert: ToastificationType.success,
+          );
+          notifierActivityChildren.updateResponse();
+        }
+      }
+
+      if (next.errorMessageApi != null) {
+        toastAlert(
+          context: context,
+          title: S.current.Error,
+          description: next.errorMessageApi!,
+          typeAlert: ToastificationType.error,
+        );
+        notifierActivityChildren.updateResponse();
+      }
+    });
+
     if (stateChild.isError == false &&
         stateChild.isLoading == false &&
         context.mounted) {
@@ -205,6 +235,92 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
       child: Scaffold(
         appBar: AppBar(
             title: Text(S.current.Informacion_del_nino),
+            actions: [
+              Container(
+                margin: const EdgeInsets.only(right: 15),
+                child: IconButton(
+                  icon: const Icon(Icons.help),
+                  onPressed: () {
+                    showDialog<void>(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Container(
+                            decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20)),
+                              color: $colorBlueGeneral,
+                            ),
+                            padding: const EdgeInsets.only(
+                                left: 22, top: 20, bottom: 20),
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              S.current.Ayuda,
+                              style: const TextStyle(
+                                color: $colorTextWhite,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          titlePadding: EdgeInsets.zero,
+                          content: SizedBox(
+                            width: 200,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  S.current
+                                      .Para_ver_la_foto_de_perfil_con_mas_detalle,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(height: 10),
+                                Text(
+                                  S.current.Hacer_doble_clic_sobre_la_imagen,
+                                ),
+                                const SizedBox(height: 30),
+                                Text(
+                                  S.current.Pestanas_de_informacion,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(height: 10),
+                                Text(S.current
+                                    .Se_puede_desplazar_atraves_de_las_pestanas_desde_el_menu_superior_o_deslizando_horizontalmente_en_la_pantalla),
+                                const SizedBox(height: 30),
+                                Text(
+                                  S.current.Para_ver_los_logros_con_mas_detalle,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(height: 10),
+                                Text(
+                                  S.current.Hacer_doble_clic_sobre_la_imagen,
+                                ),
+                                const SizedBox(height: 30),
+                                Text(
+                                  S.current.Menu_de_opciones,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(height: 10),
+                                Text(
+                                  S.current
+                                      .Para_saber_que_acciones_puede_realizar_en_el_registro_dar_clic_en_el_boton_inferior_a_la_derecha_de_la_pantalla,
+                                ),
+                              ],
+                            ),
+                          ),
+                          insetPadding: EdgeInsets.zero,
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
             bottom: PreferredSize(
                 preferredSize: const Size.fromHeight(60.0),
                 child: Stack(
@@ -213,6 +329,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
                       controller: _scrollController,
                       scrollDirection: Axis.horizontal,
                       child: TabBar(
+                        controller: _tabController,
                         tabAlignment: TabAlignment.center,
                         isScrollable: true,
                         tabs: <Widget>[
@@ -285,6 +402,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
           children: [
             if (stateChild.isLoading == false && stateChild.isError == false)
               TabBarView(
+                controller: _tabController,
                 children: <Widget>[
                   GestureDetector(
                     onTap: () {
@@ -386,7 +504,8 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
                 ],
               ),
             if (stateChild.isUpdateData == true ||
-                statePhases.isLoading == true)
+                statePhases.isLoading == true ||
+                stateActivity.isLoading == true)
               Stack(
                 children: [
                   const Opacity(
@@ -422,7 +541,8 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
           ],
         ),
         floatingActionButton: stateChild.isLoading == true ||
-                stateChild.isUpdateData == true
+                stateChild.isUpdateData == true ||
+                stateChild.isError == true
             ? null
             : SpeedDial(
                 icon: Icons.expand_less,
@@ -448,6 +568,9 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
                       if (stateProfile.permmisions!
                           .contains($updatePatientTutor)) {
                         setState(() {
+                          _tabController.animateTo(0,
+                              duration: const Duration(seconds: 1),
+                              curve: Curves.bounceIn);
                           enableInput = true;
                         });
                         notifierChild.assingState();
@@ -474,7 +597,6 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
                         context: context,
                         titleButtonConfirm: S.current.Si_salir,
                         question: RichText(
-                          textAlign: TextAlign.center,
                           text: TextSpan(
                             text: S.current.Esta_seguro_de_salir_de_la_edicion,
                             style: const TextStyle(
@@ -511,7 +633,6 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
                           context: context,
                           titleButtonConfirm: S.current.Si_actualizar,
                           question: RichText(
-                            textAlign: TextAlign.center,
                             text: TextSpan(
                               text:
                                   S.current.Esta_Seguro_de_actualizar_los_datos,
@@ -646,7 +767,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
                                 children: [
                                   TextSpan(
                                     text:
-                                        '¿${S.current.Esta_seguro_de_cambiar_el_filtro_blanco_negro}\n\n',
+                                        '${S.current.Esta_seguro_de_cambiar_el_filtro_blanco_negro}\n\n',
                                   ),
                                   TextSpan(text: '${S.current.Nuevo_valor}: '),
                                   TextSpan(
@@ -667,6 +788,75 @@ class ChildDataPageState extends ConsumerState<ChildDataPage> {
                             await notifierChild.updateMonochrome(
                               idChild: stateChild.child!.id,
                             );
+                          },
+                        );
+                      } else {
+                        toastAlert(
+                          iconAlert: const Icon(Icons.info),
+                          context: context,
+                          title: S.current.No_autorizado,
+                          description:
+                              S.current.No_cuenta_con_el_permiso_necesario,
+                          typeAlert: ToastificationType.info,
+                        );
+                      }
+                    },
+                  ),
+                  SpeedDialChild(
+                    shape: const CircleBorder(),
+                    child: const Icon(Icons.delete, color: $colorTextWhite),
+                    backgroundColor: $colorError,
+                    label: S.current.Quitar_actividad,
+                    visible: widget.extra![$isTutor] == false,
+                    onTap: () {
+                      //TODO: ACTUALIZAR CUANDO ESTEN LISTOS LOS PERMISOS EN API
+                      if (stateProfile.permmisions!
+                          .contains($updatePatientTutor)) {
+                        if (stateChild.child!.currentActivity == null) {
+                          toastAlert(
+                            iconAlert: const Icon(Icons.info),
+                            context: context,
+                            title: S.current.No_autorizado,
+                            description: S.current
+                                .El_paciente_no_tiene_actividad_asignada_actualmente,
+                            typeAlert: ToastificationType.info,
+                          );
+                          return;
+                        }
+                        modalDialogConfirmation(
+                          context: context,
+                          titleButtonConfirm: S.current.Si_Quitar,
+                          question: RichText(
+                            text: TextSpan(children: [
+                              TextSpan(
+                                text:
+                                    '${S.current.Esta_seguro_de_quitarle_la_actividad(stateChild.child!.currentActivity!.name)}\n\n',
+                                style: const TextStyle(
+                                  color: $colorTextBlack,
+                                ),
+                              ),
+                              TextSpan(
+                                text: '${S.current.Al_paiente}: ',
+                                style: const TextStyle(
+                                  color: $colorTextBlack,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              TextSpan(
+                                text: stateChild.child!.fullName,
+                                style: const TextStyle(
+                                  color: $colorTextBlack,
+                                ),
+                              ),
+                            ]),
+                          ),
+                          buttonColorConfirm: $colorSuccess,
+                          onClic: () async {
+                            Navigator.of(context).pop();
+                            if (await notifierActivityChildren.unassingActivity(
+                                idChild: stateChild.child!.id)) {
+                              notifierChild.updateActivity();
+                            }
                           },
                         );
                       } else {

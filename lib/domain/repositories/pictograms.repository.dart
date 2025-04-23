@@ -29,4 +29,9 @@ abstract class PictogramsRepository {
     required CustomPictogram pictogram,
     required int idPictogram,
   });
+
+  Future<ResponseDataList<PictogramAchievements>> getPictogramsPatient({
+    required int indexPage,
+    required int? idCategory,
+  });
 }
