@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:hope_app/domain/domain.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/providers/providers.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
 import 'package:color_filter_extension/color_filter_extension.dart';
+import 'package:toastification/toastification.dart';
 
 class BoardPage extends ConsumerStatefulWidget {
   const BoardPage({super.key});
@@ -15,13 +18,45 @@ class BoardPage extends ConsumerStatefulWidget {
 }
 
 class BoardPageState extends ConsumerState<BoardPage> {
-  int acceptedData = 0;
-  int indexSeleccionado = 0;
+  int? indexSeleccionado;
+
+  @override
+  Future<void> didChangeDependencies() async {
+    super.didChangeDependencies();
+
+    Future.microtask(() async {
+      final notifierPictograms = ref.read(pictogramsProvider.notifier);
+      await notifierPictograms.getPictograms();
+
+      //await notifierPictograms.getPictogramsPatient();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     // Establecer la orientación por defecto como horizontal para el tablero de comunicacion
     SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+
+    final statePictograms = ref.watch(pictogramsProvider);
+    final stateBoard = ref.watch(boardProvider);
+
+    final stateProfile = ref.read(profileProvider).profile;
+    final notifierBoard = ref.read(boardProvider.notifier);
+
+    ref.listen(pictogramsProvider, (previous, next) {
+      if (next.errorMessageApi != null) {
+        toastAlert(
+          context: context,
+          title: S.current.Error,
+          description: next.errorMessageApi!,
+          typeAlert: ToastificationType.error,
+        );
+        ref.read(pictogramsProvider.notifier).updateResponse();
+      }
+    });
+
     return Scaffold(
       appBar: false
           ? null
@@ -36,25 +71,42 @@ class BoardPageState extends ConsumerState<BoardPage> {
         height: size.height,
         margin: const EdgeInsets.symmetric(horizontal: 7.5, vertical: 10),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Expanded(
               child: Row(
                 children: [
-                  Expanded(
-                    child: GridView.builder(
-                      itemCount: 30,
-                      scrollDirection: Axis.vertical,
-                      gridDelegate:
-                          const SliverGridDelegateWithMaxCrossAxisExtent(
-                        maxCrossAxisExtent: 175,
-                        crossAxisSpacing: 20.0,
-                        mainAxisSpacing: 10.0,
+                  if (statePictograms.pictograms.isEmpty == false)
+                    Expanded(
+                      child: GridView.builder(
+                        itemCount: statePictograms.pictograms.length,
+                        scrollDirection: Axis.vertical,
+                        gridDelegate:
+                            const SliverGridDelegateWithMaxCrossAxisExtent(
+                          maxCrossAxisExtent: 175,
+                          crossAxisSpacing: 20.0,
+                          mainAxisSpacing: 10.0,
+                        ),
+                        itemBuilder: (context, index) {
+                          return buildDraggableExample(
+                            isFilterBW: stateProfile!.isMonochrome ?? false,
+                            pictogram: statePictograms.pictograms[index],
+                          );
+                        },
                       ),
-                      itemBuilder: (context, index) {
-                        return const DraggableExample();
-                      },
                     ),
-                  ),
+                  if (statePictograms.pictograms.isEmpty == true)
+                    Expanded(
+                      child: Center(
+                        child: SizedBox(
+                          height: 400,
+                          child: SvgPicture.asset(
+                            fit: BoxFit.contain,
+                            'assets/svg/SinDatos.svg',
+                          ),
+                        ),
+                      ),
+                    ),
                   Container(
                     margin: const EdgeInsets.only(right: 15),
                     width: 180,
@@ -104,28 +156,47 @@ class BoardPageState extends ConsumerState<BoardPage> {
                                 color: $colorBackgroundDrawer,
                                 borderRadius: BorderRadius.circular(20),
                               ),
-                              child: ListView.builder(
-                                itemCount: 15,
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                    width: 170,
-                                    color: indexSeleccionado == index
-                                        ? $colorSelectMenu
-                                        : null,
-                                    child: ListTile(
-                                      //TODO: Cambiar cuando este listo el endpoint
-                                      leading: const Icon(Icons.pets),
-                                      style: ListTileStyle.drawer,
-                                      //TODO: Cambiar cuando este listo el endpoint
-                                      title: Text('Animales $index'),
-                                      onTap: () {
-                                        setState(
-                                            () => indexSeleccionado = index);
-                                      },
-                                    ),
-                                  );
-                                },
-                              ),
+                              child:
+                                  statePictograms.categoryPictograms.isEmpty ==
+                                          false
+                                      ? ListView.builder(
+                                          itemCount: statePictograms
+                                              .categoryPictograms.length,
+                                          itemBuilder: (context, index) {
+                                            return Container(
+                                              width: 170,
+                                              color: indexSeleccionado == index
+                                                  ? $colorSelectMenu
+                                                  : null,
+                                              child: ListTile(
+                                                //leading: const Icon(Icons.pets),
+                                                style: ListTileStyle.drawer,
+                                                title: Text(statePictograms
+                                                    .categoryPictograms[index]
+                                                    .name),
+                                                onTap: () {
+                                                  setState(() {
+                                                    if (index ==
+                                                        indexSeleccionado) {
+                                                      indexSeleccionado = null;
+                                                    } else {
+                                                      indexSeleccionado = index;
+                                                    }
+                                                  });
+                                                },
+                                              ),
+                                            );
+                                          },
+                                        )
+                                      : Center(
+                                          child: SizedBox(
+                                            height: 400,
+                                            child: SvgPicture.asset(
+                                              fit: BoxFit.contain,
+                                              'assets/svg/SinDatos.svg',
+                                            ),
+                                          ),
+                                        ),
                             ),
                           ),
                         ),
@@ -138,13 +209,18 @@ class BoardPageState extends ConsumerState<BoardPage> {
             Container(
               height: 50,
               alignment: Alignment.center,
-              child: const Text(
-                //TODO: Cambiar cuando el enpoint este listo
-                'Yo quiero comer galleta',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+              child: Text(
+                stateBoard.pictograms
+                    .map((item) => item.name)
+                    .toList()
+                    .join(' '),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22,
+                ),
               ),
             ),
-            DragTarget<int>(
+            DragTarget<PictogramAchievements>(
               builder: (
                 BuildContext context,
                 List<dynamic> accepted,
@@ -165,13 +241,13 @@ class BoardPageState extends ConsumerState<BoardPage> {
                         title: S.current.Limpiar,
                         buttonColor: $colorError,
                         icon: const Icon(Icons.delete),
-                        onClic: () {},
+                        onClic: () {
+                          notifierBoard.clearPictogramSolution();
+                        },
                       ),
-                      //TODO: Cambiar cuando este listo el endpoint
-                      const Expanded(
+                      Expanded(
                         child: ImageListVIew(
-                          images: [],
-                          isFilterBW: true,
+                          images: stateBoard.pictograms,
                           backgroundLine: true,
                           isDecoration: false,
                           isSelect: false,
@@ -200,7 +276,7 @@ class BoardPageState extends ConsumerState<BoardPage> {
                                 const Icon(Icons.check, color: $colorTextWhite),
                                 const SizedBox(width: 10),
                                 Text(
-                                  S.current.Verificar_actividad,
+                                  S.current.Verificar,
                                   style: const TextStyle(
                                     color: $colorTextWhite,
                                   ),
@@ -214,8 +290,9 @@ class BoardPageState extends ConsumerState<BoardPage> {
                   ),
                 );
               },
-              onAcceptWithDetails: (DragTargetDetails<int> details) {
-                setState(() => acceptedData += details.data);
+              onAcceptWithDetails:
+                  (DragTargetDetails<PictogramAchievements> details) {
+                notifierBoard.addPictogramSolution(newPictogram: details.data);
               },
             ),
           ],
@@ -225,59 +302,89 @@ class BoardPageState extends ConsumerState<BoardPage> {
   }
 }
 
-class DraggableExample extends StatefulWidget {
-  const DraggableExample({super.key});
-
-  @override
-  State<DraggableExample> createState() => _DraggableExampleState();
+Widget buildDraggableExample({
+  required PictogramAchievements pictogram,
+  required bool isFilterBW,
+}) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    children: <Widget>[
+      Draggable<PictogramAchievements>(
+        data: pictogram,
+        feedback: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: SizedBox(
+            height: 200.0,
+            width: 200.0,
+            child: ColorFiltered(
+              colorFilter: ColorFilterExt.preset(
+                isFilterBW
+                    ? ColorFiltersPreset.inkwell()
+                    : ColorFiltersPreset.none(),
+              ),
+              child: ImageLoad(urlImage: pictogram.imageUrl),
+            ),
+          ),
+        ),
+        childWhenDragging: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Container(
+            height: 140.0,
+            width: 140.0,
+            color: $colorButtonDisable.withValues(alpha: 0.25),
+          ),
+        ),
+        child: SizedBox(
+          width: 140.0,
+          child: Column(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: SizedBox(
+                  height: 140.0,
+                  width: 140.0,
+                  child: ColorFiltered(
+                    colorFilter: ColorFilterExt.preset(
+                      isFilterBW
+                          ? ColorFiltersPreset.inkwell()
+                          : ColorFiltersPreset.none(),
+                    ),
+                    child: ImageLoad(urlImage: pictogram.imageUrl),
+                  ),
+                ),
+              ),
+              Text(
+                pictogram.name,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
+      ),
+    ],
+  );
 }
 
-class _DraggableExampleState extends State<DraggableExample> {
-  bool isFilterBW = true;
 
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
-        Draggable<int>(
-          data: 10,
-          feedback: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: SizedBox(
-              height: 200.0,
-              width: 200.0,
-              child: ColorFiltered(
-                colorFilter: ColorFilterExt.preset(isFilterBW
-                    ? ColorFiltersPreset.inkwell()
-                    : ColorFiltersPreset.none()),
-                child: const ImageLoad(urlImage: ''),
-              ),
+/*if (statePictograms.paginatePictograms[$indexPage] == 1) ...[
+          const ModalBarrier(dismissible: false, color: $colorTextWhite),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const CircularProgressIndicator(),
+                const SizedBox(height: 25),
+                Text(
+                  S.current.Cargando,
+                  style: const TextStyle(
+                    color: $colorButtonDisable,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    decoration: TextDecoration.none,
+                  ),
+                ),
+              ],
             ),
           ),
-          childWhenDragging: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: Container(
-              height: 140.0,
-              width: 140.0,
-              color: $colorButtonDisable.withValues(alpha: 0.25),
-            ),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: SizedBox(
-              height: 140.0,
-              width: 140.0,
-              child: ColorFiltered(
-                colorFilter: ColorFilterExt.preset(isFilterBW
-                    ? ColorFiltersPreset.inkwell()
-                    : ColorFiltersPreset.none()),
-                child: const ImageLoad(urlImage: ''),
-              ),
-            ),
-          ),
-        )
-      ],
-    );
-  }
-}
+        ],*/

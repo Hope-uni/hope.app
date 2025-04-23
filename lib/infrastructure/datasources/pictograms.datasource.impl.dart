@@ -141,4 +141,29 @@ class PictogramsDataSourceImpl extends PictogramsDataSource {
       ErrorHandler.handleError(e);
     }
   }
+
+  @override
+  Future<ResponseDataList<PictogramAchievements>> getPictogramsPatient({
+    required int indexPage,
+    required int? idCategory,
+  }) async {
+    try {
+      // Construir la URL dinámicamente
+      String url = '/patientPictogram?page=$indexPage&size=15';
+
+      if (idCategory != null) url += '&categoryId=$idCategory';
+
+      final response = await dioServices.dio.get(url);
+
+      final responsePictogramsPatient =
+          ResponseMapper.responseJsonListToEntity<PictogramAchievements>(
+        json: response.data,
+        fromJson: PictogramsMapper.pictogramAchievementsfromJson,
+      );
+
+      return responsePictogramsPatient;
+    } catch (e) {
+      ErrorHandler.handleError(e);
+    }
+  }
 }

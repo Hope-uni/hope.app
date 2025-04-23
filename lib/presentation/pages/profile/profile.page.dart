@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:hope_app/domain/domain.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
@@ -32,6 +33,16 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     $telephoneProfile: FocusNode(),
     $addressProfile: FocusNode(),
   };
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (mounted) {
+        ref.read(profileProvider.notifier).restoredState();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -119,9 +130,63 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
           length: 1,
           child: Scaffold(
             appBar: AppBar(
-              title: Text(
-                S.current.Perfil,
-              ),
+              actions: [
+                Container(
+                  margin: const EdgeInsets.only(right: 15),
+                  child: IconButton(
+                    icon: const Icon(Icons.help),
+                    onPressed: () {
+                      showDialog<void>(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Container(
+                              decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    topRight: Radius.circular(20)),
+                                color: $colorBlueGeneral,
+                              ),
+                              padding: const EdgeInsets.only(
+                                  left: 22, top: 20, bottom: 20),
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                S.current.Ayuda,
+                                style: const TextStyle(
+                                  color: $colorTextWhite,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            titlePadding: EdgeInsets.zero,
+                            content: SizedBox(
+                              width: 200,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    S.current
+                                        .Para_ver_la_foto_de_perfil_con_mas_detalle,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    S.current.Hacer_doble_clic_sobre_la_imagen,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            insetPadding: EdgeInsets.zero,
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ],
+              title: Text(S.current.Perfil),
               bottom: TabBar(
                 tabs: <Widget>[
                   Tab(
@@ -135,443 +200,475 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
               ),
             ),
             body: TabBarView(children: [
-              Container(
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(
-                          bottom: 30,
-                          left: 10,
-                          right: 10,
-                          top: 15,
-                        ),
-                        width: sizeInputs,
-                        child: Center(
-                          child: Stack(
-                            children: [
-                              ClipOval(
-                                child: Container(
-                                  width: 150,
-                                  height: sizeInputs,
-                                  decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: ImageLoad(
-                                    urlImage: profileState.profile!.image ?? '',
-                                  ),
-                                ),
-                              ),
-                              Visibility(
-                                visible: enableInput,
-                                child: Positioned(
-                                  bottom: 0,
-                                  right: 0,
-                                  child: IconButton.filled(
-                                    iconSize: 20,
-                                    style: const ButtonStyle(
-                                      backgroundColor: WidgetStatePropertyAll(
-                                        $colorBlueGeneral,
-                                      ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    FocusManager.instance.primaryFocus?.unfocus();
+                  });
+                },
+                child: Container(
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(
+                            bottom: 30,
+                            left: 10,
+                            right: 10,
+                            top: 15,
+                          ),
+                          width: sizeInputs,
+                          child: Center(
+                            child: Stack(
+                              children: [
+                                ClipOval(
+                                  child: Container(
+                                    width: 150,
+                                    height: sizeInputs,
+                                    decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
                                     ),
-                                    onPressed: () {
-                                      bottomSheetModal(
-                                        context: context,
-                                        arrayWidgets: [
-                                          Container(
-                                            margin: const EdgeInsets.symmetric(
-                                                vertical: 15),
-                                            width: 40,
-                                            height: 7,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              color: $colorButtonDisable,
-                                            ),
-                                          ),
-                                          Container(
-                                            margin: const EdgeInsets.symmetric(
-                                                horizontal: 20),
-                                            width: size.width,
-                                            child: Text(S.current
-                                                .Seleccione_foto_de_perfil),
-                                          ),
-                                          Container(
-                                            width: size.width,
-                                            margin: const EdgeInsets.symmetric(
-                                                horizontal: 20),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                Column(
-                                                  children: [
-                                                    //TODO: Falta hacer la logica de cambio de foto cuando se ocupe el repositorio de imagenes
-                                                    IconButton(
-                                                      onPressed: () async {
-                                                        // ignore: unused_local_variable
-                                                        final photo =
-                                                            await image
-                                                                .selectImage();
-                                                      },
-                                                      icon: const Icon(
-                                                          Icons.photo),
-                                                    ),
-                                                    Text(S.current.Galeria),
-                                                  ],
-                                                ),
-                                                Column(
-                                                  children: [
-                                                    IconButton(
-                                                      onPressed: () async {
-                                                        // ignore: unused_local_variable
-                                                        final imagen =
-                                                            await image
-                                                                .takePhoto();
-                                                      },
-                                                      icon: const Icon(
-                                                          Icons.add_a_photo),
-                                                    ),
-                                                    Text(S.current.Camara),
-                                                  ],
-                                                )
-                                              ],
-                                            ),
-                                          )
-                                        ],
-                                      );
-                                    },
-                                    icon: const Icon(Icons.camera_alt),
+                                    child: ImageLoad(
+                                      urlImage:
+                                          profileState.profile!.image ?? '',
+                                    ),
                                   ),
                                 ),
-                              )
-                            ],
+                                Visibility(
+                                  visible: enableInput,
+                                  child: Positioned(
+                                    bottom: 0,
+                                    right: 0,
+                                    child: IconButton.filled(
+                                      iconSize: 20,
+                                      style: const ButtonStyle(
+                                        backgroundColor: WidgetStatePropertyAll(
+                                          $colorBlueGeneral,
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        bottomSheetModal(
+                                          context: context,
+                                          arrayWidgets: [
+                                            Container(
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 15),
+                                              width: 40,
+                                              height: 7,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                                color: $colorButtonDisable,
+                                              ),
+                                            ),
+                                            Container(
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 20),
+                                              width: size.width,
+                                              child: Text(S.current
+                                                  .Seleccione_foto_de_perfil),
+                                            ),
+                                            Container(
+                                              width: size.width,
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 20),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  Column(
+                                                    children: [
+                                                      //TODO: Falta hacer la logica de cambio de foto cuando se ocupe el repositorio de imagenes
+                                                      IconButton(
+                                                        onPressed: () async {
+                                                          // ignore: unused_local_variable
+                                                          final photo =
+                                                              await image
+                                                                  .selectImage();
+                                                        },
+                                                        icon: const Icon(
+                                                            Icons.photo),
+                                                      ),
+                                                      Text(S.current.Galeria),
+                                                    ],
+                                                  ),
+                                                  Column(
+                                                    children: [
+                                                      IconButton(
+                                                        onPressed: () async {
+                                                          // ignore: unused_local_variable
+                                                          final imagen =
+                                                              await image
+                                                                  .takePhoto();
+                                                        },
+                                                        icon: const Icon(
+                                                            Icons.add_a_photo),
+                                                      ),
+                                                      Text(S.current.Camara),
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        );
+                                      },
+                                      icon: const Icon(Icons.camera_alt),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      Focus(
-                        focusNode: focusNodes[$userNameProfile],
-                        child: InputForm(
-                          label: S.current.Nombre_de_usuario,
-                          maxLength: 15,
-                          value: profileState.userName!,
-                          enable: enableInput,
-                          onChanged: (value) {
-                            profileNotifier.updateUserName(value: value);
-                          },
-                          errorText:
-                              profileState.validationErrors[$userNameProfile],
-                        ),
-                      ),
-                      Focus(
-                        focusNode: focusNodes[$emailProfile],
-                        child: InputForm(
-                          label: S.current.Correo_electronico,
-                          maxLength: 50,
-                          value: profileState.email!,
-                          enable: enableInput,
-                          onChanged: (value) {
-                            profileNotifier.updateEmail(value: value);
-                          },
-                          errorText:
-                              profileState.validationErrors[$emailProfile],
-                        ),
-                      ),
-                      Focus(
-                        focusNode: focusNodes[$firstNameProfile],
-                        child: InputForm(
-                          label: S.current.Primer_nombre,
-                          maxLength: 15,
-                          value: profileState.profile!.firstName,
-                          enable: enableInput,
-                          onChanged: (value) {
-                            profileNotifier.updateProfileField(
-                              fieldName: $firstNameProfile,
-                              newValue: value,
-                            );
-                          },
-                          allCharacters: false,
-                          errorText:
-                              profileState.validationErrors[$firstNameProfile],
-                        ),
-                      ),
-                      InputForm(
-                        label: S.current.Segundo_nombre,
-                        maxLength: 15,
-                        value: profileState.profile!.secondName ?? '-',
-                        enable: enableInput,
-                        onChanged: (value) {
-                          profileNotifier.updateProfileField(
-                            fieldName: $secondNameProfile,
-                            newValue: value,
-                          );
-                        },
-                        allCharacters: false,
-                      ),
-                      Focus(
-                        focusNode: focusNodes[$surnameProfile],
-                        child: InputForm(
-                          label: S.current.Primer_apellido,
-                          maxLength: 15,
-                          value: profileState.profile!.surname,
-                          enable: enableInput,
-                          onChanged: (value) {
-                            profileNotifier.updateProfileField(
-                              fieldName: $surnameProfile,
-                              newValue: value,
-                            );
-                          },
-                          allCharacters: false,
-                          errorText:
-                              profileState.validationErrors[$surnameProfile],
-                        ),
-                      ),
-                      InputForm(
-                        label: S.current.Segundo_apellido,
-                        maxLength: 15,
-                        value: profileState.profile!.secondSurname ?? '-',
-                        enable: enableInput,
-                        onChanged: (value) {
-                          profileNotifier.updateProfileField(
-                            fieldName: $secondSurnameProfile,
-                            newValue: value,
-                          );
-                        },
-                        allCharacters: false,
-                      ),
-                      SelectBox(
-                        enable: enableInput,
-                        valueInitial: profileState.profile!.gender,
-                        label: S.current.Sexo,
-                        onSelected: (value) {
-                          profileNotifier.updateProfileField(
-                            fieldName: $genderProfile,
-                            newValue: value! == "0" ? $masculino : $femenino,
-                          );
-                        },
-                        deleteSelection: false,
-                        listItems: [
-                          CatalogObject(
-                              id: 0, name: $masculino, description: ''),
-                          CatalogObject(id: 1, name: $femenino, description: '')
-                        ],
-                        errorText:
-                            profileState.validationErrors[$genderProfile],
-                      ),
-                      Focus(
-                        focusNode: focusNodes[$identificationNumbereProfile],
-                        child: InputForm(
-                          label: S.current.Cedula,
-                          maxLength: 16,
-                          value: profileState.profile!.identificationNumber!,
-                          enable: enableInput,
-                          onChanged: (value) {
-                            profileNotifier.updateProfileField(
-                              fieldName: $identificationNumbereProfile,
-                              newValue: value,
-                            );
-                          },
-                          errorText: profileState
-                              .validationErrors[$identificationNumbereProfile],
-                        ),
-                      ),
-                      InputForm(
-                        label: S.current.Fecha_de_nacimiento,
-                        value: profileState.profile!.birthday
-                            .split('-')
-                            .reversed
-                            .join('-'),
-                        enable: enableInput,
-                        readOnly: true,
-                        controllerExt: controller,
-                        onTap: () =>
-                            selectDate(context, profileState.profile!.birthday),
-                        onChanged: (value) {
-                          profileNotifier.updateProfileField(
-                            fieldName: $birthdayProfile,
-                            newValue: value,
-                          );
-                        },
-                        errorText:
-                            profileState.validationErrors[$birthdayProfile],
-                      ),
-                      if (profileState.roles!.contains($tutor))
                         Focus(
-                          focusNode: focusNodes[$telephoneProfile],
+                          focusNode: focusNodes[$userNameProfile],
                           child: InputForm(
-                              label: S.current.Telefono,
-                              maxLength: 8,
-                              isNumber: true,
-                              value: profileState.profile!.telephone ?? '',
-                              enable: enableInput,
-                              onChanged: (value) {
-                                profileNotifier.updateProfileField(
-                                  fieldName: $telephoneProfile,
-                                  newValue: value,
-                                );
-                              },
-                              errorText: profileState
-                                  .validationErrors[$telephoneProfile]),
+                            label: S.current.Nombre_de_usuario,
+                            maxLength: 15,
+                            value: profileState.userName!,
+                            enable: enableInput,
+                            onChanged: (value) {
+                              profileNotifier.updateUserName(value: value);
+                            },
+                            errorText:
+                                profileState.validationErrors[$userNameProfile],
+                          ),
                         ),
-                      Focus(
-                        focusNode: focusNodes[$phoneNumberProfile],
-                        child: InputForm(
-                          label: S.current.Celular,
-                          maxLength: 8,
-                          isNumber: true,
-                          value: profileState.profile!.phoneNumber!,
+                        Focus(
+                          focusNode: focusNodes[$emailProfile],
+                          child: InputForm(
+                            label: S.current.Correo_electronico,
+                            maxLength: 50,
+                            value: profileState.email!,
+                            enable: enableInput,
+                            onChanged: (value) {
+                              profileNotifier.updateEmail(value: value);
+                            },
+                            errorText:
+                                profileState.validationErrors[$emailProfile],
+                          ),
+                        ),
+                        Focus(
+                          focusNode: focusNodes[$firstNameProfile],
+                          child: InputForm(
+                            label: S.current.Primer_nombre,
+                            maxLength: 15,
+                            value: profileState.profile!.firstName,
+                            enable: enableInput,
+                            onChanged: (value) {
+                              profileNotifier.updateProfileField(
+                                fieldName: $firstNameProfile,
+                                newValue: value,
+                              );
+                            },
+                            allCharacters: false,
+                            errorText: profileState
+                                .validationErrors[$firstNameProfile],
+                          ),
+                        ),
+                        InputForm(
+                          label: S.current.Segundo_nombre,
+                          maxLength: 15,
+                          value: profileState.profile!.secondName ?? '-',
                           enable: enableInput,
                           onChanged: (value) {
                             profileNotifier.updateProfileField(
-                              fieldName: $phoneNumberProfile,
+                              fieldName: $secondNameProfile,
                               newValue: value,
                             );
                           },
-                          errorText: profileState
-                              .validationErrors[$phoneNumberProfile],
+                          allCharacters: false,
                         ),
-                      ),
-                      Focus(
-                        focusNode: focusNodes[$addressProfile],
-                        child: InputForm(
-                          label: S.current.Direccion,
-                          maxLength: 255,
-                          linesDynamic: true,
+                        Focus(
+                          focusNode: focusNodes[$surnameProfile],
+                          child: InputForm(
+                            label: S.current.Primer_apellido,
+                            maxLength: 15,
+                            value: profileState.profile!.surname,
+                            enable: enableInput,
+                            onChanged: (value) {
+                              profileNotifier.updateProfileField(
+                                fieldName: $surnameProfile,
+                                newValue: value,
+                              );
+                            },
+                            allCharacters: false,
+                            errorText:
+                                profileState.validationErrors[$surnameProfile],
+                          ),
+                        ),
+                        InputForm(
+                          label: S.current.Segundo_apellido,
+                          maxLength: 15,
+                          value: profileState.profile!.secondSurname ?? '-',
                           enable: enableInput,
                           onChanged: (value) {
                             profileNotifier.updateProfileField(
-                              fieldName: $addressProfile,
+                              fieldName: $secondSurnameProfile,
+                              newValue: value,
+                            );
+                          },
+                          allCharacters: false,
+                        ),
+                        SelectBox(
+                          enable: enableInput,
+                          valueInitial: profileState.profile!.gender,
+                          label: S.current.Sexo,
+                          onSelected: (value) {
+                            profileNotifier.updateProfileField(
+                              fieldName: $genderProfile,
+                              newValue: value! == "0" ? $masculino : $femenino,
+                            );
+                          },
+                          deleteSelection: false,
+                          listItems: [
+                            CatalogObject(
+                                id: 0, name: $masculino, description: ''),
+                            CatalogObject(
+                                id: 1, name: $femenino, description: '')
+                          ],
+                          errorText:
+                              profileState.validationErrors[$genderProfile],
+                        ),
+                        Focus(
+                          focusNode: focusNodes[$identificationNumbereProfile],
+                          child: InputForm(
+                            label: S.current.Cedula,
+                            maxLength: 16,
+                            value: profileState.profile!.identificationNumber!,
+                            enable: enableInput,
+                            onChanged: (value) {
+                              profileNotifier.updateProfileField(
+                                fieldName: $identificationNumbereProfile,
+                                newValue: value,
+                              );
+                            },
+                            errorText: profileState.validationErrors[
+                                $identificationNumbereProfile],
+                          ),
+                        ),
+                        InputForm(
+                          label: S.current.Fecha_de_nacimiento,
+                          value: profileState.profile!.birthday
+                              .split('-')
+                              .reversed
+                              .join('-'),
+                          enable: enableInput,
+                          readOnly: true,
+                          controllerExt: controller,
+                          onTap: () => selectDate(
+                              context, profileState.profile!.birthday),
+                          onChanged: (value) {
+                            profileNotifier.updateProfileField(
+                              fieldName: $birthdayProfile,
                               newValue: value,
                             );
                           },
                           errorText:
-                              profileState.validationErrors[$addressProfile],
-                          value: profileState.profile!.address,
+                              profileState.validationErrors[$birthdayProfile],
                         ),
-                      ),
-                      const SizedBox(height: 50)
-                    ],
+                        if (profileState.roles!.contains($tutor))
+                          Focus(
+                            focusNode: focusNodes[$telephoneProfile],
+                            child: InputForm(
+                                label: S.current.Telefono,
+                                maxLength: 8,
+                                isNumber: true,
+                                value: profileState.profile!.telephone ?? '',
+                                enable: enableInput,
+                                onChanged: (value) {
+                                  profileNotifier.updateProfileField(
+                                    fieldName: $telephoneProfile,
+                                    newValue: value,
+                                  );
+                                },
+                                errorText: profileState
+                                    .validationErrors[$telephoneProfile]),
+                          ),
+                        Focus(
+                          focusNode: focusNodes[$phoneNumberProfile],
+                          child: InputForm(
+                            label: S.current.Celular,
+                            maxLength: 8,
+                            isNumber: true,
+                            value: profileState.profile!.phoneNumber!,
+                            enable: enableInput,
+                            onChanged: (value) {
+                              profileNotifier.updateProfileField(
+                                fieldName: $phoneNumberProfile,
+                                newValue: value,
+                              );
+                            },
+                            errorText: profileState
+                                .validationErrors[$phoneNumberProfile],
+                          ),
+                        ),
+                        Focus(
+                          focusNode: focusNodes[$addressProfile],
+                          child: InputForm(
+                            label: S.current.Direccion,
+                            maxLength: 255,
+                            linesDynamic: true,
+                            enable: enableInput,
+                            onChanged: (value) {
+                              profileNotifier.updateProfileField(
+                                fieldName: $addressProfile,
+                                newValue: value,
+                              );
+                            },
+                            errorText:
+                                profileState.validationErrors[$addressProfile],
+                            value: profileState.profile!.address,
+                          ),
+                        ),
+                        const SizedBox(height: 50)
+                      ],
+                    ),
                   ),
                 ),
               ),
             ]),
             drawer: const SideMenu(),
-            floatingActionButton: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Visibility(
-                  visible: !enableInput,
-                  child: ButtonTextIcon(
-                    title: S.current.Cambiar_contrasena,
-                    icon: const Icon(Icons.edit),
-                    buttonColor: $colorSuccess,
-                    onClic: () {
-                      modalPassword(context: context, isVerifided: true);
+            floatingActionButton: profileState.isLoading == true ||
+                    profileState.isUpdateData == true
+                ? null
+                : SpeedDial(
+                    icon: Icons.expand_less,
+                    activeIcon: Icons.expand_more,
+                    animationDuration: const Duration(milliseconds: 300),
+                    spacing: 3,
+                    overlayColor: $colorShadow,
+                    overlayOpacity: 0.2,
+                    childPadding: const EdgeInsets.all(5),
+                    spaceBetweenChildren: 4,
+                    elevation: 8.0,
+                    animationCurve: Curves.easeInOut,
+                    isOpenOnStart: false,
+                    shape: const CircleBorder(),
+                    onOpen: () {
+                      setState(() {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                      });
                     },
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Visibility(
-                  visible: !enableInput,
-                  child: ButtonTextIcon(
-                    title: S.current.Editar,
-                    icon: const Icon(Icons.edit),
-                    buttonColor: $colorBlueGeneral,
-                    onClic: () {
-                      if (profileState.permmisions!.contains($updateProfile)) {
-                        setState(
-                          () {
-                            profileNotifier.assingState();
-                            enableInput = true;
-                          },
-                        );
-                      } else {
-                        toastAlert(
-                          iconAlert: const Icon(Icons.info),
-                          context: context,
-                          title: S.current.No_autorizado,
-                          description:
-                              S.current.No_cuenta_con_el_permiso_necesario,
-                          typeAlert: ToastificationType.info,
-                        );
-                      }
-                    },
-                  ),
-                ),
-                Visibility(
-                  visible: enableInput,
-                  child: ButtonTextIcon(
-                    title: S.current.Actualizar,
-                    icon: const Icon(Icons.update),
-                    buttonColor: $colorSuccess,
-                    onClic: () {
-                      clickSave = true;
-                      if (profileNotifier.checkFields()) {
-                        modalDialogConfirmation(
-                          context: context,
-                          titleButtonConfirm: S.current.Si_actualizar,
-                          question: RichText(
-                            textAlign: TextAlign.center,
-                            text: TextSpan(
-                              text:
-                                  S.current.Esta_Seguro_de_actualizar_los_datos,
-                              style: const TextStyle(
-                                  fontSize: 14, color: $colorTextBlack),
-                            ),
-                          ),
-                          buttonColorConfirm: $colorSuccess,
-                          onClic: () async {
-                            if (context.mounted) Navigator.of(context).pop();
-                            if (profileState.roles!.contains($tutor)) {
-                              await profileNotifier.updateTutor();
-                            } else {
-                              await profileNotifier.updateTherapist();
-                            }
-                          },
-                        );
-                      }
-                      clickSave = false;
-                    },
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Visibility(
-                  visible: enableInput,
-                  child: ButtonTextIcon(
-                    title: S.current.Cancelar,
-                    icon: const Icon(Icons.cancel),
-                    buttonColor: $colorError,
-                    onClic: () {
-                      modalDialogConfirmation(
-                        context: context,
-                        titleButtonConfirm: S.current.Si_salir,
-                        question: RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            text: S.current.Esta_seguro_de_salir_de_la_edicion,
-                            style: const TextStyle(
-                                fontSize: 14, color: $colorTextBlack),
-                          ),
-                        ),
-                        buttonColorConfirm: $colorSuccess,
-                        onClic: () {
-                          Navigator.of(context).pop();
-                          setState(() {
-                            enableInput = false;
-                          });
-                          WidgetsBinding.instance.addPostFrameCallback((_) {
-                            // Aquí puedes actualizar el estado o realizar alguna acción
-                            ref.read(profileProvider.notifier).restoredState();
-                          });
+                    children: [
+                      SpeedDialChild(
+                        visible: !enableInput,
+                        shape: const CircleBorder(),
+                        child: const Icon(Icons.change_circle,
+                            color: $colorTextWhite),
+                        backgroundColor: $colorSuccess,
+                        label: S.current.Cambiar_contrasena,
+                        onTap: () {
+                          modalPassword(context: context, isVerifided: true);
                         },
-                      );
-                    },
+                      ),
+                      SpeedDialChild(
+                        visible: !enableInput,
+                        shape: const CircleBorder(),
+                        child: const Icon(Icons.edit, color: $colorTextWhite),
+                        backgroundColor: $colorBlueGeneral,
+                        label: S.current.Editar,
+                        onTap: () {
+                          if (profileState.permmisions!
+                              .contains($updateProfile)) {
+                            setState(
+                              () {
+                                profileNotifier.assingState();
+                                enableInput = true;
+                              },
+                            );
+                          } else {
+                            toastAlert(
+                              iconAlert: const Icon(Icons.info),
+                              context: context,
+                              title: S.current.No_autorizado,
+                              description:
+                                  S.current.No_cuenta_con_el_permiso_necesario,
+                              typeAlert: ToastificationType.info,
+                            );
+                          }
+                        },
+                      ),
+                      SpeedDialChild(
+                        visible: enableInput,
+                        shape: const CircleBorder(),
+                        child: const Icon(Icons.update, color: $colorTextWhite),
+                        backgroundColor: $colorSuccess,
+                        label: S.current.Actualizar,
+                        onTap: () {
+                          clickSave = true;
+                          if (profileNotifier.checkFields()) {
+                            modalDialogConfirmation(
+                              context: context,
+                              titleButtonConfirm: S.current.Si_actualizar,
+                              question: RichText(
+                                textAlign: TextAlign.center,
+                                text: TextSpan(
+                                  text: S.current
+                                      .Esta_Seguro_de_actualizar_los_datos,
+                                  style: const TextStyle(
+                                      fontSize: 14, color: $colorTextBlack),
+                                ),
+                              ),
+                              buttonColorConfirm: $colorSuccess,
+                              onClic: () async {
+                                if (context.mounted)
+                                  Navigator.of(context).pop();
+                                if (profileState.roles!.contains($tutor)) {
+                                  await profileNotifier.updateTutor();
+                                } else {
+                                  await profileNotifier.updateTherapist();
+                                }
+                              },
+                            );
+                          }
+                          clickSave = false;
+                        },
+                      ),
+                      SpeedDialChild(
+                        visible: enableInput,
+                        shape: const CircleBorder(),
+                        child: const Icon(Icons.cancel, color: $colorTextWhite),
+                        backgroundColor: $colorError,
+                        label: S.current.Cancelar,
+                        onTap: () {
+                          modalDialogConfirmation(
+                            context: context,
+                            titleButtonConfirm: S.current.Si_salir,
+                            question: RichText(
+                              textAlign: TextAlign.center,
+                              text: TextSpan(
+                                text: S
+                                    .current.Esta_seguro_de_salir_de_la_edicion,
+                                style: const TextStyle(
+                                    fontSize: 14, color: $colorTextBlack),
+                              ),
+                            ),
+                            buttonColorConfirm: $colorSuccess,
+                            onClic: () {
+                              Navigator.of(context).pop();
+                              setState(() {
+                                enableInput = false;
+                              });
+                              WidgetsBinding.instance.addPostFrameCallback((_) {
+                                // Aquí puedes actualizar el estado o realizar alguna acción
+                                ref
+                                    .read(profileProvider.notifier)
+                                    .restoredState();
+                              });
+                            },
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
           ),
         ),
         if (profileState.isUpdateData == true)

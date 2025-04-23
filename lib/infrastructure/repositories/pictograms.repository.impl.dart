@@ -68,4 +68,15 @@ class PictogramsRepositoyImpl extends PictogramsRepository {
       idPictogram: idPictogram,
     );
   }
+
+  @override
+  Future<ResponseDataList<PictogramAchievements>> getPictogramsPatient({
+    required int indexPage,
+    required int? idCategory,
+  }) {
+    return dataSource.getPictogramsPatient(
+      idCategory: idCategory,
+      indexPage: indexPage,
+    );
+  }
 }

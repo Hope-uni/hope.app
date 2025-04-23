@@ -211,6 +211,14 @@ class ChildNotifier extends StateNotifier<ChildState> {
     state = state.copyWith(child: updatedChild);
   }
 
+  void updateActivity() {
+    Child updatedChild = state.child!;
+
+    updatedChild = state.child!.copyWith(currentActivity: null);
+
+    state = state.copyWith(child: updatedChild);
+  }
+
   bool checkFields() {
     Map<String, String?> errors = {};
 

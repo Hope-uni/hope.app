@@ -197,26 +197,27 @@ class GridImagesState extends ConsumerState<GridImages> {
                       .toList(),
                 ),
                 InputForm(
-                    hint: S.current.Busqueda_por_nombre,
-                    value: '',
-                    enable: true,
-                    onSearch: () async {
-                      if (widget.isCustomized) {
-                        await notifierPictograms.getCustomPictograms(
-                          idChild: widget.idChild,
-                          namePictogram: namePicto,
-                          idCategory: idCategory,
-                        );
-                      } else {
-                        await notifierPictograms.getPictograms(
-                          namePictogram: namePicto,
-                          idCategory: idCategory,
-                        );
-                      }
-                    },
-                    onChanged: (String value) {
-                      namePicto = value.isNotEmpty ? value : null;
-                    }),
+                  hint: S.current.Busqueda_por_nombre,
+                  value: '',
+                  enable: true,
+                  onSearch: () async {
+                    if (widget.isCustomized) {
+                      await notifierPictograms.getCustomPictograms(
+                        idChild: widget.idChild,
+                        namePictogram: namePicto,
+                        idCategory: idCategory,
+                      );
+                    } else {
+                      await notifierPictograms.getPictograms(
+                        namePictogram: namePicto,
+                        idCategory: idCategory,
+                      );
+                    }
+                  },
+                  onChanged: (String value) {
+                    namePicto = value.isNotEmpty ? value : null;
+                  },
+                ),
                 Expanded(
                   child: Stack(
                     children: [
