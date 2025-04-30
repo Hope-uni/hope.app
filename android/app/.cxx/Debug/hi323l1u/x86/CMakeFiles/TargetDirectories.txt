@@ -1,0 +1,2 @@
+D:/hope.app/android/app/.cxx/Debug/hi323l1u/x86/CMakeFiles/edit_cache.dir
+D:/hope.app/android/app/.cxx/Debug/hi323l1u/x86/CMakeFiles/rebuild_cache.dir
