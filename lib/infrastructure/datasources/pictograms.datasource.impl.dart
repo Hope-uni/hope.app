@@ -149,7 +149,7 @@ class PictogramsDataSourceImpl extends PictogramsDataSource {
   }) async {
     try {
       // Construir la URL dinámicamente
-      String url = '/patientPictogram?page=$indexPage&size=15';
+      String url = '/patientPictogram?page=$indexPage&size=30';
 
       if (idCategory != null) url += '&categoryId=$idCategory';
 

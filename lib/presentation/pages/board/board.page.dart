@@ -18,7 +18,18 @@ class BoardPage extends ConsumerStatefulWidget {
 }
 
 class BoardPageState extends ConsumerState<BoardPage> {
+  final scrollController = ScrollController();
+
+  bool showErrorPermissionCategory = false;
+  bool showErrorPermissionPictograms = false;
+
   int? indexSeleccionado;
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Future<void> didChangeDependencies() async {
@@ -26,9 +37,21 @@ class BoardPageState extends ConsumerState<BoardPage> {
 
     Future.microtask(() async {
       final notifierPictograms = ref.read(pictogramsProvider.notifier);
-      await notifierPictograms.getPictograms();
+      await notifierPictograms.getPictogramsPatient();
 
-      //await notifierPictograms.getPictogramsPatient();
+      scrollController.addListener(() async {
+        final statePictograms = ref.read(pictogramsProvider);
+
+        if ((scrollController.position.pixels + 50) >=
+                scrollController.position.maxScrollExtent &&
+            statePictograms.isLoading == false) {
+          if (statePictograms.paginatePictograms[$indexPage]! > 1 &&
+              statePictograms.paginatePictograms[$indexPage]! <=
+                  statePictograms.paginatePictograms[$pageCount]!) {
+            await notifierPictograms.getPictogramsPatient();
+          }
+        }
+      });
     });
   }
 
@@ -41,8 +64,9 @@ class BoardPageState extends ConsumerState<BoardPage> {
 
     final statePictograms = ref.watch(pictogramsProvider);
     final stateBoard = ref.watch(boardProvider);
+    final notifierPictograms = ref.read(pictogramsProvider.notifier);
 
-    final stateProfile = ref.read(profileProvider).profile;
+    final stateProfile = ref.read(profileProvider);
     final notifierBoard = ref.read(boardProvider.notifier);
 
     ref.listen(pictogramsProvider, (previous, next) {
@@ -57,8 +81,47 @@ class BoardPageState extends ConsumerState<BoardPage> {
       }
     });
 
+    ref.listen(boardProvider, (previous, next) {
+      if (next.errorMessageApi != null) {
+        toastAlert(
+          context: context,
+          title: S.current.Error,
+          description: next.errorMessageApi!,
+          typeAlert: ToastificationType.error,
+        );
+        //ref.read(pictogramsProvider.notifier).updateResponse();
+      }
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!stateProfile.permmisions!.contains($listCategory) &&
+          showErrorPermissionCategory == false) {
+        toastAlert(
+          iconAlert: const Icon(Icons.error),
+          context: context,
+          title: S.current.Error,
+          description:
+              S.current.No_tiene_permiso_para_listar_categorias_de_pictogramas,
+          typeAlert: ToastificationType.error,
+        );
+        showErrorPermissionCategory = true;
+      }
+
+      if (!stateProfile.permmisions!.contains($listCustomPictogram) &&
+          showErrorPermissionPictograms == false) {
+        toastAlert(
+          iconAlert: const Icon(Icons.error),
+          context: context,
+          title: S.current.Error,
+          description: S.current.No_tiene_permiso_para_listar_los_pictogramas,
+          typeAlert: ToastificationType.error,
+        );
+        showErrorPermissionPictograms = true;
+      }
+    });
+
     return Scaffold(
-      appBar: false
+      appBar: true
           ? null
           : AppBar(
               title: Text(
@@ -69,7 +132,8 @@ class BoardPageState extends ConsumerState<BoardPage> {
             ),
       body: Container(
         height: size.height,
-        margin: const EdgeInsets.symmetric(horizontal: 7.5, vertical: 10),
+        margin:
+            const EdgeInsets.only(top: 20, bottom: 10, left: 7.5, right: 7.5),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -79,6 +143,7 @@ class BoardPageState extends ConsumerState<BoardPage> {
                   if (statePictograms.pictograms.isEmpty == false)
                     Expanded(
                       child: GridView.builder(
+                        controller: scrollController,
                         itemCount: statePictograms.pictograms.length,
                         scrollDirection: Axis.vertical,
                         gridDelegate:
@@ -89,7 +154,8 @@ class BoardPageState extends ConsumerState<BoardPage> {
                         ),
                         itemBuilder: (context, index) {
                           return buildDraggableExample(
-                            isFilterBW: stateProfile!.isMonochrome ?? false,
+                            isFilterBW:
+                                stateProfile.profile!.isMonochrome ?? false,
                             pictogram: statePictograms.pictograms[index],
                           );
                         },
@@ -156,47 +222,58 @@ class BoardPageState extends ConsumerState<BoardPage> {
                                 color: $colorBackgroundDrawer,
                                 borderRadius: BorderRadius.circular(20),
                               ),
-                              child:
-                                  statePictograms.categoryPictograms.isEmpty ==
-                                          false
-                                      ? ListView.builder(
-                                          itemCount: statePictograms
-                                              .categoryPictograms.length,
-                                          itemBuilder: (context, index) {
-                                            return Container(
-                                              width: 170,
-                                              color: indexSeleccionado == index
-                                                  ? $colorSelectMenu
-                                                  : null,
-                                              child: ListTile(
-                                                //leading: const Icon(Icons.pets),
-                                                style: ListTileStyle.drawer,
-                                                title: Text(statePictograms
-                                                    .categoryPictograms[index]
-                                                    .name),
-                                                onTap: () {
-                                                  setState(() {
-                                                    if (index ==
-                                                        indexSeleccionado) {
-                                                      indexSeleccionado = null;
-                                                    } else {
-                                                      indexSeleccionado = index;
-                                                    }
-                                                  });
-                                                },
-                                              ),
-                                            );
-                                          },
-                                        )
-                                      : Center(
-                                          child: SizedBox(
-                                            height: 400,
-                                            child: SvgPicture.asset(
-                                              fit: BoxFit.contain,
-                                              'assets/svg/SinDatos.svg',
-                                            ),
+                              child: statePictograms
+                                          .categoryPictograms.isEmpty ==
+                                      false
+                                  ? ListView.builder(
+                                      itemCount: statePictograms
+                                          .categoryPictograms.length,
+                                      itemBuilder: (context, index) {
+                                        return Container(
+                                          width: 170,
+                                          color: indexSeleccionado == index
+                                              ? $colorSelectMenu
+                                              : null,
+                                          child: ListTile(
+                                            //leading: const Icon(Icons.pets),
+                                            style: ListTileStyle.drawer,
+                                            title: Text(statePictograms
+                                                .categoryPictograms[index]
+                                                .name),
+                                            onTap: () async {
+                                              if (index == indexSeleccionado) {
+                                                await notifierPictograms
+                                                    .getPictogramsPatient();
+                                              } else {
+                                                await notifierPictograms
+                                                    .getPictogramsPatient(
+                                                        idCategory: statePictograms
+                                                            .categoryPictograms[
+                                                                index]
+                                                            .id);
+                                              }
+                                              setState(() {
+                                                if (index ==
+                                                    indexSeleccionado) {
+                                                  indexSeleccionado = null;
+                                                } else {
+                                                  indexSeleccionado = index;
+                                                }
+                                              });
+                                            },
                                           ),
+                                        );
+                                      },
+                                    )
+                                  : Center(
+                                      child: SizedBox(
+                                        height: 400,
+                                        child: SvgPicture.asset(
+                                          fit: BoxFit.contain,
+                                          'assets/svg/SinDatos.svg',
                                         ),
+                                      ),
+                                    ),
                             ),
                           ),
                         ),
@@ -207,7 +284,8 @@ class BoardPageState extends ConsumerState<BoardPage> {
               ),
             ),
             Container(
-              height: 50,
+              margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+              height: 75,
               alignment: Alignment.center,
               child: Text(
                 stateBoard.pictograms
@@ -243,6 +321,7 @@ class BoardPageState extends ConsumerState<BoardPage> {
                         icon: const Icon(Icons.delete),
                         onClic: () {
                           notifierBoard.clearPictogramSolution();
+                          notifierPictograms.setPictogramsPatients();
                         },
                       ),
                       Expanded(
@@ -251,6 +330,8 @@ class BoardPageState extends ConsumerState<BoardPage> {
                           backgroundLine: true,
                           isDecoration: false,
                           isSelect: false,
+                          isReorder: true,
+                          onReorder: notifierBoard.onChangeOrderSolution,
                         ),
                       ),
                       Visibility(
@@ -293,6 +374,10 @@ class BoardPageState extends ConsumerState<BoardPage> {
               onAcceptWithDetails:
                   (DragTargetDetails<PictogramAchievements> details) {
                 notifierBoard.addPictogramSolution(newPictogram: details.data);
+
+                notifierPictograms.deletePictogram(
+                  idPictogram: details.data.id,
+                );
               },
             ),
           ],

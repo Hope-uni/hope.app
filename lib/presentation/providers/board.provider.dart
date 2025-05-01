@@ -9,9 +9,19 @@ final boardProvider =
 class BoardNotifier extends StateNotifier<BoardState> {
   BoardNotifier() : super(BoardState());
 
-//TODO: Verificar posiciones despues
   void addPictogramSolution({required PictogramAchievements newPictogram}) {
     state = state.copyWith(pictograms: [...state.pictograms, newPictogram]);
+  }
+
+  void onChangeOrderSolution(int indexOld, int indexNew) {
+    final pictogram = state.pictograms[indexOld];
+    if (indexOld < indexNew) {
+      indexNew -= 1;
+    }
+
+    state.pictograms.removeAt(indexOld);
+    state.pictograms.insert(indexNew, pictogram);
+    state = state.copyWith(pictograms: state.pictograms);
   }
 
   void clearPictogramSolution() {

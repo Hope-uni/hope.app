@@ -483,6 +483,10 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "No tiene permiso para listar las fases del autismo",
         ),
+    "No_tiene_permiso_para_listar_los_pictogramas":
+        MessageLookupByLibrary.simpleMessage(
+          "No tiene permiso para listar los pictogramas",
+        ),
     "Nombre": MessageLookupByLibrary.simpleMessage("Nombre"),
     "Nombre_de_usuario": MessageLookupByLibrary.simpleMessage(
       "Nombre de usuario",

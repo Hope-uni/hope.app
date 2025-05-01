@@ -2364,6 +2364,16 @@ class S {
       args: [],
     );
   }
+
+  /// `No tiene permiso para listar los pictogramas`
+  String get No_tiene_permiso_para_listar_los_pictogramas {
+    return Intl.message(
+      'No tiene permiso para listar los pictogramas',
+      name: 'No_tiene_permiso_para_listar_los_pictogramas',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
