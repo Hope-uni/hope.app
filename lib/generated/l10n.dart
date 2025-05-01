@@ -18,17 +18,20 @@ class S {
   static S? _current;
 
   static S get current {
-    assert(_current != null,
-        'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.');
+    assert(
+      _current != null,
+      'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.',
+    );
     return _current!;
   }
 
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false)
-        ? locale.languageCode
-        : locale.toString();
+    final name =
+        (locale.countryCode?.isEmpty ?? false)
+            ? locale.languageCode
+            : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
@@ -41,8 +44,10 @@ class S {
 
   static S of(BuildContext context) {
     final instance = S.maybeOf(context);
-    assert(instance != null,
-        'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?');
+    assert(
+      instance != null,
+      'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?',
+    );
     return instance!;
   }
 
@@ -52,12 +57,7 @@ class S {
 
   /// `hope`
   String get Hope {
-    return Intl.message(
-      'hope',
-      name: 'Hope',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('hope', name: 'Hope', desc: '', args: []);
   }
 
   /// `Iniciar sesión`
@@ -82,22 +82,12 @@ class S {
 
   /// `Usuario`
   String get Usuario {
-    return Intl.message(
-      'Usuario',
-      name: 'Usuario',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Usuario', name: 'Usuario', desc: '', args: []);
   }
 
   /// `Contraseña`
   String get Contrasena {
-    return Intl.message(
-      'Contraseña',
-      name: 'Contrasena',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Contraseña', name: 'Contrasena', desc: '', args: []);
   }
 
   /// `¿Olvido su contraseña?`
@@ -112,12 +102,7 @@ class S {
 
   /// `Entrar`
   String get Entrar {
-    return Intl.message(
-      'Entrar',
-      name: 'Entrar',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Entrar', name: 'Entrar', desc: '', args: []);
   }
 
   /// `Los campos no pueden estar vacíos`
@@ -152,12 +137,7 @@ class S {
 
   /// `Actividades`
   String get Actividades {
-    return Intl.message(
-      'Actividades',
-      name: 'Actividades',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Actividades', name: 'Actividades', desc: '', args: []);
   }
 
   /// `Configuración`
@@ -352,12 +332,7 @@ class S {
 
   /// `Buscar`
   String get Buscar {
-    return Intl.message(
-      'Buscar',
-      name: 'Buscar',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Buscar', name: 'Buscar', desc: '', args: []);
   }
 
   /// `Limpiar filtros`
@@ -372,32 +347,17 @@ class S {
 
   /// `Editar`
   String get Editar {
-    return Intl.message(
-      'Editar',
-      name: 'Editar',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Editar', name: 'Editar', desc: '', args: []);
   }
 
   /// `Crear`
   String get Crear {
-    return Intl.message(
-      'Crear',
-      name: 'Crear',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Crear', name: 'Crear', desc: '', args: []);
   }
 
   /// `Eliminar`
   String get Eliminar {
-    return Intl.message(
-      'Eliminar',
-      name: 'Eliminar',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Eliminar', name: 'Eliminar', desc: '', args: []);
   }
 
   /// `Editar pictograma`
@@ -422,32 +382,17 @@ class S {
 
   /// `Guardar`
   String get Guardar {
-    return Intl.message(
-      'Guardar',
-      name: 'Guardar',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Guardar', name: 'Guardar', desc: '', args: []);
   }
 
   /// `Cancelar`
   String get Cancelar {
-    return Intl.message(
-      'Cancelar',
-      name: 'Cancelar',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Cancelar', name: 'Cancelar', desc: '', args: []);
   }
 
   /// `Actualizar`
   String get Actualizar {
-    return Intl.message(
-      'Actualizar',
-      name: 'Actualizar',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Actualizar', name: 'Actualizar', desc: '', args: []);
   }
 
   /// `Si, eliminar`
@@ -462,12 +407,7 @@ class S {
 
   /// `¡Aviso!`
   String get Aviso {
-    return Intl.message(
-      '¡Aviso!',
-      name: 'Aviso',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('¡Aviso!', name: 'Aviso', desc: '', args: []);
   }
 
   /// `¿Está seguro que desea eliminar el pictograma?`
@@ -482,22 +422,12 @@ class S {
 
   /// `Galería`
   String get Galeria {
-    return Intl.message(
-      'Galería',
-      name: 'Galeria',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Galería', name: 'Galeria', desc: '', args: []);
   }
 
   /// `Cámara`
   String get Camara {
-    return Intl.message(
-      'Cámara',
-      name: 'Camara',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Cámara', name: 'Camara', desc: '', args: []);
   }
 
   /// `Lo sentimos, ha ocurrido un error al procesar tu solicitud. Por favor, intenta nuevamente más tarde.`
@@ -522,12 +452,7 @@ class S {
 
   /// `Perfil`
   String get Perfil {
-    return Intl.message(
-      'Perfil',
-      name: 'Perfil',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Perfil', name: 'Perfil', desc: '', args: []);
   }
 
   /// `Datos del usuario`
@@ -582,52 +507,27 @@ class S {
 
   /// `Cédula`
   String get Cedula {
-    return Intl.message(
-      'Cédula',
-      name: 'Cedula',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Cédula', name: 'Cedula', desc: '', args: []);
   }
 
   /// `Edad`
   String get Edad {
-    return Intl.message(
-      'Edad',
-      name: 'Edad',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Edad', name: 'Edad', desc: '', args: []);
   }
 
   /// `Teléfono`
   String get Telefono {
-    return Intl.message(
-      'Teléfono',
-      name: 'Telefono',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Teléfono', name: 'Telefono', desc: '', args: []);
   }
 
   /// `Celular`
   String get Celular {
-    return Intl.message(
-      'Celular',
-      name: 'Celular',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Celular', name: 'Celular', desc: '', args: []);
   }
 
   /// `Dirección`
   String get Direccion {
-    return Intl.message(
-      'Dirección',
-      name: 'Direccion',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Dirección', name: 'Direccion', desc: '', args: []);
   }
 
   /// `Seleccione foto de perfil`
@@ -672,12 +572,7 @@ class S {
 
   /// `Sexo`
   String get Sexo {
-    return Intl.message(
-      'Sexo',
-      name: 'Sexo',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Sexo', name: 'Sexo', desc: '', args: []);
   }
 
   /// `Teléfono de casa`
@@ -692,12 +587,7 @@ class S {
 
   /// `Tutor`
   String get Tutor {
-    return Intl.message(
-      'Tutor',
-      name: 'Tutor',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Tutor', name: 'Tutor', desc: '', args: []);
   }
 
   /// `Contacto tutor`
@@ -712,12 +602,7 @@ class S {
 
   /// `Terapeuta`
   String get Terapeuta {
-    return Intl.message(
-      'Terapeuta',
-      name: 'Terapeuta',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Terapeuta', name: 'Terapeuta', desc: '', args: []);
   }
 
   /// `Contacto terapeuta`
@@ -742,12 +627,7 @@ class S {
 
   /// `Observación`
   String get Observacion {
-    return Intl.message(
-      'Observación',
-      name: 'Observacion',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Observación', name: 'Observacion', desc: '', args: []);
   }
 
   /// `Pictogramas Blanco/Negro`
@@ -772,12 +652,7 @@ class S {
 
   /// `Fases`
   String get Fases {
-    return Intl.message(
-      'Fases',
-      name: 'Fases',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Fases', name: 'Fases', desc: '', args: []);
   }
 
   /// `Avanzar de fase`
@@ -792,12 +667,7 @@ class S {
 
   /// `Logros`
   String get Logros {
-    return Intl.message(
-      'Logros',
-      name: 'Logros',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Logros', name: 'Logros', desc: '', args: []);
   }
 
   /// `Información del niño`
@@ -812,12 +682,7 @@ class S {
 
   /// `Si, avanzar`
   String get Si_avanzar {
-    return Intl.message(
-      'Si, avanzar',
-      name: 'Si_avanzar',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Si, avanzar', name: 'Si_avanzar', desc: '', args: []);
   }
 
   /// `¿Está seguro de avanzar de fase a {nameChild}?`
@@ -922,12 +787,7 @@ class S {
 
   /// `Si, salir`
   String get Si_salir {
-    return Intl.message(
-      'Si, salir',
-      name: 'Si_salir',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Si, salir', name: 'Si_salir', desc: '', args: []);
   }
 
   /// `¿Está seguro de salir de la edición?`
@@ -952,7 +812,8 @@ class S {
 
   /// `Se actualizó correctamente el pictograma personalizado: {namePictogram}`
   String Se_actualizo_correctamente_el_pictograma_personalizado(
-      Object namePictogram) {
+    Object namePictogram,
+  ) {
     return Intl.message(
       'Se actualizó correctamente el pictograma personalizado: $namePictogram',
       name: 'Se_actualizo_correctamente_el_pictograma_personalizado',
@@ -963,7 +824,8 @@ class S {
 
   /// `Se creó correctamente el pictograma personalizado: {namePictogram}`
   String Se_creo_correctamente_el_pictograma_personalizado(
-      Object namePictogram) {
+    Object namePictogram,
+  ) {
     return Intl.message(
       'Se creó correctamente el pictograma personalizado: $namePictogram',
       name: 'Se_creo_correctamente_el_pictograma_personalizado',
@@ -1024,12 +886,7 @@ class S {
 
   /// `Progresos`
   String get Progresos {
-    return Intl.message(
-      'Progresos',
-      name: 'Progresos',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Progresos', name: 'Progresos', desc: '', args: []);
   }
 
   /// `Progreso general de las fases`
@@ -1064,12 +921,7 @@ class S {
 
   /// `Si, guardar`
   String get Si_guardar {
-    return Intl.message(
-      'Si, guardar',
-      name: 'Si_guardar',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Si, guardar', name: 'Si_guardar', desc: '', args: []);
   }
 
   /// `¿Está seguro de crear la actividad?`
@@ -1084,62 +936,32 @@ class S {
 
   /// `Nombre`
   String get Nombre {
-    return Intl.message(
-      'Nombre',
-      name: 'Nombre',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Nombre', name: 'Nombre', desc: '', args: []);
   }
 
   /// `Fase`
   String get Fase {
-    return Intl.message(
-      'Fase',
-      name: 'Fase',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Fase', name: 'Fase', desc: '', args: []);
   }
 
   /// `Puntos`
   String get Puntos {
-    return Intl.message(
-      'Puntos',
-      name: 'Puntos',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Puntos', name: 'Puntos', desc: '', args: []);
   }
 
   /// `Opciones`
   String get Opciones {
-    return Intl.message(
-      'Opciones',
-      name: 'Opciones',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Opciones', name: 'Opciones', desc: '', args: []);
   }
 
   /// `Página`
   String get Pagina {
-    return Intl.message(
-      'Página',
-      name: 'Pagina',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Página', name: 'Pagina', desc: '', args: []);
   }
 
   /// `de`
   String get De {
-    return Intl.message(
-      'de',
-      name: 'De',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('de', name: 'De', desc: '', args: []);
   }
 
   /// `Ver Información detallada de la actividad`
@@ -1194,12 +1016,7 @@ class S {
 
   /// `Error`
   String get Error {
-    return Intl.message(
-      'Error',
-      name: 'Error',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Error', name: 'Error', desc: '', args: []);
   }
 
   /// `La contraseña debe contener entre 8 y 30 caracteres`
@@ -1274,22 +1091,12 @@ class S {
 
   /// `Al paciente`
   String get Al_paiente {
-    return Intl.message(
-      'Al paciente',
-      name: 'Al_paiente',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Al paciente', name: 'Al_paiente', desc: '', args: []);
   }
 
   /// `Si, quitar`
   String get Si_Quitar {
-    return Intl.message(
-      'Si, quitar',
-      name: 'Si_Quitar',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Si, quitar', name: 'Si_Quitar', desc: '', args: []);
   }
 
   /// `Selección de niños para actividad`
@@ -1314,22 +1121,12 @@ class S {
 
   /// `Atrás`
   String get Atras {
-    return Intl.message(
-      'Atrás',
-      name: 'Atras',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Atrás', name: 'Atras', desc: '', args: []);
   }
 
   /// `Siguiente`
   String get Siguiente {
-    return Intl.message(
-      'Siguiente',
-      name: 'Siguiente',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Siguiente', name: 'Siguiente', desc: '', args: []);
   }
 
   /// `Asignación exitosa`
@@ -1394,12 +1191,7 @@ class S {
 
   /// `Actividad`
   String get Actividad {
-    return Intl.message(
-      'Actividad',
-      name: 'Actividad',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Actividad', name: 'Actividad', desc: '', args: []);
   }
 
   /// `Se actualizó correctamente la información de la actividad`
@@ -1434,12 +1226,7 @@ class S {
 
   /// `Descripción`
   String get Descripcion {
-    return Intl.message(
-      'Descripción',
-      name: 'Descripcion',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Descripción', name: 'Descripcion', desc: '', args: []);
   }
 
   /// `Fase del autismo`
@@ -1454,12 +1241,7 @@ class S {
 
   /// `Puntaje`
   String get Puntaje {
-    return Intl.message(
-      'Puntaje',
-      name: 'Puntaje',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Puntaje', name: 'Puntaje', desc: '', args: []);
   }
 
   /// `Seleccione pictogramas de la solución`
@@ -1474,22 +1256,12 @@ class S {
 
   /// `Solución`
   String get Solucion {
-    return Intl.message(
-      'Solución',
-      name: 'Solucion',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Solución', name: 'Solucion', desc: '', args: []);
   }
 
   /// `Oración`
   String get Oracion {
-    return Intl.message(
-      'Oración',
-      name: 'Oracion',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Oración', name: 'Oracion', desc: '', args: []);
   }
 
   /// `¡Guardado con éxito!`
@@ -1534,12 +1306,7 @@ class S {
 
   /// `Limpiar`
   String get Limpiar {
-    return Intl.message(
-      'Limpiar',
-      name: 'Limpiar',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Limpiar', name: 'Limpiar', desc: '', args: []);
   }
 
   /// `Verificar actividad`
@@ -1766,12 +1533,7 @@ class S {
 
   /// `Cargando…`
   String get Cargando {
-    return Intl.message(
-      'Cargando…',
-      name: 'Cargando',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Cargando…', name: 'Cargando', desc: '', args: []);
   }
 
   /// `La contraseña actual no puede estar vacía`
@@ -1786,7 +1548,7 @@ class S {
 
   /// `La contraseña debe tener entre 8 y 30 caracteres además contener letras y números`
   String
-      get La_contrasena_debe_tener_entre_caracteres_ademas_contener_letras_y_numeros {
+  get La_contrasena_debe_tener_entre_caracteres_ademas_contener_letras_y_numeros {
     return Intl.message(
       'La contraseña debe tener entre 8 y 30 caracteres además contener letras y números',
       name:
@@ -1808,12 +1570,7 @@ class S {
 
   /// `Años`
   String get Anos {
-    return Intl.message(
-      'Años',
-      name: 'Anos',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Años', name: 'Anos', desc: '', args: []);
   }
 
   /// `Sin terapeuta asignado`
@@ -1838,12 +1595,7 @@ class S {
 
   /// `Fase actual`
   String get Fase_actual {
-    return Intl.message(
-      'Fase actual',
-      name: 'Fase_actual',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Fase actual', name: 'Fase_actual', desc: '', args: []);
   }
 
   /// `Sin actividad activa por el momento`
@@ -1898,7 +1650,7 @@ class S {
 
   /// `• Mantener el dedo sobre el nombre durante 1 segundo para verlo completo.`
   String
-      get Mantener_el_dedo_sobre_el_nombre_durante_1_segundo_para_verlo_completo {
+  get Mantener_el_dedo_sobre_el_nombre_durante_1_segundo_para_verlo_completo {
     return Intl.message(
       '• Mantener el dedo sobre el nombre durante 1 segundo para verlo completo.',
       name:
@@ -1940,22 +1692,12 @@ class S {
 
   /// `Ayuda`
   String get Ayuda {
-    return Intl.message(
-      'Ayuda',
-      name: 'Ayuda',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Ayuda', name: 'Ayuda', desc: '', args: []);
   }
 
   /// `Salir`
   String get Salir {
-    return Intl.message(
-      'Salir',
-      name: 'Salir',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Salir', name: 'Salir', desc: '', args: []);
   }
 
   /// `El nombre de la actividad no puede estar vacío`
@@ -2000,7 +1742,7 @@ class S {
 
   /// `Los puntos para completar la actividad no puede ser cero o estar vacío`
   String
-      get Los_puntos_para_completar_la_actividad_no_puede_ser_cero_o_estar_vacio {
+  get Los_puntos_para_completar_la_actividad_no_puede_ser_cero_o_estar_vacio {
     return Intl.message(
       'Los puntos para completar la actividad no puede ser cero o estar vacío',
       name:
@@ -2022,7 +1764,7 @@ class S {
 
   /// `• Mantener el dedo sobre el pictograma de la solución para poder ordenarlo a su voluntad`
   String
-      get Mantener_el_dedo_sobre_el_pictograma_de_la_solucion_para_poder_ordenarlo_a_su_voluntad {
+  get Mantener_el_dedo_sobre_el_pictograma_de_la_solucion_para_poder_ordenarlo_a_su_voluntad {
     return Intl.message(
       '• Mantener el dedo sobre el pictograma de la solución para poder ordenarlo a su voluntad',
       name:
@@ -2054,7 +1796,7 @@ class S {
 
   /// `La descripción no puede ser menor a 6 o mayor a 255 caracteres`
   String
-      get La_descripcion_no_puede_ser_menor_a_seis_o_mayor_a_docientocincuentaycinco_caracteres {
+  get La_descripcion_no_puede_ser_menor_a_seis_o_mayor_a_docientocincuentaycinco_caracteres {
     return Intl.message(
       'La descripción no puede ser menor a 6 o mayor a 255 caracteres',
       name:
@@ -2066,7 +1808,7 @@ class S {
 
   /// `El nombre del usuario no puede ser menor a 3 o mayor a 15 caracteres`
   String
-      get El_nombre_del_usuario_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres {
+  get El_nombre_del_usuario_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres {
     return Intl.message(
       'El nombre del usuario no puede ser menor a 3 o mayor a 15 caracteres',
       name:
@@ -2078,7 +1820,7 @@ class S {
 
   /// `El primer nombre no puede ser menor a 3 o mayor a 15 caracteres`
   String
-      get El_primer_nombre_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres {
+  get El_primer_nombre_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres {
     return Intl.message(
       'El primer nombre no puede ser menor a 3 o mayor a 15 caracteres',
       name:
@@ -2090,7 +1832,7 @@ class S {
 
   /// `El primer apellido no puede ser menor a 3 o mayor a 15 caracteres`
   String
-      get El_primer_apellido_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres {
+  get El_primer_apellido_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres {
     return Intl.message(
       'El primer apellido no puede ser menor a 3 o mayor a 15 caracteres',
       name:
@@ -2102,7 +1844,7 @@ class S {
 
   /// `La dirección no puede ser menor a 6 o mayor a 255 caracteres`
   String
-      get La_direccion_no_puede_ser_menor_a_seis_o_mayor_a_docientocincuentaycinco_caracteres {
+  get La_direccion_no_puede_ser_menor_a_seis_o_mayor_a_docientocincuentaycinco_caracteres {
     return Intl.message(
       'La dirección no puede ser menor a 6 o mayor a 255 caracteres',
       name:
@@ -2154,7 +1896,7 @@ class S {
 
   /// `La descripción debe tener entre 6 y 255 caracteres`
   String
-      get La_descripcion_debe_tener_entre_seis_y_docientocincuentaycinco_caracteres {
+  get La_descripcion_debe_tener_entre_seis_y_docientocincuentaycinco_caracteres {
     return Intl.message(
       'La descripción debe tener entre 6 y 255 caracteres',
       name:
@@ -2176,22 +1918,12 @@ class S {
 
   /// `Regresar`
   String get Regresar {
-    return Intl.message(
-      'Regresar',
-      name: 'Regresar',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Regresar', name: 'Regresar', desc: '', args: []);
   }
 
   /// `Cerrar`
   String get Cerrar {
-    return Intl.message(
-      'Cerrar',
-      name: 'Cerrar',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Cerrar', name: 'Cerrar', desc: '', args: []);
   }
 
   /// `Actividad desasignada exitosamente`
@@ -2226,12 +1958,7 @@ class S {
 
   /// `Si, cambiar`
   String get Si_cambiar {
-    return Intl.message(
-      'Si, cambiar',
-      name: 'Si_cambiar',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Si, cambiar', name: 'Si_cambiar', desc: '', args: []);
   }
 
   /// `¿Está seguro de cambiar el filtro blanco/negro?`
@@ -2246,32 +1973,17 @@ class S {
 
   /// `Nuevo valor`
   String get Nuevo_valor {
-    return Intl.message(
-      'Nuevo valor',
-      name: 'Nuevo_valor',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Nuevo valor', name: 'Nuevo_valor', desc: '', args: []);
   }
 
   /// `Inactivo`
   String get Inactivo {
-    return Intl.message(
-      'Inactivo',
-      name: 'Inactivo',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Inactivo', name: 'Inactivo', desc: '', args: []);
   }
 
   /// `Activo`
   String get Activo {
-    return Intl.message(
-      'Activo',
-      name: 'Activo',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Activo', name: 'Activo', desc: '', args: []);
   }
 
   /// `Se actualizó el filtro blanco y negro con exito: {isMonochrome}`
@@ -2326,7 +2038,7 @@ class S {
 
   /// `• Deslizar el dedo desde arriba hacia abajo en la parte superior de la pantalla`
   String
-      get Deslizar_el_dedo_desde_arriba_hacia_abajo_en_la_parte_superior_de_la_pantalla {
+  get Deslizar_el_dedo_desde_arriba_hacia_abajo_en_la_parte_superior_de_la_pantalla {
     return Intl.message(
       '• Deslizar el dedo desde arriba hacia abajo en la parte superior de la pantalla',
       name:
@@ -2348,7 +2060,7 @@ class S {
 
   /// `• Hacer clic sobre el botón verde en la parte inferior derecha de la pantalla`
   String
-      get Hacer_clic_sobre_el_boton_verde_en_la_parte_inferior_derecha_de_la_pantalla {
+  get Hacer_clic_sobre_el_boton_verde_en_la_parte_inferior_derecha_de_la_pantalla {
     return Intl.message(
       '• Hacer clic sobre el botón verde en la parte inferior derecha de la pantalla',
       name:
@@ -2370,7 +2082,7 @@ class S {
 
   /// `• Puede desplazarse de manera horizontal en los pictogramas para poder ver más registros`
   String
-      get Puede_desplazarse_de_manera_horizontal_en_los_pictogramas_para_poder_ver_mas_registros {
+  get Puede_desplazarse_de_manera_horizontal_en_los_pictogramas_para_poder_ver_mas_registros {
     return Intl.message(
       '• Puede desplazarse de manera horizontal en los pictogramas para poder ver más registros',
       name:
@@ -2402,7 +2114,7 @@ class S {
 
   /// `• Seleccione los pacientes a los cuales desea agregar la actividad dando clic en el cuadro a la derecha del registro`
   String
-      get Seleccione_los_pacientes_a_los_cuales_desea_agregar_la_actividad_dando_clic_en_el_cuadro_a_la_derecha_del_registro {
+  get Seleccione_los_pacientes_a_los_cuales_desea_agregar_la_actividad_dando_clic_en_el_cuadro_a_la_derecha_del_registro {
     return Intl.message(
       '• Seleccione los pacientes a los cuales desea agregar la actividad dando clic en el cuadro a la derecha del registro',
       name:
@@ -2414,7 +2126,7 @@ class S {
 
   /// `• Avanzar al siguiente paso dando clic en el botón de la esquina inferior derecha`
   String
-      get Avanzar_al_siguiente_paso_dando_clic_en_el_boton_de_la_esquina_inferior_derecha {
+  get Avanzar_al_siguiente_paso_dando_clic_en_el_boton_de_la_esquina_inferior_derecha {
     return Intl.message(
       '• Avanzar al siguiente paso dando clic en el botón de la esquina inferior derecha',
       name:
@@ -2426,7 +2138,7 @@ class S {
 
   /// `• Si desea eliminar un paciente de la lista de asignación, hacer clic sobre el icono rojo del basurero`
   String
-      get Si_desea_eliminar_un_paciente_de_la_lista_de_asignacion_hacer_clic_sobre_el_icono_rojo_del_basurero {
+  get Si_desea_eliminar_un_paciente_de_la_lista_de_asignacion_hacer_clic_sobre_el_icono_rojo_del_basurero {
     return Intl.message(
       '• Si desea eliminar un paciente de la lista de asignación, hacer clic sobre el icono rojo del basurero',
       name:
@@ -2438,7 +2150,7 @@ class S {
 
   /// `• Para finalizar asignación, hacer clic sobre el botón en la esquina inferior derecha y seleccionar la opción de guardar`
   String
-      get Para_finalizar_asignacion_hacer_clic_sobre_el_boton_en_la_esquina_inferior_derecha_y_seleccionar_la_opcion_de_guardar {
+  get Para_finalizar_asignacion_hacer_clic_sobre_el_boton_en_la_esquina_inferior_derecha_y_seleccionar_la_opcion_de_guardar {
     return Intl.message(
       '• Para finalizar asignación, hacer clic sobre el botón en la esquina inferior derecha y seleccionar la opción de guardar',
       name:
@@ -2450,7 +2162,7 @@ class S {
 
   /// `• Si desea agregar un pictograma a la solución, debe dar clic en el botón verde con el icono de listo`
   String
-      get Si_desea_agregar_un_pictograma_a_la_solucion_debe_dar_clic_en_el_boton_verde_con_el_icono_de_listo {
+  get Si_desea_agregar_un_pictograma_a_la_solucion_debe_dar_clic_en_el_boton_verde_con_el_icono_de_listo {
     return Intl.message(
       '• Si desea agregar un pictograma a la solución, debe dar clic en el botón verde con el icono de listo',
       name:
@@ -2462,7 +2174,7 @@ class S {
 
   /// `• Si desea eliminar un pictograma a la solución, debe dar clic en el botón rojo con el icono del basurero`
   String
-      get Si_desea_eliminar_un_pictograma_a_la_solucion_debe_dar_clic_en_el_boton_rojo_con_el_icono_del_basurero {
+  get Si_desea_eliminar_un_pictograma_a_la_solucion_debe_dar_clic_en_el_boton_rojo_con_el_icono_del_basurero {
     return Intl.message(
       '• Si desea eliminar un pictograma a la solución, debe dar clic en el botón rojo con el icono del basurero',
       name:
@@ -2484,7 +2196,7 @@ class S {
 
   /// `• Hacer clic sobre el icono rojo del basurero al paciente que le desee quitar la actividad`
   String
-      get Hacer_clic_sobre_el_icono_rojo_del_basurero_al_paciente_que_le_desee_quitar_la_actividad {
+  get Hacer_clic_sobre_el_icono_rojo_del_basurero_al_paciente_que_le_desee_quitar_la_actividad {
     return Intl.message(
       '• Hacer clic sobre el icono rojo del basurero al paciente que le desee quitar la actividad',
       name:
@@ -2516,7 +2228,7 @@ class S {
 
   /// `• Se puede desplazar a través de las pestañas desde el menú superior o deslizando horizontalmente en la pantalla`
   String
-      get Se_puede_desplazar_atraves_de_las_pestanas_desde_el_menu_superior_o_deslizando_horizontalmente_en_la_pantalla {
+  get Se_puede_desplazar_atraves_de_las_pestanas_desde_el_menu_superior_o_deslizando_horizontalmente_en_la_pantalla {
     return Intl.message(
       '• Se puede desplazar a través de las pestañas desde el menú superior o deslizando horizontalmente en la pantalla',
       name:
@@ -2548,7 +2260,7 @@ class S {
 
   /// `• Para saber que acciones puede realizar en el registro, dar clic en el botón inferior a la derecha de la pantalla`
   String
-      get Para_saber_que_acciones_puede_realizar_en_el_registro_dar_clic_en_el_boton_inferior_a_la_derecha_de_la_pantalla {
+  get Para_saber_que_acciones_puede_realizar_en_el_registro_dar_clic_en_el_boton_inferior_a_la_derecha_de_la_pantalla {
     return Intl.message(
       '• Para saber que acciones puede realizar en el registro, dar clic en el botón inferior a la derecha de la pantalla',
       name:
@@ -2610,12 +2322,7 @@ class S {
 
   /// `Verificar`
   String get Verificar {
-    return Intl.message(
-      'Verificar',
-      name: 'Verificar',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Verificar', name: 'Verificar', desc: '', args: []);
   }
 
   /// `El paciente no tiene actividad asignada actualmente`
@@ -2633,6 +2340,26 @@ class S {
     return Intl.message(
       'El límite de pictogramas para la solución es de 30',
       name: 'El_limite_de_pictogramas_para_la_solucion_es_de_treinta',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No tiene permiso para listar las fases del autismo`
+  String get No_tiene_permiso_para_listar_las_fases_del_autismo {
+    return Intl.message(
+      'No tiene permiso para listar las fases del autismo',
+      name: 'No_tiene_permiso_para_listar_las_fases_del_autismo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No tiene permiso para listar categorías de pictogramas`
+  String get No_tiene_permiso_para_listar_categorias_de_pictogramas {
+    return Intl.message(
+      'No tiene permiso para listar categorías de pictogramas',
+      name: 'No_tiene_permiso_para_listar_categorias_de_pictogramas',
       desc: '',
       args: [],
     );
