@@ -180,8 +180,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     final permissonsList =
         me.roles.expand((role) => role.permissions!).toList();
 
-    final descriptionsPermissons =
-        permissonsList.map((e) => e.description).toList();
+    final descriptionsPermissons = permissonsList.map((e) => e.code).toList();
 
     await keyValueRepository.setValueStorage<List<String>>(
         descriptionsPermissons, $permissions);

@@ -22,6 +22,7 @@ class FormActivityState extends ConsumerState<FormActivity> {
 
   final List<PictogramAchievements> selectedPictogram = [];
   String textSolution = '';
+  bool showErrorPermission = false;
 
   @override
   void initState() {
@@ -48,12 +49,15 @@ class FormActivityState extends ConsumerState<FormActivity> {
       final notifierPhases = ref.read(phasesProvider.notifier);
       final notifierPictograms = ref.read(pictogramsProvider.notifier);
       final statePictograms = ref.read(pictogramsProvider);
+      final profileState = ref.watch(profileProvider);
 
       if (statePictograms.paginatePictograms[$indexPage]! == 1) {
         await notifierPictograms.getPictograms();
       }
 
-      await notifierPhases.getPhases();
+      await notifierPhases.getPhases(
+          isPermission: profileState.permmisions!.contains($listPhase));
+
       scrollController.addListener(() async {
         final statePictograms = ref.read(pictogramsProvider);
 
@@ -129,6 +133,7 @@ class FormActivityState extends ConsumerState<FormActivity> {
     final notifierActivity = ref.read(activityProvider.notifier);
     final statePictograms = ref.watch(pictogramsProvider);
     final statePhases = ref.watch(phasesProvider);
+    final profileState = ref.watch(profileProvider);
     final notifierPictograms = ref.read(pictogramsProvider.notifier);
 
     ref.listen(activityProvider, (previous, next) {
@@ -167,6 +172,21 @@ class FormActivityState extends ConsumerState<FormActivity> {
           typeAlert: ToastificationType.error,
         );
         notifierActivity.updateResponse();
+      }
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!profileState.permmisions!.contains($listPhase) &&
+          showErrorPermission == false) {
+        toastAlert(
+          iconAlert: const Icon(Icons.error),
+          context: context,
+          title: S.current.Error,
+          description:
+              S.current.No_tiene_permiso_para_listar_las_fases_del_autismo,
+          typeAlert: ToastificationType.error,
+        );
+        showErrorPermission = true;
       }
     });
 

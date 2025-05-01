@@ -565,8 +565,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
                     backgroundColor: $colorBlueGeneral,
                     label: S.current.Editar,
                     onTap: () {
-                      if (stateProfile.permmisions!
-                          .contains($updatePatientTutor)) {
+                      if (stateProfile.permmisions!.contains($updatePatient)) {
                         setState(() {
                           _tabController.animateTo(0,
                               duration: const Duration(seconds: 1),
@@ -661,9 +660,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
                     label: S.current.Avanzar_de_fase,
                     visible: widget.extra![$isTutor] == false,
                     onTap: () {
-                      //TODO: ACTUALIZAR CUANDO ESTEN LISTOS LOS PERMISOS EN API
-                      if (stateProfile.permmisions!
-                          .contains($updatePatientTutor)) {
+                      if (stateProfile.permmisions!.contains($advancePhase)) {
                         modalDialogConfirmation(
                           context: context,
                           titleButtonConfirm: S.current.Si_avanzar,
@@ -721,9 +718,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
                     label: S.current.Agregar_observacion,
                     visible: widget.extra![$isTutor] == false,
                     onTap: () {
-                      //TODO: ACTUALIZAR CUANDO ESTEN LISTOS LOS PERMISOS EN API
-                      if (stateProfile.permmisions!
-                          .contains($updatePatientTutor)) {
+                      if (stateProfile.permmisions!.contains($addObservation)) {
                         modalObservation(
                           context: context,
                           dataChild: CatalogObject(
@@ -752,9 +747,8 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
                     label: S.current.Actualizar_filtro_blanco_negro,
                     visible: widget.extra![$isTutor] == true && !enableInput,
                     onTap: () {
-                      //TODO: ACTUALIZAR CUANDO ESTEN LISTOS LOS PERMISOS EN API
                       if (stateProfile.permmisions!
-                          .contains($updatePatientTutor)) {
+                          .contains($changeMonochrome)) {
                         modalDialogConfirmation(
                           context: context,
                           titleButtonConfirm: S.current.Si_cambiar,
@@ -809,9 +803,8 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
                     label: S.current.Quitar_actividad,
                     visible: widget.extra![$isTutor] == false,
                     onTap: () {
-                      //TODO: ACTUALIZAR CUANDO ESTEN LISTOS LOS PERMISOS EN API
                       if (stateProfile.permmisions!
-                          .contains($updatePatientTutor)) {
+                          .contains($unassignActivity)) {
                         if (stateChild.child!.currentActivity == null) {
                           toastAlert(
                             iconAlert: const Icon(Icons.info),
@@ -903,7 +896,7 @@ List<Widget> _childPersonalData({
               width: 145,
               height: 145,
               decoration: const BoxDecoration(shape: BoxShape.circle),
-              child: ImageLoad(urlImage: stateChild.child!.image),
+              child: ImageLoad(urlImage: stateChild.child!.imageUrl),
             ),
           ),
           Visibility(

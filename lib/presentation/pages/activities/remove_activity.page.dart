@@ -200,12 +200,11 @@ class RemoveAcivityPageState extends ConsumerState<RemoveAcivityPage> {
                                   styleTitle: FontWeight.bold,
                                   subTitle:
                                       '${stateChildren.children[index].age} ${S.current.Anos}\n${S.current.Fase}: ${stateChildren.children[index].currentPhase.name}',
-                                  image: stateChildren.children[index].image,
+                                  image: stateChildren.children[index].imageUrl,
                                   iconButton: IconButton(
                                     onPressed: () {
-                                      //TODO: ACTUALIZAR PERMISOS CUANDO EN API ESTEN LISTOS
                                       if (profileState.permmisions!
-                                          .contains($updatePatientTutor)) {
+                                          .contains($unassignActivity)) {
                                         modalDialogConfirmation(
                                           context: context,
                                           onClic: () async {

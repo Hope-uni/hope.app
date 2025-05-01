@@ -3,6 +3,7 @@ class Me {
   String username;
   String email;
   bool userVerified;
+  String? imageUrl;
   Profile? profile;
   List<Role> roles;
 
@@ -11,6 +12,7 @@ class Me {
     required this.username,
     required this.email,
     required this.userVerified,
+    required this.imageUrl,
     required this.roles,
     this.profile,
   });
@@ -30,12 +32,14 @@ class Role {
 
 class Permission {
   int id;
-  String description;
   bool status;
+  String name;
+  String code;
 
   Permission({
     required this.id,
-    required this.description,
+    required this.name,
+    required this.code,
     required this.status,
   });
 }
@@ -47,7 +51,6 @@ class Profile {
   String? secondName;
   String surname;
   String? secondSurname;
-  String? image;
   String? identificationNumber;
   String? phoneNumber;
   String? telephone;
@@ -63,7 +66,6 @@ class Profile {
     required this.secondName,
     required this.surname,
     required this.secondSurname,
-    required this.image,
     required this.identificationNumber,
     required this.phoneNumber,
     required this.telephone,
@@ -84,7 +86,6 @@ class Profile {
     String? birthday,
     String? telephone,
     String? phoneNumber,
-    String? image,
     int? profileId,
     String? gender,
     bool? isMonochrome,
@@ -100,7 +101,6 @@ class Profile {
       birthday: birthday ?? this.birthday,
       telephone: telephone ?? this.telephone,
       phoneNumber: phoneNumber ?? this.phoneNumber,
-      image: image ?? this.image,
       profileId: profileId ?? this.profileId,
       gender: gender ?? this.gender,
       isMonochrome: isMonochrome ?? this.isMonochrome,

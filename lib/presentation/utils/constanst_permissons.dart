@@ -1,15 +1,36 @@
-const String $me = "buscarme";
-const String $listPatients = "listar pacientes";
-const String $findPatients = "buscar pacientes";
-const String $updateProfile = "actualizar perfil";
-const String $listPictograms = "listar pictogramas";
-const String $findPictograms = "buscar pictogramas";
-const String $updatePatienttherapist = "modificar paciente-terapeuta";
-const String $updatePatientTutor = "modificar paciente-tutor";
-const String $createCustomPictogram = "crear pictogramas-personalizados";
-const String $listCustomPictograms = "listar pictogramas-personalizados";
-const String $deleteCustomPictogram = "borrar pictogramas-personalizados";
-const String $updateCustomPictogram = "actualizar pictogramas-personalizados";
+//Permissions
+const String $addObservation = "add-observation";
+const String $advancePhase = "advance-phase";
+const String $assignAchievement = "assign-achievement";
+const String $assignActivity = "assign-activity";
+const String $changeMonochrome = "change-monochrome";
+const String $changePasswordAssignedPatient =
+    "change-password-assigned-patient";
+const String $createActivity = "create-activity";
+const String $createCustomPictogram = "create-custom-pictogram";
+const String $deleteActivity = "delete-activity";
+const String $deleteCustomPictogram = "delete-custom-pictogram";
+const String $getActivity = "get-activity";
+const String $getCustomPictogram = "get-custom-pictogram";
+const String $getPatient = "get-patient";
+const String $getPictogram = "get-pictogram";
+const String $getProfile = "get-profile";
+const String $listAchievement = "list-achievement";
+const String $listActivity = "list-activity";
+const String $listAssignedPatient = "list-assigned-patient";
+const String $listCategory = "list-category";
+const String $listCustomPictogram = "list-custom-pictogram";
+const String $listPhase = "list-phase";
+const String $listPictogram = "list-pictogram";
+const String $searchAchievement = "search-achievement";
+const String $searchActivity = "search-activity";
+const String $searchPatient = "search-patient";
+const String $searchPictogram = "search-pictogram";
+const String $updateCustomPictogram = "update-custom-pictogram";
+const String $updatePatient = "update-patient";
+const String $updateProfile = "update-profile";
+const String $unassignActivity = "unassign-activity";
+const String $verifyActivityAnswer = "verify-activity-answer";
 
 //Roles
 const String $tutor = "Tutor";
