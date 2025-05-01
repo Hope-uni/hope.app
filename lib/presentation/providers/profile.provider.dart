@@ -30,7 +30,6 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
       address: state.profile!.address,
       firstName: state.profile!.firstName,
       secondSurname: state.profile!.secondSurname ?? '',
-      image: state.profile!.image ?? '',
       identificationNumber: state.profile!.identificationNumber ?? '',
       username: state.userName!,
       email: state.email!,
@@ -56,7 +55,6 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
         secondName: profile.secondName,
         surname: profile.surname,
         secondSurname: profile.secondSurname,
-        image: profile.image,
         identificationNumber: profile.identificationNumber,
         phoneNumber: profile.phoneNumber,
         telephone: profile.telephone,
@@ -137,7 +135,6 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
           secondName: profilePerson.secondName,
           surname: profilePerson.surname,
           secondSurname: profilePerson.secondSurname,
-          image: profilePerson.image,
           identificationNumber: profilePerson.identificationNumber,
           phoneNumber: profilePerson.phoneNumber,
           telephone: profilePerson.telephone,
@@ -248,9 +245,10 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
         updatedProfile = state.profile!.copyWith(phoneNumber: newValue);
         break;
 
-      case $imageProfile:
+      //TODO: MODIFICAR CON EL CAMBIO DE LA IMAGEURL EN EL ME
+      /*case $imageProfile:
         updatedProfile = state.profile!.copyWith(image: newValue);
-        break;
+        break;*/
 
       case $genderProfile:
         if (newValue.isNotEmpty) newValidationErrors.remove($genderProfile);

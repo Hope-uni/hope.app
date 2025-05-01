@@ -4,7 +4,7 @@ class Person {
   String surname;
   String? secondSurname;
   String gender;
-  String? image;
+  String? imageUrl;
   String username;
   String email;
   String birthday;
@@ -16,7 +16,7 @@ class Person {
     required this.surname,
     this.secondSurname,
     required this.gender,
-    this.image,
+    this.imageUrl,
     required this.username,
     required this.email,
     required this.birthday,

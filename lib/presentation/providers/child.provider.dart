@@ -50,7 +50,7 @@ class ChildNotifier extends StateNotifier<ChildState> {
       email: state.child!.email,
       birthday: state.child!.birthday,
       address: state.child!.address,
-      image: state.child!.image,
+      imageUrl: state.child!.imageUrl,
       secondName: state.child!.secondName,
       secondSurname: state.child!.secondSurname,
     );
@@ -70,7 +70,7 @@ class ChildNotifier extends StateNotifier<ChildState> {
         email: responseChild.data!.email,
         firstName: responseChild.data!.firstName,
         gender: responseChild.data!.gender,
-        image: responseChild.data!.image,
+        imageUrl: responseChild.data!.imageUrl,
         secondName: responseChild.data!.secondName,
         secondSurname: responseChild.data!.secondSurname,
         surname: responseChild.data!.surname,
@@ -172,7 +172,7 @@ class ChildNotifier extends StateNotifier<ChildState> {
         break;
 
       case $imageProfile:
-        updatedChild = state.child!.copyWith(image: newValue);
+        updatedChild = state.child!.copyWith(imageUrl: newValue);
         break;
 
       case $genderProfile:

@@ -32,7 +32,6 @@ class Role {
 
 class Permission {
   int id;
-  bool status;
   String name;
   String code;
 
@@ -40,7 +39,6 @@ class Permission {
     required this.id,
     required this.name,
     required this.code,
-    required this.status,
   });
 }
 

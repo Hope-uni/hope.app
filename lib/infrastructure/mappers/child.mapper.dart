@@ -12,7 +12,7 @@ class ChildMapper {
         secondSurname: json["secondSurname"],
         gender: json["gender"],
         age: json["age"],
-        image: json["image"],
+        imageUrl: json["image"],
         username: json["username"],
         email: json["email"],
         birthday: json["birthday"],

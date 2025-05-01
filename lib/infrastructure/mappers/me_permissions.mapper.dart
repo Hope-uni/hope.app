@@ -9,6 +9,7 @@ class MePermissionsMapper {
         id: json["id"],
         username: json["username"],
         email: json["email"],
+        imageUrl: json["imageUrl"],
         userVerified: json["userVerified"],
         profile:
             json["profile"] == null ? null : fromJsonProfile(json["profile"]),
@@ -23,7 +24,6 @@ class MePermissionsMapper {
         secondName: json["secondName"],
         surname: json["surname"],
         secondSurname: json["secondSurname"],
-        image: json["image"],
         identificationNumber: json["identificationNumber"],
         phoneNumber: json["phoneNumber"],
         telephone: json["telephone"],
@@ -40,7 +40,6 @@ class MePermissionsMapper {
         "secondName": profile.secondName,
         "surname": profile.surname,
         "secondSurname": profile.secondSurname,
-        "image": profile.image,
         "identificationNumber": profile.identificationNumber,
         "phoneNumber": profile.phoneNumber,
         "telephone": profile.telephone,
