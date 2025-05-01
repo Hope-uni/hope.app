@@ -230,9 +230,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                                     decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
                                     ),
-                                    child: ImageLoad(
-                                      urlImage:
-                                          profileState.profile!.image ?? '',
+                                    child: const ImageLoad(
+                                      //TODO: MODIFICAR CON LA IMAGEN DEL ME
+                                      urlImage: '',
                                     ),
                                   ),
                                 ),
@@ -619,8 +619,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                               ),
                               buttonColorConfirm: $colorSuccess,
                               onClic: () async {
-                                if (context.mounted)
+                                if (context.mounted) {
                                   Navigator.of(context).pop();
+                                }
                                 if (profileState.roles!.contains($tutor)) {
                                   await profileNotifier.updateTutor();
                                 } else {

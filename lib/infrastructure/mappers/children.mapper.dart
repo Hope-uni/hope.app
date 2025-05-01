@@ -12,6 +12,6 @@ class ChildrenMapper {
         currentPhase:
             CatalogoObjectMapper.catalogObjectfromJson(json["currentPhase"]),
         achievementCount: json["achievementCount"],
-        image: json["image"],
+        imageUrl: json["imageUrl"],
       );
 }

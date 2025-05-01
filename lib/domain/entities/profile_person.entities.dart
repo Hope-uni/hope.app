@@ -10,7 +10,6 @@ class ProfilePerson extends Person {
     this.id,
     super.secondName,
     super.secondSurname,
-    super.image,
     this.identificationNumber,
     this.phoneNumber,
     this.telephone,

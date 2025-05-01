@@ -223,7 +223,7 @@ class AddActivityPageState extends ConsumerState<AddActivityPage> {
                                       title: stateChildren[index].fullName,
                                       subTitle:
                                           '${stateChildren[index].age} ${S.current.Anos}\n${S.current.Fase}: ${stateChildren[index].currentPhase.name}',
-                                      image: stateChildren[index].image,
+                                      image: stateChildren[index].imageUrl,
                                       colorItemSelect: stateActiviyChildren
                                               .children
                                               .map((item) => item.id)
@@ -276,7 +276,7 @@ class AddActivityPageState extends ConsumerState<AddActivityPage> {
                                             subTitle:
                                                 '${stateActiviyChildren.children[index].age} ${S.current.Anos}\n${S.current.Fase}: ${stateActiviyChildren.children[index].currentPhase.name}',
                                             image: stateActiviyChildren
-                                                .children[index].image,
+                                                .children[index].imageUrl,
                                             title: stateActiviyChildren
                                                 .children[index].fullName,
                                             iconButton: stateActiviyChildren

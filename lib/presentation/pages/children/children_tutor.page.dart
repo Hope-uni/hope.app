@@ -201,7 +201,7 @@ class ChildrenTutorPageState extends ConsumerState<ChildrenTutorPage> {
                                   styleTitle: FontWeight.bold,
                                   subTitle:
                                       '${stateChildren.children[index].age} ${S.current.Anos}\n${S.current.Fase}: ${stateChildren.children[index].currentPhase.name} ',
-                                  image: stateChildren.children[index].image,
+                                  image: stateChildren.children[index].imageUrl,
                                   iconButton: MenuItems(
                                     itemObject: CatalogObject(
                                       id: stateChildren.children[index].id,
