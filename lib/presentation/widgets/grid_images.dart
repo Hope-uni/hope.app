@@ -24,6 +24,7 @@ class GridImagesState extends ConsumerState<GridImages> {
   final scrollController = ScrollController();
   String? namePicto;
   int? idCategory;
+  bool showErrorPermission = false;
 
   @override
   void initState() {
@@ -90,6 +91,7 @@ class GridImagesState extends ConsumerState<GridImages> {
     final notifierPictograms = ref.read(pictogramsProvider.notifier);
     final stateWacthCustomPictograms = ref.watch(customPictogramProvider);
     final selectedDelete = ref.watch(selectDelete);
+    final profileState = ref.watch(profileProvider);
 
     ref.listen(pictogramsProvider, (previous, next) {
       if (next.errorMessageApi != null) {
@@ -99,7 +101,7 @@ class GridImagesState extends ConsumerState<GridImages> {
           description: next.errorMessageApi!,
           typeAlert: ToastificationType.error,
         );
-        ref.read(pictogramsProvider.notifier).updateResponse();
+        notifierPictograms.updateResponse();
       }
     });
 
@@ -149,6 +151,21 @@ class GridImagesState extends ConsumerState<GridImages> {
           typeAlert: ToastificationType.error,
         );
         ref.read(customPictogramProvider.notifier).updateRequest();
+      }
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!profileState.permmisions!.contains($listCategory) &&
+          showErrorPermission == false) {
+        toastAlert(
+          iconAlert: const Icon(Icons.error),
+          context: context,
+          title: S.current.Error,
+          description:
+              S.current.No_tiene_permiso_para_listar_categorias_de_pictogramas,
+          typeAlert: ToastificationType.error,
+        );
+        showErrorPermission = true;
       }
     });
 
@@ -377,8 +394,8 @@ class _ImageGrid extends StatelessWidget {
               visible: !isCustomized,
               child: IconButton(
                 onPressed: () => {
-                  //TODO: ACTUALIZAR PERMISOS CUANDO EN API ESTEN LISTOS
-                  if (profileState.permmisions!.contains($updatePatientTutor))
+                  if (profileState.permmisions!
+                      .contains($createCustomPictogram))
                     {
                       _dialogImage(
                         context: context,
@@ -409,8 +426,8 @@ class _ImageGrid extends StatelessWidget {
               visible: isCustomized,
               child: IconButton(
                 onPressed: () => {
-                  //TODO: ACTUALIZAR PERMISOS CUANDO EN API ESTEN LISTOS
-                  if (profileState.permmisions!.contains($updatePatientTutor))
+                  if (profileState.permmisions!
+                      .contains($updateCustomPictogram))
                     {
                       _dialogImage(
                         context: context,
@@ -444,9 +461,8 @@ class _ImageGrid extends StatelessWidget {
                   return IconButton(
                     tooltip: S.current.Eliminar,
                     onPressed: () {
-                      //TODO: ACTUALIZAR PERMISOS CUANDO EN API ESTEN LISTOS
                       if (profileState.permmisions!
-                          .contains($updatePatientTutor)) {
+                          .contains($deleteCustomPictogram)) {
                         _dialogConfirmation(
                           context: context,
                           pictogram: pictogram,

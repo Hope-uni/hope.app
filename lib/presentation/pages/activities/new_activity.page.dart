@@ -173,9 +173,8 @@ class NewActivityState extends ConsumerState<NewActivityPage> {
                         FocusManager.instance.primaryFocus?.unfocus();
                       });
                       Future.delayed(const Duration(milliseconds: 200), () {
-                        //TODO: Actualizar permiso cuando esten listos en la api
                         if (profileState.permmisions!
-                            .contains($updateProfile)) {
+                            .contains($createActivity)) {
                           notifierActivity.updateIsSave(isSave: true);
 
                           if (notifierActivity.checkFields()) {
