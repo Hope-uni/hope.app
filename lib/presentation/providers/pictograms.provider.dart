@@ -2,21 +2,29 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hope_app/domain/domain.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
+import 'package:hope_app/presentation/providers/providers.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 
 final pictogramsProvider =
     StateNotifierProvider.autoDispose<PictogramsNotifier, PictogramsState>(
         (ref) {
-  return PictogramsNotifier(pictogramsRepository: PictogramsRepositoyImpl());
+  final profileState = ref.read(profileProvider);
+  return PictogramsNotifier(
+    pictogramsRepository: PictogramsRepositoyImpl(),
+    profileState: profileState,
+  );
 });
 
 class PictogramsNotifier extends StateNotifier<PictogramsState> {
   final PictogramsRepositoyImpl pictogramsRepository;
 
+  final ProfileState profileState;
   bool isFilter = false;
 
-  PictogramsNotifier({required this.pictogramsRepository})
-      : super(PictogramsState());
+  PictogramsNotifier({
+    required this.pictogramsRepository,
+    required this.profileState,
+  }) : super(PictogramsState());
 
   void _validateFilter({
     int? idCategory,
@@ -174,6 +182,9 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
 
   Future<List<Category>?> getCategoryPictograms() async {
     state = state.copyWith(isLoading: true);
+    if (!profileState.permmisions!.contains($listCategory)) {
+      return null;
+    }
     final indexPage = state.paginatePictograms[$indexPage]!;
     try {
       final categoryPictograms =

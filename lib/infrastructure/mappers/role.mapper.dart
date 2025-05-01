@@ -12,7 +12,7 @@ class RoleMapper {
 
   static Permission permissionFromJson(Map<String, dynamic> json) => Permission(
         id: json["id"],
-        description: json["description"],
-        status: json["status"],
+        code: json["code"],
+        name: json["name"],
       );
 }

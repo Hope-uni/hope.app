@@ -19,8 +19,7 @@ final List<MenuItem> appMenuItemsDrawer = <MenuItem>[
       context.pushReplacementNamed($childrenTherapist);
     },
     icon: Icons.diversity_3,
-    permission:
-        $listPatients, //TODO: Reemplazar por permiso correcto cuando este listo
+    permission: $listAssignedPatient,
     roles: [$terapeuta],
   ),
   MenuItem(
@@ -34,16 +33,14 @@ final List<MenuItem> appMenuItemsDrawer = <MenuItem>[
       context.pushReplacementNamed($childrenTutor);
     },
     icon: Icons.family_restroom,
-    permission:
-        $listPatients, //TODO: Reemplazar por permiso correcto cuando este listo
+    permission: $listAssignedPatient,
     roles: [$tutor],
   ),
   MenuItem(
     title: S.current.Actividades,
     subTitle: S.current.Actividades_para_los_ninos,
     icon: Icons.sports_esports,
-    permission:
-        $updatePatienttherapist, //TODO: Reemplazar por permiso correcto cuando este listo
+    permission: $listActivity,
     onClick: ({
       required BuildContext context,
       required WidgetRef ref,
@@ -57,7 +54,7 @@ final List<MenuItem> appMenuItemsDrawer = <MenuItem>[
     title: S.current.Perfil,
     subTitle: S.current.Datos_personales,
     icon: Icons.account_circle,
-    permission: $me,
+    permission: $getProfile,
     onClick: ({
       required BuildContext context,
       required WidgetRef ref,
@@ -74,8 +71,7 @@ final List<MenuItem> menuPacientTutor = <MenuItem>[
     title: S.current.Ver_informacion,
     subTitle: S.current.Informacion_general_del_nino,
     icon: Icons.visibility,
-    permission:
-        $findPatients, //TODO: Reemplazar por permiso correcto cuando este listo
+    permission: $getPatient,
     onClick: ({
       required BuildContext context,
       required WidgetRef ref,
@@ -91,7 +87,7 @@ final List<MenuItem> menuPacientTutor = <MenuItem>[
     title: S.current.Agregar_pictograma,
     subTitle: S.current.Anadir_nuevo_pictograma_personalizado,
     icon: Icons.add,
-    permission: $createCustomPictogram,
+    permission: $listPictogram,
     onClick: ({
       required BuildContext context,
       required WidgetRef ref,
@@ -107,7 +103,7 @@ final List<MenuItem> menuPacientTutor = <MenuItem>[
     title: S.current.Pictogramas_personalizados,
     subTitle: S.current.Pictogramas_personalizados_del_nino,
     icon: Icons.format_list_bulleted,
-    permission: $listCustomPictograms,
+    permission: $listCustomPictogram,
     onClick: ({
       required BuildContext context,
       required WidgetRef ref,
@@ -122,8 +118,7 @@ final List<MenuItem> menuPacientTutor = <MenuItem>[
     title: S.current.Cambiar_contrasena,
     subTitle: S.current.Cambio_de_contrasena_de,
     icon: Icons.key,
-    permission:
-        $findPatients, //TODO: Reemplazar por permiso correcto cuando este listo
+    permission: $changePasswordAssignedPatient,
     onClick: ({
       required BuildContext context,
       required WidgetRef ref,
@@ -140,8 +135,7 @@ final List<MenuItem> menuPacientTherapist = <MenuItem>[
     title: S.current.Ver_informacion,
     subTitle: S.current.Informacion_general_del_nino,
     icon: Icons.visibility,
-    permission:
-        $findPatients, //TODO: Reemplazar por permiso correcto cuando este listo
+    permission: $getPatient,
     onClick: ({
       required BuildContext context,
       required WidgetRef ref,
@@ -157,8 +151,7 @@ final List<MenuItem> menuPacientTherapist = <MenuItem>[
     title: S.current.Agregar_observacion,
     subTitle: S.current.Agregar_observacion_al_nino,
     icon: Icons.add,
-    permission:
-        $updatePatienttherapist, //TODO: Reemplazar por permiso correcto cuando este listo
+    permission: $addObservation,
     onClick: ({
       required BuildContext context,
       required WidgetRef ref,
@@ -175,8 +168,7 @@ final List<MenuItem> menuActivity = <MenuItem>[
     title: S.current.Ver_informacion,
     subTitle: S.current.Ver_informacion_detallada_de_la_actividad,
     icon: Icons.visibility,
-    permission:
-        $findPatients, //TODO: Reemplazar por permiso correcto cuando este listo
+    permission: $getActivity,
     onClick: ({
       required BuildContext context,
       required WidgetRef ref,
@@ -193,8 +185,7 @@ final List<MenuItem> menuActivity = <MenuItem>[
     title: S.current.Asignar_actividad,
     subTitle: S.current.Asignar_actividad_a_los_ninos,
     icon: Icons.add,
-    permission:
-        $findPatients, //TODO: Reemplazar por permiso correcto cuando este listo
+    permission: $assignActivity,
     onClick: ({
       required BuildContext context,
       required WidgetRef ref,
@@ -211,8 +202,7 @@ final List<MenuItem> menuActivity = <MenuItem>[
     title: S.current.Quitar_actividad,
     subTitle: S.current.Quitar_actividad_a_los_ninos,
     icon: Icons.remove,
-    permission:
-        $findPatients, //TODO: Reemplazar por permiso correcto cuando este listo
+    permission: $unassignActivity,
     onClick: ({
       required BuildContext context,
       required WidgetRef ref,
@@ -228,8 +218,7 @@ final List<MenuItem> menuActivity = <MenuItem>[
     title: S.current.Eliminar,
     subTitle: S.current.Eliminacion_permanente_de_la_actividad,
     icon: Icons.delete_forever,
-    permission:
-        $findPatients, //TODO: Reemplazar por permiso correcto cuando este listo
+    permission: $deleteActivity,
     onClick: ({
       required BuildContext context,
       required WidgetRef ref,

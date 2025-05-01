@@ -13,8 +13,12 @@ class PhasesNotifier extends StateNotifier<PhaseState> {
 
   PhasesNotifier({required this.phaseRepository}) : super(PhaseState());
 
-  Future<void> getPhases() async {
+  Future<void> getPhases({required bool isPermission}) async {
     state = state.copyWith(isLoading: true);
+    if (isPermission == false) {
+      state = state.copyWith(isLoading: false);
+      return;
+    }
     try {
       final phases = await phaseRepository.getPhases();
 
