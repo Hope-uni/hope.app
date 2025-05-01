@@ -255,5 +255,6 @@
   "El_paciente_no_tiene_actividad_asignada_actualmente": "El paciente no tiene actividad asignada actualmente",
   "El_limite_de_pictogramas_para_la_solucion_es_de_treinta": "El límite de pictogramas para la solución es de 30",
   "No_tiene_permiso_para_listar_las_fases_del_autismo":"No tiene permiso para listar las fases del autismo",
-  "No_tiene_permiso_para_listar_categorias_de_pictogramas":"No tiene permiso para listar categorías de pictogramas"
+  "No_tiene_permiso_para_listar_categorias_de_pictogramas":"No tiene permiso para listar categorías de pictogramas",
+  "No_tiene_permiso_para_listar_los_pictogramas":"No tiene permiso para listar los pictogramas"
 }

@@ -58,7 +58,7 @@ class CustomPictogramNotifier extends StateNotifier<CustomPictogramState> {
         idPictogram: state.pictogram!.id,
       );
 
-      notifierPictograms.deleteCustomPictogram(
+      notifierPictograms.deletePictogram(
         idPictogram: state.pictogram!.id,
       );
 

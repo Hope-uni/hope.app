@@ -18,6 +18,8 @@ final pictogramsProvider =
 class PictogramsNotifier extends StateNotifier<PictogramsState> {
   final PictogramsRepositoyImpl pictogramsRepository;
 
+  List<PictogramAchievements> pictogramsOriginals = [];
+
   final ProfileState profileState;
   bool isFilter = false;
 
@@ -148,6 +150,11 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
   }
 
   Future<void> getPictogramsPatient({int? idCategory}) async {
+    if (!profileState.permmisions!.contains($listCustomPictogram)) {
+      _onlyGetCateories();
+      state = state.copyWith(isLoading: false);
+      return;
+    }
     _validateFilter(idCategory: idCategory, namePictogram: null);
     final indexPage = state.paginatePictograms[$indexPage]!;
     try {
@@ -168,6 +175,10 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
         categoryPictograms: categoryPictograms,
         pictogramData: pictogramsPatient.data,
       );
+
+      pictogramsOriginals = indexPage == 1
+          ? pictogramsPatient.data ?? []
+          : [...pictogramsOriginals, ...pictogramsPatient.data!];
     } on CustomError catch (e) {
       if (indexPage == 1) state = state.copyWith(isErrorInitial: true);
       state = state.copyWith(errorMessageApi: e.message, isLoading: false);
@@ -205,6 +216,11 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
     }
   }
 
+  Future<void> _onlyGetCateories() async {
+    final categoryPictograms = await getCategoryPictograms();
+    state = state.copyWith(categoryPictograms: categoryPictograms);
+  }
+
   void resetFilters({
     required String? namePictogram,
     required bool isCustom,
@@ -222,8 +238,8 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
     state = state.copyWith(errorMessageApi: '', isErrorInitial: false);
   }
 
-  void deleteCustomPictogram({required int idPictogram}) {
-    List<PictogramAchievements> listPictogram = state.pictograms;
+  void deletePictogram({required int idPictogram}) {
+    List<PictogramAchievements> listPictogram = List.from(state.pictograms);
     listPictogram.removeWhere((item) => item.id == idPictogram);
 
     state = state.copyWith(pictograms: listPictogram);
@@ -234,6 +250,10 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
     final index = listPictogram.indexWhere((item) => item.id == pictogram.id);
     listPictogram[index] = pictogram;
     state = state.copyWith(pictograms: listPictogram);
+  }
+
+  void setPictogramsPatients() {
+    state = state.copyWith(pictograms: pictogramsOriginals);
   }
 }
 
