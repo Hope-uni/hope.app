@@ -230,9 +230,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                                     decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
                                     ),
-                                    child: const ImageLoad(
-                                      //TODO: MODIFICAR CON LA IMAGEN DEL ME
-                                      urlImage: '',
+                                    child: ImageLoad(
+                                      urlImage:
+                                          profileState.profile!.imageUrl ?? '',
                                     ),
                                   ),
                                 ),

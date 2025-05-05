@@ -114,7 +114,7 @@ class ChildrenNotifier extends StateNotifier<ChildrenState> {
   }
 
   void updateResponse() {
-    state = state.copyWith(errorMessageApi: '', isErrorInitial: false);
+    state = state.copyWith(errorMessageApi: '');
   }
 
   void removeChildTherapist({required Children child}) {

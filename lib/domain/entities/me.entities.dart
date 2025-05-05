@@ -55,6 +55,7 @@ class Profile {
   String address;
   String birthday;
   String gender;
+  String? imageUrl;
   bool? isMonochrome;
 
   Profile({
@@ -70,6 +71,7 @@ class Profile {
     required this.address,
     required this.birthday,
     required this.gender,
+    this.imageUrl,
     this.isMonochrome,
   });
 
@@ -86,6 +88,7 @@ class Profile {
     String? phoneNumber,
     int? profileId,
     String? gender,
+    String? imageUrl,
     bool? isMonochrome,
   }) {
     return Profile(
@@ -101,6 +104,7 @@ class Profile {
       phoneNumber: phoneNumber ?? this.phoneNumber,
       profileId: profileId ?? this.profileId,
       gender: gender ?? this.gender,
+      imageUrl: imageUrl ?? this.imageUrl,
       isMonochrome: isMonochrome ?? this.isMonochrome,
     );
   }

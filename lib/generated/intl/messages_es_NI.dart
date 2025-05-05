@@ -46,9 +46,6 @@ class MessageLookup extends MessageLookupByLibrary {
           "Acciones en el listado de pictogramas",
         ),
     "Actividad": MessageLookupByLibrary.simpleMessage("Actividad"),
-    "Actividad_Actual": MessageLookupByLibrary.simpleMessage(
-      "Actividad actual",
-    ),
     "Actividad_actual": MessageLookupByLibrary.simpleMessage(
       "Actividad actual",
     ),
@@ -702,12 +699,16 @@ class MessageLookup extends MessageLookupByLibrary {
       "Total de resultados:",
     ),
     "Tutor": MessageLookupByLibrary.simpleMessage("Tutor"),
+    "Ultima_actividad_terminada": MessageLookupByLibrary.simpleMessage(
+      "Última actividad terminada",
+    ),
     "Usuario": MessageLookupByLibrary.simpleMessage("Usuario"),
     "Ver_informacion": MessageLookupByLibrary.simpleMessage("Ver Información"),
     "Ver_informacion_detallada_de_la_actividad":
         MessageLookupByLibrary.simpleMessage(
           "Ver Información detallada de la actividad",
         ),
+    "Verificado": MessageLookupByLibrary.simpleMessage("Verificado"),
     "Verificar": MessageLookupByLibrary.simpleMessage("Verificar"),
     "Verificar_actividad": MessageLookupByLibrary.simpleMessage(
       "Verificar actividad",

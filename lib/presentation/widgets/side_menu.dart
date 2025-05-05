@@ -68,8 +68,7 @@ class SideMenu extends ConsumerWidget {
                         width: 100,
                         height: 100,
                         child: ImageLoad(
-                          //TODO: MODIFICAR CON EL CAMBIO DE LA IMAGEURL EN EL ME
-                          urlImage: profileState.profile == null ? '' : '',
+                          urlImage: profileState.profile!.imageUrl ?? '',
                         ),
                       ),
                     ),
