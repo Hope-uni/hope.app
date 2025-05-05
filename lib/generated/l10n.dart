@@ -640,16 +640,6 @@ class S {
     );
   }
 
-  /// `Actividad actual`
-  String get Actividad_Actual {
-    return Intl.message(
-      'Actividad actual',
-      name: 'Actividad_Actual',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Fases`
   String get Fases {
     return Intl.message('Fases', name: 'Fases', desc: '', args: []);
@@ -1319,6 +1309,11 @@ class S {
     );
   }
 
+  /// `Verificado`
+  String get Verificado {
+    return Intl.message('Verificado', name: 'Verificado', desc: '', args: []);
+  }
+
   /// `Actividad pendiente`
   String get Actividad_pendiente {
     return Intl.message(
@@ -1374,6 +1369,16 @@ class S {
     return Intl.message(
       'Actividad actual',
       name: 'Actividad_actual',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Última actividad terminada`
+  String get Ultima_actividad_terminada {
+    return Intl.message(
+      'Última actividad terminada',
+      name: 'Ultima_actividad_terminada',
       desc: '',
       args: [],
     );
