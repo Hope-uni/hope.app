@@ -25,4 +25,11 @@ abstract class ActivitiesRepository {
   Future<ResponseDataObject<ResponseData>> unassingActivity({
     required int idChild,
   });
+
+  Future<ResponseDataObject<ResponseData>> checkAnswer({
+    required int idActivity,
+    required List<int> idSolutions,
+  });
+
+  Future<ResponseDataObject<PatientActivity>> currentActivity();
 }

@@ -50,7 +50,7 @@ class ActivitiesNotifier extends StateNotifier<ActivitiesState> {
   }
 
   void updateResponse() {
-    state = state.copyWith(errorMessageApi: '', isErrorInitial: false);
+    state = state.copyWith(errorMessageApi: '');
   }
 
   void resetState() => state = ActivitiesState();

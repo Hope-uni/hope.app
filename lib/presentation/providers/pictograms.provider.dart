@@ -235,7 +235,7 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
   }
 
   void updateResponse() {
-    state = state.copyWith(errorMessageApi: '', isErrorInitial: false);
+    state = state.copyWith(errorMessageApi: '');
   }
 
   void deletePictogram({required int idPictogram}) {
