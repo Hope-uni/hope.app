@@ -20,5 +20,6 @@ class ProfilePerson extends Person {
     required super.birthday,
     required super.gender,
     required super.address,
+    required super.imageUrl,
   });
 }

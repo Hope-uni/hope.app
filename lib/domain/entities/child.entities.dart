@@ -12,7 +12,7 @@ class Child extends Person {
   List<PictogramAchievements>? achievements;
   PersonTutorTherapist tutor;
   PersonTutorTherapist? therapist;
-  CurrentActivity? currentActivity;
+  CurrentCompletedActivity? currentActivity;
   List<ActivityChild>? activities;
   List<PictogramAchievements>? pictograms;
   bool isMonochrome;
@@ -67,7 +67,7 @@ class Child extends Person {
     List<Observation>? observations,
     List<PictogramAchievements>? achievements,
     PersonTutorTherapist? therapist,
-    CurrentActivity? currentActivity,
+    CurrentCompletedActivity? currentActivity,
     List<ActivityChild>? activities,
     List<PictogramAchievements>? pictograms,
     bool? isMonochrome,
@@ -114,26 +114,6 @@ class ActivityChild {
     required this.name,
     required this.description,
     required this.satisfactoryPoints,
-  });
-}
-
-class CurrentActivity {
-  int id;
-  String name;
-  int satisfactoryPoints;
-  int satisfactoryAttempts;
-  int progress;
-  String description;
-  CatalogObject phase;
-
-  CurrentActivity({
-    required this.id,
-    required this.name,
-    required this.satisfactoryPoints,
-    required this.satisfactoryAttempts,
-    required this.progress,
-    required this.description,
-    required this.phase,
   });
 }
 

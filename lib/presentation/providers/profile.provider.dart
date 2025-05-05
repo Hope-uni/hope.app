@@ -38,6 +38,7 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
       gender: state.profile!.gender,
       phoneNumber: state.profile!.phoneNumber ?? '',
       surname: state.profile!.surname,
+      imageUrl: state.profile!.imageUrl,
     );
 
     return profilePerson;
@@ -61,6 +62,7 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
         address: profile.address,
         birthday: profile.birthday,
         gender: profile.gender,
+        imageUrl: profile.imageUrl,
       ),
     );
   }
@@ -141,6 +143,7 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
           address: profilePerson.address,
           birthday: profilePerson.birthday,
           gender: profilePerson.gender,
+          imageUrl: profilePerson.imageUrl,
         ),
       )),
       $profile,
@@ -245,10 +248,9 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
         updatedProfile = state.profile!.copyWith(phoneNumber: newValue);
         break;
 
-      //TODO: MODIFICAR CON EL CAMBIO DE LA IMAGEURL EN EL ME
-      /*case $imageProfile:
-        updatedProfile = state.profile!.copyWith(image: newValue);
-        break;*/
+      case $imageProfile:
+        updatedProfile = state.profile!.copyWith(imageUrl: newValue);
+        break;
 
       case $genderProfile:
         if (newValue.isNotEmpty) newValidationErrors.remove($genderProfile);

@@ -111,4 +111,39 @@ class ActivitiesDataSourceImpl extends ActivitiesDataSource {
       ErrorHandler.handleError(e);
     }
   }
+
+  @override
+  Future<ResponseDataObject<ResponseData>> checkAnswer(
+      {required int idActivity, required List<int> idSolutions}) async {
+    try {
+      final response = await dioServices.dio.post(
+        '/activity/check',
+        data: {$activityId: idActivity, $attempt: idSolutions},
+      );
+
+      final responseCheckAnswer =
+          ResponseMapper.responseJsonToEntity<ResponseData>(
+              json: response.data);
+
+      return responseCheckAnswer;
+    } catch (e) {
+      ErrorHandler.handleError(e);
+    }
+  }
+
+  @override
+  Future<ResponseDataObject<PatientActivity>> currentActivity() async {
+    try {
+      final response = await dioServices.dio.get('/activity/current-activity');
+
+      final responsePatientActivity =
+          ResponseMapper.responseJsonToEntity<PatientActivity>(
+              json: response.data,
+              fromJson: PatientActivityMapper.patientActivityfromJson);
+
+      return responsePatientActivity;
+    } catch (e) {
+      ErrorHandler.handleError(e);
+    }
+  }
 }

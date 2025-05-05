@@ -36,7 +36,8 @@ class ChildMapper {
             : personfromJson(json["therapist"]),
         currentActivity: json["currentActivity"] == null
             ? null
-            : currentActivityfromJson(json["currentActivity"]),
+            : CurrentCompletedActivityMapper.currentActivityfromJson(
+                json["currentActivity"]),
         activities: json["activities"] == null
             ? null
             : List<ActivityChild>.from(
@@ -55,17 +56,6 @@ class ChildMapper {
         name: json["name"],
         description: json["description"],
         satisfactoryPoints: json["satisfactoryPoints"],
-      );
-
-  static CurrentActivity currentActivityfromJson(Map<String, dynamic> json) =>
-      CurrentActivity(
-        id: json["id"],
-        name: json["name"],
-        satisfactoryPoints: json["satisfactoryPoints"],
-        satisfactoryAttempts: json["satisfactoryAttempts"],
-        progress: json["progress"],
-        description: json["description"],
-        phase: CatalogoObjectMapper.catalogObjectfromJson(json["phase"]),
       );
 
   static PersonTutorTherapist personfromJson(Map<String, dynamic> json) =>

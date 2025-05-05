@@ -18,6 +18,7 @@ class ProfilePersonMapper {
         birthday: json["birthday"],
         gender: json["gender"],
         address: json["address"],
+        imageUrl: json["imageUrl"],
       );
 
   static Map<String, dynamic> toJson(ProfilePerson profile) => {
@@ -33,6 +34,7 @@ class ProfilePersonMapper {
         "gender": profile.gender,
         "address": profile.address,
         "birthday": profile.birthday,
+        "imageUrl": profile.imageUrl
       };
 
   static Map<String, dynamic> toJsonPatients(patients) => {

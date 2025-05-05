@@ -1,13 +1,68 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hope_app/domain/domain.dart';
+import 'package:hope_app/generated/l10n.dart';
+import 'package:hope_app/infrastructure/infrastructure.dart'
+    show ActivitiesRepositoryImpl, CustomError;
 
 final boardProvider =
     StateNotifierProvider.autoDispose<BoardNotifier, BoardState>((ref) {
-  return BoardNotifier();
+  return BoardNotifier(activityRepository: ActivitiesRepositoryImpl());
 });
 
 class BoardNotifier extends StateNotifier<BoardState> {
-  BoardNotifier() : super(BoardState());
+  final ActivitiesRepositoryImpl activityRepository;
+  BoardNotifier({required this.activityRepository})
+      : super(
+          BoardState(
+            patientActivity: PatientActivity(
+                latestCompletedActivity: null, currentActivity: null),
+          ),
+        );
+
+  Future<void> getPatientActivity() async {
+    state = state.copyWith(isLoading: true);
+    try {
+      final patientActivity = await activityRepository.currentActivity();
+      state = state.copyWith(
+        patientActivity: patientActivity.data,
+        isLoading: false,
+      );
+    } on CustomError catch (e) {
+      state = state.copyWith(errorMessageApi: e.message, isLoading: false);
+    } catch (e) {
+      state = state.copyWith(
+        errorMessageApi: S.current.Error_inesperado,
+        isLoading: false,
+      );
+    }
+  }
+
+  Future<bool> checkAnswer() async {
+    state = state.copyWith(isCheking: true);
+    try {
+      final idActivity = state.patientActivity!.currentActivity == null
+          ? state.patientActivity!.latestCompletedActivity!.id
+          : state.patientActivity!.currentActivity!.id;
+
+      final checkActivity = await activityRepository.checkAnswer(
+        idActivity: idActivity,
+        idSolutions: state.pictograms.map((item) => item.id).toList(),
+      );
+
+      state =
+          state.copyWith(isCheking: false, checkSuccess: checkActivity.message);
+      return true;
+    } on CustomError catch (e) {
+      state = state.copyWith(errorMessageApi: e.message, isCheking: false);
+      return false;
+    } catch (e) {
+      state = state.copyWith(
+        errorMessageApi: S.current.Error_inesperado,
+        isCheking: false,
+      );
+      return false;
+    }
+  }
 
   void addPictogramSolution({required PictogramAchievements newPictogram}) {
     state = state.copyWith(pictograms: [...state.pictograms, newPictogram]);
@@ -27,29 +82,46 @@ class BoardNotifier extends StateNotifier<BoardState> {
   void clearPictogramSolution() {
     state = state.copyWith(pictograms: []);
   }
+
+  void updateResponse() {
+    state = state.copyWith(errorMessageApi: '', checkSuccess: '');
+  }
 }
 
 class BoardState {
   final List<PictogramAchievements> pictograms;
+  final PatientActivity? patientActivity;
   final bool? isLoading;
+  final bool? isCheking;
+  final String? checkSuccess;
   final String? errorMessageApi;
 
   BoardState({
+    this.patientActivity,
     this.isLoading,
+    this.isCheking,
     this.errorMessageApi,
+    this.checkSuccess,
     this.pictograms = const [],
   });
 
   BoardState copyWith({
     List<PictogramAchievements>? pictograms,
+    PatientActivity? patientActivity,
     bool? isLoading,
+    bool? isCheking,
+    String? checkSuccess,
     String? errorMessageApi,
   }) =>
       BoardState(
         errorMessageApi: errorMessageApi == ''
             ? null
             : errorMessageApi ?? this.errorMessageApi,
+        checkSuccess:
+            checkSuccess == '' ? null : checkSuccess ?? this.checkSuccess,
         isLoading: isLoading ?? this.isLoading,
+        isCheking: isCheking ?? this.isCheking,
+        patientActivity: patientActivity ?? this.patientActivity,
         pictograms: pictograms ?? this.pictograms,
       );
 }

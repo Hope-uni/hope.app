@@ -49,4 +49,20 @@ class ActivitiesRepositoryImpl extends ActivitiesRepository {
   }) {
     return dataSource.unassingActivity(idChild: idChild);
   }
+
+  @override
+  Future<ResponseDataObject<ResponseData>> checkAnswer({
+    required int idActivity,
+    required List<int> idSolutions,
+  }) {
+    return dataSource.checkAnswer(
+      idActivity: idActivity,
+      idSolutions: idSolutions,
+    );
+  }
+
+  @override
+  Future<ResponseDataObject<PatientActivity>> currentActivity() {
+    return dataSource.currentActivity();
+  }
 }
