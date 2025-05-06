@@ -22,6 +22,9 @@ export 'repositories/pictograms.repository.impl.dart';
 export 'datasources/phases.datasource.impl.dart';
 export 'repositories/phases.repository.impl.dart';
 
+export 'datasources/achievement.datasource.impl.dart';
+export 'repositories/achievement.repository.impl.dart';
+
 export 'mappers/profile_person.mapper.dart';
 export 'mappers/response_data.mapper.dart';
 export 'mappers/token.mapper.dart';

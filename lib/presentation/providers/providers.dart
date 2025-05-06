@@ -14,3 +14,4 @@ export 'custom_pictogram.provider.dart';
 export 'observation.provider.dart';
 export 'activity_children.provider.dart';
 export 'board.provider.dart';
+export 'achievement.provider.dart';

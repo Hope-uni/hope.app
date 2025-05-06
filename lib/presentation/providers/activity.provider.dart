@@ -172,7 +172,7 @@ class ActivityNotifier extends StateNotifier<ActivityState> {
       if (state.activity!.description.length <= 5 ||
           state.activity!.description.length >= 255) {
         errors[$description] = S.current
-            .La_descripcion_no_puede_ser_menor_a_seis_o_mayor_a_docientocincuentaycinco_caracteres;
+            .La_descripcion_no_puede_ser_menor_a_seis_o_mayor_a_doscientoscincuentaycinco_caracteres;
       }
     }
 
