@@ -45,3 +45,6 @@ export 'repositories/pictograms.repository.dart';
 
 export 'datasources/phases.datasource.dart';
 export 'repositories/phase.repository.dart';
+
+export 'datasources/achievement.datasource.dart';
+export 'repositories/achievement.repository.dart';

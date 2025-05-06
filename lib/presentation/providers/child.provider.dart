@@ -264,7 +264,7 @@ class ChildNotifier extends StateNotifier<ChildState> {
       if (state.child!.address.length <= 5 ||
           state.child!.address.length >= 255) {
         errors[$addressProfile] = S.current
-            .La_direccion_no_puede_ser_menor_a_seis_o_mayor_a_docientocincuentaycinco_caracteres;
+            .La_direccion_no_puede_ser_menor_a_seis_o_mayor_a_doscientoscincuentaycinco_caracteres;
       }
     }
 
