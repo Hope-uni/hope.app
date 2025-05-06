@@ -41,6 +41,10 @@ const String $attempt = "attempt";
 const String $patientId = "patientId";
 const String $descriptionChild = "description";
 
+//KEYS ACHIEVEMENT
+const String $patientIdAchievement = "patientId";
+const String $achievementId = "achievementId";
+
 //KEYS AUTH
 const String $emailUsername = "email_username";
 const String $password = "password";
@@ -58,6 +62,7 @@ const String $activities = "activities";
 const String $profileRoute = "profile";
 const String $child = "child";
 const String $idChild = "idChild";
+const String $achievement = "achievement";
 const String $pictogram = "pictogram";
 const String $customPictogram = "customPictogram";
 const String $idActivity = "idActivity";
@@ -72,6 +77,7 @@ const String $login = "login";
 const String $splash = "splash";
 const String $newActivity = "newActivity";
 const String $isTutor = "isTutor";
+const String $nameChild = "nameChild";
 
 //FINALS REGEX
 final $emailRegex = RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$');

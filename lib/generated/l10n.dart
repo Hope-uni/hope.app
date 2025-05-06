@@ -90,10 +90,10 @@ class S {
     return Intl.message('Contraseña', name: 'Contrasena', desc: '', args: []);
   }
 
-  /// `¿Olvido su contraseña?`
+  /// `¿Olvidó su contraseña?`
   String get Olvido_su_contrasena {
     return Intl.message(
-      '¿Olvido su contraseña?',
+      '¿Olvidó su contraseña?',
       name: 'Olvido_su_contrasena',
       desc: '',
       args: [],
@@ -395,10 +395,10 @@ class S {
     return Intl.message('Actualizar', name: 'Actualizar', desc: '', args: []);
   }
 
-  /// `Si, eliminar`
+  /// `Sí, eliminar`
   String get Si_Eliminar {
     return Intl.message(
-      'Si, eliminar',
+      'Sí, eliminar',
       name: 'Si_Eliminar',
       desc: '',
       args: [],
@@ -670,9 +670,9 @@ class S {
     );
   }
 
-  /// `Si, avanzar`
+  /// `Sí, avanzar`
   String get Si_avanzar {
-    return Intl.message('Si, avanzar', name: 'Si_avanzar', desc: '', args: []);
+    return Intl.message('Sí, avanzar', name: 'Si_avanzar', desc: '', args: []);
   }
 
   /// `¿Está seguro de avanzar de fase a {nameChild}?`
@@ -735,10 +735,10 @@ class S {
     );
   }
 
-  /// `Si, actualizar`
+  /// `Sí, actualizar`
   String get Si_actualizar {
     return Intl.message(
-      'Si, actualizar',
+      'Sí, actualizar',
       name: 'Si_actualizar',
       desc: '',
       args: [],
@@ -775,9 +775,9 @@ class S {
     );
   }
 
-  /// `Si, salir`
+  /// `Sí, salir`
   String get Si_salir {
-    return Intl.message('Si, salir', name: 'Si_salir', desc: '', args: []);
+    return Intl.message('Sí, salir', name: 'Si_salir', desc: '', args: []);
   }
 
   /// `¿Está seguro de salir de la edición?`
@@ -909,9 +909,9 @@ class S {
     );
   }
 
-  /// `Si, guardar`
+  /// `Sí, guardar`
   String get Si_guardar {
-    return Intl.message('Si, guardar', name: 'Si_guardar', desc: '', args: []);
+    return Intl.message('Sí, guardar', name: 'Si_guardar', desc: '', args: []);
   }
 
   /// `¿Está seguro de crear la actividad?`
@@ -954,20 +954,20 @@ class S {
     return Intl.message('de', name: 'De', desc: '', args: []);
   }
 
-  /// `Ver Información detallada de la actividad`
+  /// `Ver información detallada de la actividad`
   String get Ver_informacion_detallada_de_la_actividad {
     return Intl.message(
-      'Ver Información detallada de la actividad',
+      'Ver información detallada de la actividad',
       name: 'Ver_informacion_detallada_de_la_actividad',
       desc: '',
       args: [],
     );
   }
 
-  /// `Editar la Información general de la actividad`
+  /// `Editar la información general de la actividad`
   String get Editar_la_informacion_general_de_la_actividad {
     return Intl.message(
-      'Editar la Información general de la actividad',
+      'Editar la información general de la actividad',
       name: 'Editar_la_informacion_general_de_la_actividad',
       desc: '',
       args: [],
@@ -1084,9 +1084,9 @@ class S {
     return Intl.message('Al paciente', name: 'Al_paiente', desc: '', args: []);
   }
 
-  /// `Si, quitar`
+  /// `Sí, quitar`
   String get Si_Quitar {
-    return Intl.message('Si, quitar', name: 'Si_Quitar', desc: '', args: []);
+    return Intl.message('Sí, quitar', name: 'Si_Quitar', desc: '', args: []);
   }
 
   /// `Selección de niños para actividad`
@@ -1516,20 +1516,20 @@ class S {
     );
   }
 
-  /// `El celular deber ser un numero valido y no estar vacío`
+  /// `El celular debe ser un número válido y no estar vacío`
   String get El_celular_deber_ser_un_numero_valido_y_no_estar_vacio {
     return Intl.message(
-      'El celular deber ser un numero valido y no estar vacío',
+      'El celular debe ser un número válido y no estar vacío',
       name: 'El_celular_deber_ser_un_numero_valido_y_no_estar_vacio',
       desc: '',
       args: [],
     );
   }
 
-  /// `El teléfono deber ser un numero valido y no estar vacío`
+  /// `El teléfono debe ser un número válido y no estar vacío`
   String get El_telefono_deber_ser_un_numero_valido_y_no_estar_vacio {
     return Intl.message(
-      'El teléfono deber ser un numero valido y no estar vacío',
+      'El teléfono debe ser un número válido y no estar vacío',
       name: 'El_telefono_deber_ser_un_numero_valido_y_no_estar_vacio',
       desc: '',
       args: [],
@@ -1551,11 +1551,11 @@ class S {
     );
   }
 
-  /// `La contraseña debe tener entre 8 y 30 caracteres además contener letras y números`
+  /// `La contraseña debe tener entre 8 y 30 caracteres, además contener letras y números`
   String
   get La_contrasena_debe_tener_entre_caracteres_ademas_contener_letras_y_numeros {
     return Intl.message(
-      'La contraseña debe tener entre 8 y 30 caracteres además contener letras y números',
+      'La contraseña debe tener entre 8 y 30 caracteres, además contener letras y números',
       name:
           'La_contrasena_debe_tener_entre_caracteres_ademas_contener_letras_y_numeros',
       desc: '',
@@ -1564,10 +1564,10 @@ class S {
   }
 
   /// `Las contraseñas no coinciden`
-  String get Las_contrasena_no_coinciden {
+  String get Las_contrasenas_no_coinciden {
     return Intl.message(
       'Las contraseñas no coinciden',
-      name: 'Las_contrasena_no_coinciden',
+      name: 'Las_contrasenas_no_coinciden',
       desc: '',
       args: [],
     );
@@ -1801,11 +1801,11 @@ class S {
 
   /// `La descripción no puede ser menor a 6 o mayor a 255 caracteres`
   String
-  get La_descripcion_no_puede_ser_menor_a_seis_o_mayor_a_docientocincuentaycinco_caracteres {
+  get La_descripcion_no_puede_ser_menor_a_seis_o_mayor_a_doscientoscincuentaycinco_caracteres {
     return Intl.message(
       'La descripción no puede ser menor a 6 o mayor a 255 caracteres',
       name:
-          'La_descripcion_no_puede_ser_menor_a_seis_o_mayor_a_docientocincuentaycinco_caracteres',
+          'La_descripcion_no_puede_ser_menor_a_seis_o_mayor_a_doscientoscincuentaycinco_caracteres',
       desc: '',
       args: [],
     );
@@ -1849,11 +1849,11 @@ class S {
 
   /// `La dirección no puede ser menor a 6 o mayor a 255 caracteres`
   String
-  get La_direccion_no_puede_ser_menor_a_seis_o_mayor_a_docientocincuentaycinco_caracteres {
+  get La_direccion_no_puede_ser_menor_a_seis_o_mayor_a_doscientoscincuentaycinco_caracteres {
     return Intl.message(
       'La dirección no puede ser menor a 6 o mayor a 255 caracteres',
       name:
-          'La_direccion_no_puede_ser_menor_a_seis_o_mayor_a_docientocincuentaycinco_caracteres',
+          'La_direccion_no_puede_ser_menor_a_seis_o_mayor_a_doscientoscincuentaycinco_caracteres',
       desc: '',
       args: [],
     );
@@ -1901,11 +1901,11 @@ class S {
 
   /// `La descripción debe tener entre 6 y 255 caracteres`
   String
-  get La_descripcion_debe_tener_entre_seis_y_docientocincuentaycinco_caracteres {
+  get La_descripcion_debe_tener_entre_seis_y_doscientoscincuentaycinco_caracteres {
     return Intl.message(
       'La descripción debe tener entre 6 y 255 caracteres',
       name:
-          'La_descripcion_debe_tener_entre_seis_y_docientocincuentaycinco_caracteres',
+          'La_descripcion_debe_tener_entre_seis_y_doscientoscincuentaycinco_caracteres',
       desc: '',
       args: [],
     );
@@ -1961,9 +1961,9 @@ class S {
     );
   }
 
-  /// `Si, cambiar`
+  /// `Sí, cambiar`
   String get Si_cambiar {
-    return Intl.message('Si, cambiar', name: 'Si_cambiar', desc: '', args: []);
+    return Intl.message('Sí, cambiar', name: 'Si_cambiar', desc: '', args: []);
   }
 
   /// `¿Está seguro de cambiar el filtro blanco/negro?`
@@ -1991,10 +1991,10 @@ class S {
     return Intl.message('Activo', name: 'Activo', desc: '', args: []);
   }
 
-  /// `Se actualizó el filtro blanco y negro con exito: {isMonochrome}`
+  /// `Se actualizó el filtro blanco y negro con éxito: {isMonochrome}`
   String Se_actualizo_el_filtro_blanco_y_negro_con_exito(Object isMonochrome) {
     return Intl.message(
-      'Se actualizó el filtro blanco y negro con exito: $isMonochrome',
+      'Se actualizó el filtro blanco y negro con éxito: $isMonochrome',
       name: 'Se_actualizo_el_filtro_blanco_y_negro_con_exito',
       desc: '',
       args: [isMonochrome],
@@ -2375,6 +2375,101 @@ class S {
     return Intl.message(
       'No tiene permiso para listar los pictogramas',
       name: 'No_tiene_permiso_para_listar_los_pictogramas',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Asignar Logro`
+  String get Asignar_Logro {
+    return Intl.message(
+      'Asignar Logro',
+      name: 'Asignar_Logro',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Listado de logros para el paciente`
+  String get Listado_de_logros_para_el_paciente {
+    return Intl.message(
+      'Listado de logros para el paciente',
+      name: 'Listado_de_logros_para_el_paciente',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Se asigno el logro correctamente al paciente`
+  String get Se_asigno_el_logro_correctamente_al_paciente {
+    return Intl.message(
+      'Se asigno el logro correctamente al paciente',
+      name: 'Se_asigno_el_logro_correctamente_al_paciente',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Logros disponibles / Paciente`
+  String get Logros_disponibles_paciente {
+    return Intl.message(
+      'Logros disponibles / Paciente',
+      name: 'Logros_disponibles_paciente',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Asignar logro`
+  String get Asignar_logro {
+    return Intl.message(
+      'Asignar logro',
+      name: 'Asignar_logro',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sí, asignar`
+  String get Si_asignar {
+    return Intl.message('Sí, asignar', name: 'Si_asignar', desc: '', args: []);
+  }
+
+  /// `¿Esta seguro de asignar el logro ( {pictogramName} ) al paciente?`
+  String Esta_seguro_de_asignar_el_logro_al_paciente(Object pictogramName) {
+    return Intl.message(
+      '¿Esta seguro de asignar el logro ( $pictogramName ) al paciente?',
+      name: 'Esta_seguro_de_asignar_el_logro_al_paciente',
+      desc: '',
+      args: [pictogramName],
+    );
+  }
+
+  /// `Para asignar un logro:`
+  String get Para_asignar_un_logro {
+    return Intl.message(
+      'Para asignar un logro:',
+      name: 'Para_asignar_un_logro',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dar clic en el icono de + ubicado debajo de la imagen del logro`
+  String get Dar_clic_en_el_icono_de_ubicado_debajo_de_la_imagen_del_logro {
+    return Intl.message(
+      'Dar clic en el icono de + ubicado debajo de la imagen del logro',
+      name: 'Dar_clic_en_el_icono_de_ubicado_debajo_de_la_imagen_del_logro',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Si el nombre del logro no se muestra completo, puede:`
+  String get Si_el_nombre_del_logro_no_se_muestra_completo_puede {
+    return Intl.message(
+      'Si el nombre del logro no se muestra completo, puede:',
+      name: 'Si_el_nombre_del_logro_no_se_muestra_completo_puede',
       desc: '',
       args: [],
     );

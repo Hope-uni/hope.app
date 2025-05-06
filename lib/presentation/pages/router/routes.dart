@@ -61,6 +61,16 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             );
           }),
       GoRoute(
+          path: '/achievement/:idChild',
+          name: $achievement,
+          builder: (BuildContext context, GoRouterState state) {
+            final extra = state.extra as Map<String, dynamic>?;
+            return AchievementPage(
+              idChild: int.parse(state.pathParameters[$idChild]!),
+              extra: extra,
+            );
+          }),
+      GoRoute(
         path: '/activities',
         name: $activities,
         builder: (BuildContext context, GoRouterState state) =>

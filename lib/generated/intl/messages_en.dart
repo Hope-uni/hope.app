@@ -22,21 +22,24 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(year) => "© ${year} Hope. All rights reserved";
 
-  static String m1(nameChild) =>
+  static String m1(pictogramName) =>
+      "¿Esta seguro de asignar el logro ( ${pictogramName} ) al paciente?";
+
+  static String m2(nameChild) =>
       "¿Está seguro de avanzar de fase a ${nameChild}?";
 
-  static String m2(nameActivity) =>
+  static String m3(nameActivity) =>
       "¿Está seguro de quitarle la actividad ${nameActivity}?";
 
-  static String m3(namePictogram) =>
+  static String m4(namePictogram) =>
       "Se actualizó correctamente el pictograma personalizado: ${namePictogram}";
 
-  static String m4(isMonochrome) =>
-      "Se actualizó el filtro blanco y negro con exito: ${isMonochrome}";
+  static String m5(isMonochrome) =>
+      "Se actualizó el filtro blanco y negro con éxito: ${isMonochrome}";
 
-  static String m5(newPhase) => "Se avanzó a la fase: ${newPhase}";
+  static String m6(newPhase) => "Se avanzó a la fase: ${newPhase}";
 
-  static String m6(namePictogram) =>
+  static String m7(namePictogram) =>
       "Se creó correctamente el pictograma personalizado: ${namePictogram}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -91,12 +94,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "Asignacion_exitosa": MessageLookupByLibrary.simpleMessage(
       "Asignación exitosa",
     ),
+    "Asignar_Logro": MessageLookupByLibrary.simpleMessage("Asignar Logro"),
     "Asignar_actividad": MessageLookupByLibrary.simpleMessage(
       "Asignar actividad",
     ),
     "Asignar_actividad_a_los_ninos": MessageLookupByLibrary.simpleMessage(
       "Asignar actividad a los niños",
     ),
+    "Asignar_logro": MessageLookupByLibrary.simpleMessage("Asignar logro"),
     "Atras": MessageLookupByLibrary.simpleMessage("Atrás"),
     "Avance_de_fase_exitosa": MessageLookupByLibrary.simpleMessage(
       "¡Avance de fase exitosa!",
@@ -158,6 +163,10 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Crear": MessageLookupByLibrary.simpleMessage("Crear"),
     "Crear_actividad": MessageLookupByLibrary.simpleMessage("Crear actividad"),
+    "Dar_clic_en_el_icono_de_ubicado_debajo_de_la_imagen_del_logro":
+        MessageLookupByLibrary.simpleMessage(
+          "Dar clic en el icono de + ubicado debajo de la imagen del logro",
+        ),
     "Datos_del_usuario": MessageLookupByLibrary.simpleMessage(
       "Datos del usuario",
     ),
@@ -188,14 +197,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "Editar": MessageLookupByLibrary.simpleMessage("Editar"),
     "Editar_la_informacion_general_de_la_actividad":
         MessageLookupByLibrary.simpleMessage(
-          "Editar la Información general de la actividad",
+          "Editar la información general de la actividad",
         ),
     "Editar_pictograma": MessageLookupByLibrary.simpleMessage(
       "Editar pictograma",
     ),
     "El_celular_deber_ser_un_numero_valido_y_no_estar_vacio":
         MessageLookupByLibrary.simpleMessage(
-          "El celular deber ser un numero valido y no estar vacío",
+          "El celular debe ser un número válido y no estar vacío",
         ),
     "El_correo_no_puede_estar_vacio": MessageLookupByLibrary.simpleMessage(
       "El correo no puede estar vacío",
@@ -253,7 +262,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "El_telefono_deber_ser_un_numero_valido_y_no_estar_vacio":
         MessageLookupByLibrary.simpleMessage(
-          "El teléfono deber ser un numero valido y no estar vacío",
+          "El teléfono debe ser un número válido y no estar vacío",
         ),
     "El_usuario_es_requerido": MessageLookupByLibrary.simpleMessage(
       "El usuario es requerido",
@@ -288,7 +297,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "Esta_Seguro_de_actualizar_los_datos": MessageLookupByLibrary.simpleMessage(
       "¿Está seguro de actualizar los datos?",
     ),
-    "Esta_seguro_de_avanzar_de_fase_a": m1,
+    "Esta_seguro_de_asignar_el_logro_al_paciente": m1,
+    "Esta_seguro_de_avanzar_de_fase_a": m2,
     "Esta_seguro_de_cambiar_el_filtro_blanco_negro":
         MessageLookupByLibrary.simpleMessage(
           "¿Está seguro de cambiar el filtro blanco/negro?",
@@ -300,7 +310,7 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "¿Está seguro de eliminar permanentemente la actividad?",
         ),
-    "Esta_seguro_de_quitarle_la_actividad": m2,
+    "Esta_seguro_de_quitarle_la_actividad": m3,
     "Esta_seguro_de_salir_de_la_creacion_de_la_actividad":
         MessageLookupByLibrary.simpleMessage(
           "¿Está seguro de salir de la creación de la actividad?",
@@ -399,7 +409,7 @@ class MessageLookup extends MessageLookupByLibrary {
         ),
     "La_contrasena_debe_tener_entre_caracteres_ademas_contener_letras_y_numeros":
         MessageLookupByLibrary.simpleMessage(
-          "La contraseña debe tener entre 8 y 30 caracteres además contener letras y números",
+          "La contraseña debe tener entre 8 y 30 caracteres, además contener letras y números",
         ),
     "La_contrasena_es_requerida": MessageLookupByLibrary.simpleMessage(
       "La contraseña es requerida",
@@ -408,18 +418,18 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "La descripción de la actividad no puede estar vacía",
         ),
-    "La_descripcion_debe_tener_entre_seis_y_docientocincuentaycinco_caracteres":
+    "La_descripcion_debe_tener_entre_seis_y_doscientoscincuentaycinco_caracteres":
         MessageLookupByLibrary.simpleMessage(
           "La descripción debe tener entre 6 y 255 caracteres",
         ),
-    "La_descripcion_no_puede_ser_menor_a_seis_o_mayor_a_docientocincuentaycinco_caracteres":
+    "La_descripcion_no_puede_ser_menor_a_seis_o_mayor_a_doscientoscincuentaycinco_caracteres":
         MessageLookupByLibrary.simpleMessage(
           "La descripción no puede ser menor a 6 o mayor a 255 caracteres",
         ),
     "La_direccion_no_puede_estar_vacia": MessageLookupByLibrary.simpleMessage(
       "La dirección no puede estar vacía",
     ),
-    "La_direccion_no_puede_ser_menor_a_seis_o_mayor_a_docientocincuentaycinco_caracteres":
+    "La_direccion_no_puede_ser_menor_a_seis_o_mayor_a_doscientoscincuentaycinco_caracteres":
         MessageLookupByLibrary.simpleMessage(
           "La dirección no puede ser menor a 6 o mayor a 255 caracteres",
         ),
@@ -427,15 +437,21 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "La fecha de nacimiento no puede estar vacía",
         ),
-    "Las_contrasena_no_coinciden": MessageLookupByLibrary.simpleMessage(
+    "Las_contrasenas_no_coinciden": MessageLookupByLibrary.simpleMessage(
       "Las contraseñas no coinciden",
     ),
     "Limpiar": MessageLookupByLibrary.simpleMessage("Limpiar"),
     "Limpiar_filtros": MessageLookupByLibrary.simpleMessage("Limpiar filtros"),
+    "Listado_de_logros_para_el_paciente": MessageLookupByLibrary.simpleMessage(
+      "Listado de logros para el paciente",
+    ),
     "Listar_pictogramas": MessageLookupByLibrary.simpleMessage(
       "Listar pictogramas",
     ),
     "Logros": MessageLookupByLibrary.simpleMessage("Logros"),
+    "Logros_disponibles_paciente": MessageLookupByLibrary.simpleMessage(
+      "Logros disponibles / Paciente",
+    ),
     "Los_campos_no_pueden_estar_vacios": MessageLookupByLibrary.simpleMessage(
       "Los campos no pueden estar vacíos",
     ),
@@ -495,11 +511,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "Observacion": MessageLookupByLibrary.simpleMessage("Observación"),
     "Observaciones": MessageLookupByLibrary.simpleMessage("Observaciones"),
     "Olvido_su_contrasena": MessageLookupByLibrary.simpleMessage(
-      "¿Olvido su contraseña?",
+      "¿Olvidó su contraseña?",
     ),
     "Opciones": MessageLookupByLibrary.simpleMessage("Opciones"),
     "Oracion": MessageLookupByLibrary.simpleMessage("Oración"),
     "Pagina": MessageLookupByLibrary.simpleMessage("Página"),
+    "Para_asignar_un_logro": MessageLookupByLibrary.simpleMessage(
+      "Para asignar un logro:",
+    ),
     "Para_crear_actividades": MessageLookupByLibrary.simpleMessage(
       "Para crear actividades",
     ),
@@ -608,18 +627,22 @@ class MessageLookup extends MessageLookupByLibrary {
       "Restablecer contraseña",
     ),
     "Salir": MessageLookupByLibrary.simpleMessage("Salir"),
-    "Se_actualizo_correctamente_el_pictograma_personalizado": m3,
+    "Se_actualizo_correctamente_el_pictograma_personalizado": m4,
     "Se_actualizo_correctamente_la_informacion_de_la_actividad":
         MessageLookupByLibrary.simpleMessage(
           "Se actualizó correctamente la información de la actividad",
         ),
-    "Se_actualizo_el_filtro_blanco_y_negro_con_exito": m4,
+    "Se_actualizo_el_filtro_blanco_y_negro_con_exito": m5,
     "Se_asigno_correctamente_la_actividad_a_los_ninos_seleccionados":
         MessageLookupByLibrary.simpleMessage(
           "Se asignó correctamente la actividad a los niños seleccionados",
         ),
-    "Se_avanzo_a_la_fase": m5,
-    "Se_creo_correctamente_el_pictograma_personalizado": m6,
+    "Se_asigno_el_logro_correctamente_al_paciente":
+        MessageLookupByLibrary.simpleMessage(
+          "Se asigno el logro correctamente al paciente",
+        ),
+    "Se_avanzo_a_la_fase": m6,
+    "Se_creo_correctamente_el_pictograma_personalizado": m7,
     "Se_elimino_correctamente_el_pictograma_personalizado":
         MessageLookupByLibrary.simpleMessage(
           "Se eliminó correctamente el pictograma personalizado",
@@ -659,11 +682,12 @@ class MessageLookup extends MessageLookupByLibrary {
           "Seleccione pictogramas de la solución",
         ),
     "Sexo": MessageLookupByLibrary.simpleMessage("Sexo"),
-    "Si_Eliminar": MessageLookupByLibrary.simpleMessage("Si, eliminar"),
-    "Si_Quitar": MessageLookupByLibrary.simpleMessage("Si, quitar"),
-    "Si_actualizar": MessageLookupByLibrary.simpleMessage("Si, actualizar"),
-    "Si_avanzar": MessageLookupByLibrary.simpleMessage("Si, avanzar"),
-    "Si_cambiar": MessageLookupByLibrary.simpleMessage("Si, cambiar"),
+    "Si_Eliminar": MessageLookupByLibrary.simpleMessage("Sí, eliminar"),
+    "Si_Quitar": MessageLookupByLibrary.simpleMessage("Sí, quitar"),
+    "Si_actualizar": MessageLookupByLibrary.simpleMessage("Sí, actualizar"),
+    "Si_asignar": MessageLookupByLibrary.simpleMessage("Sí, asignar"),
+    "Si_avanzar": MessageLookupByLibrary.simpleMessage("Sí, avanzar"),
+    "Si_cambiar": MessageLookupByLibrary.simpleMessage("Sí, cambiar"),
     "Si_desea_agregar_un_pictograma_a_la_solucion_debe_dar_clic_en_el_boton_verde_con_el_icono_de_listo":
         MessageLookupByLibrary.simpleMessage(
           "• Si desea agregar un pictograma a la solución, debe dar clic en el botón verde con el icono de listo",
@@ -676,12 +700,16 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "• Si desea eliminar un pictograma a la solución, debe dar clic en el botón rojo con el icono del basurero",
         ),
+    "Si_el_nombre_del_logro_no_se_muestra_completo_puede":
+        MessageLookupByLibrary.simpleMessage(
+          "Si el nombre del logro no se muestra completo, puede:",
+        ),
     "Si_el_nombre_del_pictograma_no_se_muestra_completo_puede":
         MessageLookupByLibrary.simpleMessage(
           "Si el nombre del pictograma no se muestra completo, puede:",
         ),
-    "Si_guardar": MessageLookupByLibrary.simpleMessage("Si, guardar"),
-    "Si_salir": MessageLookupByLibrary.simpleMessage("Si, salir"),
+    "Si_guardar": MessageLookupByLibrary.simpleMessage("Sí, guardar"),
+    "Si_salir": MessageLookupByLibrary.simpleMessage("Sí, salir"),
     "Siguiente": MessageLookupByLibrary.simpleMessage("Siguiente"),
     "Sin_actividad_activa_por_el_momento": MessageLookupByLibrary.simpleMessage(
       "Sin actividad activa por el momento",
@@ -706,7 +734,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Ver_informacion": MessageLookupByLibrary.simpleMessage("Ver Información"),
     "Ver_informacion_detallada_de_la_actividad":
         MessageLookupByLibrary.simpleMessage(
-          "Ver Información detallada de la actividad",
+          "Ver información detallada de la actividad",
         ),
     "Verificado": MessageLookupByLibrary.simpleMessage("Verificado"),
     "Verificar": MessageLookupByLibrary.simpleMessage("Verificar"),

@@ -161,6 +161,24 @@ final List<MenuItem> menuPacientTherapist = <MenuItem>[
     },
     roles: [$terapeuta],
   ),
+  MenuItem(
+    title: S.current.Asignar_Logro,
+    subTitle: S.current.Listado_de_logros_para_el_paciente,
+    icon: Icons.add,
+    permission: $listAchievement,
+    onClick: ({
+      required BuildContext context,
+      required WidgetRef ref,
+      CatalogObject? item,
+    }) {
+      context.pushNamed(
+        $achievement,
+        pathParameters: {$idChild: item!.id.toString()},
+        extra: {$nameChild: item.name},
+      );
+    },
+    roles: [$terapeuta],
+  ),
 ];
 
 final List<MenuItem> menuActivity = <MenuItem>[
