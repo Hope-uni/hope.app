@@ -51,7 +51,7 @@ class ObservationStateNotifier extends StateNotifier<ObservationState> {
         state.description!.length < 6) {
       state = state.copyWith(
           validationError: S.current
-              .La_descripcion_debe_tener_entre_seis_y_docientocincuentaycinco_caracteres);
+              .La_descripcion_debe_tener_entre_seis_y_doscientoscincuentaycinco_caracteres);
 
       return false;
     } else {

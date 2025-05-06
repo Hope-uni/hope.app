@@ -183,7 +183,6 @@ class NewActivityState extends ConsumerState<NewActivityPage> {
                                 context: context,
                                 titleButtonConfirm: S.current.Si_guardar,
                                 question: RichText(
-                                  textAlign: TextAlign.center,
                                   text: TextSpan(
                                     text: S.current
                                         .Esta_seguro_de_crear_la_actividad,

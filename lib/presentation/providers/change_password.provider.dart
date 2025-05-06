@@ -115,7 +115,7 @@ class ChangePasswordNotifier extends StateNotifier<ChangePasswordState> {
           .La_contrasena_debe_tener_entre_caracteres_ademas_contener_letras_y_numeros;
     }
     if (state.passwords!.newPassword != state.passwords!.confirmNewPassword) {
-      errors[$confirmNewPassword] = S.current.Las_contrasena_no_coinciden;
+      errors[$confirmNewPassword] = S.current.Las_contrasenas_no_coinciden;
     }
 
     state = state.copyWith(validationErrors: errors);
