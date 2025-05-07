@@ -162,10 +162,6 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         if (isGoingTo == '/login' ||
             isGoingTo == '/resetpassword' ||
             isGoingTo == '/splash') {
-          if (verified != true && roles!.contains($paciente)) {
-            return '/login';
-          }
-
           if (!roles!.contains($admin) &&
               !roles.contains($terapeuta) &&
               !roles.contains($tutor) &&
@@ -176,7 +172,12 @@ final goRouterProvider = Provider<GoRouter>((ref) {
           if (roles.contains($tutor) || roles.contains($terapeuta)) {
             return '/dashboard';
           }
-          if (roles.contains($paciente)) return '/board';
+
+          if (verified != true && roles.contains($paciente)) {
+            return '/dashboard';
+          }
+
+          if (verified == true && roles.contains($paciente)) return '/board';
 
           if (roles.contains($admin)) return '/login';
         }

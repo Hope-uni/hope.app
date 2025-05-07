@@ -30,6 +30,9 @@ class BoardPageState extends ConsumerState<BoardPage> {
 
   @override
   void dispose() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
     scrollController.dispose();
     super.dispose();
   }
@@ -67,11 +70,19 @@ class BoardPageState extends ConsumerState<BoardPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    // Establecer la orientación por defecto como horizontal para el tablero de comunicacion
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+  }
+
+  @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    // Establecer la orientación por defecto como horizontal para el tablero de comunicacion
-    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
 
     final statePictograms = ref.watch(pictogramsProvider);
     final stateBoard = ref.watch(boardProvider);
