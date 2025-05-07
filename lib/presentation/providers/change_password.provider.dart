@@ -7,7 +7,7 @@ import 'package:hope_app/presentation/utils/utils.dart';
 
 final changePasswordProvider = StateNotifierProvider.autoDispose<
     ChangePasswordNotifier, ChangePasswordState>((ref) {
-  final authRepository = ref.watch(authProvider.notifier);
+  final authRepository = ref.read(authProvider.notifier);
 
   return ChangePasswordNotifier(
     authRepository: AuthRepositoryImpl(),
@@ -130,8 +130,6 @@ class ChangePasswordNotifier extends StateNotifier<ChangePasswordState> {
   void updateResponse() => state = state.copyWith(messageError: '');
 
   Future<void> updateMe() async {
-    await keyValueRepository.setValueStorage<bool>(true, $verified);
-
     final String? token =
         await KeyValueStorageRepositoryImpl().getValueStorage<String>($token);
 

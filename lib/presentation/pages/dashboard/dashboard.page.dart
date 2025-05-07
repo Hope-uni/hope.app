@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
+import 'package:hope_app/presentation/providers/providers.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
 
-class DashboardPage extends StatefulWidget {
+class DashboardPage extends ConsumerStatefulWidget {
   const DashboardPage({super.key});
 
   @override
-  State<DashboardPage> createState() => _DashboardPageState();
+  DashboardPageState createState() => DashboardPageState();
 }
 
-class _DashboardPageState extends State<DashboardPage> {
+class DashboardPageState extends ConsumerState<DashboardPage> {
   @override
   void initState() {
     super.initState();
@@ -33,6 +36,12 @@ class _DashboardPageState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen<ProfileState>(profileProvider, (previous, next) {
+      if (next.userVerified == true && next.roles!.contains($paciente)) {
+        context.pushReplacementNamed($board);
+      }
+    });
+
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(title: Text(S.current.Bienvenido_pagina_de_inicio)),

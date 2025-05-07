@@ -165,8 +165,12 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
     final storedRoles =
         await storageProfile.getValueStorage<List<String>>($roles);
 
+    final storedUserVerified =
+        await storageProfile.getValueStorage<bool>($verified);
+
     state = state.copyWith(
       roles: storedRoles,
+      userVerified: storedUserVerified,
       userName: storedUserName,
       email: storedEmail,
       permmisions: storedPermissions,
@@ -400,6 +404,7 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
 
 class ProfileState {
   final List<String>? roles;
+  final bool? userVerified;
   final Profile? profile;
   final String? userName;
   final String? email;
@@ -412,6 +417,7 @@ class ProfileState {
 
   ProfileState({
     this.roles,
+    this.userVerified,
     this.profile,
     this.userName,
     this.email,
@@ -425,6 +431,7 @@ class ProfileState {
 
   ProfileState copyWith({
     List<String>? roles,
+    bool? userVerified,
     Profile? profile,
     String? userName,
     String? email,
@@ -437,6 +444,7 @@ class ProfileState {
   }) =>
       ProfileState(
         roles: roles ?? this.roles,
+        userVerified: userVerified ?? this.userVerified,
         profile: profile ?? this.profile,
         userName: userName ?? this.userName,
         email: email ?? this.email,

@@ -78,10 +78,6 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
         chagesStateAuthenticated(token: token);
 
-        if (rol == $paciente) {
-          _settearError(error: e.message);
-        }
-
         if (rol != $terapeuta && rol != $paciente && rol != $tutor) {
           _settearError(
             error: S.current.No_esta_autorizado_para_iniciar_sesion_en_la_APP,
@@ -166,7 +162,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
   }
 
   void settearDataMe({required Me me, required Token token}) async {
-    await keyValueRepository.setValueStorage<bool>(true, $verified);
+    await keyValueRepository.setValueStorage<bool>(me.userVerified, $verified);
     await keyValueRepository.setValueStorage<String>(me.username, $userName);
     await keyValueRepository.setValueStorage<String>(me.email, $email);
 
@@ -185,7 +181,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     await keyValueRepository.setValueStorage<List<String>>(
         descriptionsPermissons, $permissions);
 
-    profileStateNotifier.loadProfileAndPermmisions();
+    await profileStateNotifier.loadProfileAndPermmisions();
 
     chagesStateAuthenticated(token: token);
   }
