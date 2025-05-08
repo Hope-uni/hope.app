@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -229,643 +230,688 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
       }
     }
 
-    return DefaultTabController(
-      initialIndex: 0,
-      length: 5,
-      child: Scaffold(
-        appBar: AppBar(
-            title: Text(S.current.Informacion_del_nino),
-            actions: [
-              Container(
-                margin: const EdgeInsets.only(right: 15),
-                child: IconButton(
-                  icon: const Icon(Icons.help),
-                  onPressed: () {
-                    showDialog<void>(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Container(
-                            decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(20),
-                                  topRight: Radius.circular(20)),
-                              color: $colorBlueGeneral,
-                            ),
-                            padding: const EdgeInsets.only(
-                                left: 22, top: 20, bottom: 20),
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              S.current.Ayuda,
-                              style: const TextStyle(
-                                color: $colorTextWhite,
-                                fontWeight: FontWeight.bold,
+    return PopScope(
+      onPopInvokedWithResult: (didPop, result) {
+        ref.read(childrenProvider.notifier).resetState();
+
+        if (widget.extra![$isTutor] == true) {
+          ref.read(childrenProvider.notifier).getChildrenTutor();
+        } else {
+          ref.read(childrenProvider.notifier).getChildrenTherapist();
+        }
+      },
+      child: DefaultTabController(
+        initialIndex: 0,
+        length: 5,
+        child: Scaffold(
+          appBar: AppBar(
+              title: Text(S.current.Informacion_del_nino),
+              actions: [
+                Container(
+                  margin: const EdgeInsets.only(right: 15),
+                  child: IconButton(
+                    icon: const Icon(Icons.help),
+                    onPressed: () {
+                      showDialog<void>(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Container(
+                              decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    topRight: Radius.circular(20)),
+                                color: $colorBlueGeneral,
+                              ),
+                              padding: const EdgeInsets.only(
+                                  left: 22, top: 20, bottom: 20),
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                S.current.Ayuda,
+                                style: const TextStyle(
+                                  color: $colorTextWhite,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
-                          ),
-                          titlePadding: EdgeInsets.zero,
-                          content: SizedBox(
-                            width: 200,
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  S.current
-                                      .Para_ver_la_foto_de_perfil_con_mas_detalle,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                const SizedBox(height: 10),
-                                Text(
-                                  S.current.Hacer_doble_clic_sobre_la_imagen,
-                                ),
-                                const SizedBox(height: 30),
-                                Text(
-                                  S.current.Pestanas_de_informacion,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                const SizedBox(height: 10),
-                                Text(S.current
-                                    .Se_puede_desplazar_atraves_de_las_pestanas_desde_el_menu_superior_o_deslizando_horizontalmente_en_la_pantalla),
-                                const SizedBox(height: 30),
-                                Text(
-                                  S.current.Para_ver_los_logros_con_mas_detalle,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                const SizedBox(height: 10),
-                                Text(
-                                  S.current.Hacer_doble_clic_sobre_la_imagen,
-                                ),
-                                const SizedBox(height: 30),
-                                Text(
-                                  S.current.Menu_de_opciones,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                const SizedBox(height: 10),
-                                Text(
-                                  S.current
-                                      .Para_saber_que_acciones_puede_realizar_en_el_registro_dar_clic_en_el_boton_inferior_a_la_derecha_de_la_pantalla,
-                                ),
-                              ],
+                            titlePadding: EdgeInsets.zero,
+                            content: SizedBox(
+                              width: 200,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    S.current
+                                        .Para_ver_la_foto_de_perfil_con_mas_detalle,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    S.current.Hacer_doble_clic_sobre_la_imagen,
+                                  ),
+                                  const SizedBox(height: 30),
+                                  Text(
+                                    S.current.Pestanas_de_informacion,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(S.current
+                                      .Se_puede_desplazar_atraves_de_las_pestanas_desde_el_menu_superior_o_deslizando_horizontalmente_en_la_pantalla),
+                                  const SizedBox(height: 30),
+                                  Text(
+                                    S.current
+                                        .Para_ver_los_logros_con_mas_detalle,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    S.current.Hacer_doble_clic_sobre_la_imagen,
+                                  ),
+                                  const SizedBox(height: 30),
+                                  Text(
+                                    S.current.Menu_de_opciones,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    S.current
+                                        .Para_saber_que_acciones_puede_realizar_en_el_registro_dar_clic_en_el_boton_inferior_a_la_derecha_de_la_pantalla,
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          insetPadding: EdgeInsets.zero,
-                        );
-                      },
-                    );
-                  },
+                            insetPadding: EdgeInsets.zero,
+                          );
+                        },
+                      );
+                    },
+                  ),
                 ),
-              ),
-            ],
-            bottom: PreferredSize(
-                preferredSize: const Size.fromHeight(60.0),
-                child: Stack(
-                  children: [
-                    SingleChildScrollView(
-                      controller: _scrollController,
-                      scrollDirection: Axis.horizontal,
-                      child: TabBar(
-                        controller: _tabController,
-                        tabAlignment: TabAlignment.center,
-                        isScrollable: true,
-                        tabs: <Widget>[
-                          Tab(
-                            icon: const Icon(Icons.face_6),
-                            child: Text(
-                              S.current.Informacion_personal,
-                              textAlign: TextAlign.center,
+              ],
+              bottom: PreferredSize(
+                  preferredSize: const Size.fromHeight(60.0),
+                  child: Stack(
+                    children: [
+                      SingleChildScrollView(
+                        controller: _scrollController,
+                        scrollDirection: Axis.horizontal,
+                        child: TabBar(
+                          controller: _tabController,
+                          tabAlignment: TabAlignment.center,
+                          isScrollable: true,
+                          tabs: <Widget>[
+                            Tab(
+                              icon: const Icon(Icons.face_6),
+                              child: Text(
+                                S.current.Informacion_personal,
+                                textAlign: TextAlign.center,
+                              ),
                             ),
-                          ),
-                          Tab(
-                            icon: const Icon(Icons.description),
-                            child: Text(
-                              S.current.Informacion_general,
-                              textAlign: TextAlign.center,
+                            Tab(
+                              icon: const Icon(Icons.description),
+                              child: Text(
+                                S.current.Informacion_general,
+                                textAlign: TextAlign.center,
+                              ),
                             ),
-                          ),
-                          Tab(
-                            icon: const Icon(Icons.pie_chart),
-                            child: Text(
-                              S.current.Informacion_del_progreso,
-                              textAlign: TextAlign.center,
+                            Tab(
+                              icon: const Icon(Icons.pie_chart),
+                              child: Text(
+                                S.current.Informacion_del_progreso,
+                                textAlign: TextAlign.center,
+                              ),
                             ),
-                          ),
-                          Tab(
-                            icon: const Icon(Icons.analytics_outlined),
-                            child: Text(
-                              S.current.Actividades,
-                              textAlign: TextAlign.center,
+                            Tab(
+                              icon: const Icon(Icons.analytics_outlined),
+                              child: Text(
+                                S.current.Actividades,
+                                textAlign: TextAlign.center,
+                              ),
                             ),
-                          ),
-                          Tab(
-                            icon: const Icon(Icons.remove_red_eye_sharp),
-                            child: Text(
-                              S.current.Observaciones,
-                              textAlign: TextAlign.center,
+                            Tab(
+                              icon: const Icon(Icons.remove_red_eye_sharp),
+                              child: Text(
+                                S.current.Observaciones,
+                                textAlign: TextAlign.center,
+                              ),
                             ),
+                          ],
+                        ),
+                      ),
+                      // Mostrar flechas si hay más contenido por ver
+                      if (_showLeftArrow)
+                        Positioned(
+                          left: 0,
+                          top: 0,
+                          bottom: 0,
+                          child: Container(
+                            width: 45,
+                            color: $colorTransparent,
+                            child: const Icon(Icons.chevron_left,
+                                size: 35, color: $colorTextWhite),
                           ),
-                        ],
+                        ),
+                      if (_showRightArrow)
+                        Positioned(
+                          right: 0,
+                          top: 0,
+                          bottom: 0,
+                          child: Container(
+                            width: 45,
+                            color: $colorTransparent,
+                            child: const Icon(Icons.chevron_right,
+                                size: 35, color: $colorTextWhite),
+                          ),
+                        ),
+                    ],
+                  ))),
+          body: Stack(
+            children: [
+              if (stateChild.isLoading == false && stateChild.isError == false)
+                TabBarView(
+                  controller: _tabController,
+                  children: <Widget>[
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          FocusManager.instance.primaryFocus?.unfocus();
+                        });
+                      },
+                      child: Container(
+                        margin:
+                            const EdgeInsets.only(left: 10, right: 10, top: 15),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              ..._childPersonalData(
+                                enableInput: enableInput,
+                                context: context,
+                                ref: ref,
+                                clickSave: clickSave,
+                                focusNodes: focusNodes,
+                                controllerDate: controllerDate,
+                                selectDate: selectDate,
+                              )
+                            ],
+                          ),
+                        ),
                       ),
                     ),
-                    // Mostrar flechas si hay más contenido por ver
-                    if (_showLeftArrow)
-                      Positioned(
-                        left: 0,
-                        top: 0,
-                        bottom: 0,
-                        child: Container(
-                          width: 45,
-                          color: $colorTransparent,
-                          child: const Icon(Icons.chevron_left,
-                              size: 35, color: $colorTextWhite),
-                        ),
+                    Container(
+                      margin: const EdgeInsets.only(
+                        left: 10,
+                        right: 10,
+                        top: 15,
                       ),
-                    if (_showRightArrow)
-                      Positioned(
-                        right: 0,
-                        top: 0,
-                        bottom: 0,
-                        child: Container(
-                          width: 45,
-                          color: $colorTransparent,
-                          child: const Icon(Icons.chevron_right,
-                              size: 35, color: $colorTextWhite),
-                        ),
-                      ),
-                  ],
-                ))),
-        body: Stack(
-          children: [
-            if (stateChild.isLoading == false && stateChild.isError == false)
-              TabBarView(
-                controller: _tabController,
-                children: <Widget>[
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        FocusManager.instance.primaryFocus?.unfocus();
-                      });
-                    },
-                    child: Container(
-                      margin:
-                          const EdgeInsets.only(left: 10, right: 10, top: 15),
                       child: SingleChildScrollView(
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            ..._childPersonalData(
+                            ..._generalInformation(
                               enableInput: enableInput,
-                              context: context,
                               ref: ref,
-                              clickSave: clickSave,
-                              focusNodes: focusNodes,
-                              controllerDate: controllerDate,
-                              selectDate: selectDate,
                             )
                           ],
                         ),
                       ),
                     ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 10, right: 10, top: 15),
-                    child: SingleChildScrollView(
+                    Container(
+                      margin: const EdgeInsets.only(
+                        left: 10,
+                        right: 10,
+                        top: 15,
+                      ),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            ..._childProgressData(
+                              enableInput: enableInput,
+                              ref: ref,
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(
+                        left: 10,
+                        right: 10,
+                        top: 15,
+                      ),
                       child: Column(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          ..._generalInformation(
-                            enableInput: enableInput,
+                          ..._activities(
+                            scrollController: _scrollControllerObservations,
                             ref: ref,
                           )
                         ],
                       ),
                     ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 10, right: 10, top: 15),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          ..._childProgressData(
-                            enableInput: enableInput,
-                            ref: ref,
-                          )
-                        ],
+                    Container(
+                      margin: const EdgeInsets.only(
+                        left: 10,
+                        right: 10,
+                        top: 15,
                       ),
+                      child: _observationsChild(ref: ref),
                     ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 10, right: 10, top: 15),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        ..._activities(
-                          scrollController: _scrollControllerObservations,
-                          ref: ref,
-                        )
-                      ],
+                  ],
+                ),
+              if (stateChild.isLoading == true)
+                Stack(
+                  children: [
+                    const Opacity(
+                      opacity: 0.5,
+                      child: ModalBarrier(
+                          dismissible: false, color: $colorTransparent),
                     ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 10, right: 10, top: 15),
-                    child: _observationsChild(ref: ref),
-                  ),
-                ],
-              ),
-            if (stateChild.isLoading == true)
-              Stack(
-                children: [
-                  const Opacity(
-                    opacity: 0.5,
-                    child: ModalBarrier(
-                        dismissible: false, color: $colorTransparent),
-                  ),
-                  Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const CircularProgressIndicator(),
-                        const SizedBox(height: 25),
-                        Text(
-                          S.current.Cargando,
-                          style: const TextStyle(
-                            color: $colorButtonDisable,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            decoration: TextDecoration.none,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            if (stateChild.isUpdateData == true ||
-                statePhases.isLoading == true ||
-                stateActivity.isLoading == true)
-              Stack(
-                children: [
-                  const Opacity(
-                    opacity: 0.5,
-                    child: ModalBarrier(
-                        dismissible: false, color: $colorTextBlack),
-                  ),
-                  Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const CircularProgressIndicator(),
-                        const SizedBox(height: 25),
-                        Text(
-                          S.current.Cargando,
-                          style: const TextStyle(
-                            color: $colorTextWhite,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            decoration: TextDecoration.none,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            if (stateChild.isError == true)
-              SvgPicture.asset(
-                fit: BoxFit.contain,
-                'assets/svg/SinDatos.svg',
-              ),
-          ],
-        ),
-        floatingActionButton: stateChild.isLoading == true ||
-                stateChild.isUpdateData == true ||
-                stateChild.isError == true
-            ? null
-            : SpeedDial(
-                icon: Icons.expand_less,
-                activeIcon: Icons.expand_more,
-                animationDuration: const Duration(milliseconds: 300),
-                spacing: 3,
-                overlayColor: $colorShadow,
-                overlayOpacity: 0.2,
-                childPadding: const EdgeInsets.all(5),
-                spaceBetweenChildren: 4,
-                elevation: 8.0,
-                animationCurve: Curves.easeInOut,
-                isOpenOnStart: false,
-                shape: const CircleBorder(),
-                children: [
-                  SpeedDialChild(
-                    visible: !enableInput && widget.extra![$isTutor] == true,
-                    shape: const CircleBorder(),
-                    child: const Icon(Icons.edit, color: $colorTextWhite),
-                    backgroundColor: $colorBlueGeneral,
-                    label: S.current.Editar,
-                    onTap: () {
-                      if (stateProfile.permmisions!.contains($updatePatient)) {
-                        setState(() {
-                          _tabController.animateTo(0,
-                              duration: const Duration(seconds: 1),
-                              curve: Curves.bounceIn);
-                          enableInput = true;
-                        });
-                        notifierChild.assingState();
-                      } else {
-                        toastAlert(
-                          iconAlert: const Icon(Icons.info),
-                          context: context,
-                          title: S.current.No_autorizado,
-                          description:
-                              S.current.No_cuenta_con_el_permiso_necesario,
-                          typeAlert: ToastificationType.info,
-                        );
-                      }
-                    },
-                  ),
-                  SpeedDialChild(
-                    visible: enableInput,
-                    shape: const CircleBorder(),
-                    child: const Icon(Icons.close, color: $colorTextWhite),
-                    backgroundColor: $colorError,
-                    label: S.current.Cancelar,
-                    onTap: () {
-                      modalDialogConfirmation(
-                        context: context,
-                        titleButtonConfirm: S.current.Si_salir,
-                        question: RichText(
-                          text: TextSpan(
-                            text: S.current.Esta_seguro_de_salir_de_la_edicion,
+                    Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const CircularProgressIndicator(),
+                          const SizedBox(height: 25),
+                          Text(
+                            S.current.Cargando,
                             style: const TextStyle(
+                              color: $colorButtonDisable,
                               fontSize: 16,
-                              color: $colorTextBlack,
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.none,
                             ),
                           ),
-                        ),
-                        buttonColorConfirm: $colorSuccess,
-                        onClic: () {
-                          Navigator.of(context).pop();
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              if (stateChild.isUpdateData == true ||
+                  statePhases.isLoading == true ||
+                  stateActivity.isLoading == true)
+                Stack(
+                  children: [
+                    const Opacity(
+                      opacity: 0.5,
+                      child: ModalBarrier(
+                          dismissible: false, color: $colorTextBlack),
+                    ),
+                    Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const CircularProgressIndicator(),
+                          const SizedBox(height: 25),
+                          Text(
+                            S.current.Cargando,
+                            style: const TextStyle(
+                              color: $colorTextWhite,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.none,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              if (stateChild.isError == true)
+                SvgPicture.asset(
+                  fit: BoxFit.contain,
+                  'assets/svg/SinDatos.svg',
+                ),
+            ],
+          ),
+          floatingActionButton: stateChild.isLoading == true ||
+                  stateChild.isUpdateData == true ||
+                  stateChild.isError == true
+              ? null
+              : SpeedDial(
+                  icon: Icons.expand_less,
+                  activeIcon: Icons.expand_more,
+                  animationDuration: const Duration(milliseconds: 300),
+                  spacing: 3,
+                  overlayColor: $colorShadow,
+                  overlayOpacity: 0.2,
+                  childPadding: const EdgeInsets.all(5),
+                  spaceBetweenChildren: 4,
+                  elevation: 8.0,
+                  animationCurve: Curves.easeInOut,
+                  isOpenOnStart: false,
+                  shape: const CircleBorder(),
+                  children: [
+                    SpeedDialChild(
+                      visible: !enableInput && widget.extra![$isTutor] == true,
+                      shape: const CircleBorder(),
+                      child: const Icon(Icons.edit, color: $colorTextWhite),
+                      backgroundColor: $colorBlueGeneral,
+                      label: S.current.Editar,
+                      onTap: () {
+                        if (stateProfile.permmisions!
+                            .contains($updatePatient)) {
                           setState(() {
-                            enableInput = false;
-                          });
-                          WidgetsBinding.instance.addPostFrameCallback((_) {
-                            // Aquí puedes actualizar el estado o realizar alguna acción
-                            ref.read(childProvider.notifier).restoredState();
-                          });
-                        },
-                      );
-                    },
-                  ),
-                  SpeedDialChild(
-                    shape: const CircleBorder(),
-                    child: const Icon(Icons.update, color: $colorTextWhite),
-                    backgroundColor: $colorBlueGeneral,
-                    label: S.current.Actualizar,
-                    visible: enableInput,
-                    onTap: () {
-                      clickSave = true;
-
-                      if (notifierChild.checkFields()) {
-                        modalDialogConfirmation(
-                          context: context,
-                          titleButtonConfirm: S.current.Si_actualizar,
-                          question: RichText(
-                            text: TextSpan(
-                              text:
-                                  S.current.Esta_Seguro_de_actualizar_los_datos,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                color: $colorTextBlack,
-                              ),
-                            ),
-                          ),
-                          buttonColorConfirm: $colorSuccess,
-                          onClic: () async {
-                            if (context.mounted) {
-                              Navigator.of(context).pop();
-                            }
-                            await notifierChild.updateChild();
-                          },
-                        );
-                      }
-                      clickSave = false;
-                    },
-                  ),
-                  SpeedDialChild(
-                    shape: const CircleBorder(),
-                    child: const Icon(Icons.show_chart, color: $colorTextWhite),
-                    backgroundColor: $colorSuccess,
-                    label: S.current.Avanzar_de_fase,
-                    visible: widget.extra![$isTutor] == false,
-                    onTap: () {
-                      if (stateProfile.permmisions!.contains($advancePhase)) {
-                        modalDialogConfirmation(
-                          context: context,
-                          titleButtonConfirm: S.current.Si_avanzar,
-                          question: RichText(
-                            text: TextSpan(
-                              style: const TextStyle(
-                                fontSize: 16,
-                                color: $colorTextBlack,
-                              ),
-                              children: <TextSpan>[
-                                TextSpan(
-                                  text: S.current
-                                      .Esta_seguro_de_avanzar_de_fase_a(
-                                          stateChild.child!.fullName),
-                                ),
-                                TextSpan(
-                                  text: '\n\n${S.current.Fase_actual}: ',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: stateChild.child!.currentPhase.name,
-                                ),
-                              ],
-                            ),
-                          ),
-                          buttonColorConfirm: $colorSuccess,
-                          onClic: () async {
-                            Navigator.of(context).pop();
-                            final newPhase = await notifierPhases.changePhase(
-                                idChild: stateChild.child!.id);
-
-                            if (newPhase != null) {
-                              notifierChild.updateProgress(newPhase: newPhase);
-                            }
-                          },
-                        );
-                      } else {
-                        toastAlert(
-                          iconAlert: const Icon(Icons.info),
-                          context: context,
-                          title: S.current.No_autorizado,
-                          description:
-                              S.current.No_cuenta_con_el_permiso_necesario,
-                          typeAlert: ToastificationType.info,
-                        );
-                      }
-                    },
-                  ),
-                  SpeedDialChild(
-                    shape: const CircleBorder(),
-                    child: const Icon(Icons.add, color: $colorTextWhite),
-                    backgroundColor: $colorSuccess,
-                    label: S.current.Agregar_observacion,
-                    visible: widget.extra![$isTutor] == false,
-                    onTap: () {
-                      if (stateProfile.permmisions!.contains($addObservation)) {
-                        modalObservation(
-                          context: context,
-                          dataChild: CatalogObject(
-                            id: stateChild.child!.id,
-                            name: stateChild.child!.fullName,
-                            description: '',
-                          ),
-                          isPageChild: true,
-                        );
-                      } else {
-                        toastAlert(
-                          iconAlert: const Icon(Icons.info),
-                          context: context,
-                          title: S.current.No_autorizado,
-                          description:
-                              S.current.No_cuenta_con_el_permiso_necesario,
-                          typeAlert: ToastificationType.info,
-                        );
-                      }
-                    },
-                  ),
-                  SpeedDialChild(
-                    shape: const CircleBorder(),
-                    child: const Icon(Icons.color_lens, color: $colorTextWhite),
-                    backgroundColor: $colorBlueGeneral,
-                    label: S.current.Actualizar_filtro_blanco_negro,
-                    visible: widget.extra![$isTutor] == true && !enableInput,
-                    onTap: () {
-                      if (stateProfile.permmisions!
-                          .contains($changeMonochrome)) {
-                        modalDialogConfirmation(
-                          context: context,
-                          titleButtonConfirm: S.current.Si_cambiar,
-                          question: RichText(
-                            text: TextSpan(
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  color: $colorTextBlack,
-                                ),
-                                children: [
-                                  TextSpan(
-                                    text:
-                                        '${S.current.Esta_seguro_de_cambiar_el_filtro_blanco_negro}\n\n',
-                                  ),
-                                  TextSpan(text: '${S.current.Nuevo_valor}: '),
-                                  TextSpan(
-                                    text: stateChild.child!.isMonochrome == true
-                                        ? S.current.Inactivo
-                                        : S.current.Activo,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  )
-                                ]),
-                          ),
-                          buttonColorConfirm: $colorSuccess,
-                          onClic: () async {
-                            if (context.mounted) {
-                              Navigator.of(context).pop();
-                            }
-                            await notifierChild.updateMonochrome(
-                              idChild: stateChild.child!.id,
+                            _tabController.animateTo(
+                              0,
+                              duration: const Duration(seconds: 1),
+                              curve: Curves.bounceIn,
                             );
-                          },
-                        );
-                      } else {
-                        toastAlert(
-                          iconAlert: const Icon(Icons.info),
-                          context: context,
-                          title: S.current.No_autorizado,
-                          description:
-                              S.current.No_cuenta_con_el_permiso_necesario,
-                          typeAlert: ToastificationType.info,
-                        );
-                      }
-                    },
-                  ),
-                  SpeedDialChild(
-                    shape: const CircleBorder(),
-                    child: const Icon(Icons.delete, color: $colorTextWhite),
-                    backgroundColor: $colorError,
-                    label: S.current.Quitar_actividad,
-                    visible: widget.extra![$isTutor] == false,
-                    onTap: () {
-                      if (stateProfile.permmisions!
-                          .contains($unassignActivity)) {
-                        if (stateChild.child!.currentActivity == null) {
+                            enableInput = true;
+                          });
+                          notifierChild.assingState();
+                        } else {
                           toastAlert(
                             iconAlert: const Icon(Icons.info),
                             context: context,
                             title: S.current.No_autorizado,
-                            description: S.current
-                                .El_paciente_no_tiene_actividad_asignada_actualmente,
+                            description:
+                                S.current.No_cuenta_con_el_permiso_necesario,
                             typeAlert: ToastificationType.info,
                           );
-                          return;
                         }
+                      },
+                    ),
+                    SpeedDialChild(
+                      visible: enableInput,
+                      shape: const CircleBorder(),
+                      child: const Icon(Icons.close, color: $colorTextWhite),
+                      backgroundColor: $colorError,
+                      label: S.current.Cancelar,
+                      onTap: () {
                         modalDialogConfirmation(
                           context: context,
-                          titleButtonConfirm: S.current.Si_Quitar,
+                          titleButtonConfirm: S.current.Si_salir,
                           question: RichText(
-                            text: TextSpan(children: [
-                              TextSpan(
-                                text:
-                                    '${S.current.Esta_seguro_de_quitarle_la_actividad(stateChild.child!.currentActivity!.name)}\n\n',
-                                style: const TextStyle(
-                                  color: $colorTextBlack,
-                                ),
+                            text: TextSpan(
+                              text:
+                                  S.current.Esta_seguro_de_salir_de_la_edicion,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                color: $colorTextBlack,
                               ),
-                              TextSpan(
-                                text: '${S.current.Al_paiente}: ',
-                                style: const TextStyle(
-                                  color: $colorTextBlack,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              TextSpan(
-                                text: stateChild.child!.fullName,
-                                style: const TextStyle(
-                                  color: $colorTextBlack,
-                                ),
-                              ),
-                            ]),
+                            ),
                           ),
                           buttonColorConfirm: $colorSuccess,
-                          onClic: () async {
+                          onClic: () {
                             Navigator.of(context).pop();
-                            if (await notifierActivityChildren.unassingActivity(
-                                idChild: stateChild.child!.id)) {
-                              notifierChild.updateActivity();
-                            }
+                            setState(() {
+                              enableInput = false;
+                            });
+                            WidgetsBinding.instance.addPostFrameCallback((_) {
+                              // Aquí puedes actualizar el estado o realizar alguna acción
+                              ref.read(childProvider.notifier).restoredState();
+                            });
                           },
                         );
-                      } else {
-                        toastAlert(
-                          iconAlert: const Icon(Icons.info),
-                          context: context,
-                          title: S.current.No_autorizado,
-                          description:
-                              S.current.No_cuenta_con_el_permiso_necesario,
-                          typeAlert: ToastificationType.info,
-                        );
-                      }
-                    },
-                  ),
-                ],
-              ),
+                      },
+                    ),
+                    SpeedDialChild(
+                      shape: const CircleBorder(),
+                      child: const Icon(Icons.update, color: $colorTextWhite),
+                      backgroundColor: $colorBlueGeneral,
+                      label: S.current.Actualizar,
+                      visible: enableInput,
+                      onTap: () {
+                        clickSave = true;
+
+                        if (notifierChild.checkFields()) {
+                          modalDialogConfirmation(
+                            context: context,
+                            titleButtonConfirm: S.current.Si_actualizar,
+                            question: RichText(
+                              text: TextSpan(
+                                text: S.current
+                                    .Esta_Seguro_de_actualizar_los_datos,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  color: $colorTextBlack,
+                                ),
+                              ),
+                            ),
+                            buttonColorConfirm: $colorSuccess,
+                            onClic: () async {
+                              if (context.mounted) {
+                                Navigator.of(context).pop();
+                              }
+                              await notifierChild.updateChild();
+                            },
+                          );
+                        }
+                        clickSave = false;
+                      },
+                    ),
+                    SpeedDialChild(
+                      shape: const CircleBorder(),
+                      child: const Icon(
+                        Icons.show_chart,
+                        color: $colorTextWhite,
+                      ),
+                      backgroundColor: $colorSuccess,
+                      label: S.current.Avanzar_de_fase,
+                      visible: widget.extra![$isTutor] == false,
+                      onTap: () {
+                        if (stateProfile.permmisions!.contains($advancePhase)) {
+                          modalDialogConfirmation(
+                            context: context,
+                            titleButtonConfirm: S.current.Si_avanzar,
+                            question: RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  color: $colorTextBlack,
+                                ),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: S.current
+                                        .Esta_seguro_de_avanzar_de_fase_a(
+                                            stateChild.child!.fullName),
+                                  ),
+                                  TextSpan(
+                                    text: '\n\n${S.current.Fase_actual}: ',
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: stateChild.child!.currentPhase.name,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            buttonColorConfirm: $colorSuccess,
+                            onClic: () async {
+                              Navigator.of(context).pop();
+                              final newPhase = await notifierPhases.changePhase(
+                                  idChild: stateChild.child!.id);
+
+                              if (newPhase != null) {
+                                notifierChild.updateProgress(
+                                  newPhase: newPhase,
+                                );
+                              }
+                            },
+                          );
+                        } else {
+                          toastAlert(
+                            iconAlert: const Icon(Icons.info),
+                            context: context,
+                            title: S.current.No_autorizado,
+                            description:
+                                S.current.No_cuenta_con_el_permiso_necesario,
+                            typeAlert: ToastificationType.info,
+                          );
+                        }
+                      },
+                    ),
+                    SpeedDialChild(
+                      shape: const CircleBorder(),
+                      child: const Icon(Icons.add, color: $colorTextWhite),
+                      backgroundColor: $colorSuccess,
+                      label: S.current.Agregar_observacion,
+                      visible: widget.extra![$isTutor] == false,
+                      onTap: () {
+                        if (stateProfile.permmisions!
+                            .contains($addObservation)) {
+                          modalObservation(
+                            context: context,
+                            dataChild: CatalogObject(
+                              id: stateChild.child!.id,
+                              name: stateChild.child!.fullName,
+                              description: '',
+                            ),
+                            isPageChild: true,
+                          );
+                        } else {
+                          toastAlert(
+                            iconAlert: const Icon(Icons.info),
+                            context: context,
+                            title: S.current.No_autorizado,
+                            description:
+                                S.current.No_cuenta_con_el_permiso_necesario,
+                            typeAlert: ToastificationType.info,
+                          );
+                        }
+                      },
+                    ),
+                    SpeedDialChild(
+                      shape: const CircleBorder(),
+                      child: const Icon(
+                        Icons.color_lens,
+                        color: $colorTextWhite,
+                      ),
+                      backgroundColor: $colorBlueGeneral,
+                      label: S.current.Actualizar_filtro_blanco_negro,
+                      visible: widget.extra![$isTutor] == true && !enableInput,
+                      onTap: () {
+                        if (stateProfile.permmisions!
+                            .contains($changeMonochrome)) {
+                          modalDialogConfirmation(
+                            context: context,
+                            titleButtonConfirm: S.current.Si_cambiar,
+                            question: RichText(
+                              text: TextSpan(
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: $colorTextBlack,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text:
+                                          '${S.current.Esta_seguro_de_cambiar_el_filtro_blanco_negro}\n\n',
+                                    ),
+                                    TextSpan(
+                                      text: '${S.current.Nuevo_valor}: ',
+                                    ),
+                                    TextSpan(
+                                      text:
+                                          stateChild.child!.isMonochrome == true
+                                              ? S.current.Inactivo
+                                              : S.current.Activo,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    )
+                                  ]),
+                            ),
+                            buttonColorConfirm: $colorSuccess,
+                            onClic: () async {
+                              if (context.mounted) {
+                                Navigator.of(context).pop();
+                              }
+                              await notifierChild.updateMonochrome(
+                                idChild: stateChild.child!.id,
+                              );
+                            },
+                          );
+                        } else {
+                          toastAlert(
+                            iconAlert: const Icon(Icons.info),
+                            context: context,
+                            title: S.current.No_autorizado,
+                            description:
+                                S.current.No_cuenta_con_el_permiso_necesario,
+                            typeAlert: ToastificationType.info,
+                          );
+                        }
+                      },
+                    ),
+                    SpeedDialChild(
+                      shape: const CircleBorder(),
+                      child: const Icon(Icons.delete, color: $colorTextWhite),
+                      backgroundColor: $colorError,
+                      label: S.current.Quitar_actividad,
+                      visible: widget.extra![$isTutor] == false,
+                      onTap: () {
+                        if (stateProfile.permmisions!
+                            .contains($unassignActivity)) {
+                          if (stateChild.child!.currentActivity == null) {
+                            toastAlert(
+                              iconAlert: const Icon(Icons.info),
+                              context: context,
+                              title: S.current.No_autorizado,
+                              description: S.current
+                                  .El_paciente_no_tiene_actividad_asignada_actualmente,
+                              typeAlert: ToastificationType.info,
+                            );
+                            return;
+                          }
+                          modalDialogConfirmation(
+                            context: context,
+                            titleButtonConfirm: S.current.Si_Quitar,
+                            question: RichText(
+                              text: TextSpan(children: [
+                                TextSpan(
+                                  text:
+                                      '${S.current.Esta_seguro_de_quitarle_la_actividad(stateChild.child!.currentActivity!.name)}\n\n',
+                                  style: const TextStyle(
+                                    color: $colorTextBlack,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: '${S.current.Al_paiente}: ',
+                                  style: const TextStyle(
+                                    color: $colorTextBlack,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: stateChild.child!.fullName,
+                                  style: const TextStyle(
+                                    color: $colorTextBlack,
+                                  ),
+                                ),
+                              ]),
+                            ),
+                            buttonColorConfirm: $colorSuccess,
+                            onClic: () async {
+                              Navigator.of(context).pop();
+                              if (await notifierActivityChildren
+                                  .unassingActivity(
+                                      idChild: stateChild.child!.id)) {
+                                notifierChild.updateActivity();
+                              }
+                            },
+                          );
+                        } else {
+                          toastAlert(
+                            iconAlert: const Icon(Icons.info),
+                            context: context,
+                            title: S.current.No_autorizado,
+                            description:
+                                S.current.No_cuenta_con_el_permiso_necesario,
+                            typeAlert: ToastificationType.info,
+                          );
+                        }
+                      },
+                    ),
+                  ],
+                ),
+        ),
       ),
     );
   }
@@ -885,6 +931,26 @@ List<Widget> _childPersonalData({
   final stateChild = ref.watch(childProvider);
   final notifierChild = ref.read(childProvider.notifier);
 
+  Future<void> selectImage() async {
+    final String? imagePath = await image.selectImage();
+    if (imagePath != null) {
+      final file = File(imagePath);
+
+      notifierChild.updateImage(imageFile: file);
+      notifierChild.updateimagePath(path: imagePath);
+    }
+  }
+
+  Future<void> takePhoto() async {
+    final String? imagePath = await image.takePhoto();
+    if (imagePath != null) {
+      final file = File(imagePath);
+
+      notifierChild.updateImage(imageFile: file);
+      notifierChild.updateimagePath(path: imagePath);
+    }
+  }
+
   return [
     Container(
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -896,7 +962,10 @@ List<Widget> _childPersonalData({
               width: 145,
               height: 145,
               decoration: const BoxDecoration(shape: BoxShape.circle),
-              child: ImageLoad(urlImage: stateChild.child!.imageUrl),
+              child: ImageLoad(
+                urlImage: stateChild.child!.imageUrl,
+                imagePath: stateChild.imagePath,
+              ),
             ),
           ),
           Visibility(
@@ -935,8 +1004,10 @@ List<Widget> _childPersonalData({
                               children: [
                                 IconButton(
                                     onPressed: () async {
-                                      // ignore: unused_local_variable
-                                      final photo = await image.selectImage();
+                                      await selectImage();
+                                      if (context.mounted) {
+                                        Navigator.of(context).pop();
+                                      }
                                     },
                                     icon: const Icon(Icons.photo)),
                                 Text(S.current.Galeria),
@@ -946,8 +1017,10 @@ List<Widget> _childPersonalData({
                               children: [
                                 IconButton(
                                     onPressed: () async {
-                                      // ignore: unused_local_variable
-                                      final imagen = await image.takePhoto();
+                                      await takePhoto();
+                                      if (context.mounted) {
+                                        Navigator.of(context).pop();
+                                      }
                                     },
                                     icon: const Icon(Icons.add_a_photo)),
                                 Text(S.current.Camara),

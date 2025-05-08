@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hope_app/domain/domain.dart';
 import 'package:hope_app/generated/l10n.dart';
@@ -171,10 +172,6 @@ class ChildNotifier extends StateNotifier<ChildState> {
         updatedChild = state.child!.copyWith(birthday: newValue);
         break;
 
-      case $imageProfile:
-        updatedChild = state.child!.copyWith(imageUrl: newValue);
-        break;
-
       case $genderProfile:
         if (newValue.isNotEmpty) newValidationErrors.remove($genderProfile);
         updatedChild = state.child!.copyWith(gender: newValue);
@@ -188,6 +185,13 @@ class ChildNotifier extends StateNotifier<ChildState> {
       child: updatedChild,
       validationErrors: newValidationErrors,
     );
+  }
+
+  void updateImage({required File imageFile}) {
+    Child? currentChild = state.child;
+    if (currentChild == null) return;
+    currentChild = state.child!.copyWith(imageUrl: imageFile.path);
+    state = state.copyWith(child: currentChild);
   }
 
   void updateObservations({required Observation newObservation}) {
@@ -300,6 +304,10 @@ class ChildNotifier extends StateNotifier<ChildState> {
     );
   }
 
+  void updateimagePath({required String path}) {
+    state = state.copyWith(imagePath: path);
+  }
+
   void resetChild() => state = ChildState();
 
   void restoredState() {
@@ -314,6 +322,7 @@ class ChildNotifier extends StateNotifier<ChildState> {
 
 class ChildState {
   final Child? child;
+  final String? imagePath;
   final bool isLoading;
   final bool isUpdateData;
   final bool isComplete;
@@ -324,6 +333,7 @@ class ChildState {
 
   ChildState({
     this.child,
+    this.imagePath,
     this.isLoading = false,
     this.isUpdateData = false,
     this.isComplete = false,
@@ -335,6 +345,7 @@ class ChildState {
 
   ChildState copyWith({
     Child? child,
+    String? imagePath,
     bool? isLoading,
     bool? isUpdateData,
     bool? isComplete,
@@ -354,5 +365,6 @@ class ChildState {
         errorMessageApi: errorMessageApi == ''
             ? null
             : errorMessageApi ?? this.errorMessageApi,
+        imagePath: imagePath == '' ? null : imagePath ?? this.imagePath,
       );
 }

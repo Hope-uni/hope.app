@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -498,6 +499,8 @@ Future<void> _dialogImage({
 }) {
   final image = CameraGalleryDataSourceImpl();
   bool isdisable = false;
+  String? imagePathCel;
+
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
@@ -513,6 +516,24 @@ Future<void> _dialogImage({
           return Consumer(
             builder: (context, ref, child) {
               final stateCustomPicto = ref.watch(customPictogramProvider);
+
+              Future<void> selectImage() async {
+                final String? imagePath = await image.selectImage();
+                if (imagePath != null) {
+                  final file = File(imagePath);
+                  ref.read(customPictogramProvider.notifier).updateImage(file);
+                  setState(() => imagePathCel = imagePath);
+                }
+              }
+
+              Future<void> takePhoto() async {
+                final String? imagePath = await image.takePhoto();
+                if (imagePath != null) {
+                  final file = File(imagePath);
+                  ref.read(customPictogramProvider.notifier).updateImage(file);
+                  setState(() => imagePathCel = imagePath);
+                }
+              }
 
               if (stateCustomPicto.pictogram == null) {
                 return Stack(
@@ -605,6 +626,7 @@ Future<void> _dialogImage({
                                       urlImage:
                                           stateCustomPicto.pictogram!.imageUrl,
                                       isDoubleTap: false,
+                                      imagePath: imagePathCel,
                                     ),
                                   ),
                                 ),
@@ -617,17 +639,13 @@ Future<void> _dialogImage({
                                     children: [
                                       IconButton(
                                           onPressed: () async {
-                                            // ignore: unused_local_variable
-                                            final photo =
-                                                await image.selectImage();
+                                            await selectImage();
                                           },
                                           icon: const Icon(Icons.photo)),
                                       Text(S.current.Galeria),
                                       IconButton(
                                           onPressed: () async {
-                                            // ignore: unused_local_variable
-                                            final imagen =
-                                                await image.takePhoto();
+                                            await takePhoto();
                                           },
                                           icon: const Icon(Icons.add_a_photo)),
                                       Text(S.current.Camara),

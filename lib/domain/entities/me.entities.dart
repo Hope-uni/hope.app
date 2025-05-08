@@ -3,7 +3,6 @@ class Me {
   String username;
   String email;
   bool userVerified;
-  String? imageUrl;
   Profile? profile;
   List<Role> roles;
 
@@ -12,7 +11,6 @@ class Me {
     required this.username,
     required this.email,
     required this.userVerified,
-    required this.imageUrl,
     required this.roles,
     this.profile,
   });

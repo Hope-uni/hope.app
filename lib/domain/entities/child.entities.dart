@@ -120,7 +120,7 @@ class ActivityChild {
 class PersonTutorTherapist {
   int id;
   int userId;
-  String? image;
+  String? imageUrl;
   String fullName;
   String email;
   String username;
@@ -130,7 +130,7 @@ class PersonTutorTherapist {
   PersonTutorTherapist({
     required this.id,
     required this.userId,
-    this.image,
+    this.imageUrl,
     required this.fullName,
     required this.email,
     required this.username,
