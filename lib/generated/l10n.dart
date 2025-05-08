@@ -2011,10 +2011,10 @@ class S {
     );
   }
 
-  /// `Para ver el detalle de la actividad`
+  /// `Para ver el detalle de la actividad:`
   String get Para_ver_el_detalle_de_la_actividad {
     return Intl.message(
-      'Para ver el detalle de la actividad',
+      'Para ver el detalle de la actividad:',
       name: 'Para_ver_el_detalle_de_la_actividad',
       desc: '',
       args: [],
@@ -2031,10 +2031,10 @@ class S {
     );
   }
 
-  /// `Para refrescar el listado de actividades`
+  /// `Para refrescar el listado de actividades:`
   String get Para_refrescar_el_listado_de_actividades {
     return Intl.message(
-      'Para refrescar el listado de actividades',
+      'Para refrescar el listado de actividades:',
       name: 'Para_refrescar_el_listado_de_actividades',
       desc: '',
       args: [],
@@ -2053,10 +2053,10 @@ class S {
     );
   }
 
-  /// `Para crear actividades`
+  /// `Para crear actividades:`
   String get Para_crear_actividades {
     return Intl.message(
-      'Para crear actividades',
+      'Para crear actividades:',
       name: 'Para_crear_actividades',
       desc: '',
       args: [],
@@ -2097,20 +2097,20 @@ class S {
     );
   }
 
-  /// `Para ver la foto de perfil de los pacientes con más detalle`
+  /// `Para ver la foto de perfil de los pacientes con más detalle:`
   String get Para_ver_la_foto_de_perfil_de_los_pacientes_con_mas_detalle {
     return Intl.message(
-      'Para ver la foto de perfil de los pacientes con más detalle',
+      'Para ver la foto de perfil de los pacientes con más detalle:',
       name: 'Para_ver_la_foto_de_perfil_de_los_pacientes_con_mas_detalle',
       desc: '',
       args: [],
     );
   }
 
-  /// `Flujo para asignación de actividad`
+  /// `Flujo para asignación de actividad:`
   String get Flujo_para_asignacion_de_actividad {
     return Intl.message(
-      'Flujo para asignación de actividad',
+      'Flujo para asignación de actividad:',
       name: 'Flujo_para_asignacion_de_actividad',
       desc: '',
       args: [],
@@ -2189,10 +2189,10 @@ class S {
     );
   }
 
-  /// `Para quitar asignación de actividad a los pacientes`
+  /// `Para quitar asignación de actividad a los pacientes:`
   String get Para_quitar_asignacion_de_actividad_a_los_pacientes {
     return Intl.message(
-      'Para quitar asignación de actividad a los pacientes',
+      'Para quitar asignación de actividad a los pacientes:',
       name: 'Para_quitar_asignacion_de_actividad_a_los_pacientes',
       desc: '',
       args: [],
@@ -2211,10 +2211,10 @@ class S {
     );
   }
 
-  /// `Para ver la foto de perfil con más detalle`
+  /// `Para ver la foto de perfil con más detalle:`
   String get Para_ver_la_foto_de_perfil_con_mas_detalle {
     return Intl.message(
-      'Para ver la foto de perfil con más detalle',
+      'Para ver la foto de perfil con más detalle:',
       name: 'Para_ver_la_foto_de_perfil_con_mas_detalle',
       desc: '',
       args: [],
@@ -2243,10 +2243,10 @@ class S {
     );
   }
 
-  /// `Para ver los logros con más detalle`
+  /// `Para ver los logros con más detalle:`
   String get Para_ver_los_logros_con_mas_detalle {
     return Intl.message(
-      'Para ver los logros con más detalle',
+      'Para ver los logros con más detalle:',
       name: 'Para_ver_los_logros_con_mas_detalle',
       desc: '',
       args: [],
@@ -2275,50 +2275,50 @@ class S {
     );
   }
 
-  /// `Para ver el detalle del paciente`
+  /// `Para ver el detalle del paciente:`
   String get Para_ver_el_detalle_del_paciente {
     return Intl.message(
-      'Para ver el detalle del paciente',
+      'Para ver el detalle del paciente:',
       name: 'Para_ver_el_detalle_del_paciente',
       desc: '',
       args: [],
     );
   }
 
-  /// `Para refrescar el listado de los pacientes asignados`
+  /// `Para refrescar el listado de los pacientes asignados:`
   String get Para_refrescar_el_listado_de_los_pacientes_asignados {
     return Intl.message(
-      'Para refrescar el listado de los pacientes asignados',
+      'Para refrescar el listado de los pacientes asignados:',
       name: 'Para_refrescar_el_listado_de_los_pacientes_asignados',
       desc: '',
       args: [],
     );
   }
 
-  /// `Para ver el detalle del/la niñ@`
+  /// `Para ver el detalle del/la niñ@:`
   String get Para_ver_el_detalle_del_la_nino {
     return Intl.message(
-      'Para ver el detalle del/la niñ@',
+      'Para ver el detalle del/la niñ@:',
       name: 'Para_ver_el_detalle_del_la_nino',
       desc: '',
       args: [],
     );
   }
 
-  /// `Para refrescar el listado de los niños asignados`
+  /// `Para refrescar el listado de los niños asignados:`
   String get Para_refrescar_el_listado_de_los_ninos_asignados {
     return Intl.message(
-      'Para refrescar el listado de los niños asignados',
+      'Para refrescar el listado de los niños asignados:',
       name: 'Para_refrescar_el_listado_de_los_ninos_asignados',
       desc: '',
       args: [],
     );
   }
 
-  /// `Para ver la foto de perfil de los niños asignados con más detalle`
+  /// `Para ver la foto de perfil de los niños asignados con más detalle:`
   String get Para_ver_la_foto_de_perfil_de_los_ninos_asignados_con_mas_detalle {
     return Intl.message(
-      'Para ver la foto de perfil de los niños asignados con más detalle',
+      'Para ver la foto de perfil de los niños asignados con más detalle:',
       name: 'Para_ver_la_foto_de_perfil_de_los_ninos_asignados_con_mas_detalle',
       desc: '',
       args: [],
@@ -2470,6 +2470,16 @@ class S {
     return Intl.message(
       'Si el nombre del logro no se muestra completo, puede:',
       name: 'Si_el_nombre_del_logro_no_se_muestra_completo_puede',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recortar imagen`
+  String get Recortar_imagen {
+    return Intl.message(
+      'Recortar imagen',
+      name: 'Recortar_imagen',
       desc: '',
       args: [],
     );
