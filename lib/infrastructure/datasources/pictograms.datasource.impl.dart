@@ -1,6 +1,10 @@
+import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:hope_app/domain/domain.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/services/services.dart';
+import 'package:hope_app/presentation/utils/utils.dart'
+    show $imageFile, $namePictogram, $patientIdPictogram, $pictogramId;
 
 class PictogramsDataSourceImpl extends PictogramsDataSource {
   final dioServices = DioService();
@@ -49,10 +53,21 @@ class PictogramsDataSourceImpl extends PictogramsDataSource {
   Future<ResponseDataObject<PictogramAchievements>> createCustomPictogram(
       {required CustomPictogram customPictogram}) async {
     try {
-      final data = CustomPictogramMapper.toJson(customPictogram);
+      final isLocalPath = File(customPictogram.imageUrl).existsSync();
+
+      final formData = FormData.fromMap({
+        $namePictogram: customPictogram.name,
+        $patientIdPictogram: customPictogram.patientId,
+        $pictogramId: customPictogram.pictogramId,
+        if (isLocalPath)
+          $imageFile: await MultipartFile.fromFile(
+            customPictogram.imageUrl,
+            filename: customPictogram.imageUrl.split('/').last,
+          ),
+      });
 
       final response =
-          await dioServices.dio.post('/patientPictogram', data: data);
+          await dioServices.dio.post('/patientPictogram', data: formData);
 
       final responseCustomPictograms =
           ResponseMapper.responseJsonToEntity<PictogramAchievements>(
@@ -122,12 +137,21 @@ class PictogramsDataSourceImpl extends PictogramsDataSource {
     required int idPictogram,
   }) async {
     try {
-      final data = CustomPictogramMapper.toJson(pictogram);
-      data.removeWhere((key, value) => value == null);
+      final isLocalPath = File(pictogram.imageUrl).existsSync();
+
+      final formData = FormData.fromMap({
+        $namePictogram: pictogram.name,
+        $patientIdPictogram: pictogram.patientId,
+        if (isLocalPath)
+          $imageFile: await MultipartFile.fromFile(
+            pictogram.imageUrl,
+            filename: pictogram.imageUrl.split('/').last,
+          )
+      });
 
       final response = await dioServices.dio.put(
         '/patientPictogram/$idPictogram',
-        data: data,
+        data: formData,
       );
 
       final responseCustomPictograms =

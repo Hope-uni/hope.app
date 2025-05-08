@@ -12,7 +12,7 @@ class ChildMapper {
         secondSurname: json["secondSurname"],
         gender: json["gender"],
         age: json["age"],
-        imageUrl: json["image"],
+        imageUrl: json["imageUrl"],
         username: json["username"],
         email: json["email"],
         birthday: json["birthday"],
@@ -62,7 +62,7 @@ class ChildMapper {
       PersonTutorTherapist(
         id: json["id"],
         userId: json["userId"],
-        image: json["image"],
+        imageUrl: json["imageUrl"],
         fullName: json["fullName"],
         email: json["email"],
         username: json["username"],

@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hope_app/domain/domain.dart';
 import 'package:hope_app/generated/l10n.dart';
@@ -175,6 +176,13 @@ class CustomPictogramNotifier extends StateNotifier<CustomPictogramState> {
 
   void setIdChild({required int idChild}) {
     state = state.copyWith(idChild: idChild);
+  }
+
+  void updateImage(File imageFile) {
+    final currentPictogram = state.pictogram;
+    if (currentPictogram == null) return;
+    final updateImage = currentPictogram.copyWith(imageUrl: imageFile.path);
+    state = state.copyWith(pictogram: updateImage);
   }
 }
 
