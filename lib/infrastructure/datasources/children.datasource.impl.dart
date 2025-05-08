@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:hope_app/domain/domain.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/services/services.dart';
@@ -68,11 +70,27 @@ class ChildrenDataSourceImpl extends ChildrenDataSource {
     required Person child,
   }) async {
     try {
-      final data = PersonMapper.personToJson(child);
-      data.removeWhere((key, value) => value == null);
+      final isLocalPath = File(child.imageUrl!).existsSync();
+
+      final formData = FormData.fromMap({
+        $userNameProfile: child.username,
+        $emailProfile: child.email,
+        $firstNameProfile: child.firstName,
+        $secondNameProfile: child.secondName,
+        $surnameProfile: child.surname,
+        $secondSurnameProfile: child.secondSurname,
+        $addressProfile: child.address,
+        $birthdayProfile: child.birthday,
+        $genderProfile: child.gender,
+        if (isLocalPath)
+          $imageFile: await MultipartFile.fromFile(
+            child.imageUrl!,
+            filename: child.imageUrl!.split('/').last,
+          )
+      });
 
       final response =
-          await dioServices.dio.put('/patient/$idChild', data: data);
+          await dioServices.dio.put('/patient/$idChild', data: formData);
 
       final responseChild = ResponseMapper.responseJsonToEntity<Person>(
           json: response.data, fromJson: PersonMapper.personFromJson);

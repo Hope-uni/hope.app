@@ -336,7 +336,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Fecha de nacimiento",
     ),
     "Flujo_para_asignacion_de_actividad": MessageLookupByLibrary.simpleMessage(
-      "Flujo para asignación de actividad",
+      "Flujo para asignación de actividad:",
     ),
     "Formato_incorrecto_de_cedula": MessageLookupByLibrary.simpleMessage(
       "Formato incorrecto de cédula (###-######-####L)",
@@ -520,7 +520,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Para asignar un logro:",
     ),
     "Para_crear_actividades": MessageLookupByLibrary.simpleMessage(
-      "Para crear actividades",
+      "Para crear actividades:",
     ),
     "Para_finalizar_asignacion_hacer_clic_sobre_el_boton_en_la_esquina_inferior_derecha_y_seleccionar_la_opcion_de_guardar":
         MessageLookupByLibrary.simpleMessage(
@@ -528,19 +528,19 @@ class MessageLookup extends MessageLookupByLibrary {
         ),
     "Para_quitar_asignacion_de_actividad_a_los_pacientes":
         MessageLookupByLibrary.simpleMessage(
-          "Para quitar asignación de actividad a los pacientes",
+          "Para quitar asignación de actividad a los pacientes:",
         ),
     "Para_refrescar_el_listado_de_actividades":
         MessageLookupByLibrary.simpleMessage(
-          "Para refrescar el listado de actividades",
+          "Para refrescar el listado de actividades:",
         ),
     "Para_refrescar_el_listado_de_los_ninos_asignados":
         MessageLookupByLibrary.simpleMessage(
-          "Para refrescar el listado de los niños asignados",
+          "Para refrescar el listado de los niños asignados:",
         ),
     "Para_refrescar_el_listado_de_los_pacientes_asignados":
         MessageLookupByLibrary.simpleMessage(
-          "Para refrescar el listado de los pacientes asignados",
+          "Para refrescar el listado de los pacientes asignados:",
         ),
     "Para_reordenar_la_solucion": MessageLookupByLibrary.simpleMessage(
       "Para reordenar la solución",
@@ -550,31 +550,31 @@ class MessageLookup extends MessageLookupByLibrary {
           "• Para saber que acciones puede realizar en el registro, dar clic en el botón inferior a la derecha de la pantalla",
         ),
     "Para_ver_el_detalle_de_la_actividad": MessageLookupByLibrary.simpleMessage(
-      "Para ver el detalle de la actividad",
+      "Para ver el detalle de la actividad:",
     ),
     "Para_ver_el_detalle_del_la_nino": MessageLookupByLibrary.simpleMessage(
-      "Para ver el detalle del/la niñ@",
+      "Para ver el detalle del/la niñ@:",
     ),
     "Para_ver_el_detalle_del_paciente": MessageLookupByLibrary.simpleMessage(
-      "Para ver el detalle del paciente",
+      "Para ver el detalle del paciente:",
     ),
     "Para_ver_la_foto_de_perfil_con_mas_detalle":
         MessageLookupByLibrary.simpleMessage(
-          "Para ver la foto de perfil con más detalle",
+          "Para ver la foto de perfil con más detalle:",
         ),
     "Para_ver_la_foto_de_perfil_de_los_ninos_asignados_con_mas_detalle":
         MessageLookupByLibrary.simpleMessage(
-          "Para ver la foto de perfil de los niños asignados con más detalle",
+          "Para ver la foto de perfil de los niños asignados con más detalle:",
         ),
     "Para_ver_la_foto_de_perfil_de_los_pacientes_con_mas_detalle":
         MessageLookupByLibrary.simpleMessage(
-          "Para ver la foto de perfil de los pacientes con más detalle",
+          "Para ver la foto de perfil de los pacientes con más detalle:",
         ),
     "Para_ver_la_imagen_con_mas_detalle": MessageLookupByLibrary.simpleMessage(
       "Para ver la imagen con más detalle:",
     ),
     "Para_ver_los_logros_con_mas_detalle": MessageLookupByLibrary.simpleMessage(
-      "Para ver los logros con más detalle",
+      "Para ver los logros con más detalle:",
     ),
     "Perfil": MessageLookupByLibrary.simpleMessage("Perfil"),
     "Personalizar_pictograma": MessageLookupByLibrary.simpleMessage(
@@ -622,6 +622,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Quitar_asignacion_de_actividad": MessageLookupByLibrary.simpleMessage(
       "Quitar asignación de actividad",
     ),
+    "Recortar_imagen": MessageLookupByLibrary.simpleMessage("Recortar imagen"),
     "Regresar": MessageLookupByLibrary.simpleMessage("Regresar"),
     "Restablecer_contrasena": MessageLookupByLibrary.simpleMessage(
       "Restablecer contraseña",

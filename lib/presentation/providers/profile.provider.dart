@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io' show File;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hope_app/domain/domain.dart';
 import 'package:hope_app/generated/l10n.dart';
@@ -252,10 +253,6 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
         updatedProfile = state.profile!.copyWith(phoneNumber: newValue);
         break;
 
-      case $imageProfile:
-        updatedProfile = state.profile!.copyWith(imageUrl: newValue);
-        break;
-
       case $genderProfile:
         if (newValue.isNotEmpty) newValidationErrors.remove($genderProfile);
         updatedProfile = state.profile!.copyWith(gender: newValue);
@@ -269,6 +266,13 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
       profile: updatedProfile,
       validationErrors: newValidationErrors,
     );
+  }
+
+  void updateImage(File imageFile) {
+    Profile? currentProfile = state.profile;
+    if (currentProfile == null) return;
+    currentProfile = state.profile!.copyWith(imageUrl: imageFile.path);
+    state = state.copyWith(profile: currentProfile);
   }
 
   void updateUserName({required String value}) {
@@ -395,9 +399,7 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
     }
   }
 
-  void assingState() {
-    originalState = state;
-  }
+  void assingState() => originalState = state;
 
   void resetProfile() => state = ProfileState();
 }

@@ -1,3 +1,5 @@
+const String $imageFile = "imageFile";
+
 //KEYS STORAGE
 const String $token = "token";
 const String $refreshToken = "refreshToken";
@@ -21,7 +23,6 @@ const String $birthdayProfile = "birthday";
 const String $phoneNumberProfile = "phoneNumber";
 const String $telephoneProfile = "telephone";
 const String $addressProfile = "address";
-const String $imageProfile = "image";
 
 const String $masculino = "Masculino";
 const String $femenino = "Femenino";
@@ -44,6 +45,11 @@ const String $descriptionChild = "description";
 //KEYS ACHIEVEMENT
 const String $patientIdAchievement = "patientId";
 const String $achievementId = "achievementId";
+
+//KEYS PICTOGRAM
+const String $patientIdPictogram = "patientId";
+const String $pictogramId = "pictogramId";
+const String $namePictogram = "name";
 
 //KEYS AUTH
 const String $emailUsername = "email_username";

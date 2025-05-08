@@ -226,7 +226,6 @@ class NewActivityState extends ConsumerState<NewActivityPage> {
                         context: context,
                         titleButtonConfirm: S.current.Si_salir,
                         question: RichText(
-                          textAlign: TextAlign.center,
                           text: TextSpan(
                             text: S.current
                                 .Esta_seguro_de_salir_de_la_creacion_de_la_actividad,

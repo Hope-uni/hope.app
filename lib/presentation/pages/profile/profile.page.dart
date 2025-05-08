@@ -1,3 +1,4 @@
+import 'dart:io' show File;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
@@ -19,6 +20,7 @@ class ProfilePage extends ConsumerStatefulWidget {
 class _ProfilePageState extends ConsumerState<ProfilePage> {
   bool enableInput = false;
   bool clickSave = false;
+  String? imagePathCel;
 
   final CameraGalleryDataSourceImpl image = CameraGalleryDataSourceImpl();
   final TextEditingController controller = TextEditingController();
@@ -120,6 +122,24 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
           controller.text =
               "${pickedDate.day}-${pickedDate.month}-${pickedDate.year}";
         });
+      }
+    }
+
+    Future<void> selectImage() async {
+      final String? imagePath = await image.selectImage();
+      if (imagePath != null) {
+        final file = File(imagePath);
+        profileNotifier.updateImage(file);
+        setState(() => imagePathCel = imagePath);
+      }
+    }
+
+    Future<void> takePhoto() async {
+      final String? imagePath = await image.takePhoto();
+      if (imagePath != null) {
+        final file = File(imagePath);
+        profileNotifier.updateImage(file);
+        setState(() => imagePathCel = imagePath);
       }
     }
 
@@ -231,8 +251,8 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                                       shape: BoxShape.circle,
                                     ),
                                     child: ImageLoad(
-                                      urlImage:
-                                          profileState.profile!.imageUrl ?? '',
+                                      urlImage: profileState.profile!.imageUrl,
+                                      imagePath: imagePathCel,
                                     ),
                                   ),
                                 ),
@@ -284,13 +304,14 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                                                 children: [
                                                   Column(
                                                     children: [
-                                                      //TODO: Falta hacer la logica de cambio de foto cuando se ocupe el repositorio de imagenes
                                                       IconButton(
                                                         onPressed: () async {
-                                                          // ignore: unused_local_variable
-                                                          final photo =
-                                                              await image
-                                                                  .selectImage();
+                                                          await selectImage();
+                                                          if (context.mounted) {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                          }
                                                         },
                                                         icon: const Icon(
                                                             Icons.photo),
@@ -302,10 +323,12 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                                                     children: [
                                                       IconButton(
                                                         onPressed: () async {
-                                                          // ignore: unused_local_variable
-                                                          final imagen =
-                                                              await image
-                                                                  .takePhoto();
+                                                          await takePhoto();
+                                                          if (context.mounted) {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                          }
                                                         },
                                                         icon: const Icon(
                                                             Icons.add_a_photo),
@@ -609,7 +632,6 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                               context: context,
                               titleButtonConfirm: S.current.Si_actualizar,
                               question: RichText(
-                                textAlign: TextAlign.center,
                                 text: TextSpan(
                                   text: S.current
                                       .Esta_Seguro_de_actualizar_los_datos,
@@ -644,7 +666,6 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                             context: context,
                             titleButtonConfirm: S.current.Si_salir,
                             question: RichText(
-                              textAlign: TextAlign.center,
                               text: TextSpan(
                                 text: S
                                     .current.Esta_seguro_de_salir_de_la_edicion,
