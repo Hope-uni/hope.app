@@ -79,7 +79,7 @@ class ChildrenDataSourceImpl extends ChildrenDataSource {
         $secondNameProfile: child.secondName,
         $surnameProfile: child.surname,
         $secondSurnameProfile: child.secondSurname,
-        $addressProfile: child.address,
+        $addressProfile: child.address.trim(),
         $birthdayProfile: child.birthday,
         $genderProfile: child.gender,
         if (isLocalPath)
