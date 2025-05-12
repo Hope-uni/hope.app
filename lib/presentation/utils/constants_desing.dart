@@ -39,5 +39,6 @@ final Color $colorShadow = Colors.black.withValues(alpha: 0.3);
 const Color $colorSelectMenu = Color.fromARGB(255, 217, 228, 250);
 
 // FINAL IMAGES
-const String noIMage = 'assets/svg/placeholderImage_bn.svg';
-const String loading = 'assets/gif/loading.gif';
+const String $noIMage = 'assets/svg/placeholderImage_bn.svg';
+const String $loading = 'assets/gif/loading.gif';
+const String $noData = 'assets/svg/SinDatos.svg';

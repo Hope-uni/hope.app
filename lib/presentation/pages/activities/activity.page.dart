@@ -184,10 +184,7 @@ class ActivityPageState extends ConsumerState<ActivityPage> {
               const ModalBarrier(dismissible: false, color: $colorTextWhite),
               Center(
                 child: stateWacthActivity.isErrorInitial == true
-                    ? SvgPicture.asset(
-                        fit: BoxFit.contain,
-                        'assets/svg/SinDatos.svg',
-                      )
+                    ? SvgPicture.asset(fit: BoxFit.contain, $noData)
                     : Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

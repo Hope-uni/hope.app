@@ -29,7 +29,6 @@ class AchievementPageState extends ConsumerState<AchievementPage> {
   @override
   Future<void> didChangeDependencies() async {
     super.didChangeDependencies();
-
     Future.microtask(() async {
       final notifierAchievement = ref.read(achievementProvider.notifier);
       notifierAchievement.getAchievements(idPatient: widget.idChild);
@@ -50,6 +49,12 @@ class AchievementPageState extends ConsumerState<AchievementPage> {
         }
       });
     });
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -187,10 +192,7 @@ class AchievementPageState extends ConsumerState<AchievementPage> {
                           );
                         },
                       )
-                    : SvgPicture.asset(
-                        fit: BoxFit.contain,
-                        'assets/svg/SinDatos.svg',
-                      ),
+                    : SvgPicture.asset(fit: BoxFit.contain, $noData),
               ),
             if (stateAchievement.isLoading == true &&
                 stateAchievement.paginateAchievement[$indexPage]! != 1)
@@ -210,10 +212,7 @@ class AchievementPageState extends ConsumerState<AchievementPage> {
               ),
               Center(
                 child: stateAchievement.isErrorInitial == true
-                    ? SvgPicture.asset(
-                        fit: BoxFit.contain,
-                        'assets/svg/SinDatos.svg',
-                      )
+                    ? SvgPicture.asset(fit: BoxFit.contain, $noData)
                     : Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

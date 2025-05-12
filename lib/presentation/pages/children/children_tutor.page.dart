@@ -199,8 +199,16 @@ class ChildrenTutorPageState extends ConsumerState<ChildrenTutorPage> {
                                   title: stateChildren.children[index].fullName,
                                   colorTitle: true,
                                   styleTitle: FontWeight.bold,
-                                  subTitle:
-                                      '${stateChildren.children[index].age} ${S.current.Anos}\n${S.current.Fase}: ${stateChildren.children[index].currentPhase.name} ',
+                                  subTitle: RichText(
+                                    text: TextSpan(
+                                      style: const TextStyle(
+                                        color: $colorTextBlack,
+                                        fontSize: 13,
+                                      ),
+                                      text:
+                                          '${stateChildren.children[index].age} ${S.current.Anos}\n${S.current.Fase}: ${stateChildren.children[index].currentPhase.name} ',
+                                    ),
+                                  ),
                                   image: stateChildren.children[index].imageUrl,
                                   iconButton: MenuItems(
                                     itemObject: CatalogObject(
@@ -222,10 +230,7 @@ class ChildrenTutorPageState extends ConsumerState<ChildrenTutorPage> {
                                 );
                               },
                             )
-                          : SvgPicture.asset(
-                              fit: BoxFit.contain,
-                              'assets/svg/SinDatos.svg',
-                            ),
+                          : SvgPicture.asset(fit: BoxFit.contain, $noData),
                     ),
                   if (stateWacthChildren.isLoading == true &&
                       stateWacthChildren.paginateChildren[$indexPage]! != 1)
@@ -246,10 +251,7 @@ class ChildrenTutorPageState extends ConsumerState<ChildrenTutorPage> {
                     ),
                     Center(
                       child: stateWacthChildren.isErrorInitial == true
-                          ? SvgPicture.asset(
-                              fit: BoxFit.contain,
-                              'assets/svg/SinDatos.svg',
-                            )
+                          ? SvgPicture.asset(fit: BoxFit.contain, $noData)
                           : Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [

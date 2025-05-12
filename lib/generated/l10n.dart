@@ -879,6 +879,11 @@ class S {
     return Intl.message('Progresos', name: 'Progresos', desc: '', args: []);
   }
 
+  /// `Progreso`
+  String get Progreso {
+    return Intl.message('Progreso', name: 'Progreso', desc: '', args: []);
+  }
+
   /// `Progreso general de las fases`
   String get Progreso_general_de_las_fase {
     return Intl.message(
@@ -1757,10 +1762,10 @@ class S {
     );
   }
 
-  /// `Para reordenar la solución`
+  /// `Para reordenar la solución:`
   String get Para_reordenar_la_solucion {
     return Intl.message(
-      'Para reordenar la solución',
+      'Para reordenar la solución:',
       name: 'Para_reordenar_la_solucion',
       desc: '',
       args: [],
@@ -2075,10 +2080,10 @@ class S {
     );
   }
 
-  /// `Acciones en el listado de pictogramas`
+  /// `Acciones en el listado de pictogramas:`
   String get Acciones_en_el_listado_de_pictogramas {
     return Intl.message(
-      'Acciones en el listado de pictogramas',
+      'Acciones en el listado de pictogramas:',
       name: 'Acciones_en_el_listado_de_pictogramas',
       desc: '',
       args: [],
@@ -2480,6 +2485,26 @@ class S {
     return Intl.message(
       'Recortar imagen',
       name: 'Recortar_imagen',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `La actividad asignada se completó con éxito`
+  String get La_actividad_asignada_se_completo_con_exito {
+    return Intl.message(
+      'La actividad asignada se completó con éxito',
+      name: 'La_actividad_asignada_se_completo_con_exito',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Los pacientes solo pueden iniciar sesión en tablets`
+  String get Los_pacientes_solo_pueden_iniciar_sesion_en_tablets {
+    return Intl.message(
+      'Los pacientes solo pueden iniciar sesión en tablets',
+      name: 'Los_pacientes_solo_pueden_iniciar_sesion_en_tablets',
       desc: '',
       args: [],
     );

@@ -46,7 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "Acciones_en_el_listado_de_pictogramas":
         MessageLookupByLibrary.simpleMessage(
-          "Acciones en el listado de pictogramas",
+          "Acciones en el listado de pictogramas:",
         ),
     "Actividad": MessageLookupByLibrary.simpleMessage("Actividad"),
     "Actividad_actual": MessageLookupByLibrary.simpleMessage(
@@ -395,6 +395,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "Información personal actualizada",
     ),
     "Iniciar_sesion": MessageLookupByLibrary.simpleMessage("Iniciar sesión"),
+    "La_actividad_asignada_se_completo_con_exito":
+        MessageLookupByLibrary.simpleMessage(
+          "La actividad asignada se completó con éxito",
+        ),
     "La_actividad_se_guardo_correctamente":
         MessageLookupByLibrary.simpleMessage(
           "La actividad se guardó correctamente",
@@ -455,6 +459,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Los_campos_no_pueden_estar_vacios": MessageLookupByLibrary.simpleMessage(
       "Los campos no pueden estar vacíos",
     ),
+    "Los_pacientes_solo_pueden_iniciar_sesion_en_tablets":
+        MessageLookupByLibrary.simpleMessage(
+          "Los pacientes solo pueden iniciar sesión en tablets",
+        ),
     "Los_puntos_para_completar_la_actividad_no_puede_ser_cero_o_estar_vacio":
         MessageLookupByLibrary.simpleMessage(
           "Los puntos para completar la actividad no puede ser cero o estar vacío",
@@ -543,7 +551,7 @@ class MessageLookup extends MessageLookupByLibrary {
           "Para refrescar el listado de los pacientes asignados:",
         ),
     "Para_reordenar_la_solucion": MessageLookupByLibrary.simpleMessage(
-      "Para reordenar la solución",
+      "Para reordenar la solución:",
     ),
     "Para_saber_que_acciones_puede_realizar_en_el_registro_dar_clic_en_el_boton_inferior_a_la_derecha_de_la_pantalla":
         MessageLookupByLibrary.simpleMessage(
@@ -600,6 +608,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Primer_apellido": MessageLookupByLibrary.simpleMessage("Primer Apellido"),
     "Primer_nombre": MessageLookupByLibrary.simpleMessage("Primer Nombre"),
+    "Progreso": MessageLookupByLibrary.simpleMessage("Progreso"),
     "Progreso_general_de_las_fase": MessageLookupByLibrary.simpleMessage(
       "Progreso general de las fases",
     ),
