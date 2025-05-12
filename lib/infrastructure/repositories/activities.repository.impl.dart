@@ -51,7 +51,7 @@ class ActivitiesRepositoryImpl extends ActivitiesRepository {
   }
 
   @override
-  Future<ResponseDataObject<ResponseData>> checkAnswer({
+  Future<ResponseDataObject<CurrentCompletedActivity>> checkAnswer({
     required int idActivity,
     required List<int> idSolutions,
   }) {

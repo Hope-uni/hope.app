@@ -211,31 +211,24 @@ class ChildNotifier extends StateNotifier<ChildState> {
       currentPhase: newPhase.currentPhase,
       progress: newPhase.progress,
     );
-
     state = state.copyWith(child: updatedChild);
   }
 
   void updateActivity() {
     Child updatedChild = state.child!;
-
     updatedChild = state.child!.copyWith(currentActivity: null);
-
     state = state.copyWith(child: updatedChild);
   }
 
   bool checkFields() {
     Map<String, String?> errors = {};
 
-    if (state.child!.username.isEmpty) {
-      errors[$userNameProfile] =
-          S.current.El_nombre_de_usuario_no_puede_estar_vacio;
-    } else {
-      if (state.child!.username.length <= 2 ||
-          state.child!.username.length >= 16) {
-        errors[$userNameProfile] = S.current
-            .El_nombre_del_usuario_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres;
-      }
+    if (state.child!.username.length <= 2 ||
+        state.child!.username.length >= 16) {
+      errors[$userNameProfile] = S.current
+          .El_nombre_del_usuario_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres;
     }
+
     if (state.child!.email.isEmpty) {
       errors[$emailProfile] = S.current.El_correo_no_puede_estar_vacio;
     }
@@ -262,14 +255,10 @@ class ChildNotifier extends StateNotifier<ChildState> {
       }
     }
 
-    if (state.child!.address.isEmpty) {
-      errors[$addressProfile] = S.current.La_direccion_no_puede_estar_vacia;
-    } else {
-      if (state.child!.address.length <= 5 ||
-          state.child!.address.length >= 255) {
-        errors[$addressProfile] = S.current
-            .La_direccion_no_puede_ser_menor_a_seis_o_mayor_a_doscientoscincuentaycinco_caracteres;
-      }
+    if (state.child!.address.length <= 5 ||
+        state.child!.address.length >= 255) {
+      errors[$addressProfile] = S.current
+          .La_direccion_no_puede_ser_menor_a_seis_o_mayor_a_doscientoscincuentaycinco_caracteres;
     }
 
     if (state.child!.birthday.isEmpty) {

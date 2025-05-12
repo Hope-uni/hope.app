@@ -63,7 +63,7 @@ class ProfilePersonDataSourceImpl extends ProfilePersonDataSource {
       $secondNameProfile: profilePerson.secondName,
       $surnameProfile: profilePerson.surname,
       $secondSurnameProfile: profilePerson.secondSurname,
-      $addressProfile: profilePerson.address,
+      $addressProfile: profilePerson.address.trim(),
       $identificationNumbereProfile: profilePerson.identificationNumber,
       $phoneNumberProfile: profilePerson.phoneNumber,
       $birthdayProfile: profilePerson.birthday,

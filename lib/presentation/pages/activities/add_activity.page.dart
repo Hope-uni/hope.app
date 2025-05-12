@@ -221,8 +221,15 @@ class AddActivityPageState extends ConsumerState<AddActivityPage> {
                                   if (index < stateChildren.length) {
                                     return ListTileCustom(
                                       title: stateChildren[index].fullName,
-                                      subTitle:
-                                          '${stateChildren[index].age} ${S.current.Anos}\n${S.current.Fase}: ${stateChildren[index].currentPhase.name}',
+                                      subTitle: RichText(
+                                        text: TextSpan(
+                                            style: const TextStyle(
+                                              color: $colorTextBlack,
+                                              fontSize: 13,
+                                            ),
+                                            text:
+                                                '${stateChildren[index].age} ${S.current.Anos}\n${S.current.Fase}: ${stateChildren[index].currentPhase.name}'),
+                                      ),
                                       image: stateChildren[index].imageUrl,
                                       colorItemSelect: stateActiviyChildren
                                               .children
@@ -261,9 +268,7 @@ class AddActivityPageState extends ConsumerState<AddActivityPage> {
                           : Expanded(
                               child: stateActiviyChildren.children.isEmpty
                                   ? SvgPicture.asset(
-                                      fit: BoxFit.contain,
-                                      'assets/svg/SinDatos.svg',
-                                    )
+                                      fit: BoxFit.contain, $noData)
                                   : ListView.builder(
                                       itemCount:
                                           stateActiviyChildren.children.length +
@@ -273,8 +278,16 @@ class AddActivityPageState extends ConsumerState<AddActivityPage> {
                                             stateActiviyChildren
                                                 .children.length) {
                                           return ListTileCustom(
-                                            subTitle:
-                                                '${stateActiviyChildren.children[index].age} ${S.current.Anos}\n${S.current.Fase}: ${stateActiviyChildren.children[index].currentPhase.name}',
+                                            subTitle: RichText(
+                                              text: TextSpan(
+                                                style: const TextStyle(
+                                                  color: $colorTextBlack,
+                                                  fontSize: 13,
+                                                ),
+                                                text:
+                                                    '${stateActiviyChildren.children[index].age} ${S.current.Anos}\n${S.current.Fase}: ${stateActiviyChildren.children[index].currentPhase.name}',
+                                              ),
+                                            ),
                                             image: stateActiviyChildren
                                                 .children[index].imageUrl,
                                             title: stateActiviyChildren
@@ -352,10 +365,7 @@ class AddActivityPageState extends ConsumerState<AddActivityPage> {
                   ),
                   Center(
                     child: stateWacthChildren.isErrorInitial == true
-                        ? SvgPicture.asset(
-                            fit: BoxFit.contain,
-                            'assets/svg/SinDatos.svg',
-                          )
+                        ? SvgPicture.asset(fit: BoxFit.contain, $noData)
                         : Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [

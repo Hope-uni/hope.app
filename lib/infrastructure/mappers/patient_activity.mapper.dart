@@ -7,11 +7,11 @@ class PatientActivityMapper {
       PatientActivity(
         latestCompletedActivity: json["latestCompletedActivity"] == null
             ? null
-            : CurrentCompletedActivityMapper.currentActivityfromJson(
+            : CurrentCompletedActivityMapper.currentCompletedActivityfromJson(
                 json["latestCompletedActivity"]),
         currentActivity: json["currentActivity"] == null
             ? null
-            : CurrentCompletedActivityMapper.currentActivityfromJson(
+            : CurrentCompletedActivityMapper.currentCompletedActivityfromJson(
                 json["currentActivity"]),
       );
 }

@@ -113,7 +113,7 @@ class ActivitiesDataSourceImpl extends ActivitiesDataSource {
   }
 
   @override
-  Future<ResponseDataObject<ResponseData>> checkAnswer(
+  Future<ResponseDataObject<CurrentCompletedActivity>> checkAnswer(
       {required int idActivity, required List<int> idSolutions}) async {
     try {
       final response = await dioServices.dio.post(
@@ -122,8 +122,10 @@ class ActivitiesDataSourceImpl extends ActivitiesDataSource {
       );
 
       final responseCheckAnswer =
-          ResponseMapper.responseJsonToEntity<ResponseData>(
-              json: response.data);
+          ResponseMapper.responseJsonToEntity<CurrentCompletedActivity>(
+              json: response.data,
+              fromJson: CurrentCompletedActivityMapper
+                  .currentCompletedActivityfromJson);
 
       return responseCheckAnswer;
     } catch (e) {

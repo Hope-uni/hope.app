@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:clearable_dropdown/clearable_dropdown.dart' as clearable;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -67,6 +68,8 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
   @override
   void dispose() {
     _scrollController.dispose();
+    _tabController.dispose();
+    _scrollControllerObservations.dispose();
     controllerDate.dispose();
     super.dispose();
   }
@@ -157,7 +160,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
             description: S.current.Se_avanzo_a_la_fase(next.newPhase!),
             typeAlert: ToastificationType.success,
           );
-          notifierChild.updateResponse();
+          notifierPhases.updateResponse();
         }
       }
 
@@ -168,7 +171,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
           description: next.errorMessageApi!,
           typeAlert: ToastificationType.error,
         );
-        notifierChild.updateResponse();
+        notifierPhases.updateResponse();
       }
     });
 
@@ -562,10 +565,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
                   ],
                 ),
               if (stateChild.isError == true)
-                SvgPicture.asset(
-                  fit: BoxFit.contain,
-                  'assets/svg/SinDatos.svg',
-                ),
+                SvgPicture.asset(fit: BoxFit.contain, $noData),
             ],
           ),
           floatingActionButton: stateChild.isLoading == true ||
@@ -1048,6 +1048,7 @@ List<Widget> _childPersonalData({
         maxLength: 15,
         value: stateChild.child!.username,
         enable: enableInput,
+        isNumberLetter: true,
         onChanged: (value) {
           notifierChild.updateChildField(
             fieldName: $userNameProfile,
@@ -1133,7 +1134,13 @@ List<Widget> _childPersonalData({
         );
       },
     ),
-    SelectBox(
+    clearable.ClearableDropdown(
+      focus: FocusNode(),
+      helperText: ' ',
+      listItems: [
+        clearable.CatalogObject(id: 0, name: $masculino),
+        clearable.CatalogObject(id: 1, name: $femenino)
+      ],
       enable: enableInput,
       valueInitial: stateChild.child!.gender,
       label: S.current.Sexo,
@@ -1143,11 +1150,6 @@ List<Widget> _childPersonalData({
           newValue: value! == "0" ? $masculino : $femenino,
         );
       },
-      listItems: [
-        CatalogObject(id: 0, name: $masculino, description: ''),
-        CatalogObject(id: 1, name: $femenino, description: '')
-      ],
-      deleteSelection: false,
       errorText: stateChild.validationErrors[$genderProfile],
     ),
     InputForm(
@@ -1352,7 +1354,9 @@ List<Widget> _childProgressData({
           colorTitle: true,
           styleTitle: FontWeight.bold,
           noImage: true,
-          subTitle: stateChild.child!.teaDegree.description,
+          subTitle: RichText(
+            text: TextSpan(text: stateChild.child!.teaDegree.description),
+          ),
         )
       ],
     ),
@@ -1366,7 +1370,11 @@ List<Widget> _childProgressData({
           colorTitle: true,
           styleTitle: FontWeight.bold,
           noImage: true,
-          subTitle: stateChild.child!.currentPhase.description,
+          subTitle: RichText(
+            text: TextSpan(
+              text: stateChild.child!.currentPhase.description,
+            ),
+          ),
         )
       ],
     ),
@@ -1383,14 +1391,12 @@ List<Widget> _childProgressData({
             : [],
         isDecoration: false,
         isSelect: false,
+        isMarginLeft: false,
       ),
     if (stateChild.child!.achievements == null)
       SizedBox(
         height: 250,
-        child: SvgPicture.asset(
-          fit: BoxFit.contain,
-          'assets/svg/SinDatos.svg',
-        ),
+        child: SvgPicture.asset(fit: BoxFit.contain, $noData),
       ),
     const SizedBox(height: 55),
   ];
@@ -1421,8 +1427,51 @@ List<Widget> _activities({
           styleTitle: FontWeight.bold,
           noImage: true,
           subTitle: stateChildCurrentActivity != null
-              ? stateChildCurrentActivity.description
-              : '-',
+              ? Column(
+                  children: [
+                    RichText(
+                      text: TextSpan(
+                        style: const TextStyle(
+                          color: $colorTextBlack,
+                          fontSize: 13,
+                        ),
+                        children: [
+                          TextSpan(text: stateChildCurrentActivity.description),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 12.5),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          '${S.current.Progreso}: ${stateChildCurrentActivity.progress} %',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: $colorBlueGeneral,
+                          ),
+                        ),
+                        Text(
+                          '${stateChildCurrentActivity.satisfactoryAttempts}/${stateChildCurrentActivity.satisfactoryPoints}',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: $colorBlueGeneral,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 5),
+                    LinearProgressIndicator(
+                      value: double.parse(stateChildCurrentActivity.progress) /
+                          100,
+                      minHeight: 7,
+                      color: $colorBlueGeneral,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    const SizedBox(height: 5),
+                  ],
+                )
+              : const Text('-'),
         )
       ],
     ),
@@ -1442,17 +1491,22 @@ List<Widget> _activities({
                     colorTitle: true,
                     styleTitle: FontWeight.bold,
                     noImage: true,
-                    subTitle: stateChildActivities[index].description,
+                    subTitle: RichText(
+                      text: TextSpan(
+                        style: const TextStyle(
+                          color: $colorTextBlack,
+                          fontSize: 13,
+                        ),
+                        text: stateChildActivities[index].description,
+                      ),
+                    ),
                   );
                 } else {
                   return const SizedBox(height: 75);
                 }
               },
             )
-          : SvgPicture.asset(
-              fit: BoxFit.contain,
-              'assets/svg/SinDatos.svg',
-            ),
+          : SvgPicture.asset(fit: BoxFit.contain, $noData),
     ),
   ];
 }
@@ -1472,8 +1526,12 @@ Widget _observationsChild({
 
               return ListTileCustom(
                 title: stateChildObservations[index].description,
-                subTitle:
-                    '\n$dateFormat     @${stateChildObservations[index].username}',
+                subTitle: RichText(
+                  text: TextSpan(
+                    text:
+                        '\n$dateFormat     @${stateChildObservations[index].username}',
+                  ),
+                ),
                 styleSubTitle: FontWeight.bold,
                 colorSubTitle: true,
                 noImage: true,
@@ -1483,8 +1541,5 @@ Widget _observationsChild({
             }
           },
         )
-      : SvgPicture.asset(
-          fit: BoxFit.contain,
-          'assets/svg/SinDatos.svg',
-        );
+      : SvgPicture.asset(fit: BoxFit.contain, $noData);
 }

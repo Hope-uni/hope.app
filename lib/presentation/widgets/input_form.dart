@@ -19,6 +19,7 @@ class InputForm extends StatefulWidget {
   final bool? obscureText;
   final bool? isNumber;
   final bool? allCharacters;
+  final bool? isNumberLetter;
   final bool? readOnly;
 
   final Widget? suffixIcon;
@@ -48,16 +49,17 @@ class InputForm extends StatefulWidget {
     this.onChanged,
     this.hint,
     this.focus,
-    this.inputFormatters,
     this.marginBottom,
     this.obscureText,
     this.suffixIcon,
     this.errorText,
-    this.isNumber,
-    this.allCharacters,
-    this.controllerExt,
-    this.colorFilled,
     this.onSearch,
+    this.colorFilled,
+    this.controllerExt,
+    this.isNumber,
+    this.isNumberLetter,
+    this.allCharacters = true,
+    this.inputFormatters,
   });
 
   @override
@@ -68,6 +70,7 @@ class _InputFormState extends State<InputForm> {
   late TextEditingController _controller;
   Timer? _debounceTimer;
   bool _hasStartedTyping = false;
+  List<TextInputFormatter>? inputFormatters;
 
   @override
   void initState() {
@@ -75,6 +78,23 @@ class _InputFormState extends State<InputForm> {
     _controller =
         widget.controllerExt ?? TextEditingController(text: widget.value);
     if (widget.onSearch != null) _controller.addListener(_onSearchTextChanged);
+
+    // Solo un tipo de inputFormatter será aplicado
+    if (widget.isNumber == true) {
+      inputFormatters = [FilteringTextInputFormatter.digitsOnly];
+    } else if (widget.inputFormatters != null) {
+      inputFormatters = widget.inputFormatters;
+    } else if (widget.allCharacters == false) {
+      inputFormatters = [FilteringTextInputFormatter.allow(RegExp('[a-zA-Z]'))];
+    } else if (widget.isNumberLetter == true) {
+      inputFormatters = [
+        FilteringTextInputFormatter.allow(
+          RegExp(r'[a-zA-Z0-9]'),
+        )
+      ];
+    } else {
+      inputFormatters = null; // o una lista vacía si prefieres evitar nulls
+    }
   }
 
   void _onSearchTextChanged() {
@@ -110,6 +130,7 @@ class _InputFormState extends State<InputForm> {
   @override
   void dispose() {
     super.dispose();
+    if (widget.onSearch != null) _controller.dispose();
     _debounceTimer?.cancel();
   }
 
@@ -133,11 +154,7 @@ class _InputFormState extends State<InputForm> {
         maxLength: widget.enable ? widget.maxLength : null,
         style: const TextStyle(color: $colorTextBlack),
         textCapitalization: TextCapitalization.sentences,
-        inputFormatters: widget.isNumber == true
-            ? [FilteringTextInputFormatter.digitsOnly]
-            : (widget.allCharacters != false
-                ? widget.inputFormatters
-                : [FilteringTextInputFormatter.allow(RegExp('[a-zA-Z]'))]),
+        inputFormatters: inputFormatters,
         keyboardType: widget.isNumber == true
             ? TextInputType.number
             : TextInputType.emailAddress,
