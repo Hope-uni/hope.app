@@ -26,7 +26,7 @@ abstract class ActivitiesDataSource {
     required int idChild,
   });
 
-  Future<ResponseDataObject<ResponseData>> checkAnswer({
+  Future<ResponseDataObject<CurrentCompletedActivity>> checkAnswer({
     required int idActivity,
     required List<int> idSolutions,
   });

@@ -49,8 +49,32 @@ class BoardNotifier extends StateNotifier<BoardState> {
         idSolutions: state.pictograms.map((item) => item.id).toList(),
       );
 
-      state =
-          state.copyWith(isCheking: false, checkSuccess: checkActivity.message);
+      if (checkActivity.data!.satisfactoryAttempts ==
+          checkActivity.data!.satisfactoryPoints) {
+        if (state.patientActivity!.latestCompletedActivity == null) {
+          state = state.copyWith(
+            isCheking: false,
+            checkSuccess:
+                '${S.current.La_actividad_asignada_se_completo_con_exito}, ${checkActivity.message}',
+            patientActivity: PatientActivity(
+              latestCompletedActivity: checkActivity.data,
+              currentActivity: null,
+            ),
+          );
+        } else {
+          state = state.copyWith(
+            isCheking: false,
+            checkSuccess:
+                '${S.current.La_actividad_asignada_se_completo_con_exito}, ${checkActivity.message}',
+          );
+        }
+      } else {
+        state = state.copyWith(
+          isCheking: false,
+          checkSuccess: checkActivity.message,
+        );
+      }
+
       return true;
     } on CustomError catch (e) {
       state = state.copyWith(errorMessageApi: e.message, isCheking: false);

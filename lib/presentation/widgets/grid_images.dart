@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:clearable_dropdown/clearable_dropdown.dart' as clearable;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -181,9 +182,15 @@ class GridImagesState extends ConsumerState<GridImages> {
             child: Column(
               children: [
                 const SizedBox(height: 20),
-                SelectBox(
+                clearable.ClearableDropdown(
+                  helperText: ' ',
+                  listItems: statePictograms.categoryPictograms
+                      .map((item) => clearable.CatalogObject(
+                            id: item.id,
+                            name: item.name,
+                          ))
+                      .toList(),
                   hint: S.current.Categoria_de_pictogramas,
-                  enable: true,
                   onSelected: (value) async {
                     if (widget.isCustomized) {
                       await notifierPictograms.getCustomPictograms(
@@ -197,8 +204,7 @@ class GridImagesState extends ConsumerState<GridImages> {
                     }
                     idCategory = int.parse(value);
                   },
-                  deleteSelection: true,
-                  reset: () {
+                  onDeleteSelection: () {
                     idCategory = null;
                     notifierPictograms.resetFilters(
                       namePictogram: namePicto,
@@ -206,13 +212,6 @@ class GridImagesState extends ConsumerState<GridImages> {
                       idChild: widget.idChild,
                     );
                   },
-                  listItems: statePictograms.categoryPictograms
-                      .map((item) => CatalogObject(
-                            id: item.id,
-                            name: item.name,
-                            description: '',
-                          ))
-                      .toList(),
                 ),
                 InputForm(
                   hint: S.current.Busqueda_por_nombre,
@@ -259,10 +258,7 @@ class GridImagesState extends ConsumerState<GridImages> {
                                     );
                                   },
                                 )
-                              : SvgPicture.asset(
-                                  fit: BoxFit.contain,
-                                  'assets/svg/SinDatos.svg',
-                                ),
+                              : SvgPicture.asset(fit: BoxFit.contain, $noData),
                         ),
                       if (statePictograms.isLoading == true &&
                           statePictograms.paginatePictograms[$indexPage]! != 1)
@@ -283,10 +279,7 @@ class GridImagesState extends ConsumerState<GridImages> {
                         ),
                         Center(
                           child: statePictograms.isErrorInitial == true
-                              ? SvgPicture.asset(
-                                  fit: BoxFit.contain,
-                                  'assets/svg/SinDatos.svg',
-                                )
+                              ? SvgPicture.asset(fit: BoxFit.contain, $noData)
                               : Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [

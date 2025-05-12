@@ -1,6 +1,7 @@
+import 'package:clearable_dropdown/clearable_dropdown.dart' as clearable;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hope_app/domain/domain.dart';
+import 'package:hope_app/domain/domain.dart' show PictogramAchievements;
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/providers/providers.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
@@ -150,18 +151,16 @@ class FormActivityState extends ConsumerState<FormActivity> {
       }
 
       if (next.isLoading == false && next.showtoastAlert == true) {
-        if (context.mounted) {
-          toastAlert(
-            iconAlert: const Icon(Icons.check),
-            context: context,
-            title: S.current.Guardado_con_exito,
-            description: S.current.La_actividad_se_guardo_correctamente,
-            typeAlert: ToastificationType.success,
-          );
-          notifierActivity.updateResponse();
-          ref.read(activitiesProvider.notifier).resetState();
-          ref.read(activitiesProvider.notifier).getActivities();
-        }
+        toastAlert(
+          iconAlert: const Icon(Icons.check),
+          context: context,
+          title: S.current.Guardado_con_exito,
+          description: S.current.La_actividad_se_guardo_correctamente,
+          typeAlert: ToastificationType.success,
+        );
+        notifierActivity.updateResponse();
+        ref.read(activitiesProvider.notifier).resetState();
+        ref.read(activitiesProvider.notifier).getActivities();
       }
 
       if (next.errorMessageApi != null) {
@@ -233,26 +232,24 @@ class FormActivityState extends ConsumerState<FormActivity> {
                         stateWacthActivity.validationErrors[$description],
                   ),
                 ),
-                Focus(
-                  focusNode: focusNodes[$phaseId],
-                  child: SelectBox(
-                    listItems: statePhases.phases
-                        .map((item) => CatalogObject(
-                            id: item.id, name: item.name, description: ''))
-                        .toList(),
-                    enable: true,
-                    label: S.current.Fase_del_autismo,
-                    errorText: stateWacthActivity.validationErrors[$phaseId],
-                    onSelected: (value) {
-                      setState(() {
-                        FocusManager.instance.primaryFocus?.unfocus();
-                      });
-                      notifierActivity.updateActivityField(
-                        fieldName: $phaseId,
-                        newValue: value!,
-                      );
-                    },
-                  ),
+                clearable.ClearableDropdown(
+                  helperText: ' ',
+                  focus: focusNodes[$phaseId],
+                  listItems: statePhases.phases
+                      .map((item) =>
+                          clearable.CatalogObject(id: item.id, name: item.name))
+                      .toList(),
+                  label: S.current.Fase_del_autismo,
+                  errorText: stateWacthActivity.validationErrors[$phaseId],
+                  onSelected: (value) {
+                    setState(() {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                    });
+                    notifierActivity.updateActivityField(
+                      fieldName: $phaseId,
+                      newValue: value!,
+                    );
+                  },
                 ),
                 Focus(
                   focusNode: focusNodes[$satisfactoryPoints],
@@ -288,19 +285,25 @@ class FormActivityState extends ConsumerState<FormActivity> {
                         style: const TextStyle(fontSize: 14.5),
                       ),
                     ),
-                    SelectBox(
+                    clearable.ClearableDropdown(
+                      helperText: ' ',
+                      listItems: statePictograms.categoryPictograms
+                          .map(
+                            (item) => clearable.CatalogObject(
+                              id: item.id,
+                              name: item.name,
+                            ),
+                          )
+                          .toList(),
                       label: S.current.Categoria_de_pictogramas,
-                      enable: true,
                       onSelected: (value) async {
                         isFirst = false;
                         await notifierPictograms.getPictograms(
                           idCategory: int.parse(value!),
                         );
-
                         idCategory = int.parse(value);
                       },
-                      deleteSelection: true,
-                      reset: () {
+                      onDeleteSelection: () {
                         idCategory = null;
                         notifierPictograms.resetFilters(
                           namePictogram: namePicto,
@@ -308,15 +311,6 @@ class FormActivityState extends ConsumerState<FormActivity> {
                           idChild: null,
                         );
                       },
-                      listItems: statePictograms.categoryPictograms
-                          .map(
-                            (item) => CatalogObject(
-                              id: item.id,
-                              name: item.name,
-                              description: '',
-                            ),
-                          )
-                          .toList(),
                     ),
                     InputForm(
                       hint: S.current.Busqueda_por_nombre,

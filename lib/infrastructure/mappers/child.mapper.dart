@@ -36,8 +36,12 @@ class ChildMapper {
             : personfromJson(json["therapist"]),
         currentActivity: json["currentActivity"] == null
             ? null
-            : CurrentCompletedActivityMapper.currentActivityfromJson(
+            : CurrentCompletedActivityMapper.currentCompletedActivityfromJson(
                 json["currentActivity"]),
+        latestCompletedActivity: json["latestCompletedActivity"] == null
+            ? null
+            : CurrentCompletedActivityMapper.currentCompletedActivityfromJson(
+                json["latestCompletedActivity"]),
         activities: json["activities"] == null
             ? null
             : List<ActivityChild>.from(
@@ -47,6 +51,7 @@ class ChildMapper {
             : List<PictogramAchievements>.from(json["pictograms"]
                 .map((x) => PictogramsMapper.pictogramAchievementsfromJson(x))),
         isMonochrome: json["isMonochrome"],
+        isVerified: json["isVerified"],
       );
 
   static ActivityChild activityfromJson(Map<String, dynamic> json) =>

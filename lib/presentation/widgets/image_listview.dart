@@ -13,6 +13,7 @@ class ImageListVIew extends ConsumerStatefulWidget {
   final bool? backgroundLine;
   final bool? isFilterBW;
   final bool? isReorder;
+  final bool? isMarginLeft;
 
   final Icon? iconSelect;
 
@@ -40,6 +41,7 @@ class ImageListVIew extends ConsumerStatefulWidget {
     this.newOnPressed,
     this.onReorder,
     this.isShowSvg = false,
+    this.isMarginLeft = true,
     this.isFilterBW = false,
     this.isReorder = false,
     required this.images,
@@ -55,7 +57,11 @@ class ImageListVIewState extends ConsumerState<ImageListVIew> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(left: 15, right: 15, bottom: 12.5),
+      margin: EdgeInsets.only(
+        left: widget.isMarginLeft! == true ? 15 : 0,
+        right: 15,
+        bottom: 12.5,
+      ),
       decoration: widget.isDecoration
           ? BoxDecoration(
               color: widget.backgroundDecoration ?? $colorSuccess100,
@@ -74,10 +80,7 @@ class ImageListVIewState extends ConsumerState<ImageListVIew> {
           widget.images.isEmpty && widget.isShowSvg == true
               ? SizedBox(
                   height: 250,
-                  child: SvgPicture.asset(
-                    fit: BoxFit.contain,
-                    'assets/svg/SinDatos.svg',
-                  ),
+                  child: SvgPicture.asset(fit: BoxFit.contain, $noData),
                 )
               : ReorderableListView.builder(
                   itemBuilder: (context, index) {

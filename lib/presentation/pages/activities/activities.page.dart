@@ -39,7 +39,6 @@ class ActivitiesPageState extends ConsumerState<ActivitiesPage> {
   @override
   Future<void> didChangeDependencies() async {
     super.didChangeDependencies();
-
     Future.microtask(() async {
       final notifierActivities = ref.read(activitiesProvider.notifier);
       final stateActivities = ref.read(activitiesProvider);
@@ -67,9 +66,9 @@ class ActivitiesPageState extends ConsumerState<ActivitiesPage> {
   Widget build(BuildContext context) {
     final searchActivity = ref.watch(searchNameActivity);
 
+    final stateActivity = ref.watch(activityProvider);
     final stateActivities = ref.read(activitiesProvider);
     final stateWacthActivities = ref.watch(activitiesProvider);
-    final stateActivity = ref.watch(activityProvider);
 
     final TextEditingController controller =
         TextEditingController(text: searchActivity);
@@ -104,11 +103,11 @@ class ActivitiesPageState extends ConsumerState<ActivitiesPage> {
         ref.read(activitiesProvider.notifier).getActivities();
       }
 
-      if (next.errorMessageApi != null) {
+      if (next.errorMessageApiDelete != null) {
         toastAlert(
           context: context,
           title: S.current.Error,
-          description: next.errorMessageApi!,
+          description: next.errorMessageApiDelete!,
           typeAlert: ToastificationType.error,
         );
         ref.read(activityProvider.notifier).updateResponse();
@@ -248,8 +247,15 @@ class ActivitiesPageState extends ConsumerState<ActivitiesPage> {
                                           title: item.name,
                                           colorTitle: true,
                                           styleTitle: FontWeight.bold,
-                                          subTitle:
-                                              '${S.current.Fase}: ${item.phase.name}\n${S.current.Puntos_requeridos}: ${item.satisfactoryPoints}\nPacientes asignados: ${item.assignments == null ? 0 : item.assignments!.length}',
+                                          subTitle: RichText(
+                                            text: TextSpan(
+                                                style: const TextStyle(
+                                                  color: $colorTextBlack,
+                                                  fontSize: 13,
+                                                ),
+                                                text:
+                                                    '${S.current.Fase}: ${item.phase.name}\n${S.current.Puntos_requeridos}: ${item.satisfactoryPoints}\nPacientes asignados: ${item.assignments == null ? 0 : item.assignments!.length}'),
+                                          ),
                                           iconButton: MenuItems(
                                             itemObject: CatalogObject(
                                               id: stateActivities
@@ -274,10 +280,7 @@ class ActivitiesPageState extends ConsumerState<ActivitiesPage> {
                                     }
                                   },
                                 )
-                              : SvgPicture.asset(
-                                  fit: BoxFit.contain,
-                                  'assets/svg/SinDatos.svg',
-                                ),
+                              : SvgPicture.asset(fit: BoxFit.contain, $noData),
                         ),
 
                       if (stateWacthActivities.isLoading == true &&
@@ -301,10 +304,7 @@ class ActivitiesPageState extends ConsumerState<ActivitiesPage> {
                         ),
                         Center(
                           child: stateWacthActivities.isErrorInitial == true
-                              ? SvgPicture.asset(
-                                  fit: BoxFit.contain,
-                                  'assets/svg/SinDatos.svg',
-                                )
+                              ? SvgPicture.asset(fit: BoxFit.contain, $noData)
                               : Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [

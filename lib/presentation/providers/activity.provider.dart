@@ -81,13 +81,13 @@ class ActivityNotifier extends StateNotifier<ActivityState> {
       state = state.copyWith(isLoading: false, isDelete: true);
     } on CustomError catch (e) {
       state = state.copyWith(
-        errorMessageApi: e.message,
+        errorMessageApiDelete: e.message,
         isLoading: false,
         isDelete: false,
       );
     } catch (e) {
       state = state.copyWith(
-        errorMessageApi: S.current.Error_inesperado,
+        errorMessageApiDelete: S.current.Error_inesperado,
         isLoading: false,
         isDelete: false,
       );
@@ -137,8 +137,8 @@ class ActivityNotifier extends StateNotifier<ActivityState> {
         if (newValue.isNotEmpty &&
             newValue.split(',').map(int.parse).toList().length < 31) {
           newValidationErrors.remove($pictogramSentence);
+          pictograms = newValue.split(',').map(int.parse).toList();
         }
-        pictograms = newValue.split(',').map(int.parse).toList();
         activity = state.activity!.copyWith(pictogramSentence: pictograms);
         break;
 
@@ -155,25 +155,16 @@ class ActivityNotifier extends StateNotifier<ActivityState> {
   bool checkFields() {
     Map<String, String?> errors = {};
 
-    if (state.activity!.name.isEmpty) {
-      errors[$name] = S.current.El_nombre_de_la_actividad_no_puede_estar_vacio;
-    } else {
-      if (state.activity!.name.length <= 2 ||
-          state.activity!.name.length >= 100) {
-        errors[$name] = S.current
-            .El_nombre_no_puede_ser_menor_a_tres_o_mayor_a_cien_caracteres;
-      }
+    if (state.activity!.name.length <= 2 ||
+        state.activity!.name.length >= 100) {
+      errors[$name] = S.current
+          .El_nombre_no_puede_ser_menor_a_tres_o_mayor_a_cien_caracteres;
     }
 
-    if (state.activity!.description.isEmpty) {
-      errors[$description] =
-          S.current.La_descripcion_de_la_actividad_no_puede_estar_vacia;
-    } else {
-      if (state.activity!.description.length <= 5 ||
-          state.activity!.description.length >= 255) {
-        errors[$description] = S.current
-            .La_descripcion_no_puede_ser_menor_a_seis_o_mayor_a_doscientoscincuentaycinco_caracteres;
-      }
+    if (state.activity!.description.length <= 5 ||
+        state.activity!.description.length >= 255) {
+      errors[$description] = S.current
+          .La_descripcion_no_puede_ser_menor_a_seis_o_mayor_a_doscientoscincuentaycinco_caracteres;
     }
 
     if (state.activity!.satisfactoryPoints <= 0) {
@@ -205,7 +196,11 @@ class ActivityNotifier extends StateNotifier<ActivityState> {
   }
 
   void updateResponse() {
-    state = state.copyWith(errorMessageApi: '', showtoastAlert: false);
+    state = state.copyWith(
+      errorMessageApi: '',
+      showtoastAlert: false,
+      errorMessageApiDelete: '',
+    );
   }
 
   void updateIsSave({required bool isSave}) {
@@ -234,6 +229,7 @@ class ActivityState {
   final bool? isDelete;
   final bool? isErrorInitial;
   final String? errorMessageApi;
+  final String? errorMessageApiDelete;
   final Map<String, String?> validationErrors;
 
   ActivityState({
@@ -245,6 +241,7 @@ class ActivityState {
     this.isDelete = false,
     this.isErrorInitial = false,
     this.errorMessageApi,
+    this.errorMessageApiDelete,
     this.validationErrors = const {},
   });
 
@@ -257,6 +254,7 @@ class ActivityState {
     bool? isDelete,
     bool? isErrorInitial,
     String? errorMessageApi,
+    String? errorMessageApiDelete,
     Map<String, String?>? validationErrors,
   }) =>
       ActivityState(
@@ -266,6 +264,9 @@ class ActivityState {
         errorMessageApi: errorMessageApi == ''
             ? null
             : errorMessageApi ?? this.errorMessageApi,
+        errorMessageApiDelete: errorMessageApiDelete == ''
+            ? null
+            : errorMessageApiDelete ?? this.errorMessageApiDelete,
         isLoading: isLoading ?? this.isLoading,
         isSave: isSave ?? this.isSave,
         isDelete: isDelete ?? this.isDelete,

@@ -3,7 +3,7 @@ import 'package:hope_app/infrastructure/infrastructure.dart'
     show CatalogoObjectMapper;
 
 class CurrentCompletedActivityMapper {
-  static CurrentCompletedActivity currentActivityfromJson(
+  static CurrentCompletedActivity currentCompletedActivityfromJson(
           Map<String, dynamic> json) =>
       CurrentCompletedActivity(
         id: json["id"],

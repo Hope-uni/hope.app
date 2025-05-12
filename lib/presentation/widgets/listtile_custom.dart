@@ -8,7 +8,7 @@ class ListTileCustom extends StatelessWidget {
   final Color? colorItemSelect;
   final String? image;
   final bool? noImage;
-  final String? subTitle;
+  final Widget? subTitle;
   final FontWeight? styleSubTitle;
   final FontWeight? styleTitle;
   final bool? colorSubTitle;
@@ -71,12 +71,7 @@ class ListTileCustom extends StatelessWidget {
         subtitle: subTitle != null
             ? Container(
                 padding: EdgeInsets.only(right: noImage == false ? 0 : 25),
-                child: Text(subTitle!,
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: styleSubTitle,
-                        color:
-                            colorSubTitle == true ? $colorBlueGeneral : null)),
+                child: subTitle,
               )
             : null,
         onTap: onTap,

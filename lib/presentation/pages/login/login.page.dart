@@ -20,44 +20,60 @@ class LoginPageState extends ConsumerState<LoginPage> {
   void initState() {
     super.initState();
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-        overlays: SystemUiOverlay.values);
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.manual,
+      overlays: SystemUiOverlay.values,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final stateAuth = ref.watch(authProvider);
 
-    return Scaffold(
-      body: Stack(
-        children: [
-          const SingleChildScrollView(
-              child: AuthBackground(isLogin: true, formChild: LoginForsm())),
-          if (stateAuth.isloading == true)
-            const Opacity(
-              opacity: 0.5,
-              child: ModalBarrier(dismissible: false, color: $colorTextBlack),
-            ),
-          if (stateAuth.isloading == true)
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const CircularProgressIndicator(),
-                  const SizedBox(height: 25),
-                  Text(
-                    S.current.Cargando,
-                    style: const TextStyle(
-                      color: $colorTextWhite,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      decoration: TextDecoration.none,
-                    ),
-                  ),
-                ],
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final width = MediaQuery.of(context).size.width;
+      ref
+          .read(authProvider.notifier)
+          .updateIsTablet(isTablet: width >= 600 ? true : false);
+    });
+
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          FocusManager.instance.primaryFocus?.unfocus();
+        });
+      },
+      child: Scaffold(
+        body: Stack(
+          children: [
+            const SingleChildScrollView(
+                child: AuthBackground(isLogin: true, formChild: LoginForsm())),
+            if (stateAuth.isloading == true)
+              const Opacity(
+                opacity: 0.5,
+                child: ModalBarrier(dismissible: false, color: $colorTextBlack),
               ),
-            ),
-        ],
+            if (stateAuth.isloading == true)
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const CircularProgressIndicator(),
+                    const SizedBox(height: 25),
+                    Text(
+                      S.current.Cargando,
+                      style: const TextStyle(
+                        color: $colorTextWhite,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        decoration: TextDecoration.none,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }

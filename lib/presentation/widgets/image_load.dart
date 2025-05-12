@@ -60,23 +60,23 @@ class ImageLoad extends StatelessWidget {
         child: imagePath == null
             ? urlImage != null && urlImage!.isNotEmpty
                 ? FadeInImage(
-                    fit: isDoubleTap == false ? null : BoxFit.cover,
+                    fit: isDoubleTap == false ? null : BoxFit.contain,
                     placeholderFit: BoxFit.cover,
                     imageErrorBuilder: (context, error, stackTrace) {
                       isError = true;
                       return Container(
                         padding: const EdgeInsets.all(7.5),
-                        child: SvgPicture.asset(fit: BoxFit.contain, noIMage),
+                        child: SvgPicture.asset(fit: BoxFit.contain, $noIMage),
                       );
                     },
-                    placeholder: const AssetImage(loading),
+                    placeholder: const AssetImage($loading),
                     image: NetworkImage(urlImage!) as ImageProvider,
                   )
                 : Container(
                     padding: const EdgeInsets.all(7.5),
                     child: SvgPicture.asset(
                       fit: BoxFit.contain,
-                      noIMage,
+                      $noIMage,
                       height: 220,
                     ),
                   )

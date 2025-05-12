@@ -11,8 +11,10 @@ class GoRouterNotifier extends ChangeNotifier {
   final AuthNotifier _authNotifier;
   AuthStatus _authStatus = AuthStatus.checking;
 
+  late final VoidCallback _removeListener;
+
   GoRouterNotifier(this._authNotifier) {
-    _authNotifier.addListener((state) {
+    _removeListener = _authNotifier.addListener((state) {
       if (state.authStatus != _authStatus) {
         authStatus = state.authStatus;
       }
@@ -24,5 +26,11 @@ class GoRouterNotifier extends ChangeNotifier {
   set authStatus(AuthStatus value) {
     _authStatus = value;
     notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    _removeListener();
+    super.dispose();
   }
 }

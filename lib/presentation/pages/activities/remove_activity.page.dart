@@ -198,8 +198,16 @@ class RemoveAcivityPageState extends ConsumerState<RemoveAcivityPage> {
                                   title: stateChildren.children[index].fullName,
                                   colorTitle: true,
                                   styleTitle: FontWeight.bold,
-                                  subTitle:
-                                      '${stateChildren.children[index].age} ${S.current.Anos}\n${S.current.Fase}: ${stateChildren.children[index].currentPhase.name}',
+                                  subTitle: RichText(
+                                    text: TextSpan(
+                                      style: const TextStyle(
+                                        color: $colorTextBlack,
+                                        fontSize: 13,
+                                      ),
+                                      text:
+                                          '${stateChildren.children[index].age} ${S.current.Anos}\n${S.current.Fase}: ${stateChildren.children[index].currentPhase.name}',
+                                    ),
+                                  ),
                                   image: stateChildren.children[index].imageUrl,
                                   iconButton: IconButton(
                                     onPressed: () {
@@ -272,10 +280,7 @@ class RemoveAcivityPageState extends ConsumerState<RemoveAcivityPage> {
                                 );
                               },
                             )
-                          : SvgPicture.asset(
-                              fit: BoxFit.contain,
-                              'assets/svg/SinDatos.svg',
-                            ),
+                          : SvgPicture.asset(fit: BoxFit.contain, $noData),
                     ),
                   if (stateChildren.isLoading == true &&
                       stateChildren.paginateChildren[$indexPage] != 1)
@@ -295,10 +300,7 @@ class RemoveAcivityPageState extends ConsumerState<RemoveAcivityPage> {
                     ),
                     Center(
                       child: stateChildren.isErrorInitial == true
-                          ? SvgPicture.asset(
-                              fit: BoxFit.contain,
-                              'assets/svg/SinDatos.svg',
-                            )
+                          ? SvgPicture.asset(fit: BoxFit.contain, $noData)
                           : Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [

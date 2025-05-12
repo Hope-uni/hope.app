@@ -1,8 +1,8 @@
 import 'dart:io' show File;
+import 'package:clearable_dropdown/clearable_dropdown.dart' as clearable;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:hope_app/domain/domain.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/providers/providers.dart';
@@ -360,6 +360,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                             onChanged: (value) {
                               profileNotifier.updateUserName(value: value);
                             },
+                            isNumberLetter: true,
                             errorText:
                                 profileState.validationErrors[$userNameProfile],
                           ),
@@ -440,7 +441,12 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                           },
                           allCharacters: false,
                         ),
-                        SelectBox(
+                        clearable.ClearableDropdown(
+                          helperText: ' ',
+                          listItems: [
+                            clearable.CatalogObject(id: 0, name: $masculino),
+                            clearable.CatalogObject(id: 1, name: $femenino)
+                          ],
                           enable: enableInput,
                           valueInitial: profileState.profile!.gender,
                           label: S.current.Sexo,
@@ -450,13 +456,6 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                               newValue: value! == "0" ? $masculino : $femenino,
                             );
                           },
-                          deleteSelection: false,
-                          listItems: [
-                            CatalogObject(
-                                id: 0, name: $masculino, description: ''),
-                            CatalogObject(
-                                id: 1, name: $femenino, description: '')
-                          ],
                           errorText:
                               profileState.validationErrors[$genderProfile],
                         ),
