@@ -30,9 +30,11 @@ class BoardPageState extends ConsumerState<BoardPage> {
 
   @override
   void dispose() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-    ]);
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.manual,
+      overlays: SystemUiOverlay.values,
+    );
     scrollController.dispose();
     super.dispose();
   }
@@ -171,316 +173,373 @@ class BoardPageState extends ConsumerState<BoardPage> {
                       maxLines: 2,
                     ),
             ),
-      body: Container(
-        height: size.height,
-        margin:
-            const EdgeInsets.only(top: 20, bottom: 10, left: 7.5, right: 7.5),
-        child: Stack(
-          children: [
-            if (stateBoard.isLoading == false)
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Expanded(
-                    child: Row(
-                      children: [
-                        if (statePictograms.pictograms.isEmpty == false)
-                          Expanded(
-                            child: GridView.builder(
-                              controller: scrollController,
-                              itemCount: statePictograms.pictograms.length,
-                              scrollDirection: Axis.vertical,
-                              gridDelegate:
-                                  const SliverGridDelegateWithMaxCrossAxisExtent(
-                                maxCrossAxisExtent: 175,
-                                crossAxisSpacing: 20.0,
-                                mainAxisSpacing: 10.0,
-                              ),
-                              itemBuilder: (context, index) {
-                                return buildDraggableExample(
-                                  isFilterBW: _isMonochrome,
-                                  pictogram: statePictograms.pictograms[index],
-                                );
-                              },
-                            ),
-                          ),
-                        if (statePictograms.pictograms.isEmpty == true)
-                          Expanded(
-                            child: Center(
-                              child: SizedBox(
-                                height: 400,
-                                child: SvgPicture.asset(
-                                  fit: BoxFit.contain,
-                                  'assets/svg/SinDatos.svg',
-                                ),
-                              ),
-                            ),
-                          ),
-                        Container(
-                          margin: const EdgeInsets.only(right: 15),
-                          width: 180,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.symmetric(
-                                  horizontal: 10,
-                                  vertical: 10,
-                                ),
-                                child: PressLoadButton(
-                                  resetAfterFinish: true,
-                                  buttonColor: $colorError,
-                                  loadingColor: $colorBlueGeneral,
-                                  duration: 2500,
-                                  radius: 20,
-                                  onConfirm: () async {
-                                    await ref
-                                        .read(authProvider.notifier)
-                                        .logout();
+      body: Stack(
+        children: [
+          Container(
+            height: size.height,
+            margin: const EdgeInsets.only(
+              top: 20,
+              bottom: 10,
+              left: 7.5,
+              right: 7.5,
+            ),
+            child: Stack(
+              children: [
+                if (stateBoard.isLoading == false)
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Expanded(
+                        child: Row(
+                          children: [
+                            if (statePictograms.pictograms.isEmpty == false)
+                              Expanded(
+                                child: GridView.builder(
+                                  controller: scrollController,
+                                  itemCount: statePictograms.pictograms.length,
+                                  scrollDirection: Axis.vertical,
+                                  gridDelegate:
+                                      const SliverGridDelegateWithMaxCrossAxisExtent(
+                                    maxCrossAxisExtent: 175,
+                                    crossAxisSpacing: 20.0,
+                                    mainAxisSpacing: 10.0,
+                                  ),
+                                  itemBuilder: (context, index) {
+                                    return buildDraggableExample(
+                                      isFilterBW: _isMonochrome,
+                                      pictogram:
+                                          statePictograms.pictograms[index],
+                                    );
                                   },
-                                  strokeWidth: 10,
-                                  width: 170,
-                                  height: 43,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      const Icon(
-                                        Icons.logout,
-                                        color: $colorTextWhite,
-                                      ),
-                                      const SizedBox(width: 10),
-                                      Text(
-                                        S.current.Cerrar_sesion,
-                                        style: const TextStyle(
-                                          color: $colorTextWhite,
-                                        ),
-                                      ),
-                                    ],
+                                ),
+                              ),
+                            if (statePictograms.pictograms.isEmpty == true)
+                              Expanded(
+                                child: Center(
+                                  child: SizedBox(
+                                    height: 400,
+                                    child: SvgPicture.asset(
+                                        fit: BoxFit.contain, $noData),
                                   ),
                                 ),
                               ),
-                              Expanded(
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: $colorBackgroundDrawer,
-                                      borderRadius: BorderRadius.circular(20),
+                            Container(
+                              margin: const EdgeInsets.only(right: 15),
+                              width: 180,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                      vertical: 10,
                                     ),
-                                    child: statePictograms
-                                                .categoryPictograms.isEmpty ==
-                                            false
-                                        ? ListView.builder(
-                                            itemCount: statePictograms
-                                                .categoryPictograms.length,
-                                            itemBuilder: (context, index) {
-                                              return Container(
-                                                width: 170,
-                                                color:
-                                                    indexSeleccionado == index
+                                    child: PressLoadButton(
+                                      resetAfterFinish: true,
+                                      buttonColor: $colorError,
+                                      loadingColor: $colorBlueGeneral,
+                                      duration: 2500,
+                                      radius: 20,
+                                      onConfirm: () async {
+                                        await ref
+                                            .read(authProvider.notifier)
+                                            .logout();
+                                      },
+                                      strokeWidth: 10,
+                                      width: 170,
+                                      height: 43,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          const Icon(
+                                            Icons.logout,
+                                            color: $colorTextWhite,
+                                          ),
+                                          const SizedBox(width: 10),
+                                          Text(
+                                            S.current.Cerrar_sesion,
+                                            style: const TextStyle(
+                                              color: $colorTextWhite,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(20),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: $colorBackgroundDrawer,
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        child: statePictograms
+                                                    .categoryPictograms
+                                                    .isEmpty ==
+                                                false
+                                            ? ListView.builder(
+                                                itemCount: statePictograms
+                                                    .categoryPictograms.length,
+                                                itemBuilder: (context, index) {
+                                                  return Container(
+                                                    width: 170,
+                                                    color: indexSeleccionado ==
+                                                            index
                                                         ? $colorSelectMenu
                                                         : null,
-                                                child: ListTile(
-                                                  //leading: const Icon(Icons.pets),
-                                                  style: ListTileStyle.drawer,
-                                                  title: Text(statePictograms
-                                                      .categoryPictograms[index]
-                                                      .name),
-                                                  onTap: () async {
-                                                    if (index ==
-                                                        indexSeleccionado) {
-                                                      await notifierPictograms
-                                                          .getPictogramsPatient();
-                                                    } else {
-                                                      await notifierPictograms
-                                                          .getPictogramsPatient(
-                                                              idCategory:
-                                                                  statePictograms
+                                                    child: ListTile(
+                                                      //leading: const Icon(Icons.pets),
+                                                      style:
+                                                          ListTileStyle.drawer,
+                                                      title: Text(statePictograms
+                                                          .categoryPictograms[
+                                                              index]
+                                                          .name),
+                                                      onTap: () async {
+                                                        if (index ==
+                                                            indexSeleccionado) {
+                                                          await notifierPictograms
+                                                              .getPictogramsPatient();
+                                                        } else {
+                                                          await notifierPictograms
+                                                              .getPictogramsPatient(
+                                                                  idCategory: statePictograms
                                                                       .categoryPictograms[
                                                                           index]
                                                                       .id);
-                                                    }
-                                                    setState(() {
-                                                      if (index ==
-                                                          indexSeleccionado) {
-                                                        indexSeleccionado =
-                                                            null;
-                                                      } else {
-                                                        indexSeleccionado =
-                                                            index;
-                                                      }
-                                                    });
-                                                  },
+                                                        }
+                                                        setState(() {
+                                                          if (index ==
+                                                              indexSeleccionado) {
+                                                            indexSeleccionado =
+                                                                null;
+                                                          } else {
+                                                            indexSeleccionado =
+                                                                index;
+                                                          }
+                                                        });
+                                                      },
+                                                    ),
+                                                  );
+                                                },
+                                              )
+                                            : Center(
+                                                child: SizedBox(
+                                                  height: 400,
+                                                  child: SvgPicture.asset(
+                                                    fit: BoxFit.contain,
+                                                    $noData,
+                                                  ),
                                                 ),
-                                              );
-                                            },
-                                          )
-                                        : Center(
-                                            child: SizedBox(
-                                              height: 400,
-                                              child: SvgPicture.asset(
-                                                fit: BoxFit.contain,
-                                                'assets/svg/SinDatos.svg',
                                               ),
-                                            ),
-                                          ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 15,
+                          vertical: 5,
+                        ),
+                        height: 75,
+                        alignment: Alignment.center,
+                        child: Text(
+                          stateBoard.pictograms
+                              .map((item) => item.name)
+                              .toList()
+                              .join(' '),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 22,
+                          ),
+                        ),
+                      ),
+                      DragTarget<PictogramAchievements>(
+                        builder: (
+                          BuildContext context,
+                          List<dynamic> accepted,
+                          List<dynamic> rejected,
+                        ) {
+                          return Container(
+                            decoration: BoxDecoration(
+                                color: $colorBackgroundDrawer,
+                                borderRadius: BorderRadius.circular(20)),
+                            margin: const EdgeInsets.only(
+                                bottom: 10, left: 12.5, right: 12),
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            height: 155.0,
+                            width: size.width,
+                            child: Row(
+                              children: [
+                                ButtonTextIcon(
+                                  title: S.current.Limpiar,
+                                  buttonColor: $colorError,
+                                  icon: const Icon(Icons.delete),
+                                  onClic: () {
+                                    notifierBoard.clearPictogramSolution();
+                                    notifierPictograms.setPictogramsPatients();
+                                  },
+                                ),
+                                Expanded(
+                                  child: ImageListVIew(
+                                    images: stateBoard.pictograms,
+                                    backgroundLine: true,
+                                    isDecoration: false,
+                                    isSelect: false,
+                                    isReorder: true,
+                                    onReorder:
+                                        notifierBoard.onChangeOrderSolution,
                                   ),
                                 ),
-                              ),
-                            ],
+                                Visibility(
+                                  visible: stateBoard.patientActivity!
+                                              .currentActivity !=
+                                          null ||
+                                      stateBoard.patientActivity!
+                                              .latestCompletedActivity !=
+                                          null,
+                                  child: Container(
+                                    margin: const EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                      vertical: 10,
+                                    ),
+                                    child: PressLoadButton(
+                                      resetAfterFinish: true,
+                                      buttonColor: $colorSuccess,
+                                      loadingColor: $colorBlueGeneral,
+                                      duration: 2500,
+                                      radius: 20,
+                                      onConfirm: () async {
+                                        if (stateProfile.permmisions!
+                                            .contains($verifyActivityAnswer)) {
+                                          if (stateBoard
+                                              .pictograms.isNotEmpty) {
+                                            if (await notifierBoard
+                                                .checkAnswer()) {
+                                              notifierBoard
+                                                  .clearPictogramSolution();
+                                              notifierPictograms
+                                                  .setPictogramsPatients();
+                                            }
+                                          } else {
+                                            toastAlert(
+                                              iconAlert: const Icon(Icons.info),
+                                              context: context,
+                                              title: S.current.Aviso,
+                                              description: S.current
+                                                  .Debe_seleccionar_al_menos_un_pictograma_para_la_solucion,
+                                              typeAlert:
+                                                  ToastificationType.info,
+                                            );
+                                          }
+                                        } else {
+                                          toastAlert(
+                                            iconAlert: const Icon(Icons.info),
+                                            context: context,
+                                            title: S.current.No_autorizado,
+                                            description: S.current
+                                                .No_cuenta_con_el_permiso_necesario,
+                                            typeAlert: ToastificationType.info,
+                                          );
+                                        }
+                                      },
+                                      strokeWidth: 10,
+                                      width: 200,
+                                      height: 43,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          const Icon(Icons.check,
+                                              color: $colorTextWhite),
+                                          const SizedBox(width: 10),
+                                          Text(
+                                            S.current.Verificar,
+                                            style: const TextStyle(
+                                              color: $colorTextWhite,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                        onAcceptWithDetails:
+                            (DragTargetDetails<PictogramAchievements> details) {
+                          notifierBoard.addPictogramSolution(
+                              newPictogram: details.data);
+
+                          notifierPictograms.deletePictogram(
+                            idPictogram: details.data.id,
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                if (stateBoard.isLoading != false) ...[
+                  const ModalBarrier(
+                    dismissible: false,
+                    color: $colorTextWhite,
+                  ),
+                  Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const CircularProgressIndicator(),
+                        const SizedBox(height: 25),
+                        Text(
+                          S.current.Cargando,
+                          style: const TextStyle(
+                            color: $colorButtonDisable,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.none,
                           ),
                         ),
                       ],
                     ),
                   ),
-                  Container(
-                    margin:
-                        const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                    height: 75,
-                    alignment: Alignment.center,
-                    child: Text(
-                      stateBoard.pictograms
-                          .map((item) => item.name)
-                          .toList()
-                          .join(' '),
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22,
-                      ),
+                ],
+              ],
+            ),
+          ),
+          if (stateBoard.isCheking == true) ...[
+            const Opacity(
+              opacity: 0.5,
+              child: ModalBarrier(dismissible: false, color: $colorTextBlack),
+            ),
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const CircularProgressIndicator(),
+                  const SizedBox(height: 25),
+                  Text(
+                    S.current.Cargando,
+                    style: const TextStyle(
+                      color: $colorButtonDisable,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.none,
                     ),
-                  ),
-                  DragTarget<PictogramAchievements>(
-                    builder: (
-                      BuildContext context,
-                      List<dynamic> accepted,
-                      List<dynamic> rejected,
-                    ) {
-                      return Container(
-                        decoration: BoxDecoration(
-                            color: $colorBackgroundDrawer,
-                            borderRadius: BorderRadius.circular(20)),
-                        margin: const EdgeInsets.only(
-                            bottom: 10, left: 12.5, right: 12),
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        height: 155.0,
-                        width: size.width,
-                        child: Row(
-                          children: [
-                            ButtonTextIcon(
-                              title: S.current.Limpiar,
-                              buttonColor: $colorError,
-                              icon: const Icon(Icons.delete),
-                              onClic: () {
-                                notifierBoard.clearPictogramSolution();
-                                notifierPictograms.setPictogramsPatients();
-                              },
-                            ),
-                            Expanded(
-                              child: ImageListVIew(
-                                images: stateBoard.pictograms,
-                                backgroundLine: true,
-                                isDecoration: false,
-                                isSelect: false,
-                                isReorder: true,
-                                onReorder: notifierBoard.onChangeOrderSolution,
-                              ),
-                            ),
-                            Visibility(
-                              visible:
-                                  stateBoard.patientActivity!.currentActivity !=
-                                          null ||
-                                      stateBoard.patientActivity!
-                                              .latestCompletedActivity !=
-                                          null,
-                              child: Container(
-                                margin: const EdgeInsets.symmetric(
-                                  horizontal: 10,
-                                  vertical: 10,
-                                ),
-                                child: PressLoadButton(
-                                  resetAfterFinish: true,
-                                  buttonColor: $colorSuccess,
-                                  loadingColor: $colorBlueGeneral,
-                                  duration: 2500,
-                                  radius: 20,
-                                  onConfirm: () async {
-                                    if (stateProfile.permmisions!
-                                        .contains($verifyActivityAnswer)) {
-                                      if (await notifierBoard.checkAnswer()) {
-                                        notifierBoard.clearPictogramSolution();
-                                        notifierPictograms
-                                            .setPictogramsPatients();
-                                      }
-                                    } else {
-                                      toastAlert(
-                                        iconAlert: const Icon(Icons.info),
-                                        context: context,
-                                        title: S.current.No_autorizado,
-                                        description: S.current
-                                            .No_cuenta_con_el_permiso_necesario,
-                                        typeAlert: ToastificationType.info,
-                                      );
-                                    }
-                                  },
-                                  strokeWidth: 10,
-                                  width: 200,
-                                  height: 43,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      const Icon(Icons.check,
-                                          color: $colorTextWhite),
-                                      const SizedBox(width: 10),
-                                      Text(
-                                        S.current.Verificar,
-                                        style: const TextStyle(
-                                          color: $colorTextWhite,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                    onAcceptWithDetails:
-                        (DragTargetDetails<PictogramAchievements> details) {
-                      notifierBoard.addPictogramSolution(
-                          newPictogram: details.data);
-
-                      notifierPictograms.deletePictogram(
-                        idPictogram: details.data.id,
-                      );
-                    },
                   ),
                 ],
               ),
-            if (stateBoard.isLoading != false) ...[
-              const ModalBarrier(dismissible: false, color: $colorTextWhite),
-              Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const CircularProgressIndicator(),
-                    const SizedBox(height: 25),
-                    Text(
-                      S.current.Cargando,
-                      style: const TextStyle(
-                        color: $colorButtonDisable,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+            ),
           ],
-        ),
+        ],
       ),
     );
   }
@@ -519,14 +578,14 @@ Widget buildDraggableExample({
           ),
         ),
         child: SizedBox(
-          width: 140.0,
+          width: 125.0,
           child: Column(
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: SizedBox(
-                  height: 140.0,
-                  width: 140.0,
+                  height: 125.0,
+                  width: 125.0,
                   child: ColorFiltered(
                     colorFilter: ColorFilterExt.preset(
                       isFilterBW

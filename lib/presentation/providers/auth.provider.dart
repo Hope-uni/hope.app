@@ -63,6 +63,18 @@ class AuthNotifier extends StateNotifier<AuthState> {
         );
       }
 
+      if (roles.contains($paciente) && state.isTablet == false) {
+        _settearError(error: '');
+
+        throw CustomError(
+          errorCode: null,
+          dataError: null,
+          message:
+              S.current.Los_pacientes_solo_pueden_iniciar_sesion_en_tablets,
+          typeNotification: ToastificationType.error,
+        );
+      }
+
       settearDataMe(me: dataMe, token: token);
       state = state.copyWith(isloading: false);
     } on CustomError catch (e) {
@@ -76,13 +88,12 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
         profileStateNotifier.updateIsLoading(isLoading: false);
 
-        chagesStateAuthenticated(token: token);
-
         if (rol != $terapeuta && rol != $paciente && rol != $tutor) {
           _settearError(
             error: S.current.No_esta_autorizado_para_iniciar_sesion_en_la_APP,
           );
         }
+        chagesStateAuthenticated(token: token);
 
         return;
       }
@@ -152,8 +163,10 @@ class AuthNotifier extends StateNotifier<AuthState> {
     );
   }
 
-  void updateResponse() {
-    state = state.copyWith(errorMessage: '');
+  void updateResponse() => state = state.copyWith(errorMessage: '');
+
+  void updateIsTablet({required bool isTablet}) {
+    state = state.copyWith(isTablet: isTablet);
   }
 
   void _resetTokens() async {
@@ -194,9 +207,11 @@ class AuthState {
   final AuthStatus authStatus;
   final Token? token;
   final String? errorMessage;
+  final bool? isTablet;
 
   AuthState({
     this.isloading,
+    this.isTablet,
     this.token,
     this.errorMessage,
     this.authStatus = AuthStatus.checking,
@@ -205,12 +220,14 @@ class AuthState {
   AuthState copyWith({
     AuthStatus? authStatus,
     bool? isloading,
+    bool? isTablet,
     Token? token,
     String? errorMessage,
   }) =>
       AuthState(
         authStatus: authStatus ?? this.authStatus,
         isloading: isloading ?? this.isloading,
+        isTablet: isTablet ?? this.isTablet,
         errorMessage:
             errorMessage == '' ? null : errorMessage ?? this.errorMessage,
         token: token ?? this.token,

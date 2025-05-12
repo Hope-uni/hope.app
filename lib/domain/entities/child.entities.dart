@@ -13,9 +13,11 @@ class Child extends Person {
   PersonTutorTherapist tutor;
   PersonTutorTherapist? therapist;
   CurrentCompletedActivity? currentActivity;
+  CurrentCompletedActivity? latestCompletedActivity;
   List<ActivityChild>? activities;
   List<PictogramAchievements>? pictograms;
   bool isMonochrome;
+  bool isVerified;
 
   Child({
     required this.id,
@@ -40,9 +42,11 @@ class Child extends Person {
     required this.tutor,
     this.therapist,
     this.currentActivity,
+    this.latestCompletedActivity,
     this.activities,
     this.pictograms,
     required this.isMonochrome,
+    required this.isVerified,
   });
 
   Child copyWith({
@@ -68,9 +72,11 @@ class Child extends Person {
     List<PictogramAchievements>? achievements,
     PersonTutorTherapist? therapist,
     CurrentCompletedActivity? currentActivity,
+    CurrentCompletedActivity? latestCompletedActivity,
     List<ActivityChild>? activities,
     List<PictogramAchievements>? pictograms,
     bool? isMonochrome,
+    bool? isVerified,
   }) =>
       Child(
         firstName: firstName ?? super.firstName,
@@ -95,9 +101,12 @@ class Child extends Person {
         achievements: achievements ?? this.achievements,
         therapist: therapist ?? this.therapist,
         currentActivity: currentActivity ?? this.currentActivity,
+        latestCompletedActivity:
+            latestCompletedActivity ?? this.latestCompletedActivity,
         activities: activities ?? this.activities,
         pictograms: pictograms ?? this.pictograms,
         isMonochrome: isMonochrome ?? this.isMonochrome,
+        isVerified: isVerified ?? this.isVerified,
       );
 }
 
