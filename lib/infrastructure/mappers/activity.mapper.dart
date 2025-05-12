@@ -3,8 +3,8 @@ import 'package:hope_app/infrastructure/infrastructure.dart';
 
 class ActivityMapper {
   static Map<String, dynamic> toJsonActivity(CreateActivity activity) => {
-        "name": activity.name,
-        "description": activity.description,
+        "name": activity.name.trim(),
+        "description": activity.description.trim(),
         "satisfactoryPoints": activity.satisfactoryPoints,
         "pictogramSentence":
             List<int>.from(activity.pictogramSentence.map((x) => x)),
