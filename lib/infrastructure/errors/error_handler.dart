@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:hope_app/domain/domain.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
+import 'package:hope_app/presentation/services/services.dart'
+    show handleUnauthorized;
 import 'package:toastification/toastification.dart';
 
 class ErrorHandler {
@@ -17,6 +19,11 @@ class ErrorHandler {
           : (responseMapper.message.isNotEmpty
               ? responseMapper.message
               : S.current.Error_solicitud);
+
+      // 👇 Aquí interceptas el 401, llama al logout automáticamente
+      if (responseMapper.statusCode == 401) {
+        handleUnauthorized(errorMessage: message);
+      }
 
       throw CustomError(
         errorCode: error.response!.statusCode!,

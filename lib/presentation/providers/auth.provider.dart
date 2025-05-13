@@ -78,7 +78,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
       settearDataMe(me: dataMe, token: token);
       state = state.copyWith(isloading: false);
     } on CustomError catch (e) {
-      if (e.errorCode == 401) {
+      if (e.errorCode == 403 && e.dataError != null) {
         //Validando el Rol si el usuario no esta verificado
         await keyValueRepository.setValueStorage<bool>(false, $verified);
 
@@ -136,7 +136,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     }
   }
 
-  Future<void> logout() async {
+  Future<void> logout({String? errorUser}) async {
     _resetTokens();
     await keyValueRepository.deleteKeyStorage($userName);
     await keyValueRepository.deleteKeyStorage($email);
@@ -150,6 +150,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     state = state.copyWith(
       authStatus: AuthStatus.notAuthenticated,
       token: null,
+      errorMessage: errorUser,
     );
   }
 
