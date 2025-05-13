@@ -57,7 +57,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
                 .settearDataMe(me: dataMe, token: tokenFinal);
           }
         } on CustomError catch (e) {
-          if (e.errorCode == 401) {
+          if (e.errorCode == 403 && e.dataError != null) {
             final Token tokenFinal =
                 Token(accessToken: token, refreshToken: refreshToken!);
             ref
@@ -69,14 +69,27 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
 
             return;
           }
+          if (mounted) {
+            toastAlert(
+              context: context,
+              typeAlert: ToastificationType.error,
+              title: S.current.Error_al_actualizar_los_permisos,
+              description: e.message,
+            );
+          }
+          ref.read(authProvider.notifier).logout();
+          return;
         } catch (error) {
           if (mounted) {
             toastAlert(
-                context: context,
-                typeAlert: ToastificationType.error,
-                title: S.current.Error_al_actualizar_los_permisos,
-                description: error.toString());
+              context: context,
+              typeAlert: ToastificationType.error,
+              title: S.current.Error_al_actualizar_los_permisos,
+              description: error.toString(),
+            );
           }
+          ref.read(authProvider.notifier).logout();
+          return;
         }
       }
       if (token != null && verified != true) {
@@ -101,49 +114,53 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    // Aquí guardamos el ref globalmente para el auth_Session_handler
+    globalRef = ref;
     final appRouter = ref.watch(goRouterProvider);
 
-    return MaterialApp.router(
-      routerConfig: appRouter,
-      debugShowCheckedModeBanner: false,
-      title: S.current.Hope,
-      theme: ThemeData(
-          colorSchemeSeed: $colorBlueGeneral,
-          textTheme: const TextTheme(
-            bodyLarge: $fontFamilyPoppins,
-            bodyMedium: $fontFamilyPoppins,
-            bodySmall: $fontFamilyPoppins,
-            labelLarge: $fontFamilyPoppins,
-            displayLarge: $fontFamilyPoppins,
-            displayMedium: $fontFamilyPoppins,
-            displaySmall: $fontFamilyPoppins,
-            titleLarge: $fontFamilyPoppins,
-            titleMedium: $fontFamilyPoppins,
-            titleSmall: $fontFamilyPoppins,
-            headlineLarge: $fontFamilyPoppins,
-            headlineMedium: $fontFamilyPoppins,
-            headlineSmall: $fontFamilyPoppins,
-            labelSmall: $fontFamilyPoppins,
-            labelMedium: $fontFamilyPoppins,
-          ),
-          useMaterial3: true,
-          appBarTheme: const AppBarTheme(
-            backgroundColor: $colorBlueGeneral,
-            iconTheme: IconThemeData(color: $colorTextWhite),
-            titleTextStyle: TextStyle(color: $colorTextWhite, fontSize: 22),
-          ),
-          tabBarTheme: const TabBarTheme(
-            indicatorColor: $colorIndicadorTabBar,
-            labelColor: $colorTextWhite,
-            unselectedLabelColor: $colorUnSelectTabBar,
-          )),
-      localizationsDelegates: const [
-        S.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: S.delegate.supportedLocales,
+    return ToastificationWrapper(
+      child: MaterialApp.router(
+        routerConfig: appRouter,
+        debugShowCheckedModeBanner: false,
+        title: S.current.Hope,
+        theme: ThemeData(
+            colorSchemeSeed: $colorBlueGeneral,
+            textTheme: const TextTheme(
+              bodyLarge: $fontFamilyPoppins,
+              bodyMedium: $fontFamilyPoppins,
+              bodySmall: $fontFamilyPoppins,
+              labelLarge: $fontFamilyPoppins,
+              displayLarge: $fontFamilyPoppins,
+              displayMedium: $fontFamilyPoppins,
+              displaySmall: $fontFamilyPoppins,
+              titleLarge: $fontFamilyPoppins,
+              titleMedium: $fontFamilyPoppins,
+              titleSmall: $fontFamilyPoppins,
+              headlineLarge: $fontFamilyPoppins,
+              headlineMedium: $fontFamilyPoppins,
+              headlineSmall: $fontFamilyPoppins,
+              labelSmall: $fontFamilyPoppins,
+              labelMedium: $fontFamilyPoppins,
+            ),
+            useMaterial3: true,
+            appBarTheme: const AppBarTheme(
+              backgroundColor: $colorBlueGeneral,
+              iconTheme: IconThemeData(color: $colorTextWhite),
+              titleTextStyle: TextStyle(color: $colorTextWhite, fontSize: 22),
+            ),
+            tabBarTheme: const TabBarTheme(
+              indicatorColor: $colorIndicadorTabBar,
+              labelColor: $colorTextWhite,
+              unselectedLabelColor: $colorUnSelectTabBar,
+            )),
+        localizationsDelegates: const [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: S.delegate.supportedLocales,
+      ),
     );
   }
 }

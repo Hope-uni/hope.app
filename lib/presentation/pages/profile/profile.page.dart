@@ -101,8 +101,12 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
 
     Future<void> selectDate(BuildContext context, String dateValue) async {
       final DateTime now = DateTime.now();
-      final DateTime firstDate = DateTime(1950, 1, 1);
-      final DateTime lastDate = now;
+
+      // Rango de fechas:
+      // Máximo 100 años atrás
+      final DateTime firstDate = DateTime(now.year - 100, now.month, now.day);
+      // Mínimo 18 años de edad
+      final DateTime lastDate = DateTime(now.year - 18, now.month, now.day);
 
       final day = int.parse(dateValue.split('-')[2]);
       final month = int.parse(dateValue.split('-')[1]);

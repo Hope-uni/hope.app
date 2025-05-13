@@ -77,10 +77,10 @@ packages:
     dependency: "direct main"
     description:
       name: clearable_dropdown
-      sha256: "86abd6cae1d75e44ff60fc60c14dc0d59a1f6de38919d430a91f385b09a59ff9"
+      sha256: "98d88e5f6b7ebb1c2fa4c3c96f98c02da9d88528546deea37dbf69d9f7794a7b"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.3"
+    version: "1.0.5"
   cli_util:
     dependency: transitive
     description:
