@@ -113,6 +113,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Avanzar_de_fase": MessageLookupByLibrary.simpleMessage("Avanzar de fase"),
     "Aviso": MessageLookupByLibrary.simpleMessage("¡Aviso!"),
     "Ayuda": MessageLookupByLibrary.simpleMessage("Ayuda"),
+    "Bien_hecho": MessageLookupByLibrary.simpleMessage("¡Bien hecho!"),
     "Bienvenido_pagina_de_inicio": MessageLookupByLibrary.simpleMessage(
       "Bienvenido - Página de inicio",
     ),
@@ -395,6 +396,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Información personal actualizada",
     ),
     "Iniciar_sesion": MessageLookupByLibrary.simpleMessage("Iniciar sesión"),
+    "Intente_otra_solucion": MessageLookupByLibrary.simpleMessage(
+      "¡Intente otra solución!",
+    ),
     "La_actividad_asignada_se_completo_con_exito":
         MessageLookupByLibrary.simpleMessage(
           "La actividad asignada se completó con éxito",
@@ -476,7 +480,7 @@ class MessageLookup extends MessageLookupByLibrary {
           "• Mantener el dedo sobre el pictograma de la solución para poder ordenarlo a su voluntad",
         ),
     "Menu_de_opciones": MessageLookupByLibrary.simpleMessage(
-      "Menú de opciones",
+      "Menú de opciones:",
     ),
     "Ninos_asignados_Terapeuta": MessageLookupByLibrary.simpleMessage(
       "Niños asignados - Terapeuta",
@@ -589,7 +593,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Personalizar pictograma",
     ),
     "Pestanas_de_informacion": MessageLookupByLibrary.simpleMessage(
-      "Pestañas de información",
+      "Pestañas de información:",
     ),
     "Peticion_enviada": MessageLookupByLibrary.simpleMessage(
       "Petición enviada",
@@ -673,8 +677,8 @@ class MessageLookup extends MessageLookupByLibrary {
       "Segundo Apellido",
     ),
     "Segundo_nombre": MessageLookupByLibrary.simpleMessage("Segundo Nombre"),
-    "Seleccion_de_ninos_para_actividad": MessageLookupByLibrary.simpleMessage(
-      "Selección de niños para actividad",
+    "Seleccion_de_ninos": MessageLookupByLibrary.simpleMessage(
+      "Selección de niños",
     ),
     "Seleccione_al_menos_a_un_paciente_para_la_actividad":
         MessageLookupByLibrary.simpleMessage(

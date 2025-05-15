@@ -9,9 +9,7 @@ class ListTileCustom extends StatelessWidget {
   final String? image;
   final bool? noImage;
   final Widget? subTitle;
-  final FontWeight? styleSubTitle;
   final FontWeight? styleTitle;
-  final bool? colorSubTitle;
   final bool? colorTitle;
   final void Function()? onTap;
 
@@ -23,8 +21,6 @@ class ListTileCustom extends StatelessWidget {
     this.image,
     this.noImage = false,
     this.subTitle,
-    this.styleSubTitle,
-    this.colorSubTitle,
     this.colorTitle,
     this.styleTitle,
     this.onTap,

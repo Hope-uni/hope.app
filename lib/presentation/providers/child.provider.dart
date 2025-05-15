@@ -216,7 +216,7 @@ class ChildNotifier extends StateNotifier<ChildState> {
 
   void updateActivity() {
     Child updatedChild = state.child!;
-    updatedChild = state.child!.copyWith(currentActivity: null);
+    updatedChild = state.child!.copyWith(isNullCurrentActivity: true);
     state = state.copyWith(child: updatedChild);
   }
 

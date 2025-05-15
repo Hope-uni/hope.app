@@ -351,54 +351,106 @@ class _ImageGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     final profileState = ref.read(profileProvider);
 
-    return Container(
-      padding: const EdgeInsets.only(top: 7),
-      child: Column(children: [
-        Container(
-          width: 110,
-          height: 110,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: $colorTextBlack, width: 0.5),
-            color: $colorTextWhite,
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: ImageLoad(urlImage: pictogram.imageUrl),
+    return Column(children: [
+      Container(
+        width: 110,
+        height: 110,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: $colorTextBlack, width: 0.5),
+          color: $colorTextWhite,
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: ImageLoad(urlImage: pictogram.imageUrl),
+        ),
+      ),
+      Container(
+        margin: const EdgeInsets.only(top: 10),
+        child: Tooltip(
+          message: pictogram.name, // Muestra el nombre completo
+          waitDuration:
+              const Duration(milliseconds: 100), // Espera antes de mostrarse
+          showDuration: const Duration(seconds: 2), // Tiempo visible
+          child: Text(
+            pictogram.name,
+            textAlign: TextAlign.center,
+            overflow: TextOverflow.ellipsis,
           ),
         ),
-        Container(
-          margin: const EdgeInsets.only(top: 10),
-          child: Tooltip(
-            message: pictogram.name, // Muestra el nombre completo
-            waitDuration:
-                const Duration(milliseconds: 100), // Espera antes de mostrarse
-            showDuration: const Duration(seconds: 2), // Tiempo visible
-            child: Text(
-              pictogram.name,
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Visibility(
+            visible: !isCustomized,
+            child: IconButton(
+              onPressed: () => {
+                if (profileState.permmisions!.contains($createCustomPictogram))
+                  {
+                    _dialogImage(
+                      context: context,
+                      pictogram: pictogram,
+                      isCreate: true,
+                    ),
+                  }
+                else
+                  {
+                    toastAlert(
+                      iconAlert: const Icon(Icons.info),
+                      context: context,
+                      title: S.current.No_autorizado,
+                      description: S.current.No_cuenta_con_el_permiso_necesario,
+                      typeAlert: ToastificationType.info,
+                    )
+                  }
+              },
+              tooltip: S.current.Crear,
+              icon: const Icon(Icons.create, color: $colorBlueGeneral),
             ),
           ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Visibility(
-              visible: !isCustomized,
-              child: IconButton(
-                onPressed: () => {
-                  if (profileState.permmisions!
-                      .contains($createCustomPictogram))
-                    {
-                      _dialogImage(
+          Visibility(
+            visible: isCustomized,
+            child: IconButton(
+              onPressed: () => {
+                if (profileState.permmisions!.contains($updateCustomPictogram))
+                  {
+                    _dialogImage(
+                      context: context,
+                      pictogram: pictogram,
+                      isCreate: false,
+                    ),
+                  }
+                else
+                  {
+                    toastAlert(
+                      iconAlert: const Icon(Icons.info),
+                      context: context,
+                      title: S.current.No_autorizado,
+                      description: S.current.No_cuenta_con_el_permiso_necesario,
+                      typeAlert: ToastificationType.info,
+                    )
+                  }
+              },
+              tooltip: S.current.Editar,
+              icon: const Icon(Icons.update, color: $colorBlueGeneral),
+            ),
+          ),
+          Visibility(
+            visible: isCustomized,
+            child: Consumer(
+              builder: (context, ref, child) {
+                return IconButton(
+                  tooltip: S.current.Eliminar,
+                  onPressed: () {
+                    if (profileState.permmisions!
+                        .contains($deleteCustomPictogram)) {
+                      _dialogConfirmation(
                         context: context,
                         pictogram: pictogram,
-                        isCreate: true,
-                      ),
-                    }
-                  else
-                    {
+                        ref: ref,
+                      );
+                    } else {
                       toastAlert(
                         iconAlert: const Icon(Icons.info),
                         context: context,
@@ -406,82 +458,17 @@ class _ImageGrid extends StatelessWidget {
                         description:
                             S.current.No_cuenta_con_el_permiso_necesario,
                         typeAlert: ToastificationType.info,
-                      )
+                      );
                     }
-                },
-                tooltip: S.current.Crear,
-                icon: const Icon(
-                  Icons.create,
-                  color: $colorBlueGeneral,
-                ),
-              ),
+                  },
+                  icon: const Icon(Icons.delete, color: $colorError),
+                );
+              },
             ),
-            Visibility(
-              visible: isCustomized,
-              child: IconButton(
-                onPressed: () => {
-                  if (profileState.permmisions!
-                      .contains($updateCustomPictogram))
-                    {
-                      _dialogImage(
-                        context: context,
-                        pictogram: pictogram,
-                        isCreate: false,
-                      ),
-                    }
-                  else
-                    {
-                      toastAlert(
-                        iconAlert: const Icon(Icons.info),
-                        context: context,
-                        title: S.current.No_autorizado,
-                        description:
-                            S.current.No_cuenta_con_el_permiso_necesario,
-                        typeAlert: ToastificationType.info,
-                      )
-                    }
-                },
-                tooltip: S.current.Editar,
-                icon: const Icon(
-                  Icons.update,
-                  color: $colorBlueGeneral,
-                ),
-              ),
-            ),
-            Visibility(
-              visible: isCustomized,
-              child: Consumer(
-                builder: (context, ref, child) {
-                  return IconButton(
-                    tooltip: S.current.Eliminar,
-                    onPressed: () {
-                      if (profileState.permmisions!
-                          .contains($deleteCustomPictogram)) {
-                        _dialogConfirmation(
-                          context: context,
-                          pictogram: pictogram,
-                          ref: ref,
-                        );
-                      } else {
-                        toastAlert(
-                          iconAlert: const Icon(Icons.info),
-                          context: context,
-                          title: S.current.No_autorizado,
-                          description:
-                              S.current.No_cuenta_con_el_permiso_necesario,
-                          typeAlert: ToastificationType.info,
-                        );
-                      }
-                    },
-                    icon: const Icon(Icons.delete, color: $colorError),
-                  );
-                },
-              ),
-            )
-          ],
-        )
-      ]),
-    );
+          )
+        ],
+      )
+    ]);
   }
 }
 

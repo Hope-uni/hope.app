@@ -72,6 +72,7 @@ class Child extends Person {
     List<PictogramAchievements>? achievements,
     PersonTutorTherapist? therapist,
     CurrentCompletedActivity? currentActivity,
+    bool? isNullCurrentActivity,
     CurrentCompletedActivity? latestCompletedActivity,
     List<ActivityChild>? activities,
     List<PictogramAchievements>? pictograms,
@@ -100,7 +101,9 @@ class Child extends Person {
         observations: observations ?? this.observations,
         achievements: achievements ?? this.achievements,
         therapist: therapist ?? this.therapist,
-        currentActivity: currentActivity ?? this.currentActivity,
+        currentActivity: isNullCurrentActivity == true
+            ? null
+            : currentActivity ?? this.currentActivity,
         latestCompletedActivity:
             latestCompletedActivity ?? this.latestCompletedActivity,
         activities: activities ?? this.activities,

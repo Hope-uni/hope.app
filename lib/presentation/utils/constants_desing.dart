@@ -39,6 +39,12 @@ final Color $colorShadow = Colors.black.withValues(alpha: 0.3);
 const Color $colorSelectMenu = Color.fromARGB(255, 217, 228, 250);
 
 // FINAL IMAGES
-const String $noIMage = 'assets/svg/placeholderImage_bn.svg';
 const String $loading = 'assets/gif/loading.gif';
+const String $noIMage = 'assets/svg/placeholderImage_bn.svg';
 const String $noData = 'assets/svg/SinDatos.svg';
+const String $heart = 'assets/svg/corazon_vectorizado.svg';
+const String $iconAgain = 'assets/img/iconAgain.png';
+const String $success = 'assets/img/success.png';
+const String $backgroundDrawerheader =
+    'assets/img/background-drawer-header.png';
+const String $congratulation = '🥳';

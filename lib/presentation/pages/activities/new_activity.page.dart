@@ -83,50 +83,53 @@ class NewActivityState extends ConsumerState<NewActivityPage> {
                           ),
                         ),
                         titlePadding: EdgeInsets.zero,
-                        content: SizedBox(
-                          width: 200,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                S.current.Para_reordenar_la_solucion,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(height: 10),
-                              Text(S.current
-                                  .Mantener_el_dedo_sobre_el_pictograma_de_la_solucion_para_poder_ordenarlo_a_su_voluntad),
-                              const SizedBox(height: 30),
-                              Text(
-                                S.current.Para_ver_la_imagen_con_mas_detalle,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(height: 10),
-                              Text(
-                                S.current.Hacer_doble_clic_sobre_la_imagen,
-                              ),
-                              const SizedBox(height: 30),
-                              Text(
-                                S.current.Acciones_en_el_listado_de_pictogramas,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(height: 10),
-                              Text(
-                                S.current
-                                    .Puede_desplazarse_de_manera_horizontal_en_los_pictogramas_para_poder_ver_mas_registros,
-                              ),
-                              const SizedBox(height: 10),
-                              Text(S.current
-                                  .Si_desea_agregar_un_pictograma_a_la_solucion_debe_dar_clic_en_el_boton_verde_con_el_icono_de_listo),
-                              const SizedBox(height: 10),
-                              Text(
-                                S.current
-                                    .Si_desea_eliminar_un_pictograma_a_la_solucion_debe_dar_clic_en_el_boton_rojo_con_el_icono_del_basurero,
-                              ),
-                            ],
+                        content: SingleChildScrollView(
+                          child: SizedBox(
+                            width: 200,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  S.current.Para_reordenar_la_solucion,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(height: 10),
+                                Text(S.current
+                                    .Mantener_el_dedo_sobre_el_pictograma_de_la_solucion_para_poder_ordenarlo_a_su_voluntad),
+                                const SizedBox(height: 30),
+                                Text(
+                                  S.current.Para_ver_la_imagen_con_mas_detalle,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(height: 10),
+                                Text(
+                                  S.current.Hacer_doble_clic_sobre_la_imagen,
+                                ),
+                                const SizedBox(height: 30),
+                                Text(
+                                  S.current
+                                      .Acciones_en_el_listado_de_pictogramas,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(height: 10),
+                                Text(
+                                  S.current
+                                      .Puede_desplazarse_de_manera_horizontal_en_los_pictogramas_para_poder_ver_mas_registros,
+                                ),
+                                const SizedBox(height: 10),
+                                Text(S.current
+                                    .Si_desea_agregar_un_pictograma_a_la_solucion_debe_dar_clic_en_el_boton_verde_con_el_icono_de_listo),
+                                const SizedBox(height: 10),
+                                Text(
+                                  S.current
+                                      .Si_desea_eliminar_un_pictograma_a_la_solucion_debe_dar_clic_en_el_boton_rojo_con_el_icono_del_basurero,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         insetPadding: EdgeInsets.zero,

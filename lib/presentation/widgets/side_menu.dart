@@ -53,7 +53,7 @@ class SideMenu extends ConsumerWidget {
             decoration: const BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage('assets/img/background-drawer-header.png'),
+                image: AssetImage($backgroundDrawerheader),
               ),
             ),
             margin: EdgeInsets.zero,

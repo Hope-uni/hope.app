@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
 
@@ -13,16 +12,16 @@ class AuthBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Column(
-      children: [
-        _HeartBackground(
-          size: size,
+    return SizedBox(
+      height: size.height - 30, // fija la altura total de la pantalla
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            _HeartBackground(size: size),
+            _FormInitial(formChild: formChild, size: size),
+          ],
         ),
-        _FormInitial(
-          formChild: formChild,
-          size: size,
-        ),
-      ],
+      ),
     );
   }
 }
@@ -37,12 +36,13 @@ class _HeartBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: size.height * 0.4,
-        width: size.width,
-        child: CustomPaint(
-          painter: _HeaderPaintWaves(),
-          child: const HeartCircle(),
-        ));
+      height: size.height * 0.4,
+      width: size.width,
+      child: CustomPaint(
+        painter: _HeaderPaintWaves(),
+        child: const HeartCircle(),
+      ),
+    );
   }
 }
 
@@ -57,26 +57,10 @@ class _FormInitial extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DateTime dateNow = DateTime.now();
     return Container(
       padding: const EdgeInsets.only(left: 40, right: 40),
       width: size.width,
-      height: size.height * 0.6,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          SingleChildScrollView(
-            child: Container(alignment: Alignment.center, child: formChild),
-          ),
-          Container(
-            margin: const EdgeInsets.only(bottom: 15),
-            child: Text(S.current.Derechos_reservados(dateNow.year)),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-        ],
-      ),
+      child: formChild,
     );
   }
 }

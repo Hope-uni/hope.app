@@ -18,40 +18,60 @@ class ResetPasswordPageState extends ConsumerState<ResetPasswordPage> {
   @override
   Widget build(BuildContext context) {
     final isFormPosted = ref.watch(passwordProvider).isFormPosted;
-    return Scaffold(
-      body: Stack(
-        children: [
-          const SingleChildScrollView(
-            child: AuthBackground(
-              isLogin: false,
-              formChild: ResetPasswordForm(),
-            ),
-          ),
-          if (isFormPosted)
-            const Opacity(
-              opacity: 0.5,
-              child: ModalBarrier(dismissible: false, color: $colorTextBlack),
-            ),
-          if (isFormPosted)
-            Center(
+    final DateTime dateNow = DateTime.now();
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          FocusManager.instance.primaryFocus?.unfocus();
+        });
+      },
+      child: Scaffold(
+        body: Stack(
+          children: [
+            SingleChildScrollView(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const CircularProgressIndicator(),
-                  const SizedBox(height: 25),
-                  Text(
-                    S.current.Cargando,
-                    style: const TextStyle(
-                      color: $colorTextWhite,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      decoration: TextDecoration.none,
+                  const AuthBackground(
+                    isLogin: false,
+                    formChild: ResetPasswordForm(),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    height: 30,
+                    child: Text(
+                      S.current.Derechos_reservados(dateNow.year),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ],
               ),
             ),
-        ],
+            if (isFormPosted)
+              const Opacity(
+                opacity: 0.5,
+                child: ModalBarrier(dismissible: false, color: $colorTextBlack),
+              ),
+            if (isFormPosted)
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const CircularProgressIndicator(),
+                    const SizedBox(height: 25),
+                    Text(
+                      S.current.Cargando,
+                      style: const TextStyle(
+                        color: $colorTextWhite,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        decoration: TextDecoration.none,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }
@@ -93,11 +113,11 @@ class ResetPasswordForm extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text(S.current.Iniciar_sesion,
-                            textAlign: TextAlign.end,
-                            style: const TextStyle(
-                              color: $colorBlueGeneral,
-                            )),
+                        Text(
+                          S.current.Iniciar_sesion,
+                          textAlign: TextAlign.end,
+                          style: const TextStyle(color: $colorBlueGeneral),
+                        ),
                         const Icon(
                           Icons.arrow_forward,
                           color: $colorBlueGeneral,
@@ -142,13 +162,13 @@ class _InputUserEmail extends ConsumerWidget {
         ),
         Expanded(
           child: InputForm(
+            marginBottom: 0,
             value: resetPasswordProvider.emailOrUser,
             enable: true,
             hint: S.current.Correo_o_nombre_de_usuario,
             inputFormatters: [
-              FilteringTextInputFormatter.deny(
-                RegExp(r'\s'),
-              ), // Denegar espacios
+              // Denegar espacios
+              FilteringTextInputFormatter.deny(RegExp(r'\s')),
             ],
             onChanged: (value) {
               ref

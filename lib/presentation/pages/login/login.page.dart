@@ -29,6 +29,7 @@ class LoginPageState extends ConsumerState<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final stateAuth = ref.watch(authProvider);
+    final DateTime dateNow = DateTime.now();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final width = MediaQuery.of(context).size.width;
@@ -46,8 +47,21 @@ class LoginPageState extends ConsumerState<LoginPage> {
       child: Scaffold(
         body: Stack(
           children: [
-            const SingleChildScrollView(
-                child: AuthBackground(isLogin: true, formChild: LoginForsm())),
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  const AuthBackground(isLogin: true, formChild: LoginForsm()),
+                  Container(
+                    alignment: Alignment.center,
+                    height: 30,
+                    child: Text(
+                      S.current.Derechos_reservados(dateNow.year),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
+              ),
+            ),
             if (stateAuth.isloading == true)
               const Opacity(
                 opacity: 0.5,
@@ -84,10 +98,9 @@ class LoginForsm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Column(
       children: [
-        _titleApp(size.height),
+        _titleApp(),
         //TitleLogin
         Container(
           margin: const EdgeInsets.only(top: 15, bottom: 5),
@@ -102,28 +115,28 @@ class LoginForsm extends StatelessWidget {
         //Forget Password
         Container(
           alignment: Alignment.centerRight,
-          margin: const EdgeInsets.only(right: 15, left: 10),
+          margin: const EdgeInsets.only(right: 15, left: 10, bottom: 7),
           child: GestureDetector(
             onTap: () {
               FocusManager.instance.primaryFocus?.unfocus();
-              Navigator.of(context)
-                  .push(buildPageRoute(const ResetPasswordPage()));
+              Navigator.of(context).push(
+                buildPageRoute(const ResetPasswordPage()),
+              );
             },
-            child: Text(S.current.Olvido_su_contrasena,
-                textAlign: TextAlign.end,
-                style: const TextStyle(
-                  color: $colorBlueGeneral,
-                )),
+            child: Text(
+              S.current.Olvido_su_contrasena,
+              textAlign: TextAlign.end,
+              style: const TextStyle(color: $colorBlueGeneral),
+            ),
           ),
         ),
-        const SizedBox(height: 10),
         _ButtonLogin()
       ],
     );
   }
 }
 
-Text _titleApp(double height) {
+Text _titleApp() {
   return Text(
     S.current.Hope,
     style: const TextStyle(
@@ -233,7 +246,7 @@ class _ButtonLogin extends ConsumerWidget {
     });
 
     return Container(
-      margin: const EdgeInsets.only(right: 15, left: 10),
+      margin: const EdgeInsets.only(right: 15, left: 10, bottom: 10),
       width: double.infinity,
       child: FilledButton(
         onPressed: loginProvider.isFormPosted
