@@ -31,9 +31,7 @@ class HeartCircle extends StatelessWidget {
             child: FractionallySizedBox(
               widthFactor: 0.6, // Toma la mitad del ancho del padre
               heightFactor: 0.6, // Toma la mitad del alto del padre
-              child: SvgPicture.asset(
-                'assets/svg/corazon_vectorizado.svg',
-              ),
+              child: SvgPicture.asset($heart),
             ),
           ),
         ),

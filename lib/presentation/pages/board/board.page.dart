@@ -116,7 +116,7 @@ class BoardPageState extends ConsumerState<BoardPage> {
         notifierBoard.updateResponse();
       }
 
-      if (next.checkSuccess != null) {
+      if (next.checkSuccess != null && next.isCompleteActivity == true) {
         toastAlert(
           context: context,
           title: S.current.Verificado,
@@ -157,6 +157,55 @@ class BoardPageState extends ConsumerState<BoardPage> {
         }
       }
     });
+
+    void showToast({required BuildContext context, required bool isError}) {
+      final overlay = Overlay.of(context);
+      late OverlayEntry overlayEntry; // ← Aquí la declaramos primero
+      overlayEntry = OverlayEntry(
+        builder: (context) => Dismissible(
+          key: const Key($toast),
+          direction: DismissDirection.horizontal,
+          onDismissed: (_) => overlayEntry.remove(),
+          child: Center(
+            child: Material(
+              color: $colorTransparent,
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                decoration: BoxDecoration(
+                  color: Colors.black.withValues(alpha: 0.85),
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(
+                      height: 160,
+                      width: 160,
+                      child: Image.asset(isError ? $iconAgain : $success),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      isError
+                          ? S.current.Intente_otra_solucion
+                          : S.current.Bien_hecho,
+                      style: const TextStyle(color: Colors.white, fontSize: 22),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      overlay.insert(overlayEntry);
+
+      // Eliminar automáticamente después de 3 segundo
+      Future.delayed(const Duration(seconds: 3), () {
+        if (overlayEntry.mounted) overlayEntry.remove();
+      });
+    }
 
     return Scaffold(
       appBar: stateBoard.patientActivity!.currentActivity == null &&
@@ -428,6 +477,19 @@ class BoardPageState extends ConsumerState<BoardPage> {
                                                   .clearPictogramSolution();
                                               notifierPictograms
                                                   .setPictogramsPatients();
+                                              if (context.mounted) {
+                                                showToast(
+                                                  context: context,
+                                                  isError: false,
+                                                );
+                                              }
+                                            } else {
+                                              if (context.mounted) {
+                                                showToast(
+                                                  context: context,
+                                                  isError: true,
+                                                );
+                                              }
                                             }
                                           } else {
                                             toastAlert(

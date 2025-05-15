@@ -315,7 +315,7 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
     if (state.email == null || state.email!.isEmpty) {
       errors[$emailProfile] = S.current.El_correo_no_puede_estar_vacio;
     } else {
-      if (!$emailRegex.hasMatch(state.email!)) {
+      if (!$regexEmail.hasMatch(state.email!)) {
         errors[$emailProfile] =
             S.current.Formato_incorrecto_de_correo_electronico;
       }

@@ -23,34 +23,33 @@ void toastAlert(
     required String description,
     Icon? iconAlert}) {
   toastification.show(
-      context: context,
-      type: typeAlert,
-      style: ToastificationStyle.flatColored,
-      autoCloseDuration: const Duration(seconds: 3),
-      title: Text(title),
-      description: RichText(
-        text: TextSpan(
-            text: description,
-            style: const TextStyle(color: $colorTextBlack, fontSize: 16)),
+    context: context,
+    type: typeAlert,
+    style: ToastificationStyle.flatColored,
+    autoCloseDuration: const Duration(seconds: 3),
+    title: Text(title),
+    description: RichText(
+      text: TextSpan(
+        text: description,
+        style: const TextStyle(color: $colorTextBlack, fontSize: 16),
       ),
-      alignment: Alignment.topRight,
-      direction: TextDirection.ltr,
-      animationDuration: const Duration(milliseconds: 300),
-      animationBuilder: (context, animation, alignment, child) {
-        return FadeTransition(
-          opacity: animation,
-          child: child,
-        );
-      },
-      icon: iconAlert ?? iconAlertToast[typeAlert],
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      borderRadius: BorderRadius.circular(12),
-      showProgressBar: false,
-      closeButtonShowType: CloseButtonShowType.none,
-      closeOnClick: false,
-      pauseOnHover: true,
-      progressBarTheme: ProgressIndicatorThemeData(
-        color: colorProgressBar[typeAlert],
-      ));
+    ),
+    alignment: Alignment.topRight,
+    direction: TextDirection.ltr,
+    animationDuration: const Duration(milliseconds: 300),
+    animationBuilder: (context, animation, alignment, child) {
+      return FadeTransition(opacity: animation, child: child);
+    },
+    icon: iconAlert ?? iconAlertToast[typeAlert],
+    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+    margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+    borderRadius: BorderRadius.circular(12),
+    showProgressBar: false,
+    closeButtonShowType: CloseButtonShowType.none,
+    closeOnClick: false,
+    pauseOnHover: true,
+    progressBarTheme: ProgressIndicatorThemeData(
+      color: colorProgressBar[typeAlert],
+    ),
+  );
 }

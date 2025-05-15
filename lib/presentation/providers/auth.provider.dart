@@ -136,7 +136,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     }
   }
 
-  Future<void> logout({String? errorUser}) async {
+  Future<void> logout() async {
     _resetTokens();
     await keyValueRepository.deleteKeyStorage($userName);
     await keyValueRepository.deleteKeyStorage($email);
@@ -150,7 +150,6 @@ class AuthNotifier extends StateNotifier<AuthState> {
     state = state.copyWith(
       authStatus: AuthStatus.notAuthenticated,
       token: null,
-      errorMessage: errorUser,
     );
   }
 
