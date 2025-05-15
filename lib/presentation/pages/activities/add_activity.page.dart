@@ -124,43 +124,45 @@ class AddActivityPageState extends ConsumerState<AddActivityPage> {
                         ),
                       ),
                       titlePadding: EdgeInsets.zero,
-                      content: SizedBox(
-                        width: 200,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              S.current
-                                  .Para_ver_la_foto_de_perfil_de_los_pacientes_con_mas_detalle,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            const SizedBox(height: 10),
-                            Text(
-                              S.current.Hacer_doble_clic_sobre_la_imagen,
-                            ),
-                            const SizedBox(height: 30),
-                            Text(
-                              S.current.Flujo_para_asignacion_de_actividad,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            const SizedBox(height: 10),
-                            Text(
-                              S.current
-                                  .Seleccione_los_pacientes_a_los_cuales_desea_agregar_la_actividad_dando_clic_en_el_cuadro_a_la_derecha_del_registro,
-                            ),
-                            const SizedBox(height: 10),
-                            Text(S.current
-                                .Avanzar_al_siguiente_paso_dando_clic_en_el_boton_de_la_esquina_inferior_derecha),
-                            const SizedBox(height: 10),
-                            Text(S.current
-                                .Si_desea_eliminar_un_paciente_de_la_lista_de_asignacion_hacer_clic_sobre_el_icono_rojo_del_basurero),
-                            const SizedBox(height: 10),
-                            Text(S.current
-                                .Para_finalizar_asignacion_hacer_clic_sobre_el_boton_en_la_esquina_inferior_derecha_y_seleccionar_la_opcion_de_guardar),
-                          ],
+                      content: SingleChildScrollView(
+                        child: SizedBox(
+                          width: 200,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                S.current
+                                    .Para_ver_la_foto_de_perfil_de_los_pacientes_con_mas_detalle,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                S.current.Hacer_doble_clic_sobre_la_imagen,
+                              ),
+                              const SizedBox(height: 30),
+                              Text(
+                                S.current.Flujo_para_asignacion_de_actividad,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                S.current
+                                    .Seleccione_los_pacientes_a_los_cuales_desea_agregar_la_actividad_dando_clic_en_el_cuadro_a_la_derecha_del_registro,
+                              ),
+                              const SizedBox(height: 10),
+                              Text(S.current
+                                  .Avanzar_al_siguiente_paso_dando_clic_en_el_boton_de_la_esquina_inferior_derecha),
+                              const SizedBox(height: 10),
+                              Text(S.current
+                                  .Si_desea_eliminar_un_paciente_de_la_lista_de_asignacion_hacer_clic_sobre_el_icono_rojo_del_basurero),
+                              const SizedBox(height: 10),
+                              Text(S.current
+                                  .Para_finalizar_asignacion_hacer_clic_sobre_el_boton_en_la_esquina_inferior_derecha_y_seleccionar_la_opcion_de_guardar),
+                            ],
+                          ),
                         ),
                       ),
                       insetPadding: EdgeInsets.zero,
@@ -182,7 +184,7 @@ class AddActivityPageState extends ConsumerState<AddActivityPage> {
                     children: [
                       StepperCustom(
                         labelSteps: [
-                          S.current.Seleccion_de_ninos_para_actividad,
+                          S.current.Seleccion_de_ninos,
                           S.current.Confirmacion
                         ],
                         totalSteps: totalSteps,

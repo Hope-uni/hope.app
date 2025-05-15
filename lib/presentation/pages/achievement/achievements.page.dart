@@ -170,7 +170,7 @@ class AchievementPageState extends ConsumerState<AchievementPage> {
             if (stateAchievement.paginateAchievement[$indexPage] != 1)
               Container(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                 child: stateAchievement.achievement.isNotEmpty
                     ? GridView.builder(
                         controller: scrollController,
@@ -276,9 +276,8 @@ class _ImageGrid extends StatelessWidget {
     final profileState = ref.read(profileProvider);
     final notifierAchievement = ref.read(achievementProvider.notifier);
 
-    return Container(
-      padding: const EdgeInsets.only(top: 7),
-      child: Column(children: [
+    return Column(
+      children: [
         Container(
           width: 110,
           height: 110,
@@ -368,7 +367,7 @@ class _ImageGrid extends StatelessWidget {
             )
           ],
         )
-      ]),
+      ],
     );
   }
 }

@@ -62,7 +62,7 @@ class StepperCustom extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                       fontWeight: FontWeight.w500,
-                      fontSize: 16,
+                      fontSize: 14.7,
                     ),
                   ),
                 ),

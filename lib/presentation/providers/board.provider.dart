@@ -54,12 +54,13 @@ class BoardNotifier extends StateNotifier<BoardState> {
         if (state.patientActivity!.latestCompletedActivity == null) {
           state = state.copyWith(
             isCheking: false,
-            checkSuccess:
-                '${S.current.La_actividad_asignada_se_completo_con_exito}, ${checkActivity.message}',
             patientActivity: PatientActivity(
               latestCompletedActivity: checkActivity.data,
               currentActivity: null,
             ),
+            checkSuccess:
+                '${S.current.La_actividad_asignada_se_completo_con_exito}, ${checkActivity.message}',
+            isCompleteActivity: true,
           );
         } else {
           state = state.copyWith(
@@ -108,7 +109,11 @@ class BoardNotifier extends StateNotifier<BoardState> {
   }
 
   void updateResponse() {
-    state = state.copyWith(errorMessageApi: '', checkSuccess: '');
+    state = state.copyWith(
+      errorMessageApi: '',
+      checkSuccess: '',
+      isCompleteActivity: false,
+    );
   }
 }
 
@@ -119,11 +124,13 @@ class BoardState {
   final bool? isCheking;
   final String? checkSuccess;
   final String? errorMessageApi;
+  final bool? isCompleteActivity;
 
   BoardState({
     this.patientActivity,
     this.isLoading,
     this.isCheking,
+    this.isCompleteActivity = false,
     this.errorMessageApi,
     this.checkSuccess,
     this.pictograms = const [],
@@ -136,6 +143,7 @@ class BoardState {
     bool? isCheking,
     String? checkSuccess,
     String? errorMessageApi,
+    bool? isCompleteActivity,
   }) =>
       BoardState(
         errorMessageApi: errorMessageApi == ''
@@ -145,6 +153,7 @@ class BoardState {
             checkSuccess == '' ? null : checkSuccess ?? this.checkSuccess,
         isLoading: isLoading ?? this.isLoading,
         isCheking: isCheking ?? this.isCheking,
+        isCompleteActivity: isCompleteActivity ?? this.isCompleteActivity,
         patientActivity: patientActivity ?? this.patientActivity,
         pictograms: pictograms ?? this.pictograms,
       );

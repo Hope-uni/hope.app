@@ -5,6 +5,6 @@ import 'package:hope_app/presentation/providers/providers.dart'
 // Esta variable debe asignarse en tu main o al iniciar sesión
 late WidgetRef globalRef;
 
-void handleUnauthorized({required String errorMessage}) {
-  globalRef.read(authProvider.notifier).logout(errorUser: errorMessage);
+void handleUnauthorized() {
+  globalRef.read(authProvider.notifier).logout();
 }

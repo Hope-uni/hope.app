@@ -282,54 +282,58 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
                               ),
                             ),
                             titlePadding: EdgeInsets.zero,
-                            content: SizedBox(
-                              width: 200,
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    S.current
-                                        .Para_ver_la_foto_de_perfil_con_mas_detalle,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Text(
-                                    S.current.Hacer_doble_clic_sobre_la_imagen,
-                                  ),
-                                  const SizedBox(height: 30),
-                                  Text(
-                                    S.current.Pestanas_de_informacion,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Text(S.current
-                                      .Se_puede_desplazar_atraves_de_las_pestanas_desde_el_menu_superior_o_deslizando_horizontalmente_en_la_pantalla),
-                                  const SizedBox(height: 30),
-                                  Text(
-                                    S.current
-                                        .Para_ver_los_logros_con_mas_detalle,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Text(
-                                    S.current.Hacer_doble_clic_sobre_la_imagen,
-                                  ),
-                                  const SizedBox(height: 30),
-                                  Text(
-                                    S.current.Menu_de_opciones,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Text(
-                                    S.current
-                                        .Para_saber_que_acciones_puede_realizar_en_el_registro_dar_clic_en_el_boton_inferior_a_la_derecha_de_la_pantalla,
-                                  ),
-                                ],
+                            content: SingleChildScrollView(
+                              child: SizedBox(
+                                width: 200,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      S.current
+                                          .Para_ver_la_foto_de_perfil_con_mas_detalle,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Text(
+                                      S.current
+                                          .Hacer_doble_clic_sobre_la_imagen,
+                                    ),
+                                    const SizedBox(height: 30),
+                                    Text(
+                                      S.current.Pestanas_de_informacion,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Text(S.current
+                                        .Se_puede_desplazar_atraves_de_las_pestanas_desde_el_menu_superior_o_deslizando_horizontalmente_en_la_pantalla),
+                                    const SizedBox(height: 30),
+                                    Text(
+                                      S.current
+                                          .Para_ver_los_logros_con_mas_detalle,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Text(
+                                      S.current
+                                          .Hacer_doble_clic_sobre_la_imagen,
+                                    ),
+                                    const SizedBox(height: 30),
+                                    Text(
+                                      S.current.Menu_de_opciones,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Text(
+                                      S.current
+                                          .Para_saber_que_acciones_puede_realizar_en_el_registro_dar_clic_en_el_boton_inferior_a_la_derecha_de_la_pantalla,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                             insetPadding: EdgeInsets.zero,
@@ -1359,7 +1363,13 @@ List<Widget> _childProgressData({
           styleTitle: FontWeight.bold,
           noImage: true,
           subTitle: RichText(
-            text: TextSpan(text: stateChild.child!.teaDegree.description),
+            text: TextSpan(
+              text: stateChild.child!.teaDegree.description,
+              style: const TextStyle(
+                color: $colorTextBlack,
+                fontSize: 13,
+              ),
+            ),
           ),
         )
       ],
@@ -1377,6 +1387,10 @@ List<Widget> _childProgressData({
           subTitle: RichText(
             text: TextSpan(
               text: stateChild.child!.currentPhase.description,
+              style: const TextStyle(
+                color: $colorTextBlack,
+                fontSize: 13,
+              ),
             ),
           ),
         )
@@ -1530,15 +1544,18 @@ Widget _observationsChild({
 
               return ListTileCustom(
                 title: stateChildObservations[index].description,
+                noImage: true,
                 subTitle: RichText(
                   text: TextSpan(
                     text:
                         '\n$dateFormat     @${stateChildObservations[index].username}',
+                    style: const TextStyle(
+                      color: $colorBlueGeneral,
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-                styleSubTitle: FontWeight.bold,
-                colorSubTitle: true,
-                noImage: true,
               );
             } else {
               return const SizedBox(height: 75);

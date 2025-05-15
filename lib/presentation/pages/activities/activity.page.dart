@@ -5,6 +5,7 @@ import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/providers/providers.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
+import 'package:toastification/toastification.dart';
 
 class ActivityPage extends ConsumerStatefulWidget {
   final int idActivity;
@@ -42,6 +43,19 @@ class ActivityPageState extends ConsumerState<ActivityPage> {
   @override
   Widget build(BuildContext context) {
     final stateWacthActivity = ref.watch(activityProvider);
+    final notifierActivity = ref.read(activityProvider.notifier);
+
+    ref.listen(activityProvider, (previous, next) {
+      if (next.errorMessageApi != null) {
+        toastAlert(
+          context: context,
+          title: S.current.Error,
+          description: next.errorMessageApi!,
+          typeAlert: ToastificationType.error,
+        );
+        notifierActivity.updateResponse();
+      }
+    });
 
     return Scaffold(
       appBar: AppBar(

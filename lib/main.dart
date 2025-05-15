@@ -69,6 +69,20 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
 
             return;
           }
+
+          if (e.errorCode == 401) {
+            if (mounted) {
+              toastAlert(
+                context: context,
+                typeAlert: ToastificationType.error,
+                title: S.current.Error,
+                description: e.message,
+              );
+            }
+            ref.read(authProvider.notifier).logout();
+            return;
+          }
+
           if (mounted) {
             toastAlert(
               context: context,

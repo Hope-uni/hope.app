@@ -22,7 +22,7 @@ class ErrorHandler {
 
       // 👇 Aquí interceptas el 401, llama al logout automáticamente
       if (responseMapper.statusCode == 401) {
-        handleUnauthorized(errorMessage: message);
+        handleUnauthorized();
       }
 
       throw CustomError(
