@@ -1094,11 +1094,11 @@ class S {
     return Intl.message('Sí, quitar', name: 'Si_Quitar', desc: '', args: []);
   }
 
-  /// `Selección de niños para actividad`
-  String get Seleccion_de_ninos_para_actividad {
+  /// `Selección de niños`
+  String get Seleccion_de_ninos {
     return Intl.message(
-      'Selección de niños para actividad',
-      name: 'Seleccion_de_ninos_para_actividad',
+      'Selección de niños',
+      name: 'Seleccion_de_ninos',
       desc: '',
       args: [],
     );
@@ -2226,10 +2226,10 @@ class S {
     );
   }
 
-  /// `Pestañas de información`
+  /// `Pestañas de información:`
   String get Pestanas_de_informacion {
     return Intl.message(
-      'Pestañas de información',
+      'Pestañas de información:',
       name: 'Pestanas_de_informacion',
       desc: '',
       args: [],
@@ -2258,10 +2258,10 @@ class S {
     );
   }
 
-  /// `Menú de opciones`
+  /// `Menú de opciones:`
   String get Menu_de_opciones {
     return Intl.message(
-      'Menú de opciones',
+      'Menú de opciones:',
       name: 'Menu_de_opciones',
       desc: '',
       args: [],
@@ -2488,6 +2488,21 @@ class S {
       desc: '',
       args: [],
     );
+  }
+
+  /// `¡Intente otra solución!`
+  String get Intente_otra_solucion {
+    return Intl.message(
+      '¡Intente otra solución!',
+      name: 'Intente_otra_solucion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `¡Bien hecho!`
+  String get Bien_hecho {
+    return Intl.message('¡Bien hecho!', name: 'Bien_hecho', desc: '', args: []);
   }
 
   /// `La actividad asignada se completó con éxito`
