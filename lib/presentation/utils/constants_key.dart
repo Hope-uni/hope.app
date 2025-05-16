@@ -12,7 +12,7 @@ const String $verified = "verified";
 const String $roles = "roles";
 
 //KEYS PROFILE
-const String $userNameProfile = "userName";
+const String $userNameProfile = "username";
 const String $emailProfile = "email";
 const String $firstNameProfile = "firstName";
 const String $secondNameProfile = "secondName";
