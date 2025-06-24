@@ -595,9 +595,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "Pestanas_de_informacion": MessageLookupByLibrary.simpleMessage(
       "Pestañas de información:",
     ),
-    "Peticion_enviada": MessageLookupByLibrary.simpleMessage(
-      "Petición enviada",
-    ),
     "Pictogramas_blanco_negro": MessageLookupByLibrary.simpleMessage(
       "Pictogramas Blanco/Negro",
     ),
@@ -730,6 +727,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Sin_terapeuta_asignado": MessageLookupByLibrary.simpleMessage(
       "Sin terapeuta asignado",
+    ),
+    "Solicitud_enviada": MessageLookupByLibrary.simpleMessage(
+      "Solicitud enviada",
     ),
     "Solucion": MessageLookupByLibrary.simpleMessage("Solución"),
     "Telefono": MessageLookupByLibrary.simpleMessage("Teléfono"),

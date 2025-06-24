@@ -168,7 +168,7 @@ class _InputUserName extends ConsumerWidget {
             marginBottom: 0,
             enable: true,
             value: loginForm.userName,
-            hint: S.current.Usuario,
+            hint: S.current.Correo_o_nombre_de_usuario,
             inputFormatters: [
               FilteringTextInputFormatter.deny(
                 RegExp(r'\s'),
