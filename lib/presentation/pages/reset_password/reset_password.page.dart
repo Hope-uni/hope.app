@@ -193,7 +193,7 @@ class _ButtonSendEmail extends ConsumerWidget {
         toastAlert(
           context: context,
           title: next.typeMessage == ToastificationType.success
-              ? S.current.Peticion_enviada
+              ? S.current.Solicitud_enviada
               : S.current.Error,
           description: next.message,
           typeAlert: next.typeMessage,

@@ -1329,11 +1329,11 @@ class S {
     );
   }
 
-  /// `Petición enviada`
-  String get Peticion_enviada {
+  /// `Solicitud enviada`
+  String get Solicitud_enviada {
     return Intl.message(
-      'Petición enviada',
-      name: 'Peticion_enviada',
+      'Solicitud enviada',
+      name: 'Solicitud_enviada',
       desc: '',
       args: [],
     );
