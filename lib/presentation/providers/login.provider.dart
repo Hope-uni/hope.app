@@ -93,4 +93,5 @@ class LoginFormState {
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
-final isVisiblePasswordProvider = StateProvider<bool>((ref) => true);
+final isVisiblePasswordProvider =
+    StateProvider.autoDispose<bool>((ref) => true);
