@@ -1222,7 +1222,7 @@ List<Widget> _generalInformation({
     ),
     InputForm(
       label: S.current.Contacto_tutor,
-      value: stateChild.child!.tutor.telephone!,
+      value: stateChild.child!.tutor.telephone ?? '',
       enable: false,
     ),
     InputForm(

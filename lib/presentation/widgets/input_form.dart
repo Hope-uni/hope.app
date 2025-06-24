@@ -153,7 +153,6 @@ class _InputFormState extends State<InputForm> {
         obscureText: widget.obscureText ?? false,
         maxLength: widget.enable ? widget.maxLength : null,
         style: const TextStyle(color: $colorTextBlack),
-        textCapitalization: TextCapitalization.sentences,
         inputFormatters: inputFormatters,
         keyboardType: widget.isNumber == true
             ? TextInputType.number
