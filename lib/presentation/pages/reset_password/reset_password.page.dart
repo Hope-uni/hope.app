@@ -15,6 +15,35 @@ class ResetPasswordPage extends ConsumerStatefulWidget {
 }
 
 class ResetPasswordPageState extends ConsumerState<ResetPasswordPage> {
+  final FocusNode _emailUserFocusNode = FocusNode();
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _emailUserFocusNode.addListener(_onFocusChange);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    _emailUserFocusNode.dispose();
+    super.dispose();
+  }
+
+  void _onFocusChange() {
+    if (_emailUserFocusNode.hasFocus) {
+      // Esperamos un frame para que el teclado se muestre antes de hacer scroll
+      Future.delayed(const Duration(milliseconds: 500), () {
+        _scrollController.animateTo(
+          _scrollController.offset + 100,
+          duration: const Duration(milliseconds: 100),
+          curve: Curves.bounceIn,
+        );
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final isFormPosted = ref.watch(passwordProvider).isFormPosted;
@@ -29,11 +58,14 @@ class ResetPasswordPageState extends ConsumerState<ResetPasswordPage> {
         body: Stack(
           children: [
             SingleChildScrollView(
+              controller: _scrollController,
               child: Column(
                 children: [
-                  const AuthBackground(
+                  AuthBackground(
                     isLogin: false,
-                    formChild: ResetPasswordForm(),
+                    formChild: ResetPasswordForm(
+                      emailUserFocusNode: _emailUserFocusNode,
+                    ),
                   ),
                   Container(
                     alignment: Alignment.center,
@@ -78,7 +110,9 @@ class ResetPasswordPageState extends ConsumerState<ResetPasswordPage> {
 }
 
 class ResetPasswordForm extends StatelessWidget {
-  const ResetPasswordForm({super.key});
+  final FocusNode emailUserFocusNode;
+
+  const ResetPasswordForm({super.key, required this.emailUserFocusNode});
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +128,7 @@ class ResetPasswordForm extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 20),
-        _InputUserEmail(),
+        _InputUserEmail(focusNode: emailUserFocusNode),
         _ButtonSendEmail(),
         Container(
           margin: const EdgeInsets.only(bottom: 10, left: 10, right: 15),
@@ -147,6 +181,10 @@ Text _titleApp() {
 }
 
 class _InputUserEmail extends ConsumerWidget {
+  final FocusNode focusNode;
+
+  const _InputUserEmail({required this.focusNode});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final resetPasswordProvider = ref.watch(passwordProvider);
@@ -162,6 +200,7 @@ class _InputUserEmail extends ConsumerWidget {
         ),
         Expanded(
           child: InputForm(
+            focus: focusNode,
             marginBottom: 0,
             value: resetPasswordProvider.emailOrUser,
             enable: true,
