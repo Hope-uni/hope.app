@@ -191,8 +191,8 @@ class ChangePasswordState {
     this.validationErrors = const {},
     this.viewPasswords = const {
       $password: true,
-      $newPassword: false,
-      $confirmNewPassword: false
+      $newPassword: true,
+      $confirmNewPassword: true
     },
   });
 
