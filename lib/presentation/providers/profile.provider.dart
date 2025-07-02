@@ -35,6 +35,7 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
       username: state.userName!,
       email: state.email!,
       birthday: state.profile!.birthday,
+      age: state.profile!.age,
       telephone: state.profile!.telephone ?? '',
       gender: state.profile!.gender,
       phoneNumber: state.profile!.phoneNumber ?? '',
@@ -62,6 +63,7 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
         telephone: profile.telephone,
         address: profile.address,
         birthday: profile.birthday,
+        age: profile.age,
         gender: profile.gender,
         imageUrl: profile.imageUrl,
       ),
@@ -143,6 +145,7 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
           telephone: profilePerson.telephone,
           address: profilePerson.address,
           birthday: profilePerson.birthday,
+          age: profilePerson.age,
           gender: profilePerson.gender,
           imageUrl: profilePerson.imageUrl,
         ),
@@ -188,8 +191,11 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
 
   void updateBirthday({required DateTime newDate}) {
     if (state.profile == null) return; // Evita errores si profile es null
+
+    Profile updatedProfile = state.profile!;
     String dateFormat = DateFormat('yyyy-MM-dd').format(newDate);
-    state.profile!.birthday = dateFormat;
+    updatedProfile = state.profile!.copyWith(birthday: dateFormat);
+    state = state.copyWith(profile: updatedProfile);
   }
 
   void updateProfileField({
@@ -301,52 +307,51 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
   }
 
   void updateResponse() {
-    state = state.copyWith(errorMessageApi: '', showtoastAlert: false);
+    state = state.copyWith(
+      errorMessageApi: '',
+      showtoastAlert: false,
+      isUnchanged: false,
+    );
   }
 
   bool checkFields() {
+    if (!_validateChanges()) {
+      state = state.copyWith(isUnchanged: true);
+      return false;
+    }
+
     Map<String, String?> errors = {};
 
     if (state.userName!.length <= 2 || state.userName!.length >= 16) {
-      errors[$userNameProfile] = S.current
-          .El_nombre_del_usuario_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres;
+      errors[$userNameProfile] =
+          S.current.El_nombre_del_usuario_no_puede_ser_menor_a_tres_caracteres;
     }
 
-    if (state.email == null || state.email!.isEmpty) {
-      errors[$emailProfile] = S.current.El_correo_no_puede_estar_vacio;
-    } else {
-      if (!$regexEmail.hasMatch(state.email!)) {
-        errors[$emailProfile] =
-            S.current.Formato_incorrecto_de_correo_electronico;
-      }
+    if (state.email == null ||
+        state.email!.isEmpty ||
+        !$regexEmail.hasMatch(state.email!)) {
+      errors[$emailProfile] = S.current
+          .El_correo_electronico_debe_ser_un_formato_correcto_y_no_estar_vacio;
     }
 
-    if (state.profile!.firstName.isEmpty) {
+    if (state.profile!.firstName.isEmpty ||
+        state.profile!.firstName.length <= 2 ||
+        state.profile!.firstName.length >= 16) {
       errors[$firstNameProfile] =
-          S.current.El_primer_nombre_no_puede_estar_vacio;
-    } else {
-      if (state.profile!.firstName.length <= 2 ||
-          state.profile!.firstName.length >= 16) {
-        errors[$firstNameProfile] = S.current
-            .El_primer_nombre_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres;
-      }
+          S.current.El_primer_nombre_no_puede_ser_menor_a_tres_caracteres;
     }
 
-    if (state.profile!.surname.isEmpty) {
+    if (state.profile!.surname.isEmpty ||
+        state.profile!.surname.length <= 2 ||
+        state.profile!.surname.length >= 16) {
       errors[$surnameProfile] =
-          S.current.El_primer_apellido_no_puede_estar_vacio;
-    } else {
-      if (state.profile!.surname.length <= 2 ||
-          state.profile!.surname.length >= 16) {
-        errors[$surnameProfile] = S.current
-            .El_primer_apellido_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres;
-      }
+          S.current.El_primer_apellido_no_puede_ser_menor_a_tres_caracteres;
     }
 
     if (state.profile!.address.length <= 5 ||
         state.profile!.address.length >= 255) {
-      errors[$addressProfile] = S.current
-          .La_direccion_no_puede_ser_menor_a_seis_o_mayor_a_doscientoscincuentaycinco_caracteres;
+      errors[$addressProfile] =
+          S.current.La_direccion_no_puede_ser_menor_a_seis_caracteres;
     }
 
     if (state.profile!.birthday.isEmpty) {
@@ -361,7 +366,7 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
     if (!$regexidentificationNumber
         .hasMatch(state.profile!.identificationNumber!)) {
       errors[$identificationNumbereProfile] =
-          S.current.Formato_incorrecto_de_cedula;
+          S.current.La_cedula_debe_ser_un_formato_correcto_y_no_estar_vacia;
     }
 
     if (!$regexphoneNumber.hasMatch(state.profile!.phoneNumber!)) {
@@ -369,8 +374,9 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
           S.current.El_celular_deber_ser_un_numero_valido_y_no_estar_vacio;
     }
 
-    if (state.profile!.telephone != null &&
-        !$regexTelephone.hasMatch(state.profile!.telephone!)) {
+    if (state.profile!.telephone == null ||
+        state.profile!.telephone != null &&
+            !$regexTelephone.hasMatch(state.profile!.telephone!)) {
       errors[$telephoneProfile] =
           S.current.El_telefono_deber_ser_un_numero_valido_y_no_estar_vacio;
     }
@@ -382,6 +388,10 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
     } else {
       return false;
     }
+  }
+
+  bool _validateChanges() {
+    return originalState!.profile == state.profile ? false : true;
   }
 
   void restoredState() {
@@ -405,6 +415,7 @@ class ProfileState {
   final List<String>? permmisions;
   final bool isLoading;
   final bool? isUpdateData;
+  final bool? isUnchanged;
   final bool? showtoastAlert;
   final String? errorMessageApi;
   final Map<String, String?> validationErrors;
@@ -419,6 +430,7 @@ class ProfileState {
     this.isLoading = true,
     this.isUpdateData,
     this.showtoastAlert = false,
+    this.isUnchanged = false,
     this.errorMessageApi,
     this.validationErrors = const {},
   });
@@ -432,6 +444,7 @@ class ProfileState {
     bool? isLoading,
     bool? isUpdateData,
     bool? showtoastAlert,
+    bool? isUnchanged,
     String? errorMessageApi,
     Map<String, String?>? validationErrors,
     List<String>? permmisions,
@@ -445,6 +458,7 @@ class ProfileState {
         isLoading: isLoading ?? this.isLoading,
         isUpdateData: isUpdateData ?? this.isUpdateData,
         showtoastAlert: showtoastAlert ?? this.showtoastAlert,
+        isUnchanged: isUnchanged ?? this.isUnchanged,
         errorMessageApi: errorMessageApi == ''
             ? null
             : errorMessageApi ?? this.errorMessageApi,

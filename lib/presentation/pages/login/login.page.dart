@@ -237,28 +237,30 @@ class _InputPassword extends ConsumerWidget {
           ),
         ),
         Expanded(
-          child: InputForm(
-            focus: focusNode,
-            errorText: loginForm.errorPassword,
-            marginBottom: 0,
-            enable: true,
-            value: loginForm.password,
-            obscureText: isVisiblePassword,
-            hint: S.current.Contrasena,
-            inputFormatters: [
-              FilteringTextInputFormatter.deny(
-                  RegExp(r'\s')), // Denegar espacios
-            ],
-            onChanged: ref.read(loginFormProvider.notifier).onPasswordChange,
-            suffixIcon: IconButton(
-              icon: isVisiblePassword
-                  ? const Icon(Icons.visibility_off)
-                  : const Icon(Icons.visibility),
-              onPressed: () {
-                ref
-                    .read(isVisiblePasswordProvider.notifier)
-                    .update((state) => !state);
-              },
+          child: Focus(
+            focusNode: focusNode,
+            child: InputForm(
+              errorText: loginForm.errorPassword,
+              marginBottom: 0,
+              enable: true,
+              value: loginForm.password,
+              obscureText: isVisiblePassword,
+              hint: S.current.Contrasena,
+              inputFormatters: [
+                FilteringTextInputFormatter.deny(
+                    RegExp(r'\s')), // Denegar espacios
+              ],
+              onChanged: ref.read(loginFormProvider.notifier).onPasswordChange,
+              suffixIcon: IconButton(
+                icon: isVisiblePassword
+                    ? const Icon(Icons.visibility_off)
+                    : const Icon(Icons.visibility),
+                onPressed: () {
+                  ref
+                      .read(isVisiblePasswordProvider.notifier)
+                      .update((state) => !state);
+                },
+              ),
             ),
           ),
         ),

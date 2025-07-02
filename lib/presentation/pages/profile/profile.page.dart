@@ -20,6 +20,7 @@ class ProfilePage extends ConsumerStatefulWidget {
 class _ProfilePageState extends ConsumerState<ProfilePage> {
   bool enableInput = false;
   bool clickSave = false;
+  bool isClickPhoto = false;
   String? imagePathCel;
 
   final CameraGalleryDataSourceImpl image = CameraGalleryDataSourceImpl();
@@ -79,6 +80,17 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
           profileNotifier.updateResponse();
         }
       }
+
+      if (next.isUnchanged == true) {
+        toastAlert(
+          context: context,
+          title: S.current.Aviso,
+          description: S.current.No_se_han_realizados_cambios_en_el_formulario,
+          typeAlert: ToastificationType.info,
+        );
+        profileNotifier.updateResponse();
+      }
+
       if (next.errorMessageApi != null) {
         toastAlert(
           context: context,
@@ -93,9 +105,6 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     final Size size = MediaQuery.of(context).size;
     const double sizeInputs = 150;
 
-    if (profileState.isLoading) {
-      return const Center(child: CircularProgressIndicator());
-    }
     controller.text =
         profileState.profile!.birthday.split('-').reversed.join('-');
 
@@ -117,6 +126,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
         initialDate: DateTime(year, month, day),
         firstDate: firstDate,
         lastDate: lastDate,
+        // TODO: Modificar a una variable si se implementara el cambio de idioma
+        locale: const Locale('es', 'ES'),
+        helpText: ' ',
       );
 
       if (pickedDate != null) {
@@ -130,21 +142,33 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     }
 
     Future<void> selectImage() async {
+      setState(() {
+        isClickPhoto = true;
+      });
       final String? imagePath = await image.selectImage();
       if (imagePath != null) {
         final file = File(imagePath);
         profileNotifier.updateImage(file);
         setState(() => imagePathCel = imagePath);
       }
+      setState(() {
+        isClickPhoto = false;
+      });
     }
 
     Future<void> takePhoto() async {
+      setState(() {
+        isClickPhoto = true;
+      });
       final String? imagePath = await image.takePhoto();
       if (imagePath != null) {
         final file = File(imagePath);
         profileNotifier.updateImage(file);
         setState(() => imagePathCel = imagePath);
       }
+      setState(() {
+        isClickPhoto = false;
+      });
     }
 
     return Stack(
@@ -500,6 +524,14 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                           errorText:
                               profileState.validationErrors[$birthdayProfile],
                         ),
+                        Visibility(
+                          visible: !enableInput,
+                          child: InputForm(
+                            label: S.current.Edad,
+                            value: profileState.profile!.age.toString(),
+                            enable: false,
+                          ),
+                        ),
                         if (profileState.roles!.contains($tutor))
                           Focus(
                             focusNode: focusNodes[$telephoneProfile],
@@ -684,6 +716,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                               });
                               WidgetsBinding.instance.addPostFrameCallback((_) {
                                 // Aquí puedes actualizar el estado o realizar alguna acción
+                                imagePathCel = null;
                                 ref
                                     .read(profileProvider.notifier)
                                     .restoredState();
@@ -696,12 +729,12 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                   ),
           ),
         ),
-        if (profileState.isUpdateData == true)
+        if (profileState.isUpdateData == true || isClickPhoto == true)
           const Opacity(
             opacity: 0.5,
             child: ModalBarrier(dismissible: false, color: $colorTextBlack),
           ),
-        if (profileState.isUpdateData == true)
+        if (profileState.isUpdateData == true || isClickPhoto == true)
           Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,
