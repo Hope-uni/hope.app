@@ -50,6 +50,7 @@ class ChildNotifier extends StateNotifier<ChildState> {
       username: state.child!.username,
       email: state.child!.email,
       birthday: state.child!.birthday,
+      age: state.child!.age,
       address: state.child!.address,
       imageUrl: state.child!.imageUrl,
       secondName: state.child!.secondName,
@@ -68,6 +69,7 @@ class ChildNotifier extends StateNotifier<ChildState> {
       final child = state.child!.copyWith(
         address: responseChild.data!.address,
         birthday: responseChild.data!.birthday,
+        age: responseChild.data!.age,
         email: responseChild.data!.email,
         firstName: responseChild.data!.firstName,
         gender: responseChild.data!.gender,
@@ -221,44 +223,43 @@ class ChildNotifier extends StateNotifier<ChildState> {
   }
 
   bool checkFields() {
+    if (!validateChanges()) {
+      state = state.copyWith(isUnchanged: true);
+      return false;
+    }
+
     Map<String, String?> errors = {};
 
     if (state.child!.username.length <= 2 ||
         state.child!.username.length >= 16) {
-      errors[$userNameProfile] = S.current
-          .El_nombre_del_usuario_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres;
+      errors[$userNameProfile] =
+          S.current.El_nombre_del_usuario_no_puede_ser_menor_a_tres_caracteres;
     }
 
-    if (state.child!.email.isEmpty) {
-      errors[$emailProfile] = S.current.El_correo_no_puede_estar_vacio;
+    if (state.child!.email.isEmpty ||
+        !$regexEmail.hasMatch(state.child!.email)) {
+      errors[$emailProfile] = S.current
+          .El_correo_electronico_debe_ser_un_formato_correcto_y_no_estar_vacio;
     }
 
-    if (state.child!.firstName.isEmpty) {
+    if (state.child!.firstName.isEmpty ||
+        state.child!.firstName.length <= 2 ||
+        state.child!.firstName.length >= 16) {
       errors[$firstNameProfile] =
-          S.current.El_primer_nombre_no_puede_estar_vacio;
-    } else {
-      if (state.child!.firstName.length <= 2 ||
-          state.child!.firstName.length >= 16) {
-        errors[$firstNameProfile] = S.current
-            .El_primer_nombre_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres;
-      }
+          S.current.El_primer_nombre_no_puede_ser_menor_a_tres_caracteres;
     }
 
-    if (state.child!.surname.isEmpty) {
+    if (state.child!.surname.isEmpty ||
+        state.child!.surname.length <= 2 ||
+        state.child!.surname.length >= 16) {
       errors[$surnameProfile] =
-          S.current.El_primer_apellido_no_puede_estar_vacio;
-    } else {
-      if (state.child!.surname.length <= 2 ||
-          state.child!.surname.length >= 16) {
-        errors[$surnameProfile] = S.current
-            .El_primer_apellido_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres;
-      }
+          S.current.El_primer_apellido_no_puede_ser_menor_a_tres_caracteres;
     }
 
     if (state.child!.address.length <= 5 ||
         state.child!.address.length >= 255) {
-      errors[$addressProfile] = S.current
-          .La_direccion_no_puede_ser_menor_a_seis_o_mayor_a_doscientoscincuentaycinco_caracteres;
+      errors[$addressProfile] =
+          S.current.La_direccion_no_puede_ser_menor_a_seis_caracteres;
     }
 
     if (state.child!.birthday.isEmpty) {
@@ -278,11 +279,17 @@ class ChildNotifier extends StateNotifier<ChildState> {
     }
   }
 
+  bool validateChanges() {
+    return originalState!.child == state.child ? false : true;
+  }
+
   void updateBirthday({required DateTime newDate}) {
     if (state.child == null) return; // Evita errores si profile es null
+
+    Child updatedChild = state.child!;
     String dateFormat = DateFormat('yyyy-MM-dd').format(newDate);
-    state.child!.birthday = dateFormat;
-    state = state;
+    updatedChild = state.child!.copyWith(birthday: dateFormat);
+    state = state.copyWith(child: updatedChild);
   }
 
   void updateResponse() {
@@ -290,6 +297,7 @@ class ChildNotifier extends StateNotifier<ChildState> {
       errorMessageApi: '',
       isComplete: false,
       isUpdateMonochrome: false,
+      isUnchanged: false,
     );
   }
 
@@ -306,7 +314,7 @@ class ChildNotifier extends StateNotifier<ChildState> {
     }
   }
 
-  void assingState() => originalState = state;
+  void assingStateChild() => originalState = state;
 }
 
 class ChildState {
@@ -317,6 +325,7 @@ class ChildState {
   final bool isComplete;
   final bool isUpdateMonochrome;
   final bool? isError;
+  final bool? isUnchanged;
   final String? errorMessageApi;
   final Map<String, String?> validationErrors;
 
@@ -327,6 +336,7 @@ class ChildState {
     this.isUpdateData = false,
     this.isComplete = false,
     this.isUpdateMonochrome = false,
+    this.isUnchanged = false,
     this.isError,
     this.errorMessageApi,
     this.validationErrors = const {},
@@ -339,6 +349,7 @@ class ChildState {
     bool? isUpdateData,
     bool? isComplete,
     bool? isUpdateMonochrome,
+    bool? isUnchanged,
     bool? isError,
     Map<String, String?>? validationErrors,
     String? errorMessageApi,
@@ -349,6 +360,7 @@ class ChildState {
         isUpdateData: isUpdateData ?? this.isUpdateData,
         isError: isError ?? this.isError,
         isUpdateMonochrome: isUpdateMonochrome ?? this.isUpdateMonochrome,
+        isUnchanged: isUnchanged ?? this.isUnchanged,
         validationErrors: validationErrors ?? this.validationErrors,
         isComplete: isComplete ?? this.isComplete,
         errorMessageApi: errorMessageApi == ''

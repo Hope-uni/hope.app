@@ -157,14 +157,13 @@ class ActivityNotifier extends StateNotifier<ActivityState> {
 
     if (state.activity!.name.length <= 2 ||
         state.activity!.name.length >= 100) {
-      errors[$name] = S.current
-          .El_nombre_no_puede_ser_menor_a_tres_o_mayor_a_cien_caracteres;
+      errors[$name] = S.current.El_nombre_no_puede_ser_menor_a_tres_caracteres;
     }
 
     if (state.activity!.description.length <= 5 ||
         state.activity!.description.length >= 255) {
-      errors[$description] = S.current
-          .La_descripcion_no_puede_ser_menor_a_seis_o_mayor_a_doscientoscincuentaycinco_caracteres;
+      errors[$description] =
+          S.current.La_descripcion_no_puede_ser_menor_a_seis_caracteres;
     }
 
     if (state.activity!.satisfactoryPoints <= 0) {

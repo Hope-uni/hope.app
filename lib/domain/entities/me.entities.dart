@@ -52,6 +52,7 @@ class Profile {
   String? telephone;
   String address;
   String birthday;
+  int age;
   String gender;
   String? imageUrl;
   bool? isMonochrome;
@@ -68,6 +69,7 @@ class Profile {
     required this.telephone,
     required this.address,
     required this.birthday,
+    required this.age,
     required this.gender,
     this.imageUrl,
     this.isMonochrome,
@@ -82,6 +84,7 @@ class Profile {
     String? identificationNumber,
     String? address,
     String? birthday,
+    int? age,
     String? telephone,
     String? phoneNumber,
     int? profileId,
@@ -98,6 +101,7 @@ class Profile {
       identificationNumber: identificationNumber ?? this.identificationNumber,
       address: address ?? this.address,
       birthday: birthday ?? this.birthday,
+      age: age ?? this.age,
       telephone: telephone ?? this.telephone,
       phoneNumber: phoneNumber ?? this.phoneNumber,
       profileId: profileId ?? this.profileId,
