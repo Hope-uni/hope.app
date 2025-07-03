@@ -76,7 +76,6 @@ class AuthNotifier extends StateNotifier<AuthState> {
       }
 
       settearDataMe(me: dataMe, token: token);
-      state = state.copyWith(isloading: false);
     } on CustomError catch (e) {
       if (e.errorCode == 403 && e.dataError != null) {
         //Validando el Rol si el usuario no esta verificado
@@ -150,6 +149,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     state = state.copyWith(
       authStatus: AuthStatus.notAuthenticated,
       token: null,
+      isloading: false,
     );
   }
 

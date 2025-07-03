@@ -4,7 +4,6 @@ class Child extends Person {
   int id;
   int userId;
   String fullName;
-  int age;
   CatalogObject teaDegree;
   CatalogObject currentPhase;
   Progress progress;
@@ -28,7 +27,7 @@ class Child extends Person {
     required super.surname,
     super.secondSurname,
     required super.gender,
-    required this.age,
+    required super.age,
     super.imageUrl,
     required super.username,
     required super.email,
