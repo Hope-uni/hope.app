@@ -207,9 +207,10 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "El celular debe ser un número válido y no estar vacío",
         ),
-    "El_correo_no_puede_estar_vacio": MessageLookupByLibrary.simpleMessage(
-      "El correo no puede estar vacío",
-    ),
+    "El_correo_electronico_debe_ser_un_formato_correcto_y_no_estar_vacio":
+        MessageLookupByLibrary.simpleMessage(
+          "El correo electrónico debe ser un formato correcto y no estar vacío",
+        ),
     "El_limite_de_pictogramas_para_la_solucion_es_de_treinta":
         MessageLookupByLibrary.simpleMessage(
           "El límite de pictogramas para la solución es de 30",
@@ -226,37 +227,25 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "El nombre del pictograma no puede estar vacío",
         ),
-    "El_nombre_del_usuario_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres":
+    "El_nombre_del_usuario_no_puede_ser_menor_a_tres_caracteres":
         MessageLookupByLibrary.simpleMessage(
-          "El nombre del usuario no puede ser menor a 3 o mayor a 15 caracteres",
+          "El nombre del usuario no puede ser menor a 3 caracteres",
         ),
-    "El_nombre_no_puede_ser_menor_a_tres_o_mayor_a_cien_caracteres":
+    "El_nombre_no_puede_ser_menor_a_tres_caracteres":
         MessageLookupByLibrary.simpleMessage(
-          "El nombre no puede ser menor a 3 o mayor a 100 caracteres",
-        ),
-    "El_nombre_no_puede_ser_menor_a_tres_o_mayor_a_sesenta_caracteres":
-        MessageLookupByLibrary.simpleMessage(
-          "El nombre no puede ser menor a 3 o mayor a 60 caracteres",
+          "El nombre no puede ser menor a 3 caracteres",
         ),
     "El_paciente_no_tiene_actividad_asignada_actualmente":
         MessageLookupByLibrary.simpleMessage(
           "El paciente no tiene actividad asignada actualmente",
         ),
-    "El_primer_apellido_no_puede_estar_vacio":
+    "El_primer_apellido_no_puede_ser_menor_a_tres_caracteres":
         MessageLookupByLibrary.simpleMessage(
-          "El primer apellido no puede estar vacío",
+          "El primer apellido no puede ser menor a 3 caracteres",
         ),
-    "El_primer_apellido_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres":
+    "El_primer_nombre_no_puede_ser_menor_a_tres_caracteres":
         MessageLookupByLibrary.simpleMessage(
-          "El primer apellido no puede ser menor a 3 o mayor a 15 caracteres",
-        ),
-    "El_primer_nombre_no_puede_estar_vacio":
-        MessageLookupByLibrary.simpleMessage(
-          "El primer nombre no puede estar vacío",
-        ),
-    "El_primer_nombre_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres":
-        MessageLookupByLibrary.simpleMessage(
-          "El primer nombre no puede ser menor a 3 o mayor a 15 caracteres",
+          "El primer nombre no puede ser menor a 3 caracteres",
         ),
     "El_sexo_no_puede_estar_vacio": MessageLookupByLibrary.simpleMessage(
       "El sexo no puede estar vacío",
@@ -339,13 +328,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "Flujo_para_asignacion_de_actividad": MessageLookupByLibrary.simpleMessage(
       "Flujo para asignación de actividad:",
     ),
-    "Formato_incorrecto_de_cedula": MessageLookupByLibrary.simpleMessage(
-      "Formato incorrecto de cédula (###-######-####L)",
-    ),
-    "Formato_incorrecto_de_correo_electronico":
-        MessageLookupByLibrary.simpleMessage(
-          "Formato incorrecto de correo electrónico",
-        ),
     "Galeria": MessageLookupByLibrary.simpleMessage("Galería"),
     "Grado_de_autismo_actual": MessageLookupByLibrary.simpleMessage(
       "Grado de autismo actual",
@@ -407,6 +389,10 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "La actividad se guardó correctamente",
         ),
+    "La_cedula_debe_ser_un_formato_correcto_y_no_estar_vacia":
+        MessageLookupByLibrary.simpleMessage(
+          "La cédula debe ser un formato correcto y no estar vacía (###-######-####L)",
+        ),
     "La_contrasena_actual_no_puede_estar_vacia":
         MessageLookupByLibrary.simpleMessage(
           "La contraseña actual no puede estar vacía",
@@ -426,20 +412,16 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "La descripción de la actividad no puede estar vacía",
         ),
-    "La_descripcion_debe_tener_entre_seis_y_doscientoscincuentaycinco_caracteres":
+    "La_descripcion_no_puede_ser_menor_a_seis_caracteres":
         MessageLookupByLibrary.simpleMessage(
-          "La descripción debe tener entre 6 y 255 caracteres",
-        ),
-    "La_descripcion_no_puede_ser_menor_a_seis_o_mayor_a_doscientoscincuentaycinco_caracteres":
-        MessageLookupByLibrary.simpleMessage(
-          "La descripción no puede ser menor a 6 o mayor a 255 caracteres",
+          "La descripción no puede ser menor a 6 caracteres",
         ),
     "La_direccion_no_puede_estar_vacia": MessageLookupByLibrary.simpleMessage(
       "La dirección no puede estar vacía",
     ),
-    "La_direccion_no_puede_ser_menor_a_seis_o_mayor_a_doscientoscincuentaycinco_caracteres":
+    "La_direccion_no_puede_ser_menor_a_seis_caracteres":
         MessageLookupByLibrary.simpleMessage(
-          "La dirección no puede ser menor a 6 o mayor a 255 caracteres",
+          "La dirección no puede ser menor a 6 caracteres",
         ),
     "La_fecha_de_nacimiento_no_puede_estar_vacia":
         MessageLookupByLibrary.simpleMessage(
@@ -499,6 +481,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "No_esta_autorizado_para_iniciar_sesion_en_la_APP":
         MessageLookupByLibrary.simpleMessage(
           "No está autorizado para iniciar sesión en la APP",
+        ),
+    "No_se_han_realizados_cambios_en_el_formulario":
+        MessageLookupByLibrary.simpleMessage(
+          "No se han realizados cambios en el formulario",
         ),
     "No_tiene_permiso_para_listar_categorias_de_pictogramas":
         MessageLookupByLibrary.simpleMessage(

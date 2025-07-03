@@ -16,6 +16,9 @@ class LoginPage extends ConsumerStatefulWidget {
 }
 
 class LoginPageState extends ConsumerState<LoginPage> {
+  final FocusNode _passwordFocusNode = FocusNode();
+  final ScrollController _scrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
@@ -24,6 +27,30 @@ class LoginPageState extends ConsumerState<LoginPage> {
       SystemUiMode.manual,
       overlays: SystemUiOverlay.values,
     );
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
+    );
+    _passwordFocusNode.addListener(_onFocusChange);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    _passwordFocusNode.dispose();
+    super.dispose();
+  }
+
+  void _onFocusChange() {
+    if (_passwordFocusNode.hasFocus) {
+      // Esperamos un frame para que el teclado se muestre antes de hacer scroll
+      Future.delayed(const Duration(milliseconds: 500), () {
+        _scrollController.animateTo(
+          _scrollController.offset + 100,
+          duration: const Duration(milliseconds: 100),
+          curve: Curves.bounceIn,
+        );
+      });
+    }
   }
 
   @override
@@ -48,9 +75,14 @@ class LoginPageState extends ConsumerState<LoginPage> {
         body: Stack(
           children: [
             SingleChildScrollView(
+              controller: _scrollController,
               child: Column(
                 children: [
-                  const AuthBackground(isLogin: true, formChild: LoginForsm()),
+                  AuthBackground(
+                      isLogin: true,
+                      formChild: LoginForsm(
+                        passwordFocusNode: _passwordFocusNode,
+                      )),
                   Container(
                     alignment: Alignment.center,
                     height: 30,
@@ -94,7 +126,9 @@ class LoginPageState extends ConsumerState<LoginPage> {
 }
 
 class LoginForsm extends StatelessWidget {
-  const LoginForsm({super.key});
+  final FocusNode passwordFocusNode;
+
+  const LoginForsm({super.key, required this.passwordFocusNode});
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +145,7 @@ class LoginForsm extends StatelessWidget {
         ),
         const SizedBox(height: 15),
         _InputUserName(),
-        _InputPassword(),
+        _InputPassword(focusNode: passwordFocusNode),
         //Forget Password
         Container(
           alignment: Alignment.centerRight,
@@ -183,6 +217,10 @@ class _InputUserName extends ConsumerWidget {
 }
 
 class _InputPassword extends ConsumerWidget {
+  final FocusNode focusNode;
+
+  const _InputPassword({required this.focusNode});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loginForm = ref.watch(loginFormProvider);
@@ -199,27 +237,30 @@ class _InputPassword extends ConsumerWidget {
           ),
         ),
         Expanded(
-          child: InputForm(
-            errorText: loginForm.errorPassword,
-            marginBottom: 0,
-            enable: true,
-            value: loginForm.password,
-            obscureText: isVisiblePassword,
-            hint: S.current.Contrasena,
-            inputFormatters: [
-              FilteringTextInputFormatter.deny(
-                  RegExp(r'\s')), // Denegar espacios
-            ],
-            onChanged: ref.read(loginFormProvider.notifier).onPasswordChange,
-            suffixIcon: IconButton(
-              icon: isVisiblePassword
-                  ? const Icon(Icons.visibility_off)
-                  : const Icon(Icons.visibility),
-              onPressed: () {
-                ref
-                    .read(isVisiblePasswordProvider.notifier)
-                    .update((state) => !state);
-              },
+          child: Focus(
+            focusNode: focusNode,
+            child: InputForm(
+              errorText: loginForm.errorPassword,
+              marginBottom: 0,
+              enable: true,
+              value: loginForm.password,
+              obscureText: isVisiblePassword,
+              hint: S.current.Contrasena,
+              inputFormatters: [
+                FilteringTextInputFormatter.deny(
+                    RegExp(r'\s')), // Denegar espacios
+              ],
+              onChanged: ref.read(loginFormProvider.notifier).onPasswordChange,
+              suffixIcon: IconButton(
+                icon: isVisiblePassword
+                    ? const Icon(Icons.visibility_off)
+                    : const Icon(Icons.visibility),
+                onPressed: () {
+                  ref
+                      .read(isVisiblePasswordProvider.notifier)
+                      .update((state) => !state);
+                },
+              ),
             ),
           ),
         ),

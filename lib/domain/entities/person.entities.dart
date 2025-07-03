@@ -8,6 +8,7 @@ class Person {
   String username;
   String email;
   String birthday;
+  int age;
   String address;
 
   Person({
@@ -20,6 +21,7 @@ class Person {
     required this.username,
     required this.email,
     required this.birthday,
+    required this.age,
     required this.address,
   });
 }
