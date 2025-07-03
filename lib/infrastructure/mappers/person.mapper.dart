@@ -11,6 +11,7 @@ class PersonMapper {
         username: json["username"],
         email: json["email"],
         birthday: json["birthday"],
+        age: json["age"],
         address: json["address"],
       );
 
@@ -24,6 +25,7 @@ class PersonMapper {
         "username": person.username,
         "email": person.email,
         "birthday": person.birthday,
+        "age": person.age,
         "address": person.address,
       };
 }

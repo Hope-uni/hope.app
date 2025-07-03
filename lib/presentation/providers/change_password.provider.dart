@@ -87,6 +87,9 @@ class ChangePasswordNotifier extends StateNotifier<ChangePasswordState> {
         if ($regexPassword.hasMatch(newValue)) {
           newValidationErrors.remove($newPassword);
         }
+        if (newValue == state.passwords!.confirmNewPassword) {
+          newValidationErrors.remove($confirmNewPassword);
+        }
         passwords = state.passwords!.copyWith(newPassword: newValue);
         break;
       case $confirmNewPassword:
@@ -191,8 +194,8 @@ class ChangePasswordState {
     this.validationErrors = const {},
     this.viewPasswords = const {
       $password: true,
-      $newPassword: false,
-      $confirmNewPassword: false
+      $newPassword: true,
+      $confirmNewPassword: true
     },
   });
 

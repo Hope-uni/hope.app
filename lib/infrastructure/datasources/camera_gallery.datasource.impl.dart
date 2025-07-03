@@ -1,5 +1,6 @@
 import 'package:hope_app/domain/domain.dart';
 import 'package:hope_app/generated/l10n.dart';
+import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -43,6 +44,9 @@ class CameraGalleryDataSourceImpl extends CameraGalleryDataSource {
         AndroidUiSettings(
           toolbarTitle: S.current.Recortar_imagen,
           lockAspectRatio: true,
+          toolbarColor: $colorTextWhite,
+          toolbarWidgetColor: $colorTextBlack,
+          statusBarColor: $colorTextWhite,
           initAspectRatio: CropAspectRatioPreset.square,
           hideBottomControls: true,
         ),

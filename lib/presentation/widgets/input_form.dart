@@ -24,8 +24,6 @@ class InputForm extends StatefulWidget {
 
   final Widget? suffixIcon;
 
-  final FocusNode? focus;
-
   final List<TextInputFormatter>? inputFormatters;
 
   final Function(String)? onChanged;
@@ -48,7 +46,6 @@ class InputForm extends StatefulWidget {
     this.onTap,
     this.onChanged,
     this.hint,
-    this.focus,
     this.marginBottom,
     this.obscureText,
     this.suffixIcon,
@@ -72,6 +69,10 @@ class _InputFormState extends State<InputForm> {
   bool _hasStartedTyping = false;
   List<TextInputFormatter>? inputFormatters;
 
+  Color _coloLabel = Colors.black;
+
+  final FocusNode _focus = FocusNode();
+
   @override
   void initState() {
     super.initState();
@@ -79,13 +80,20 @@ class _InputFormState extends State<InputForm> {
         widget.controllerExt ?? TextEditingController(text: widget.value);
     if (widget.onSearch != null) _controller.addListener(_onSearchTextChanged);
 
+    _coloLabel = _controller.text.isNotEmpty
+        ? Colors.black
+        : const Color.fromARGB(255, 134, 134, 134);
+    _focus.addListener(onChageColorLabel);
+
     // Solo un tipo de inputFormatter será aplicado
     if (widget.isNumber == true) {
       inputFormatters = [FilteringTextInputFormatter.digitsOnly];
     } else if (widget.inputFormatters != null) {
       inputFormatters = widget.inputFormatters;
     } else if (widget.allCharacters == false) {
-      inputFormatters = [FilteringTextInputFormatter.allow(RegExp('[a-zA-Z]'))];
+      inputFormatters = [
+        FilteringTextInputFormatter.allow(RegExp(r"[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]"))
+      ];
     } else if (widget.isNumberLetter == true) {
       inputFormatters = [
         FilteringTextInputFormatter.allow(
@@ -94,6 +102,18 @@ class _InputFormState extends State<InputForm> {
       ];
     } else {
       inputFormatters = null; // o una lista vacía si prefieres evitar nulls
+    }
+  }
+
+  onChageColorLabel() {
+    if (_focus.hasFocus) {
+      setState(() {
+        _coloLabel = Colors.black;
+      });
+    } else {
+      _coloLabel = _controller.text.isNotEmpty
+          ? Colors.black
+          : const Color.fromARGB(255, 134, 134, 134);
     }
   }
 
@@ -132,6 +152,8 @@ class _InputFormState extends State<InputForm> {
     super.dispose();
     if (widget.onSearch != null) _controller.dispose();
     _debounceTimer?.cancel();
+    _focus.dispose();
+    if (widget.controllerExt == null) _controller.dispose();
   }
 
   @override
@@ -144,8 +166,8 @@ class _InputFormState extends State<InputForm> {
         bottom: widget.marginBottom == null ? 12.5 : widget.marginBottom!,
       ),
       child: TextField(
-        focusNode: widget.focus,
-        controller: widget.controllerExt ?? _controller,
+        focusNode: _focus,
+        controller: _controller,
         onChanged: widget.onChanged,
         enabled: widget.enable,
         readOnly: widget.readOnly ?? false,
@@ -153,17 +175,19 @@ class _InputFormState extends State<InputForm> {
         obscureText: widget.obscureText ?? false,
         maxLength: widget.enable ? widget.maxLength : null,
         style: const TextStyle(color: $colorTextBlack),
-        textCapitalization: TextCapitalization.sentences,
         inputFormatters: inputFormatters,
         keyboardType: widget.isNumber == true
             ? TextInputType.number
             : TextInputType.emailAddress,
         onTap: widget.onTap,
         decoration: InputDecoration(
-          labelText: widget.label,
+          label: Text(
+            widget.label ?? '',
+            style: TextStyle(color: _coloLabel),
+          ),
           suffixIcon: widget.suffixIcon,
           errorText: widget.errorText,
-          errorMaxLines: 2,
+          errorMaxLines: 3,
           hintText: widget.hint,
           filled: widget.colorFilled != null ? true : false,
           fillColor: widget.colorFilled,
@@ -172,7 +196,7 @@ class _InputFormState extends State<InputForm> {
             borderRadius: BorderRadius.all(Radius.circular(15)),
           ),
           counterText: widget.maxLength != null && widget.enable
-              ? '$textLength/ ${widget.maxLength}'
+              ? '    $textLength/ ${widget.maxLength}'
               : ' ', //Dejar el espacio en blanco para que no se descuadre el contenido cuando no tiene counterText
         ),
       ),
