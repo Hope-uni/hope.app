@@ -159,19 +159,6 @@ class ActivitiesPageState extends ConsumerState<ActivitiesPage> {
                                 ),
                                 const SizedBox(height: 30),
                                 Text(
-                                  S.current
-                                      .Para_refrescar_el_listado_de_actividades,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
-                                Text(
-                                  S.current
-                                      .Deslizar_el_dedo_desde_arriba_hacia_abajo_en_la_parte_superior_de_la_pantalla,
-                                ),
-                                const SizedBox(height: 30),
-                                Text(
                                   S.current.Para_crear_actividades,
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
@@ -181,6 +168,19 @@ class ActivitiesPageState extends ConsumerState<ActivitiesPage> {
                                 Text(
                                   S.current
                                       .Hacer_clic_sobre_el_boton_verde_en_la_parte_inferior_derecha_de_la_pantalla,
+                                ),
+                                const SizedBox(height: 30),
+                                Text(
+                                  S.current
+                                      .Para_verificar_la_actividad_asignada_a_un_paciente,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                Text(
+                                  S.current
+                                      .Debe_presionar_el_boton_de_validar_la_actividad_durante_tres_segundos_desde_el_tablero_de_comunicacion,
                                 ),
                               ],
                             ),

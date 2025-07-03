@@ -179,6 +179,10 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "Debe ingresar el nombre de usuario o correo",
         ),
+    "Debe_presionar_el_boton_de_validar_la_actividad_durante_tres_segundos_desde_el_tablero_de_comunicacion":
+        MessageLookupByLibrary.simpleMessage(
+          "• Debe presionar el botón de validar la actividad durante tres segundos desde el tablero de comunicación",
+        ),
     "Debe_seleccionar_al_menos_un_pictograma_para_la_solucion":
         MessageLookupByLibrary.simpleMessage(
           "Debe seleccionar al menos un pictograma para la solución",
@@ -189,10 +193,6 @@ class MessageLookup extends MessageLookupByLibrary {
         ),
     "Derechos_reservados": m0,
     "Descripcion": MessageLookupByLibrary.simpleMessage("Descripción"),
-    "Deslizar_el_dedo_desde_arriba_hacia_abajo_en_la_parte_superior_de_la_pantalla":
-        MessageLookupByLibrary.simpleMessage(
-          "• Deslizar el dedo desde arriba hacia abajo en la parte superior de la pantalla",
-        ),
     "Direccion": MessageLookupByLibrary.simpleMessage("Dirección"),
     "Edad": MessageLookupByLibrary.simpleMessage("Edad"),
     "Editar": MessageLookupByLibrary.simpleMessage("Editar"),
@@ -203,6 +203,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Editar_pictograma": MessageLookupByLibrary.simpleMessage(
       "Editar pictograma",
     ),
+    "El_administrador_y_el_terapeuta_que_asigno_la_actividad_son_los_unicos_que_pueden_desasignar_la_actividad":
+        MessageLookupByLibrary.simpleMessage(
+          "• El administrador y el terapeuta que asignó la actividad son los únicos que pueden desasignar la actividad",
+        ),
     "El_celular_deber_ser_un_numero_valido_y_no_estar_vacio":
         MessageLookupByLibrary.simpleMessage(
           "El celular debe ser un número válido y no estar vacío",
@@ -235,9 +239,24 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "El nombre no puede ser menor a 3 caracteres",
         ),
+    "El_paciente_no_tenga_actividad_asignada":
+        MessageLookupByLibrary.simpleMessage(
+          "• El paciente no tenga actividad asignada",
+        ),
     "El_paciente_no_tiene_actividad_asignada_actualmente":
         MessageLookupByLibrary.simpleMessage(
           "El paciente no tiene actividad asignada actualmente",
+        ),
+    "El_paciente_pertenezca_a_la_misma_fase_de_la_actividad":
+        MessageLookupByLibrary.simpleMessage(
+          "• El paciente pertenezca a la misma fase de la actividad",
+        ),
+    "El_paciente_se_encuentre_verificado": MessageLookupByLibrary.simpleMessage(
+      "• El paciente se encuentre verificado",
+    ),
+    "El_paciente_tenga_terapeuta_asignado":
+        MessageLookupByLibrary.simpleMessage(
+          "• El paciente tenga terapeuta asignado",
         ),
     "El_primer_apellido_no_puede_ser_menor_a_tres_caracteres":
         MessageLookupByLibrary.simpleMessage(
@@ -524,21 +543,13 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "• Para finalizar asignación, hacer clic sobre el botón en la esquina inferior derecha y seleccionar la opción de guardar",
         ),
+    "Para_listar_los_pacientes_disponibles_se_aplican_los_siguientes_filtros":
+        MessageLookupByLibrary.simpleMessage(
+          "Para listar los pacientes disponibles, se aplican los siguientes filtros",
+        ),
     "Para_quitar_asignacion_de_actividad_a_los_pacientes":
         MessageLookupByLibrary.simpleMessage(
           "Para quitar asignación de actividad a los pacientes:",
-        ),
-    "Para_refrescar_el_listado_de_actividades":
-        MessageLookupByLibrary.simpleMessage(
-          "Para refrescar el listado de actividades:",
-        ),
-    "Para_refrescar_el_listado_de_los_ninos_asignados":
-        MessageLookupByLibrary.simpleMessage(
-          "Para refrescar el listado de los niños asignados:",
-        ),
-    "Para_refrescar_el_listado_de_los_pacientes_asignados":
-        MessageLookupByLibrary.simpleMessage(
-          "Para refrescar el listado de los pacientes asignados:",
         ),
     "Para_reordenar_la_solucion": MessageLookupByLibrary.simpleMessage(
       "Para reordenar la solución:",
@@ -574,6 +585,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Para_ver_los_logros_con_mas_detalle": MessageLookupByLibrary.simpleMessage(
       "Para ver los logros con más detalle:",
     ),
+    "Para_verificar_la_actividad_asignada_a_un_paciente":
+        MessageLookupByLibrary.simpleMessage(
+          "Para verificar la actividad asignada a un paciente",
+        ),
     "Perfil": MessageLookupByLibrary.simpleMessage("Perfil"),
     "Personalizar_pictograma": MessageLookupByLibrary.simpleMessage(
       "Personalizar pictograma",

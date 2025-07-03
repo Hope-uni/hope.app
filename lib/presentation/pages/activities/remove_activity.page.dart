@@ -154,7 +154,17 @@ class RemoveAcivityPageState extends ConsumerState<RemoveAcivityPage> {
                             ),
                             const SizedBox(height: 10),
                             Text(S.current
-                                .Hacer_clic_sobre_el_icono_rojo_del_basurero_al_paciente_que_le_desee_quitar_la_actividad)
+                                .Hacer_clic_sobre_el_icono_rojo_del_basurero_al_paciente_que_le_desee_quitar_la_actividad),
+                            const SizedBox(height: 30),
+                            Text(
+                              S.current
+                                  .Para_listar_los_pacientes_disponibles_se_aplican_los_siguientes_filtros,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 10),
+                            Text(S.current
+                                .El_administrador_y_el_terapeuta_que_asigno_la_actividad_son_los_unicos_que_pueden_desasignar_la_actividad)
                           ],
                         ),
                       ),
