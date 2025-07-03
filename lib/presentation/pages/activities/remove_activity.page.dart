@@ -171,19 +171,7 @@ class RemoveAcivityPageState extends ConsumerState<RemoveAcivityPage> {
         margin: const EdgeInsets.symmetric(horizontal: 7.5),
         child: Column(
           children: [
-            const SizedBox(height: 25),
-            InputForm(
-              value: '',
-              enable: true,
-              label: S.current.Busqueda_por_nombre,
-              marginBottom: 0,
-              //TODO: Implementar condicional con provider cuando este listo el endpoint
-              suffixIcon: true
-                  ? const Icon(
-                      Icons.search,
-                    )
-                  : IconButton(onPressed: () {}, icon: const Icon(Icons.clear)),
-            ),
+            const SizedBox(height: 10),
             Expanded(
               child: Stack(
                 children: [

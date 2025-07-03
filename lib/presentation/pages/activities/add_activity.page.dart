@@ -195,25 +195,6 @@ class AddActivityPageState extends ConsumerState<AddActivityPage> {
                         inactiveColor: $colorButtonDisable,
                         lineWidth: 3.5,
                       ),
-                      const SizedBox(height: 25),
-                      Visibility(
-                        visible: currentStep == 1 ? true : false,
-                        child: InputForm(
-                          value: '',
-                          enable: true,
-                          label: S.current.Busqueda_por_nombre,
-                          marginBottom: 0,
-                          //TODO: Implementar condicional con provider cuando este listo el endpoint
-                          suffixIcon: true
-                              ? const Icon(
-                                  Icons.search,
-                                )
-                              : IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.clear),
-                                ),
-                        ),
-                      ),
                       currentStep < totalSteps
                           ? Expanded(
                               child: ListView.builder(

@@ -4,8 +4,6 @@ import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 
-final searchPatients = StateProvider<String>((ref) => '');
-
 final childrenProvider =
     StateNotifierProvider.autoDispose<ChildrenNotifier, ChildrenState>((ref) {
   return ChildrenNotifier(childrenRepository: ChildrenRepositoryImpl());
