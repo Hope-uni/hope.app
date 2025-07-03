@@ -18,6 +18,7 @@ class ProfilePerson extends Person {
     required super.email,
     required super.firstName,
     required super.birthday,
+    required super.age,
     required super.gender,
     required super.address,
     required super.imageUrl,

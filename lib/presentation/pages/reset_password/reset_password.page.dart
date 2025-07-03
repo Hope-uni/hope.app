@@ -199,22 +199,24 @@ class _InputUserEmail extends ConsumerWidget {
           ),
         ),
         Expanded(
-          child: InputForm(
-            focus: focusNode,
-            marginBottom: 0,
-            value: resetPasswordProvider.emailOrUser,
-            enable: true,
-            hint: S.current.Correo_o_nombre_de_usuario,
-            inputFormatters: [
-              // Denegar espacios
-              FilteringTextInputFormatter.deny(RegExp(r'\s')),
-            ],
-            onChanged: (value) {
-              ref
-                  .read(passwordProvider.notifier)
-                  .onEmailOrUser(emailOrUser: value);
-            },
-            errorText: resetPasswordProvider.errorEmailOrUser,
+          child: Focus(
+            focusNode: focusNode,
+            child: InputForm(
+              marginBottom: 0,
+              value: resetPasswordProvider.emailOrUser,
+              enable: true,
+              hint: S.current.Correo_o_nombre_de_usuario,
+              inputFormatters: [
+                // Denegar espacios
+                FilteringTextInputFormatter.deny(RegExp(r'\s')),
+              ],
+              onChanged: (value) {
+                ref
+                    .read(passwordProvider.notifier)
+                    .onEmailOrUser(emailOrUser: value);
+              },
+              errorText: resetPasswordProvider.errorEmailOrUser,
+            ),
           ),
         ),
       ],

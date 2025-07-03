@@ -1451,36 +1451,6 @@ class S {
     );
   }
 
-  /// `El correo no puede estar vacío`
-  String get El_correo_no_puede_estar_vacio {
-    return Intl.message(
-      'El correo no puede estar vacío',
-      name: 'El_correo_no_puede_estar_vacio',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `El primer nombre no puede estar vacío`
-  String get El_primer_nombre_no_puede_estar_vacio {
-    return Intl.message(
-      'El primer nombre no puede estar vacío',
-      name: 'El_primer_nombre_no_puede_estar_vacio',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `El primer apellido no puede estar vacío`
-  String get El_primer_apellido_no_puede_estar_vacio {
-    return Intl.message(
-      'El primer apellido no puede estar vacío',
-      name: 'El_primer_apellido_no_puede_estar_vacio',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `La dirección no puede estar vacía`
   String get La_direccion_no_puede_estar_vacia {
     return Intl.message(
@@ -1511,11 +1481,11 @@ class S {
     );
   }
 
-  /// `Formato incorrecto de cédula (###-######-####L)`
-  String get Formato_incorrecto_de_cedula {
+  /// `La cédula debe ser un formato correcto y no estar vacía (###-######-####L)`
+  String get La_cedula_debe_ser_un_formato_correcto_y_no_estar_vacia {
     return Intl.message(
-      'Formato incorrecto de cédula (###-######-####L)',
-      name: 'Formato_incorrecto_de_cedula',
+      'La cédula debe ser un formato correcto y no estar vacía (###-######-####L)',
+      name: 'La_cedula_debe_ser_un_formato_correcto_y_no_estar_vacia',
       desc: '',
       args: [],
     );
@@ -1794,81 +1764,73 @@ class S {
     );
   }
 
-  /// `El nombre no puede ser menor a 3 o mayor a 100 caracteres`
-  String get El_nombre_no_puede_ser_menor_a_tres_o_mayor_a_cien_caracteres {
+  /// `El nombre no puede ser menor a 3 caracteres`
+  String get El_nombre_no_puede_ser_menor_a_tres_caracteres {
     return Intl.message(
-      'El nombre no puede ser menor a 3 o mayor a 100 caracteres',
-      name: 'El_nombre_no_puede_ser_menor_a_tres_o_mayor_a_cien_caracteres',
+      'El nombre no puede ser menor a 3 caracteres',
+      name: 'El_nombre_no_puede_ser_menor_a_tres_caracteres',
       desc: '',
       args: [],
     );
   }
 
-  /// `La descripción no puede ser menor a 6 o mayor a 255 caracteres`
+  /// `La descripción no puede ser menor a 6 caracteres`
+  String get La_descripcion_no_puede_ser_menor_a_seis_caracteres {
+    return Intl.message(
+      'La descripción no puede ser menor a 6 caracteres',
+      name: 'La_descripcion_no_puede_ser_menor_a_seis_caracteres',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `El nombre del usuario no puede ser menor a 3 caracteres`
+  String get El_nombre_del_usuario_no_puede_ser_menor_a_tres_caracteres {
+    return Intl.message(
+      'El nombre del usuario no puede ser menor a 3 caracteres',
+      name: 'El_nombre_del_usuario_no_puede_ser_menor_a_tres_caracteres',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `El primer nombre no puede ser menor a 3 caracteres`
+  String get El_primer_nombre_no_puede_ser_menor_a_tres_caracteres {
+    return Intl.message(
+      'El primer nombre no puede ser menor a 3 caracteres',
+      name: 'El_primer_nombre_no_puede_ser_menor_a_tres_caracteres',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `El primer apellido no puede ser menor a 3 caracteres`
+  String get El_primer_apellido_no_puede_ser_menor_a_tres_caracteres {
+    return Intl.message(
+      'El primer apellido no puede ser menor a 3 caracteres',
+      name: 'El_primer_apellido_no_puede_ser_menor_a_tres_caracteres',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `La dirección no puede ser menor a 6 caracteres`
+  String get La_direccion_no_puede_ser_menor_a_seis_caracteres {
+    return Intl.message(
+      'La dirección no puede ser menor a 6 caracteres',
+      name: 'La_direccion_no_puede_ser_menor_a_seis_caracteres',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `El correo electrónico debe ser un formato correcto y no estar vacío`
   String
-  get La_descripcion_no_puede_ser_menor_a_seis_o_mayor_a_doscientoscincuentaycinco_caracteres {
+  get El_correo_electronico_debe_ser_un_formato_correcto_y_no_estar_vacio {
     return Intl.message(
-      'La descripción no puede ser menor a 6 o mayor a 255 caracteres',
+      'El correo electrónico debe ser un formato correcto y no estar vacío',
       name:
-          'La_descripcion_no_puede_ser_menor_a_seis_o_mayor_a_doscientoscincuentaycinco_caracteres',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `El nombre del usuario no puede ser menor a 3 o mayor a 15 caracteres`
-  String
-  get El_nombre_del_usuario_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres {
-    return Intl.message(
-      'El nombre del usuario no puede ser menor a 3 o mayor a 15 caracteres',
-      name:
-          'El_nombre_del_usuario_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `El primer nombre no puede ser menor a 3 o mayor a 15 caracteres`
-  String
-  get El_primer_nombre_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres {
-    return Intl.message(
-      'El primer nombre no puede ser menor a 3 o mayor a 15 caracteres',
-      name:
-          'El_primer_nombre_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `El primer apellido no puede ser menor a 3 o mayor a 15 caracteres`
-  String
-  get El_primer_apellido_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres {
-    return Intl.message(
-      'El primer apellido no puede ser menor a 3 o mayor a 15 caracteres',
-      name:
-          'El_primer_apellido_no_puede_ser_menor_a_tres_o_mayor_a_quince_caracteres',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `La dirección no puede ser menor a 6 o mayor a 255 caracteres`
-  String
-  get La_direccion_no_puede_ser_menor_a_seis_o_mayor_a_doscientoscincuentaycinco_caracteres {
-    return Intl.message(
-      'La dirección no puede ser menor a 6 o mayor a 255 caracteres',
-      name:
-          'La_direccion_no_puede_ser_menor_a_seis_o_mayor_a_doscientoscincuentaycinco_caracteres',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Formato incorrecto de correo electrónico`
-  String get Formato_incorrecto_de_correo_electronico {
-    return Intl.message(
-      'Formato incorrecto de correo electrónico',
-      name: 'Formato_incorrecto_de_correo_electronico',
+          'El_correo_electronico_debe_ser_un_formato_correcto_y_no_estar_vacio',
       desc: '',
       args: [],
     );
@@ -1884,33 +1846,11 @@ class S {
     );
   }
 
-  /// `El nombre no puede ser menor a 3 o mayor a 60 caracteres`
-  String get El_nombre_no_puede_ser_menor_a_tres_o_mayor_a_sesenta_caracteres {
-    return Intl.message(
-      'El nombre no puede ser menor a 3 o mayor a 60 caracteres',
-      name: 'El_nombre_no_puede_ser_menor_a_tres_o_mayor_a_sesenta_caracteres',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `El nombre del pictograma no puede estar vacío`
   String get El_nombre_del_pictograma_no_puede_estar_vacio {
     return Intl.message(
       'El nombre del pictograma no puede estar vacío',
       name: 'El_nombre_del_pictograma_no_puede_estar_vacio',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `La descripción debe tener entre 6 y 255 caracteres`
-  String
-  get La_descripcion_debe_tener_entre_seis_y_doscientoscincuentaycinco_caracteres {
-    return Intl.message(
-      'La descripción debe tener entre 6 y 255 caracteres',
-      name:
-          'La_descripcion_debe_tener_entre_seis_y_doscientoscincuentaycinco_caracteres',
       desc: '',
       args: [],
     );
@@ -2520,6 +2460,16 @@ class S {
     return Intl.message(
       'Los pacientes solo pueden iniciar sesión en tablets',
       name: 'Los_pacientes_solo_pueden_iniciar_sesion_en_tablets',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No se han realizados cambios en el formulario`
+  String get No_se_han_realizados_cambios_en_el_formulario {
+    return Intl.message(
+      'No se han realizados cambios en el formulario',
+      name: 'No_se_han_realizados_cambios_en_el_formulario',
       desc: '',
       args: [],
     );

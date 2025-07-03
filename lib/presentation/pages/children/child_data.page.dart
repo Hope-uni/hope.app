@@ -140,6 +140,16 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
         }
       }
 
+      if (next.isUnchanged == true) {
+        toastAlert(
+          context: context,
+          title: S.current.Aviso,
+          description: S.current.No_se_han_realizados_cambios_en_el_formulario,
+          typeAlert: ToastificationType.info,
+        );
+        notifierChild.updateResponse();
+      }
+
       if (next.errorMessageApi != null) {
         toastAlert(
           context: context,
@@ -225,6 +235,8 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
         initialDate: DateTime(year, month, day),
         firstDate: firstDate,
         lastDate: lastDate,
+        // TODO: Modificar a una variable si se implementara el cambio de idioma
+        locale: const Locale('es', 'ES'),
       );
 
       if (pickedDate != null) {
@@ -611,7 +623,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
                             );
                             enableInput = true;
                           });
-                          notifierChild.assingState();
+                          notifierChild.assingStateChild();
                         } else {
                           toastAlert(
                             iconAlert: const Icon(Icons.info),
@@ -1175,10 +1187,13 @@ List<Widget> _childPersonalData({
       errorText: stateChild.validationErrors[$birthdayProfile],
       onTap: () => selectDate(context, stateChild.child!.birthday),
     ),
-    InputForm(
-      label: S.current.Edad,
-      value: stateChild.child!.age.toString(),
-      enable: false,
+    Visibility(
+      visible: !enableInput,
+      child: InputForm(
+        label: S.current.Edad,
+        value: stateChild.child!.age.toString(),
+        enable: false,
+      ),
     ),
     Focus(
       focusNode: focusNodes[$addressProfile],

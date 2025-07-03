@@ -28,6 +28,7 @@ class MePermissionsMapper {
         telephone: json["telephone"],
         address: json["address"],
         birthday: json["birthday"],
+        age: json["age"],
         gender: json["gender"],
         imageUrl: json["imageUrl"],
         isMonochrome: json["isMonochrome"],
@@ -45,6 +46,7 @@ class MePermissionsMapper {
         "telephone": profile.telephone,
         "address": profile.address,
         "birthday": profile.birthday,
+        "age": profile.age,
         "imageUrl": profile.imageUrl,
         "gender": profile.gender,
       };

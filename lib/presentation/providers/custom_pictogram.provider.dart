@@ -144,8 +144,8 @@ class CustomPictogramNotifier extends StateNotifier<CustomPictogramState> {
     } else {
       if (state.pictogram!.name.length <= 2 ||
           state.pictogram!.name.length >= 61) {
-        errors[$name] = S.current
-            .El_nombre_no_puede_ser_menor_a_tres_o_mayor_a_sesenta_caracteres;
+        errors[$name] =
+            S.current.El_nombre_no_puede_ser_menor_a_tres_caracteres;
       }
     }
 

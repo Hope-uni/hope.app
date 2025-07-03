@@ -16,6 +16,7 @@ class ProfilePersonMapper {
         phoneNumber: json["phoneNumber"],
         telephone: json["telephone"],
         birthday: json["birthday"],
+        age: json["age"],
         gender: json["gender"],
         address: json["address"],
         imageUrl: json["imageUrl"],
