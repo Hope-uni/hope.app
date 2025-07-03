@@ -212,15 +212,24 @@ class BoardPageState extends ConsumerState<BoardPage> {
               stateBoard.patientActivity!.latestCompletedActivity == null
           ? null
           : AppBar(
-              title: stateBoard.patientActivity!.currentActivity == null
-                  ? Text(
-                      '${S.current.Ultima_actividad_terminada}: ${stateBoard.patientActivity!.latestCompletedActivity!.name}',
-                      maxLines: 2,
-                    )
-                  : Text(
-                      '${S.current.Actividad_actual}: ${stateBoard.patientActivity!.currentActivity!.name}',
-                      maxLines: 2,
-                    ),
+              title: Tooltip(
+                // Muestra el nombre completo
+                message: stateBoard.patientActivity!.currentActivity == null
+                    ? '${S.current.Ultima_actividad_terminada}: ${stateBoard.patientActivity!.latestCompletedActivity!.name}'
+                    : '${S.current.Actividad_actual}: ${stateBoard.patientActivity!.currentActivity!.name}',
+                waitDuration: const Duration(
+                    milliseconds: 100), // Espera antes de mostrarse
+                showDuration: const Duration(seconds: 2), // Tiempo visible
+                child: stateBoard.patientActivity!.currentActivity == null
+                    ? Text(
+                        '${S.current.Ultima_actividad_terminada}: ${stateBoard.patientActivity!.latestCompletedActivity!.name}',
+                        maxLines: 2,
+                      )
+                    : Text(
+                        '${S.current.Actividad_actual}: ${stateBoard.patientActivity!.currentActivity!.name}',
+                        maxLines: 2,
+                      ),
+              ),
             ),
       body: Stack(
         children: [

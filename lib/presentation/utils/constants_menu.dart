@@ -9,8 +9,8 @@ import 'package:hope_app/presentation/utils/utils.dart';
 
 final List<MenuItem> appMenuItemsDrawer = <MenuItem>[
   MenuItem(
-    title: S.current.Ninos_terapeuta,
-    subTitle: S.current.Ninos_asignados_Terapeuta,
+    title: S.current.Pacientes_terapeuta,
+    subTitle: S.current.Pacientes_asignados_Terapeuta,
     onClick: ({
       required BuildContext context,
       required WidgetRef ref,

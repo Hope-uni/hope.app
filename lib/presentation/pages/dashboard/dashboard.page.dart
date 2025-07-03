@@ -44,7 +44,16 @@ class DashboardPageState extends ConsumerState<DashboardPage> {
 
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(title: Text(S.current.Bienvenido_pagina_de_inicio)),
+      appBar: AppBar(
+        title: Tooltip(
+          message: S.current
+              .Bienvenido_pagina_de_inicio, // Muestra el nombre completo
+          waitDuration:
+              const Duration(milliseconds: 100), // Espera antes de mostrarse
+          showDuration: const Duration(seconds: 2), // Tiempo visible
+          child: Text(S.current.Bienvenido_pagina_de_inicio),
+        ),
+      ),
       body: Container(
         height: size.height,
         width: size.width,

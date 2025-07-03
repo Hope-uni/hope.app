@@ -94,7 +94,13 @@ class AddActivityPageState extends ConsumerState<AddActivityPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.current.Asignar_actividad),
+        title: Tooltip(
+          message: S.current.Asignar_actividad, // Muestra el nombre completo
+          waitDuration:
+              const Duration(milliseconds: 100), // Espera antes de mostrarse
+          showDuration: const Duration(seconds: 2), // Tiempo visible
+          child: Text(S.current.Asignar_actividad),
+        ),
         actions: [
           Container(
             margin: const EdgeInsets.only(right: 15),
@@ -180,6 +186,18 @@ class AddActivityPageState extends ConsumerState<AddActivityPage> {
                               const SizedBox(height: 10),
                               Text(S.current
                                   .El_paciente_tenga_terapeuta_asignado),
+                              const SizedBox(height: 30),
+                              Text(
+                                S.current
+                                    .Si_el_titulo_de_la_pantalla_no_se_muestra_completo_puede,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                S.current
+                                    .Mantener_el_dedo_sobre_el_titulo_durante_1_segundo_para_verlo_completo,
+                              ),
                             ],
                           ),
                         ),

@@ -128,6 +128,18 @@ class NewActivityState extends ConsumerState<NewActivityPage> {
                                   S.current
                                       .Si_desea_eliminar_un_pictograma_a_la_solucion_debe_dar_clic_en_el_boton_rojo_con_el_icono_del_basurero,
                                 ),
+                                const SizedBox(height: 30),
+                                Text(
+                                  S.current
+                                      .Si_el_titulo_de_la_pantalla_no_se_muestra_completo_puede,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(height: 10),
+                                Text(
+                                  S.current
+                                      .Mantener_el_dedo_sobre_el_titulo_durante_1_segundo_para_verlo_completo,
+                                ),
                               ],
                             ),
                           ),
@@ -140,7 +152,13 @@ class NewActivityState extends ConsumerState<NewActivityPage> {
               ),
             ),
           ],
-          title: Text(S.current.Crear_actividad),
+          title: Tooltip(
+            message: S.current.Crear_actividad, // Muestra el nombre completo
+            waitDuration:
+                const Duration(milliseconds: 100), // Espera antes de mostrarse
+            showDuration: const Duration(seconds: 2), // Tiempo visible
+            child: Text(S.current.Crear_actividad),
+          ),
         ),
         body: const FormActivity(),
         floatingActionButton: statePictograms.paginatePictograms[$indexPage] ==
