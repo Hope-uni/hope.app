@@ -7,12 +7,12 @@
   "Olvido_su_contrasena": "¿Olvidó su contraseña?",
   "Entrar": "Entrar",
   "Los_campos_no_pueden_estar_vacios": "Los campos no pueden estar vacíos",
-  "Ninos_terapeuta": "Niños - Terapeuta",
+  "Pacientes_terapeuta": "Pacientes - Terapeuta",
   "Ninos_tutor": "Niños - Tutor",
   "Actividades": "Actividades",
   "Configuracion": "Configuración",
   "Cerrar_sesion": "Cerrar sesión",
-  "Ninos_asignados_Terapeuta": "Niños asignados - Terapeuta",
+  "Pacientes_asignados_Terapeuta": "Pacientes asignados - Terapeuta",
   "Ninos_asignados_Tutor": "Niños asignados - Tutor",
   "Actividades_para_los_ninos": "Actividades para los niños",
   "Datos_personales": "Datos personales",
@@ -274,5 +274,8 @@
   "El_paciente_tenga_terapeuta_asignado":"• El paciente tenga terapeuta asignado",
   "El_paciente_no_tenga_actividad_asignada":"• El paciente no tenga actividad asignada",
   "El_paciente_pertenezca_a_la_misma_fase_de_la_actividad":"• El paciente pertenezca a la misma fase de la actividad",
-  "El_administrador_y_el_terapeuta_que_asigno_la_actividad_son_los_unicos_que_pueden_desasignar_la_actividad":"• El administrador y el terapeuta que asignó la actividad son los únicos que pueden desasignar la actividad"
+  "El_administrador_y_el_terapeuta_que_asigno_la_actividad_son_los_unicos_que_pueden_desasignar_la_actividad":"• El administrador y el terapeuta que asignó la actividad son los únicos que pueden desasignar la actividad",
+  "Si_el_titulo_de_la_pantalla_no_se_muestra_completo_puede": "Si el título de la pantalla no se muestra completo, puede:",
+  "Mantener_el_dedo_sobre_el_titulo_durante_1_segundo_para_verlo_completo": "• Mantener el dedo sobre el título durante 1 segundo para verlo completo.",
+  "Observacion_creada":"Observación creada"
 }

@@ -12,7 +12,14 @@ class CustomPictogramasPage extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text(S.current.Pictogramas_personalizados),
+        title: Tooltip(
+          message: S
+              .current.Pictogramas_personalizados, // Muestra el nombre completo
+          waitDuration:
+              const Duration(milliseconds: 100), // Espera antes de mostrarse
+          showDuration: const Duration(seconds: 2), // Tiempo visible
+          child: Text(S.current.Pictogramas_personalizados),
+        ),
         actions: [
           Container(
             margin: const EdgeInsets.only(right: 15),
@@ -42,36 +49,52 @@ class CustomPictogramasPage extends StatelessWidget {
                         ),
                       ),
                       titlePadding: EdgeInsets.zero,
-                      content: SizedBox(
-                        width: 200,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              S.current
-                                  .Si_el_nombre_del_pictograma_no_se_muestra_completo_puede,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            const SizedBox(height: 10),
-                            Text(
-                              S.current
-                                  .Mantener_el_dedo_sobre_el_nombre_durante_1_segundo_para_verlo_completo,
-                            ),
-                            const SizedBox(height: 5),
-                            Text(S.current.Hacer_clic_en_el_boton_de_editar),
-                            const SizedBox(height: 30),
-                            Text(
-                              S.current.Para_ver_la_imagen_con_mas_detalle,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            const SizedBox(height: 10),
-                            Text(
-                              S.current.Hacer_doble_clic_sobre_la_imagen,
-                            ),
-                          ],
+                      content: SingleChildScrollView(
+                        child: SizedBox(
+                          width: 200,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                S.current
+                                    .Si_el_nombre_del_pictograma_no_se_muestra_completo_puede,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                S.current
+                                    .Mantener_el_dedo_sobre_el_nombre_durante_1_segundo_para_verlo_completo,
+                              ),
+                              const SizedBox(height: 5),
+                              Text(S.current.Hacer_clic_en_el_boton_de_editar),
+                              const SizedBox(height: 30),
+                              Text(
+                                S.current.Para_ver_la_imagen_con_mas_detalle,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                S.current.Hacer_doble_clic_sobre_la_imagen,
+                              ),
+                              const SizedBox(height: 30),
+                              Text(
+                                S.current
+                                    .Si_el_titulo_de_la_pantalla_no_se_muestra_completo_puede,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                S.current
+                                    .Mantener_el_dedo_sobre_el_titulo_durante_1_segundo_para_verlo_completo,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       insetPadding: EdgeInsets.zero,

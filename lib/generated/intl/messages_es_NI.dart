@@ -480,17 +480,15 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "• Mantener el dedo sobre el pictograma de la solución para poder ordenarlo a su voluntad",
         ),
+    "Mantener_el_dedo_sobre_el_titulo_durante_1_segundo_para_verlo_completo":
+        MessageLookupByLibrary.simpleMessage(
+          "• Mantener el dedo sobre el título durante 1 segundo para verlo completo.",
+        ),
     "Menu_de_opciones": MessageLookupByLibrary.simpleMessage(
       "Menú de opciones:",
     ),
-    "Ninos_asignados_Terapeuta": MessageLookupByLibrary.simpleMessage(
-      "Niños asignados - Terapeuta",
-    ),
     "Ninos_asignados_Tutor": MessageLookupByLibrary.simpleMessage(
       "Niños asignados - Tutor",
-    ),
-    "Ninos_terapeuta": MessageLookupByLibrary.simpleMessage(
-      "Niños - Terapeuta",
     ),
     "Ninos_tutor": MessageLookupByLibrary.simpleMessage("Niños - Tutor"),
     "No_autorizado": MessageLookupByLibrary.simpleMessage("No autorizado"),
@@ -526,12 +524,21 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Nuevo_valor": MessageLookupByLibrary.simpleMessage("Nuevo valor"),
     "Observacion": MessageLookupByLibrary.simpleMessage("Observación"),
+    "Observacion_creada": MessageLookupByLibrary.simpleMessage(
+      "Observación creada",
+    ),
     "Observaciones": MessageLookupByLibrary.simpleMessage("Observaciones"),
     "Olvido_su_contrasena": MessageLookupByLibrary.simpleMessage(
       "¿Olvidó su contraseña?",
     ),
     "Opciones": MessageLookupByLibrary.simpleMessage("Opciones"),
     "Oracion": MessageLookupByLibrary.simpleMessage("Oración"),
+    "Pacientes_asignados_Terapeuta": MessageLookupByLibrary.simpleMessage(
+      "Pacientes asignados - Terapeuta",
+    ),
+    "Pacientes_terapeuta": MessageLookupByLibrary.simpleMessage(
+      "Pacientes - Terapeuta",
+    ),
     "Pagina": MessageLookupByLibrary.simpleMessage("Página"),
     "Para_asignar_un_logro": MessageLookupByLibrary.simpleMessage(
       "Para asignar un logro:",
@@ -719,6 +726,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Si_el_nombre_del_pictograma_no_se_muestra_completo_puede":
         MessageLookupByLibrary.simpleMessage(
           "Si el nombre del pictograma no se muestra completo, puede:",
+        ),
+    "Si_el_titulo_de_la_pantalla_no_se_muestra_completo_puede":
+        MessageLookupByLibrary.simpleMessage(
+          "Si el título de la pantalla no se muestra completo, puede:",
         ),
     "Si_guardar": MessageLookupByLibrary.simpleMessage("Sí, guardar"),
     "Si_salir": MessageLookupByLibrary.simpleMessage("Sí, salir"),

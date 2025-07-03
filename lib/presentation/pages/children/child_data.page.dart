@@ -63,6 +63,17 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
         });
       }
     });
+
+    _tabController.addListener(
+      () {
+        // Evita scroll mientras aún se anima
+        if (_tabController.indexIsChanging) return;
+        // Esperar un frame para asegurar que el Tab esté renderizado
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _scrollToSelectedTab(_tabController.index);
+        });
+      },
+    );
   }
 
   @override
@@ -82,6 +93,27 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
       final notifierChild = ref.read(childProvider.notifier);
       await notifierChild.getChild(idChild: widget.idChild);
     });
+  }
+
+  void _scrollToSelectedTab(int tabIndex) {
+    // Calcula la posición del tab que quieres mostrar
+    // Puedes ajustar este valor si tus tabs son más grandes o más pequeños
+    const double tabWidth = 150;
+    final double offset = (tabIndex * tabWidth) -
+        (MediaQuery.of(context).size.width / 2) +
+        (tabWidth / 2);
+
+    // Asegura que el scroll esté dentro de los límites
+    final double scrollOffset = offset.clamp(
+      _scrollController.position.minScrollExtent,
+      _scrollController.position.maxScrollExtent,
+    );
+
+    _scrollController.animateTo(
+      scrollOffset,
+      duration: const Duration(milliseconds: 200),
+      curve: Curves.easeInOut,
+    );
   }
 
   @override
@@ -264,7 +296,14 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
         length: 5,
         child: Scaffold(
           appBar: AppBar(
-              title: Text(S.current.Informacion_del_nino),
+              title: Tooltip(
+                message: S
+                    .current.Informacion_del_nino, // Muestra el nombre completo
+                waitDuration: const Duration(
+                    milliseconds: 100), // Espera antes de mostrarse
+                showDuration: const Duration(seconds: 2), // Tiempo visible
+                child: Text(S.current.Informacion_del_nino),
+              ),
               actions: [
                 Container(
                   margin: const EdgeInsets.only(right: 15),
@@ -343,6 +382,18 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
                                     Text(
                                       S.current
                                           .Para_saber_que_acciones_puede_realizar_en_el_registro_dar_clic_en_el_boton_inferior_a_la_derecha_de_la_pantalla,
+                                    ),
+                                    const SizedBox(height: 30),
+                                    Text(
+                                      S.current
+                                          .Si_el_titulo_de_la_pantalla_no_se_muestra_completo_puede,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Text(
+                                      S.current
+                                          .Mantener_el_dedo_sobre_el_titulo_durante_1_segundo_para_verlo_completo,
                                     ),
                                   ],
                                 ),
@@ -618,7 +669,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
                           setState(() {
                             _tabController.animateTo(
                               0,
-                              duration: const Duration(seconds: 1),
+                              duration: const Duration(milliseconds: 1500),
                               curve: Curves.bounceIn,
                             );
                             enableInput = true;
@@ -716,6 +767,13 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
                       visible: widget.extra![$isTutor] == false,
                       onTap: () {
                         if (stateProfile.permmisions!.contains($advancePhase)) {
+                          setState(() {
+                            _tabController.animateTo(
+                              2,
+                              duration: const Duration(milliseconds: 1500),
+                              curve: Curves.bounceIn,
+                            );
+                          });
                           modalDialogConfirmation(
                             context: context,
                             titleButtonConfirm: S.current.Si_avanzar,
@@ -777,6 +835,13 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
                       onTap: () {
                         if (stateProfile.permmisions!
                             .contains($addObservation)) {
+                          setState(() {
+                            _tabController.animateTo(
+                              4,
+                              duration: const Duration(milliseconds: 1500),
+                              curve: Curves.bounceIn,
+                            );
+                          });
                           modalObservation(
                             context: context,
                             dataChild: CatalogObject(
@@ -810,6 +875,13 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
                       onTap: () {
                         if (stateProfile.permmisions!
                             .contains($changeMonochrome)) {
+                          setState(() {
+                            _tabController.animateTo(
+                              1,
+                              duration: const Duration(milliseconds: 1500),
+                              curve: Curves.bounceIn,
+                            );
+                          });
                           modalDialogConfirmation(
                             context: context,
                             titleButtonConfirm: S.current.Si_cambiar,
@@ -873,7 +945,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
                             toastAlert(
                               iconAlert: const Icon(Icons.info),
                               context: context,
-                              title: S.current.No_autorizado,
+                              title: S.current.Aviso,
                               description: S.current
                                   .El_paciente_no_tiene_actividad_asignada_actualmente,
                               typeAlert: ToastificationType.info,
@@ -1283,7 +1355,9 @@ List<Widget> _childProgressData({
                 children: [
                   Container(
                     margin: const EdgeInsets.symmetric(
-                        horizontal: 13, vertical: 20),
+                      horizontal: 13,
+                      vertical: 20,
+                    ),
                     alignment: Alignment.topCenter,
                     child: Text(
                       S.current.Progreso_general_de_las_fase,
@@ -1330,7 +1404,10 @@ List<Widget> _childProgressData({
                       vertical: 20,
                     ),
                     alignment: Alignment.topCenter,
-                    child: Text(S.current.progreso_de_fase_Actual),
+                    child: Text(
+                      S.current.progreso_de_fase_Actual,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                   SizedBox(
                     height: 100,
@@ -1459,6 +1536,8 @@ List<Widget> _activities({
           colorTitle: true,
           styleTitle: FontWeight.bold,
           noImage: true,
+          colorText: $colorTextWhite,
+          colorItemSelect: $colorBlueGeneral,
           subTitle: stateChildCurrentActivity != null
               ? Column(
                   children: [
@@ -1504,7 +1583,7 @@ List<Widget> _activities({
                     const SizedBox(height: 5),
                   ],
                 )
-              : const Text('-'),
+              : null,
         )
       ],
     ),

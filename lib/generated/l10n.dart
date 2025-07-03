@@ -115,11 +115,11 @@ class S {
     );
   }
 
-  /// `Niños - Terapeuta`
-  String get Ninos_terapeuta {
+  /// `Pacientes - Terapeuta`
+  String get Pacientes_terapeuta {
     return Intl.message(
-      'Niños - Terapeuta',
-      name: 'Ninos_terapeuta',
+      'Pacientes - Terapeuta',
+      name: 'Pacientes_terapeuta',
       desc: '',
       args: [],
     );
@@ -160,11 +160,11 @@ class S {
     );
   }
 
-  /// `Niños asignados - Terapeuta`
-  String get Ninos_asignados_Terapeuta {
+  /// `Pacientes asignados - Terapeuta`
+  String get Pacientes_asignados_Terapeuta {
     return Intl.message(
-      'Niños asignados - Terapeuta',
-      name: 'Ninos_asignados_Terapeuta',
+      'Pacientes asignados - Terapeuta',
+      name: 'Pacientes_asignados_Terapeuta',
       desc: '',
       args: [],
     );
@@ -2514,6 +2514,38 @@ class S {
       '• El administrador y el terapeuta que asignó la actividad son los únicos que pueden desasignar la actividad',
       name:
           'El_administrador_y_el_terapeuta_que_asigno_la_actividad_son_los_unicos_que_pueden_desasignar_la_actividad',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Si el título de la pantalla no se muestra completo, puede:`
+  String get Si_el_titulo_de_la_pantalla_no_se_muestra_completo_puede {
+    return Intl.message(
+      'Si el título de la pantalla no se muestra completo, puede:',
+      name: 'Si_el_titulo_de_la_pantalla_no_se_muestra_completo_puede',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Mantener el dedo sobre el título durante 1 segundo para verlo completo.`
+  String
+  get Mantener_el_dedo_sobre_el_titulo_durante_1_segundo_para_verlo_completo {
+    return Intl.message(
+      '• Mantener el dedo sobre el título durante 1 segundo para verlo completo.',
+      name:
+          'Mantener_el_dedo_sobre_el_titulo_durante_1_segundo_para_verlo_completo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Observación creada`
+  String get Observacion_creada {
+    return Intl.message(
+      'Observación creada',
+      name: 'Observacion_creada',
       desc: '',
       args: [],
     );

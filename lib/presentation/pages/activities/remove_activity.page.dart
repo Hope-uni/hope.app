@@ -99,7 +99,14 @@ class RemoveAcivityPageState extends ConsumerState<RemoveAcivityPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.current.Quitar_asignacion_de_actividad),
+        title: Tooltip(
+          message: S.current
+              .Quitar_asignacion_de_actividad, // Muestra el nombre completo
+          waitDuration:
+              const Duration(milliseconds: 100), // Espera antes de mostrarse
+          showDuration: const Duration(seconds: 2), // Tiempo visible
+          child: Text(S.current.Quitar_asignacion_de_actividad),
+        ),
         actions: [
           Container(
             margin: const EdgeInsets.only(right: 15),
@@ -129,43 +136,60 @@ class RemoveAcivityPageState extends ConsumerState<RemoveAcivityPage> {
                         ),
                       ),
                       titlePadding: EdgeInsets.zero,
-                      content: SizedBox(
-                        width: 200,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              S.current
-                                  .Para_ver_la_foto_de_perfil_de_los_pacientes_con_mas_detalle,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            const SizedBox(height: 10),
-                            Text(
-                              S.current.Hacer_doble_clic_sobre_la_imagen,
-                            ),
-                            const SizedBox(height: 30),
-                            Text(
-                              S.current
-                                  .Para_quitar_asignacion_de_actividad_a_los_pacientes,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            const SizedBox(height: 10),
-                            Text(S.current
-                                .Hacer_clic_sobre_el_icono_rojo_del_basurero_al_paciente_que_le_desee_quitar_la_actividad),
-                            const SizedBox(height: 30),
-                            Text(
-                              S.current
-                                  .Para_listar_los_pacientes_disponibles_se_aplican_los_siguientes_filtros,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            const SizedBox(height: 10),
-                            Text(S.current
-                                .El_administrador_y_el_terapeuta_que_asigno_la_actividad_son_los_unicos_que_pueden_desasignar_la_actividad)
-                          ],
+                      content: SingleChildScrollView(
+                        child: SizedBox(
+                          width: 200,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                S.current
+                                    .Para_ver_la_foto_de_perfil_de_los_pacientes_con_mas_detalle,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                S.current.Hacer_doble_clic_sobre_la_imagen,
+                              ),
+                              const SizedBox(height: 30),
+                              Text(
+                                S.current
+                                    .Para_quitar_asignacion_de_actividad_a_los_pacientes,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(S.current
+                                  .Hacer_clic_sobre_el_icono_rojo_del_basurero_al_paciente_que_le_desee_quitar_la_actividad),
+                              const SizedBox(height: 30),
+                              Text(
+                                S.current
+                                    .Para_listar_los_pacientes_disponibles_se_aplican_los_siguientes_filtros,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(S.current
+                                  .El_administrador_y_el_terapeuta_que_asigno_la_actividad_son_los_unicos_que_pueden_desasignar_la_actividad),
+                              const SizedBox(height: 30),
+                              Text(
+                                S.current
+                                    .Si_el_titulo_de_la_pantalla_no_se_muestra_completo_puede,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                S.current
+                                    .Mantener_el_dedo_sobre_el_titulo_durante_1_segundo_para_verlo_completo,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       insetPadding: EdgeInsets.zero,

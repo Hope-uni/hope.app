@@ -101,7 +101,16 @@ class _InputFormState extends State<InputForm> {
         )
       ];
     } else {
-      inputFormatters = null; // o una lista vacía si prefieres evitar nulls
+      // Impide escribir dos espacios seguidos
+      inputFormatters = [
+        TextInputFormatter.withFunction((oldValue, newValue) {
+          final fixedText = newValue.text.replaceAll(RegExp(r'\s{2,}'), ' ');
+          return TextEditingValue(
+            text: fixedText,
+            selection: TextSelection.collapsed(offset: fixedText.length),
+          );
+        })
+      ];
     }
   }
 
