@@ -161,6 +161,25 @@ class AddActivityPageState extends ConsumerState<AddActivityPage> {
                               const SizedBox(height: 10),
                               Text(S.current
                                   .Para_finalizar_asignacion_hacer_clic_sobre_el_boton_en_la_esquina_inferior_derecha_y_seleccionar_la_opcion_de_guardar),
+                              const SizedBox(height: 30),
+                              Text(
+                                S.current
+                                    .Para_listar_los_pacientes_disponibles_se_aplican_los_siguientes_filtros,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(S.current
+                                  .El_paciente_pertenezca_a_la_misma_fase_de_la_actividad),
+                              const SizedBox(height: 10),
+                              Text(S.current
+                                  .El_paciente_no_tenga_actividad_asignada),
+                              const SizedBox(height: 10),
+                              Text(S
+                                  .current.El_paciente_se_encuentre_verificado),
+                              const SizedBox(height: 10),
+                              Text(S.current
+                                  .El_paciente_tenga_terapeuta_asignado),
                             ],
                           ),
                         ),

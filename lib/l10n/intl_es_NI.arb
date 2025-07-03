@@ -268,5 +268,11 @@
   "Los_pacientes_solo_pueden_iniciar_sesion_en_tablets":"Los pacientes solo pueden iniciar sesión en tablets",
   "No_se_han_realizados_cambios_en_el_formulario":"No se han realizados cambios en el formulario",
   "Para_verificar_la_actividad_asignada_a_un_paciente":"Para verificar la actividad asignada a un paciente",
-  "Debe_presionar_el_boton_de_validar_la_actividad_durante_tres_segundos_desde_el_tablero_de_comunicacion":"• Debe presionar el botón de validar la actividad durante tres segundos desde el tablero de comunicación"
+  "Debe_presionar_el_boton_de_validar_la_actividad_durante_tres_segundos_desde_el_tablero_de_comunicacion":"• Debe presionar el botón de validar la actividad durante tres segundos desde el tablero de comunicación",
+  "Para_listar_los_pacientes_disponibles_se_aplican_los_siguientes_filtros":"Para listar los pacientes disponibles, se aplican los siguientes filtros",
+  "El_paciente_se_encuentre_verificado":"• El paciente se encuentre verificado",
+  "El_paciente_tenga_terapeuta_asignado":"• El paciente tenga terapeuta asignado",
+  "El_paciente_no_tenga_actividad_asignada":"• El paciente no tenga actividad asignada",
+  "El_paciente_pertenezca_a_la_misma_fase_de_la_actividad":"• El paciente pertenezca a la misma fase de la actividad",
+  "El_administrador_y_el_terapeuta_que_asigno_la_actividad_son_los_unicos_que_pueden_desasignar_la_actividad":"• El administrador y el terapeuta que asignó la actividad son los únicos que pueden desasignar la actividad"
 }

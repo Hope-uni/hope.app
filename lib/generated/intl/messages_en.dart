@@ -203,6 +203,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Editar_pictograma": MessageLookupByLibrary.simpleMessage(
       "Editar pictograma",
     ),
+    "El_administrador_y_el_terapeuta_que_asigno_la_actividad_son_los_unicos_que_pueden_desasignar_la_actividad":
+        MessageLookupByLibrary.simpleMessage(
+          "• El administrador y el terapeuta que asignó la actividad son los únicos que pueden desasignar la actividad",
+        ),
     "El_celular_deber_ser_un_numero_valido_y_no_estar_vacio":
         MessageLookupByLibrary.simpleMessage(
           "El celular debe ser un número válido y no estar vacío",
@@ -235,9 +239,24 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "El nombre no puede ser menor a 3 caracteres",
         ),
+    "El_paciente_no_tenga_actividad_asignada":
+        MessageLookupByLibrary.simpleMessage(
+          "• El paciente no tenga actividad asignada",
+        ),
     "El_paciente_no_tiene_actividad_asignada_actualmente":
         MessageLookupByLibrary.simpleMessage(
           "El paciente no tiene actividad asignada actualmente",
+        ),
+    "El_paciente_pertenezca_a_la_misma_fase_de_la_actividad":
+        MessageLookupByLibrary.simpleMessage(
+          "• El paciente pertenezca a la misma fase de la actividad",
+        ),
+    "El_paciente_se_encuentre_verificado": MessageLookupByLibrary.simpleMessage(
+      "• El paciente se encuentre verificado",
+    ),
+    "El_paciente_tenga_terapeuta_asignado":
+        MessageLookupByLibrary.simpleMessage(
+          "• El paciente tenga terapeuta asignado",
         ),
     "El_primer_apellido_no_puede_ser_menor_a_tres_caracteres":
         MessageLookupByLibrary.simpleMessage(
@@ -523,6 +542,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Para_finalizar_asignacion_hacer_clic_sobre_el_boton_en_la_esquina_inferior_derecha_y_seleccionar_la_opcion_de_guardar":
         MessageLookupByLibrary.simpleMessage(
           "• Para finalizar asignación, hacer clic sobre el botón en la esquina inferior derecha y seleccionar la opción de guardar",
+        ),
+    "Para_listar_los_pacientes_disponibles_se_aplican_los_siguientes_filtros":
+        MessageLookupByLibrary.simpleMessage(
+          "Para listar los pacientes disponibles, se aplican los siguientes filtros",
         ),
     "Para_quitar_asignacion_de_actividad_a_los_pacientes":
         MessageLookupByLibrary.simpleMessage(

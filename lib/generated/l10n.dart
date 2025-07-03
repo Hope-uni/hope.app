@@ -2454,6 +2454,70 @@ class S {
       args: [],
     );
   }
+
+  /// `Para listar los pacientes disponibles, se aplican los siguientes filtros`
+  String
+  get Para_listar_los_pacientes_disponibles_se_aplican_los_siguientes_filtros {
+    return Intl.message(
+      'Para listar los pacientes disponibles, se aplican los siguientes filtros',
+      name:
+          'Para_listar_los_pacientes_disponibles_se_aplican_los_siguientes_filtros',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• El paciente se encuentre verificado`
+  String get El_paciente_se_encuentre_verificado {
+    return Intl.message(
+      '• El paciente se encuentre verificado',
+      name: 'El_paciente_se_encuentre_verificado',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• El paciente tenga terapeuta asignado`
+  String get El_paciente_tenga_terapeuta_asignado {
+    return Intl.message(
+      '• El paciente tenga terapeuta asignado',
+      name: 'El_paciente_tenga_terapeuta_asignado',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• El paciente no tenga actividad asignada`
+  String get El_paciente_no_tenga_actividad_asignada {
+    return Intl.message(
+      '• El paciente no tenga actividad asignada',
+      name: 'El_paciente_no_tenga_actividad_asignada',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• El paciente pertenezca a la misma fase de la actividad`
+  String get El_paciente_pertenezca_a_la_misma_fase_de_la_actividad {
+    return Intl.message(
+      '• El paciente pertenezca a la misma fase de la actividad',
+      name: 'El_paciente_pertenezca_a_la_misma_fase_de_la_actividad',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• El administrador y el terapeuta que asignó la actividad son los únicos que pueden desasignar la actividad`
+  String
+  get El_administrador_y_el_terapeuta_que_asigno_la_actividad_son_los_unicos_que_pueden_desasignar_la_actividad {
+    return Intl.message(
+      '• El administrador y el terapeuta que asignó la actividad son los únicos que pueden desasignar la actividad',
+      name:
+          'El_administrador_y_el_terapeuta_que_asigno_la_actividad_son_los_unicos_que_pueden_desasignar_la_actividad',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
