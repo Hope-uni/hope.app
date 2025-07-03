@@ -64,8 +64,6 @@ class ChildrenTherapistPageState extends ConsumerState<ChildrenTherapistPage> {
 
   @override
   Widget build(BuildContext context) {
-    final searchsPatients = ref.watch(searchPatients);
-
     final stateChildren = ref.read(childrenProvider);
     final stateWacthChildren = ref.watch(childrenProvider);
 
@@ -168,25 +166,7 @@ class ChildrenTherapistPageState extends ConsumerState<ChildrenTherapistPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const SizedBox(height: 20),
-            InputForm(
-              value: searchsPatients,
-              enable: true,
-              label: S.current.Buscar_por_primer_nombre,
-              marginBottom: 0,
-              onChanged: (value) =>
-                  ref.read(searchPatients.notifier).state = value,
-              suffixIcon: searchsPatients.isEmpty
-                  ? const Icon(
-                      Icons.search,
-                    )
-                  : IconButton(
-                      onPressed: () {
-                        ref.read(searchPatients.notifier).state = '';
-                      },
-                      icon: const Icon(Icons.clear),
-                    ),
-            ),
+            const SizedBox(height: 10),
             Expanded(
               child: Stack(
                 children: [

@@ -64,17 +64,9 @@ class ActivitiesPageState extends ConsumerState<ActivitiesPage> {
 
   @override
   Widget build(BuildContext context) {
-    final searchActivity = ref.watch(searchNameActivity);
-
     final stateActivity = ref.watch(activityProvider);
     final stateActivities = ref.read(activitiesProvider);
     final stateWacthActivities = ref.watch(activitiesProvider);
-
-    final TextEditingController controller =
-        TextEditingController(text: searchActivity);
-
-    final textLength = controller.value.text.length;
-    controller.selection = TextSelection.collapsed(offset: textLength);
 
     ref.listen(activitiesProvider, (previous, next) {
       if (next.errorMessageApi != null) {
@@ -208,25 +200,7 @@ class ActivitiesPageState extends ConsumerState<ActivitiesPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const SizedBox(height: 20),
-                InputForm(
-                  value: searchActivity,
-                  enable: true,
-                  label: S.current.Buscar_por_nombre_de_actividad,
-                  marginBottom: 0,
-                  onChanged: (value) =>
-                      ref.read(searchNameActivity.notifier).state = value,
-                  suffixIcon: searchActivity.isEmpty
-                      ? const Icon(
-                          Icons.search,
-                        )
-                      : IconButton(
-                          onPressed: () {
-                            ref.read(searchNameActivity.notifier).state = '';
-                          },
-                          icon: const Icon(Icons.clear),
-                        ),
-                ),
+                const SizedBox(height: 10),
                 Expanded(
                   child: Stack(
                     children: [
