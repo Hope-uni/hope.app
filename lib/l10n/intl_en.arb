@@ -222,8 +222,6 @@
   "No_esta_autorizado_para_iniciar_sesion_en_la_APP": "No está autorizado para iniciar sesión en la APP",
   "Para_ver_el_detalle_de_la_actividad": "Para ver el detalle de la actividad:",
   "Hacer_clic_sobre_el_registro_deseado": "• Hacer clic sobre el registro deseado",
-  "Para_refrescar_el_listado_de_actividades": "Para refrescar el listado de actividades:",
-  "Deslizar_el_dedo_desde_arriba_hacia_abajo_en_la_parte_superior_de_la_pantalla": "• Deslizar el dedo desde arriba hacia abajo en la parte superior de la pantalla",
   "Para_crear_actividades": "Para crear actividades:",
   "Hacer_clic_sobre_el_boton_verde_en_la_parte_inferior_derecha_de_la_pantalla": "• Hacer clic sobre el botón verde en la parte inferior derecha de la pantalla",
   "Acciones_en_el_listado_de_pictogramas": "Acciones en el listado de pictogramas:",
@@ -245,9 +243,7 @@
   "Menu_de_opciones": "Menú de opciones:",
   "Para_saber_que_acciones_puede_realizar_en_el_registro_dar_clic_en_el_boton_inferior_a_la_derecha_de_la_pantalla": "• Para saber que acciones puede realizar en el registro, dar clic en el botón inferior a la derecha de la pantalla",
   "Para_ver_el_detalle_del_paciente": "Para ver el detalle del paciente:",
-  "Para_refrescar_el_listado_de_los_pacientes_asignados": "Para refrescar el listado de los pacientes asignados:",
   "Para_ver_el_detalle_del_la_nino": "Para ver el detalle del/la niñ@:",
-  "Para_refrescar_el_listado_de_los_ninos_asignados": "Para refrescar el listado de los niños asignados:",
   "Para_ver_la_foto_de_perfil_de_los_ninos_asignados_con_mas_detalle": "Para ver la foto de perfil de los niños asignados con más detalle:",
   "Verificar": "Verificar",
   "El_paciente_no_tiene_actividad_asignada_actualmente": "El paciente no tiene actividad asignada actualmente",
@@ -270,5 +266,7 @@
   "Bien_hecho":"¡Bien hecho!",
   "La_actividad_asignada_se_completo_con_exito":"La actividad asignada se completó con éxito",
   "Los_pacientes_solo_pueden_iniciar_sesion_en_tablets":"Los pacientes solo pueden iniciar sesión en tablets",
-  "No_se_han_realizados_cambios_en_el_formulario":"No se han realizados cambios en el formulario"
+  "No_se_han_realizados_cambios_en_el_formulario":"No se han realizados cambios en el formulario",
+  "Para_verificar_la_actividad_asignada_a_un_paciente":"Para verificar la actividad asignada a un paciente",
+  "Debe_presionar_el_boton_de_validar_la_actividad_durante_tres_segundos_desde_el_tablero_de_comunicacion":"• Debe presionar el botón de validar la actividad durante tres segundos desde el tablero de comunicación"
 }

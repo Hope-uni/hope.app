@@ -137,16 +137,6 @@ class ChildrenTutorPageState extends ConsumerState<ChildrenTutorPage> {
                             Text(
                               S.current.Hacer_doble_clic_sobre_la_imagen,
                             ),
-                            const SizedBox(height: 30),
-                            Text(
-                              S.current
-                                  .Para_refrescar_el_listado_de_los_ninos_asignados,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            const SizedBox(height: 10),
-                            Text(S.current
-                                .Deslizar_el_dedo_desde_arriba_hacia_abajo_en_la_parte_superior_de_la_pantalla),
                           ],
                         ),
                       ),

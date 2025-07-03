@@ -179,6 +179,10 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "Debe ingresar el nombre de usuario o correo",
         ),
+    "Debe_presionar_el_boton_de_validar_la_actividad_durante_tres_segundos_desde_el_tablero_de_comunicacion":
+        MessageLookupByLibrary.simpleMessage(
+          "• Debe presionar el botón de validar la actividad durante tres segundos desde el tablero de comunicación",
+        ),
     "Debe_seleccionar_al_menos_un_pictograma_para_la_solucion":
         MessageLookupByLibrary.simpleMessage(
           "Debe seleccionar al menos un pictograma para la solución",
@@ -189,10 +193,6 @@ class MessageLookup extends MessageLookupByLibrary {
         ),
     "Derechos_reservados": m0,
     "Descripcion": MessageLookupByLibrary.simpleMessage("Descripción"),
-    "Deslizar_el_dedo_desde_arriba_hacia_abajo_en_la_parte_superior_de_la_pantalla":
-        MessageLookupByLibrary.simpleMessage(
-          "• Deslizar el dedo desde arriba hacia abajo en la parte superior de la pantalla",
-        ),
     "Direccion": MessageLookupByLibrary.simpleMessage("Dirección"),
     "Edad": MessageLookupByLibrary.simpleMessage("Edad"),
     "Editar": MessageLookupByLibrary.simpleMessage("Editar"),
@@ -528,18 +528,6 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "Para quitar asignación de actividad a los pacientes:",
         ),
-    "Para_refrescar_el_listado_de_actividades":
-        MessageLookupByLibrary.simpleMessage(
-          "Para refrescar el listado de actividades:",
-        ),
-    "Para_refrescar_el_listado_de_los_ninos_asignados":
-        MessageLookupByLibrary.simpleMessage(
-          "Para refrescar el listado de los niños asignados:",
-        ),
-    "Para_refrescar_el_listado_de_los_pacientes_asignados":
-        MessageLookupByLibrary.simpleMessage(
-          "Para refrescar el listado de los pacientes asignados:",
-        ),
     "Para_reordenar_la_solucion": MessageLookupByLibrary.simpleMessage(
       "Para reordenar la solución:",
     ),
@@ -574,6 +562,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Para_ver_los_logros_con_mas_detalle": MessageLookupByLibrary.simpleMessage(
       "Para ver los logros con más detalle:",
     ),
+    "Para_verificar_la_actividad_asignada_a_un_paciente":
+        MessageLookupByLibrary.simpleMessage(
+          "Para verificar la actividad asignada a un paciente",
+        ),
     "Perfil": MessageLookupByLibrary.simpleMessage("Perfil"),
     "Personalizar_pictograma": MessageLookupByLibrary.simpleMessage(
       "Personalizar pictograma",

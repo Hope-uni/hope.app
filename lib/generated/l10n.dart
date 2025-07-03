@@ -1976,28 +1976,6 @@ class S {
     );
   }
 
-  /// `Para refrescar el listado de actividades:`
-  String get Para_refrescar_el_listado_de_actividades {
-    return Intl.message(
-      'Para refrescar el listado de actividades:',
-      name: 'Para_refrescar_el_listado_de_actividades',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `• Deslizar el dedo desde arriba hacia abajo en la parte superior de la pantalla`
-  String
-  get Deslizar_el_dedo_desde_arriba_hacia_abajo_en_la_parte_superior_de_la_pantalla {
-    return Intl.message(
-      '• Deslizar el dedo desde arriba hacia abajo en la parte superior de la pantalla',
-      name:
-          'Deslizar_el_dedo_desde_arriba_hacia_abajo_en_la_parte_superior_de_la_pantalla',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Para crear actividades:`
   String get Para_crear_actividades {
     return Intl.message(
@@ -2230,31 +2208,11 @@ class S {
     );
   }
 
-  /// `Para refrescar el listado de los pacientes asignados:`
-  String get Para_refrescar_el_listado_de_los_pacientes_asignados {
-    return Intl.message(
-      'Para refrescar el listado de los pacientes asignados:',
-      name: 'Para_refrescar_el_listado_de_los_pacientes_asignados',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Para ver el detalle del/la niñ@:`
   String get Para_ver_el_detalle_del_la_nino {
     return Intl.message(
       'Para ver el detalle del/la niñ@:',
       name: 'Para_ver_el_detalle_del_la_nino',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Para refrescar el listado de los niños asignados:`
-  String get Para_refrescar_el_listado_de_los_ninos_asignados {
-    return Intl.message(
-      'Para refrescar el listado de los niños asignados:',
-      name: 'Para_refrescar_el_listado_de_los_ninos_asignados',
       desc: '',
       args: [],
     );
@@ -2470,6 +2428,28 @@ class S {
     return Intl.message(
       'No se han realizados cambios en el formulario',
       name: 'No_se_han_realizados_cambios_en_el_formulario',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Para verificar la actividad asignada a un paciente`
+  String get Para_verificar_la_actividad_asignada_a_un_paciente {
+    return Intl.message(
+      'Para verificar la actividad asignada a un paciente',
+      name: 'Para_verificar_la_actividad_asignada_a_un_paciente',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Debe presionar el botón de validar la actividad durante tres segundos desde el tablero de comunicación`
+  String
+  get Debe_presionar_el_boton_de_validar_la_actividad_durante_tres_segundos_desde_el_tablero_de_comunicacion {
+    return Intl.message(
+      '• Debe presionar el botón de validar la actividad durante tres segundos desde el tablero de comunicación',
+      name:
+          'Debe_presionar_el_boton_de_validar_la_actividad_durante_tres_segundos_desde_el_tablero_de_comunicacion',
       desc: '',
       args: [],
     );
