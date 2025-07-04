@@ -17,11 +17,12 @@ class FormActivity extends ConsumerStatefulWidget {
 
 class FormActivityState extends ConsumerState<FormActivity> {
   final scrollController = ScrollController();
+  final TextEditingController searchController = TextEditingController();
   String? namePicto;
   int? idCategory;
   bool isFirst = true;
 
-  final List<PictogramAchievements> selectedPictogram = [];
+  List<PictogramAchievements> selectedPictogram = [];
   String textSolution = '';
   bool showErrorPermission = false;
 
@@ -39,6 +40,7 @@ class FormActivityState extends ConsumerState<FormActivity> {
   @override
   void dispose() {
     scrollController.dispose();
+    searchController.dispose();
     super.dispose();
   }
 
@@ -81,6 +83,7 @@ class FormActivityState extends ConsumerState<FormActivity> {
   void onPictogramSelected(PictogramAchievements pictogram) {
     setState(() {
       FocusManager.instance.primaryFocus?.unfocus();
+
       selectedPictogram.add(pictogram);
       textSolution =
           selectedPictogram.map((item) => item.name).toList().join(' ');
@@ -96,7 +99,10 @@ class FormActivityState extends ConsumerState<FormActivity> {
   void deletePictogramSelected(PictogramAchievements pictogram) {
     setState(() {
       FocusManager.instance.primaryFocus?.unfocus();
-      selectedPictogram.remove(pictogram);
+      int index =
+          selectedPictogram.indexWhere((item) => item.id == pictogram.id);
+      if (index < 0) return;
+      selectedPictogram.removeAt(index);
       textSolution =
           selectedPictogram.map((item) => item.name).toList().join(' ');
 
@@ -267,6 +273,7 @@ class FormActivityState extends ConsumerState<FormActivity> {
                     enable: true,
                     label: S.current.Puntaje,
                     isNumber: true,
+                    maxLength: 2,
                     onChanged: (value) {
                       notifierActivity.updateActivityField(
                         fieldName: $satisfactoryPoints,
@@ -324,6 +331,7 @@ class FormActivityState extends ConsumerState<FormActivity> {
                     InputForm(
                       hint: S.current.Busqueda_por_nombre,
                       value: '',
+                      controllerExt: searchController,
                       enable: true,
                       onSearch: () async {
                         await notifierPictograms.getPictograms(
@@ -331,6 +339,23 @@ class FormActivityState extends ConsumerState<FormActivity> {
                           idCategory: idCategory,
                         );
                       },
+                      suffixIcon: searchController.text.isNotEmpty
+                          ? GestureDetector(
+                              onTap: () {
+                                namePicto = null;
+                                searchController.clear();
+                                notifierPictograms.resetFilters(
+                                  namePictogram: null,
+                                  isCustom: false,
+                                  idChild: null,
+                                );
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.only(right: 10),
+                                child: const Icon(Icons.clear),
+                              ),
+                            )
+                          : null,
                       onChanged: (String value) {
                         isFirst = false;
                         namePicto = value.isNotEmpty ? value : null;
@@ -376,9 +401,9 @@ class FormActivityState extends ConsumerState<FormActivity> {
                             isShowSvg: true,
                             isSelect: true,
                             controller: scrollController,
-                            backgroundColorIcon: $colorSuccess,
-                            onPressed: onPictogramSelected,
-                            newOnPressed: deletePictogramSelected,
+                            onTap: onPictogramSelected,
+                            isTap: true,
+                            onPressed: deletePictogramSelected,
                           ),
                     const SizedBox(height: 14.5),
                   ],
@@ -403,11 +428,10 @@ class FormActivityState extends ConsumerState<FormActivity> {
                   focusNode: focusNodes[$pictogramSentence],
                   child: ImageListVIew(
                     images: selectedPictogram,
+                    newImages: selectedPictogram,
                     backgroundDecoration: $colorPrimary50,
                     isDecoration: true,
                     isSelect: true,
-                    backgroundColorIcon: $colorError,
-                    iconSelect: const Icon(Icons.delete),
                     onPressed: deletePictogramSelected,
                     isReorder: true,
                     onReorder: onChangeOrderSolution,
