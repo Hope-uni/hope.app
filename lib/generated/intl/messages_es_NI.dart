@@ -468,9 +468,9 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "Los pacientes solo pueden iniciar sesión en tablets",
         ),
-    "Los_puntos_para_completar_la_actividad_no_puede_ser_cero_o_estar_vacio":
+    "Los_puntos_para_completar_la_actividad_deben_estar_entre_uno_y_veinte":
         MessageLookupByLibrary.simpleMessage(
-          "Los puntos para completar la actividad no puede ser cero o estar vacío",
+          "Los puntos para completar la actividad deben estar entre uno y veinte",
         ),
     "Mantener_el_dedo_sobre_el_nombre_durante_1_segundo_para_verlo_completo":
         MessageLookupByLibrary.simpleMessage(
@@ -707,9 +707,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "Si_asignar": MessageLookupByLibrary.simpleMessage("Sí, asignar"),
     "Si_avanzar": MessageLookupByLibrary.simpleMessage("Sí, avanzar"),
     "Si_cambiar": MessageLookupByLibrary.simpleMessage("Sí, cambiar"),
-    "Si_desea_agregar_un_pictograma_a_la_solucion_debe_dar_clic_en_el_boton_verde_con_el_icono_de_listo":
+    "Si_desea_agregar_un_pictograma_a_la_solucion_debe_hacer_clic_una_vez_sobre_la_imagen_y_se_agregara_automaticamente":
         MessageLookupByLibrary.simpleMessage(
-          "• Si desea agregar un pictograma a la solución, debe dar clic en el botón verde con el icono de listo",
+          "• Si desea agregar un pictograma a la solución, debe hacer clic una vez sobre la imagen y se agregará automáticamente",
         ),
     "Si_desea_eliminar_un_paciente_de_la_lista_de_asignacion_hacer_clic_sobre_el_icono_rojo_del_basurero":
         MessageLookupByLibrary.simpleMessage(

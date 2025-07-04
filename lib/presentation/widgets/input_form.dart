@@ -80,9 +80,7 @@ class _InputFormState extends State<InputForm> {
         widget.controllerExt ?? TextEditingController(text: widget.value);
     if (widget.onSearch != null) _controller.addListener(_onSearchTextChanged);
 
-    _coloLabel = _controller.text.isNotEmpty
-        ? Colors.black
-        : const Color.fromARGB(255, 134, 134, 134);
+    _coloLabel = _controller.text.isNotEmpty ? Colors.black : $hintColorInput;
     _focus.addListener(onChageColorLabel);
 
     // Solo un tipo de inputFormatter será aplicado
@@ -116,13 +114,13 @@ class _InputFormState extends State<InputForm> {
 
   onChageColorLabel() {
     if (_focus.hasFocus) {
-      setState(() {
-        _coloLabel = Colors.black;
-      });
+      setState(() => _coloLabel = Colors.black);
     } else {
-      _coloLabel = _controller.text.isNotEmpty
-          ? Colors.black
-          : const Color.fromARGB(255, 134, 134, 134);
+      if (_controller.text.isNotEmpty && _controller.text != "") {
+        _coloLabel = Colors.black;
+      } else {
+        setState(() => _coloLabel = $hintColorInput);
+      }
     }
   }
 
@@ -137,6 +135,7 @@ class _InputFormState extends State<InputForm> {
 
     // Creamos un nuevo timer que espere 600ms después de que el usuario haya dejado de escribir
     _debounceTimer = Timer(const Duration(milliseconds: 600), () {
+      if (!mounted) return;
       if (widget.onSearch != null) widget.onSearch!.call();
     });
   }
@@ -158,11 +157,15 @@ class _InputFormState extends State<InputForm> {
 
   @override
   void dispose() {
-    super.dispose();
-    if (widget.onSearch != null) _controller.dispose();
-    _debounceTimer?.cancel();
+    _debounceTimer?.cancel(); // ✅ Primero cancela el timer
+    if (widget.controllerExt == null) {
+      _controller.removeListener(_onSearchTextChanged); // ✅ Muy importante
+    }
     _focus.dispose();
+
+    // Evita llamar dispose() dos veces
     if (widget.controllerExt == null) _controller.dispose();
+    super.dispose(); // ✅ Llama al final
   }
 
   @override
@@ -190,14 +193,17 @@ class _InputFormState extends State<InputForm> {
             : TextInputType.emailAddress,
         onTap: widget.onTap,
         decoration: InputDecoration(
-          label: Text(
-            widget.label ?? '',
-            style: TextStyle(color: _coloLabel),
-          ),
+          label: widget.label != null
+              ? Text(
+                  widget.label!,
+                  style: TextStyle(color: _coloLabel),
+                )
+              : null,
           suffixIcon: widget.suffixIcon,
           errorText: widget.errorText,
           errorMaxLines: 3,
           hintText: widget.hint,
+          hintStyle: const TextStyle(color: $hintColorInput),
           filled: widget.colorFilled != null ? true : false,
           fillColor: widget.colorFilled,
           labelStyle: const TextStyle(color: $colorTextBlack),

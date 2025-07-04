@@ -1720,13 +1720,13 @@ class S {
     );
   }
 
-  /// `Los puntos para completar la actividad no puede ser cero o estar vacío`
+  /// `Los puntos para completar la actividad deben estar entre uno y veinte`
   String
-  get Los_puntos_para_completar_la_actividad_no_puede_ser_cero_o_estar_vacio {
+  get Los_puntos_para_completar_la_actividad_deben_estar_entre_uno_y_veinte {
     return Intl.message(
-      'Los puntos para completar la actividad no puede ser cero o estar vacío',
+      'Los puntos para completar la actividad deben estar entre uno y veinte',
       name:
-          'Los_puntos_para_completar_la_actividad_no_puede_ser_cero_o_estar_vacio',
+          'Los_puntos_para_completar_la_actividad_deben_estar_entre_uno_y_veinte',
       desc: '',
       args: [],
     );
@@ -2088,13 +2088,13 @@ class S {
     );
   }
 
-  /// `• Si desea agregar un pictograma a la solución, debe dar clic en el botón verde con el icono de listo`
+  /// `• Si desea agregar un pictograma a la solución, debe hacer clic una vez sobre la imagen y se agregará automáticamente`
   String
-  get Si_desea_agregar_un_pictograma_a_la_solucion_debe_dar_clic_en_el_boton_verde_con_el_icono_de_listo {
+  get Si_desea_agregar_un_pictograma_a_la_solucion_debe_hacer_clic_una_vez_sobre_la_imagen_y_se_agregara_automaticamente {
     return Intl.message(
-      '• Si desea agregar un pictograma a la solución, debe dar clic en el botón verde con el icono de listo',
+      '• Si desea agregar un pictograma a la solución, debe hacer clic una vez sobre la imagen y se agregará automáticamente',
       name:
-          'Si_desea_agregar_un_pictograma_a_la_solucion_debe_dar_clic_en_el_boton_verde_con_el_icono_de_listo',
+          'Si_desea_agregar_un_pictograma_a_la_solucion_debe_hacer_clic_una_vez_sobre_la_imagen_y_se_agregara_automaticamente',
       desc: '',
       args: [],
     );

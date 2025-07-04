@@ -164,7 +164,6 @@ class ActivityPageState extends ConsumerState<ActivityPage> {
                             .toString(),
                         enable: false,
                         label: S.current.Puntaje,
-                        isNumber: true,
                       ),
                       Container(
                         alignment: Alignment.centerLeft,

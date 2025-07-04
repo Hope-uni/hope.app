@@ -122,7 +122,7 @@ class NewActivityState extends ConsumerState<NewActivityPage> {
                                 ),
                                 const SizedBox(height: 10),
                                 Text(S.current
-                                    .Si_desea_agregar_un_pictograma_a_la_solucion_debe_dar_clic_en_el_boton_verde_con_el_icono_de_listo),
+                                    .Si_desea_agregar_un_pictograma_a_la_solucion_debe_hacer_clic_una_vez_sobre_la_imagen_y_se_agregara_automaticamente),
                                 const SizedBox(height: 10),
                                 Text(
                                   S.current
