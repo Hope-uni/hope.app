@@ -22,6 +22,7 @@ final Color $colorPrimary50 = Colors.blue[50]!;
 final Color $colorSuccess100 = Colors.green[100]!;
 
 const Color $colorButtonDisable = Colors.grey;
+const Color $hintColorInput = Color.fromARGB(255, 134, 134, 134);
 const Color $colorTransparent = Colors.transparent;
 
 const String $fontFamilyAnton = 'Anton';

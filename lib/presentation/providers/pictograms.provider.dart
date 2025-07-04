@@ -22,6 +22,8 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
 
   final ProfileState profileState;
   bool isFilter = false;
+  int? categoryId;
+  String? pictogramName;
 
   PictogramsNotifier({
     required this.pictogramsRepository,
@@ -32,21 +34,24 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
     int? idCategory,
     String? namePictogram,
   }) {
-    if (idCategory != null || namePictogram != null) {
-      state = state.copyWith(
-        isLoading: true,
-        paginatePictograms: {$indexPage: 1, $pageCount: 0},
-      );
+    if (idCategory != categoryId || namePictogram != pictogramName) {
+      state =
+          state.copyWith(paginatePictograms: {$indexPage: 1, $pageCount: 0});
       isFilter = true;
-    } else {
+    }
+
+    if (idCategory == null && namePictogram == null) {
       if (isFilter == true) {
         state = state.copyWith(
           paginatePictograms: {$indexPage: 1, $pageCount: 0},
         );
       }
-      state = state.copyWith(isLoading: true);
       isFilter = false;
     }
+
+    state = state.copyWith(isLoading: true);
+    categoryId = idCategory;
+    pictogramName = namePictogram;
   }
 
   void _updatePictograms({
@@ -234,9 +239,7 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
     }
   }
 
-  void updateResponse() {
-    state = state.copyWith(errorMessageApi: '');
-  }
+  void updateResponse() => state = state.copyWith(errorMessageApi: '');
 
   void deletePictogram({required int idPictogram}) {
     List<PictogramAchievements> listPictogram = List.from(state.pictograms);

@@ -68,7 +68,10 @@ class FormActivityState extends ConsumerState<FormActivity> {
           if (statePictograms.paginatePictograms[$indexPage]! > 1 &&
               statePictograms.paginatePictograms[$indexPage]! <=
                   statePictograms.paginatePictograms[$pageCount]!) {
-            await notifierPictograms.getPictograms();
+            await notifierPictograms.getPictograms(
+              namePictogram: namePicto,
+              idCategory: idCategory,
+            );
           }
         }
       });
@@ -240,6 +243,9 @@ class FormActivityState extends ConsumerState<FormActivity> {
                           clearable.CatalogObject(id: item.id, name: item.name))
                       .toList(),
                   label: S.current.Fase_del_autismo,
+                  colorLabel: stateWacthActivity.activity!.phaseId != 0
+                      ? $colorTextBlack
+                      : $hintColorInput,
                   errorText: stateWacthActivity.validationErrors[$phaseId],
                   onSelected: (value) {
                     setState(() {
@@ -296,6 +302,9 @@ class FormActivityState extends ConsumerState<FormActivity> {
                           )
                           .toList(),
                       label: S.current.Categoria_de_pictogramas,
+                      colorLabel: idCategory != null
+                          ? $colorTextBlack
+                          : $hintColorInput,
                       onSelected: (value) async {
                         isFirst = false;
                         await notifierPictograms.getPictograms(
