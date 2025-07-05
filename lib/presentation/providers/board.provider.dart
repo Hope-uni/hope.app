@@ -72,6 +72,10 @@ class BoardNotifier extends StateNotifier<BoardState> {
       } else {
         state = state.copyWith(
           isCheking: false,
+          patientActivity: PatientActivity(
+            latestCompletedActivity: null,
+            currentActivity: checkActivity.data,
+          ),
           checkSuccess: checkActivity.message,
         );
       }

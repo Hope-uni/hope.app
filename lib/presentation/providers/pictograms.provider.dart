@@ -154,7 +154,10 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
     }
   }
 
-  Future<void> getPictogramsPatient({int? idCategory}) async {
+  Future<void> getPictogramsPatient({
+    int? idCategory,
+    List<PictogramAchievements>? pictogramsSolution,
+  }) async {
     if (!profileState.permmisions!.contains($listCustomPictogram)) {
       _onlyGetCateories();
       state = state.copyWith(isLoading: false);
@@ -174,16 +177,27 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
         categoryPictograms = await getCategoryPictograms();
       }
 
-      _updatePictograms(
-        indexPage: indexPage,
-        pageCount: pictogramsPatient.paginate!.pageCount,
-        categoryPictograms: categoryPictograms,
-        pictogramData: pictogramsPatient.data,
-      );
+      // Lista original desde el backend
+      List<PictogramAchievements> pictogramList = pictogramsPatient.data ?? [];
 
       pictogramsOriginals = indexPage == 1
           ? pictogramsPatient.data ?? []
           : [...pictogramsOriginals, ...pictogramsPatient.data!];
+
+      if (pictogramsSolution != null && pictogramsSolution.isNotEmpty) {
+        final idsToExclude = pictogramsSolution.map((e) => e.id).toSet();
+
+        pictogramList = pictogramList
+            .where((picto) => !idsToExclude.contains(picto.id))
+            .toList();
+      }
+
+      _updatePictograms(
+        indexPage: indexPage,
+        pageCount: pictogramsPatient.paginate!.pageCount,
+        categoryPictograms: categoryPictograms,
+        pictogramData: pictogramList,
+      );
     } on CustomError catch (e) {
       if (indexPage == 1) state = state.copyWith(isErrorInitial: true);
       state = state.copyWith(errorMessageApi: e.message, isLoading: false);

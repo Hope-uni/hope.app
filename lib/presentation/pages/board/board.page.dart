@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:hope_app/domain/domain.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/providers/providers.dart';
@@ -26,7 +27,21 @@ class BoardPageState extends ConsumerState<BoardPage> {
   bool showErrorPermissionCategory = false;
   bool showErrorPermissionPictograms = false;
 
+  FlutterTts flutterTts = FlutterTts();
+  bool isTtsReady = false;
+
   int? indexSeleccionado;
+
+  @override
+  void initState() {
+    super.initState();
+    // Establecer la orientación por defecto como horizontal para el tablero de comunicacion
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+  }
 
   @override
   void dispose() {
@@ -51,6 +66,7 @@ class BoardPageState extends ConsumerState<BoardPage> {
         final notifierBoard = ref.read(boardProvider.notifier);
         await notifierPictograms.getPictogramsPatient();
         await notifierBoard.getPatientActivity();
+
         _isMonochrome =
             ref.read(profileProvider).profile!.isMonochrome ?? false;
 
@@ -63,7 +79,11 @@ class BoardPageState extends ConsumerState<BoardPage> {
             if (statePictograms.paginatePictograms[$indexPage]! > 1 &&
                 statePictograms.paginatePictograms[$indexPage]! <=
                     statePictograms.paginatePictograms[$pageCount]!) {
-              await notifierPictograms.getPictogramsPatient();
+              await notifierPictograms.getPictogramsPatient(
+                  idCategory: indexSeleccionado != null
+                      ? statePictograms
+                          .categoryPictograms[indexSeleccionado!].id
+                      : null);
             }
           }
         });
@@ -71,15 +91,26 @@ class BoardPageState extends ConsumerState<BoardPage> {
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-    // Establecer la orientación por defecto como horizontal para el tablero de comunicacion
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.landscapeRight,
-    ]);
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+  Future<void> initTTS() async {
+    await flutterTts.setLanguage("es-ES");
+    await flutterTts.setPitch(1.0);
+    await flutterTts.awaitSpeakCompletion(true);
+
+    // Verificamos si el motor está disponible
+    var available = await flutterTts.isLanguageAvailable("es-ES");
+    isTtsReady = available ?? false;
+  }
+
+  Future<void> speak(String text) async {
+    if (!isTtsReady) await initTTS();
+
+    final engines = await flutterTts.getEngines;
+    //⚠️ No TTS engines installed (emulador)
+    if (engines == null || engines.isEmpty) return;
+
+    if (isTtsReady) {
+      await flutterTts.speak(text);
+    }
   }
 
   @override
@@ -173,7 +204,7 @@ class BoardPageState extends ConsumerState<BoardPage> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                 decoration: BoxDecoration(
-                  color: Colors.black.withValues(alpha: 0.85),
+                  color: $colorBlack85,
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: Column(
@@ -189,7 +220,10 @@ class BoardPageState extends ConsumerState<BoardPage> {
                       isError
                           ? S.current.Intente_otra_solucion
                           : S.current.Bien_hecho,
-                      style: const TextStyle(color: Colors.white, fontSize: 22),
+                      style: const TextStyle(
+                        color: $colorTextWhite,
+                        fontSize: 22,
+                      ),
                     ),
                   ],
                 ),
@@ -212,24 +246,137 @@ class BoardPageState extends ConsumerState<BoardPage> {
               stateBoard.patientActivity!.latestCompletedActivity == null
           ? null
           : AppBar(
-              title: Tooltip(
-                // Muestra el nombre completo
-                message: stateBoard.patientActivity!.currentActivity == null
-                    ? '${S.current.Ultima_actividad_terminada}: ${stateBoard.patientActivity!.latestCompletedActivity!.name}'
-                    : '${S.current.Actividad_actual}: ${stateBoard.patientActivity!.currentActivity!.name}',
-                waitDuration: const Duration(
-                    milliseconds: 100), // Espera antes de mostrarse
-                showDuration: const Duration(seconds: 2), // Tiempo visible
-                child: stateBoard.patientActivity!.currentActivity == null
-                    ? Text(
-                        '${S.current.Ultima_actividad_terminada}: ${stateBoard.patientActivity!.latestCompletedActivity!.name}',
-                        maxLines: 2,
-                      )
-                    : Text(
-                        '${S.current.Actividad_actual}: ${stateBoard.patientActivity!.currentActivity!.name}',
-                        maxLines: 2,
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Tooltip(
+                    // Muestra el nombre completo
+                    message: stateBoard.patientActivity!.currentActivity == null
+                        ? '${S.current.Ultima_actividad_terminada}: ${stateBoard.patientActivity!.latestCompletedActivity!.name}'
+                        : '${S.current.Actividad_actual}: ${stateBoard.patientActivity!.currentActivity!.name}',
+                    waitDuration: const Duration(
+                        milliseconds: 100), // Espera antes de mostrarse
+                    showDuration: const Duration(seconds: 2), // Tiempo visible
+                    child: stateBoard.patientActivity!.currentActivity == null
+                        ? Text(
+                            '${S.current.Ultima_actividad_terminada}: ${stateBoard.patientActivity!.latestCompletedActivity!.name}',
+                            maxLines: 2,
+                          )
+                        : Text(
+                            '${S.current.Actividad_actual}: ${stateBoard.patientActivity!.currentActivity!.name}',
+                            maxLines: 2,
+                          ),
+                  ),
+                  const Spacer(),
+                  if (stateBoard.patientActivity!.currentActivity != null)
+                    Text(
+                      '${stateBoard.patientActivity!.currentActivity!.satisfactoryAttempts}/${stateBoard.patientActivity!.currentActivity!.satisfactoryPoints}',
+                      style: const TextStyle(color: $colorTextWhite),
+                    ),
+                  if (stateBoard.patientActivity!.currentActivity != null)
+                    Container(
+                      margin: const EdgeInsets.only(left: 10),
+                      width: 120,
+                      child: LinearProgressIndicator(
+                        value: double.parse(stateBoard
+                                .patientActivity!.currentActivity!.progress) /
+                            100,
+                        minHeight: 7,
+                        color: $colorIndicadorTabBar,
+                        borderRadius: BorderRadius.circular(10),
                       ),
+                    ),
+                ],
               ),
+              actions: [
+                Opacity(
+                  opacity: 0.35,
+                  child: Container(
+                    margin: const EdgeInsets.only(right: 15),
+                    child: IconButton(
+                      icon: const Icon(Icons.help),
+                      onPressed: () {
+                        showDialog<void>(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Container(
+                                decoration: const BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(20),
+                                      topRight: Radius.circular(20)),
+                                  color: $colorBlueGeneral,
+                                ),
+                                padding: const EdgeInsets.only(
+                                    left: 22, top: 20, bottom: 20),
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  S.current.Ayuda,
+                                  style: const TextStyle(
+                                    color: $colorTextWhite,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              titlePadding: EdgeInsets.zero,
+                              content: SingleChildScrollView(
+                                child: SizedBox(
+                                  width: 200,
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        S.current.Descripcion_de_la_actividad,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Text(
+                                        stateBoard.patientActivity!
+                                                    .currentActivity ==
+                                                null
+                                            ? stateBoard
+                                                .patientActivity!
+                                                .latestCompletedActivity!
+                                                .description
+                                            : stateBoard.patientActivity!
+                                                .currentActivity!.description,
+                                      ),
+                                      const SizedBox(height: 30),
+                                      Text(
+                                        S.current
+                                            .Para_verificar_la_actividad_o_cerrar_sesion,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Text(S.current
+                                          .Debe_presionar_el_boton_correspondiente_durante_tres_segundos_para_realizar_la_accion),
+                                      const SizedBox(height: 30),
+                                      Text(
+                                        S.current
+                                            .Si_algun_texto_no_se_muestra_completo,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Text(S.current
+                                          .Mantener_el_dedo_sobre_el_texto_durante_1_segundo_para_verlo_completo),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              insetPadding: EdgeInsets.zero,
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
             ),
       body: Stack(
         children: [
@@ -250,37 +397,70 @@ class BoardPageState extends ConsumerState<BoardPage> {
                       Expanded(
                         child: Row(
                           children: [
-                            if (statePictograms.pictograms.isEmpty == false)
-                              Expanded(
-                                child: GridView.builder(
-                                  controller: scrollController,
-                                  itemCount: statePictograms.pictograms.length,
-                                  scrollDirection: Axis.vertical,
-                                  gridDelegate:
-                                      const SliverGridDelegateWithMaxCrossAxisExtent(
-                                    maxCrossAxisExtent: 175,
-                                    crossAxisSpacing: 20.0,
-                                    mainAxisSpacing: 10.0,
-                                  ),
-                                  itemBuilder: (context, index) {
-                                    return buildDraggableExample(
-                                      isFilterBW: _isMonochrome,
-                                      pictogram:
-                                          statePictograms.pictograms[index],
-                                    );
-                                  },
-                                ),
+                            Expanded(
+                              child: Stack(
+                                children: [
+                                  if (statePictograms.pictograms.isEmpty ==
+                                          false &&
+                                      statePictograms.isLoading == false)
+                                    GridView.builder(
+                                      controller: scrollController,
+                                      itemCount:
+                                          statePictograms.pictograms.length,
+                                      scrollDirection: Axis.vertical,
+                                      gridDelegate:
+                                          const SliverGridDelegateWithMaxCrossAxisExtent(
+                                        maxCrossAxisExtent: 175,
+                                        crossAxisSpacing: 20.0,
+                                        mainAxisSpacing: 10.0,
+                                      ),
+                                      itemBuilder: (context, index) {
+                                        return buildDraggableExample(
+                                          speak: speak,
+                                          isFilterBW: _isMonochrome,
+                                          pictogram:
+                                              statePictograms.pictograms[index],
+                                        );
+                                      },
+                                    ),
+                                  if (statePictograms.pictograms.isEmpty ==
+                                      true)
+                                    Center(
+                                      child: SizedBox(
+                                        height: 400,
+                                        child: SvgPicture.asset(
+                                            fit: BoxFit.contain, $noData),
+                                      ),
+                                    ),
+                                  if (statePictograms.isLoading == true &&
+                                      statePictograms
+                                              .paginatePictograms[$indexPage] ==
+                                          1)
+                                    Container(
+                                      color: $colorTransparent,
+                                      child: Center(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            const CircularProgressIndicator(),
+                                            const SizedBox(height: 25),
+                                            Text(
+                                              S.current.Cargando,
+                                              style: const TextStyle(
+                                                color: $colorButtonDisable,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                                decoration: TextDecoration.none,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                ],
                               ),
-                            if (statePictograms.pictograms.isEmpty == true)
-                              Expanded(
-                                child: Center(
-                                  child: SizedBox(
-                                    height: 400,
-                                    child: SvgPicture.asset(
-                                        fit: BoxFit.contain, $noData),
-                                  ),
-                                ),
-                              ),
+                            ),
                             Container(
                               margin: const EdgeInsets.only(right: 15),
                               width: 180,
@@ -349,25 +529,47 @@ class BoardPageState extends ConsumerState<BoardPage> {
                                                         ? $colorSelectMenu
                                                         : null,
                                                     child: ListTile(
-                                                      //leading: const Icon(Icons.pets),
                                                       style:
                                                           ListTileStyle.drawer,
-                                                      title: Text(statePictograms
-                                                          .categoryPictograms[
-                                                              index]
-                                                          .name),
+                                                      title: Tooltip(
+                                                        // Muestra el nombre completo
+                                                        message: statePictograms
+                                                            .categoryPictograms[
+                                                                index]
+                                                            .name,
+                                                        // Espera antes de mostrarse
+                                                        waitDuration:
+                                                            const Duration(
+                                                          milliseconds: 100,
+                                                        ),
+                                                        // Tiempo visible
+                                                        showDuration:
+                                                            const Duration(
+                                                          seconds: 2,
+                                                        ),
+                                                        child: Text(statePictograms
+                                                            .categoryPictograms[
+                                                                index]
+                                                            .name),
+                                                      ),
                                                       onTap: () async {
                                                         if (index ==
                                                             indexSeleccionado) {
                                                           await notifierPictograms
-                                                              .getPictogramsPatient();
-                                                        } else {
-                                                          await notifierPictograms
                                                               .getPictogramsPatient(
-                                                                  idCategory: statePictograms
+                                                                  pictogramsSolution:
+                                                                      stateBoard
+                                                                          .pictograms);
+                                                        } else {
+                                                          await notifierPictograms.getPictogramsPatient(
+                                                              idCategory:
+                                                                  statePictograms
                                                                       .categoryPictograms[
                                                                           index]
-                                                                      .id);
+                                                                      .id,
+                                                              pictogramsSolution:
+                                                                  stateBoard
+                                                                      .pictograms);
                                                         }
                                                         setState(() {
                                                           if (index ==
@@ -409,14 +611,16 @@ class BoardPageState extends ConsumerState<BoardPage> {
                         ),
                         height: 75,
                         alignment: Alignment.center,
-                        child: Text(
-                          stateBoard.pictograms
-                              .map((item) => item.name)
-                              .toList()
-                              .join(' '),
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 22,
+                        child: SingleChildScrollView(
+                          child: Text(
+                            stateBoard.pictograms
+                                .map((item) => item.name)
+                                .toList()
+                                .join(' '),
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22,
+                            ),
                           ),
                         ),
                       ),
@@ -450,6 +654,7 @@ class BoardPageState extends ConsumerState<BoardPage> {
                                   child: ImageListVIew(
                                     images: stateBoard.pictograms,
                                     backgroundLine: true,
+                                    isFilterBW: _isMonochrome,
                                     isDecoration: false,
                                     isSelect: false,
                                     isReorder: true,
@@ -464,81 +669,101 @@ class BoardPageState extends ConsumerState<BoardPage> {
                                       stateBoard.patientActivity!
                                               .latestCompletedActivity !=
                                           null,
-                                  child: Container(
-                                    margin: const EdgeInsets.symmetric(
-                                      horizontal: 10,
-                                      vertical: 10,
-                                    ),
-                                    child: PressLoadButton(
-                                      resetAfterFinish: true,
-                                      buttonColor: $colorSuccess,
-                                      loadingColor: $colorBlueGeneral,
-                                      duration: 2500,
-                                      radius: 20,
-                                      onConfirm: () async {
-                                        if (stateProfile.permmisions!
-                                            .contains($verifyActivityAnswer)) {
-                                          if (stateBoard
-                                              .pictograms.isNotEmpty) {
-                                            if (await notifierBoard
-                                                .checkAnswer()) {
-                                              notifierBoard
-                                                  .clearPictogramSolution();
-                                              notifierPictograms
-                                                  .setPictogramsPatients();
-                                              if (context.mounted) {
-                                                showToast(
-                                                  context: context,
-                                                  isError: false,
-                                                );
+                                  child: IgnorePointer(
+                                    ignoring: !stateBoard.pictograms
+                                        .isNotEmpty, // 👈 true = ignora, no se puede presionar
+                                    child: Container(
+                                      margin: const EdgeInsets.symmetric(
+                                        horizontal: 10,
+                                        vertical: 10,
+                                      ),
+                                      child: PressLoadButton(
+                                        resetAfterFinish: true,
+                                        buttonColor:
+                                            !stateBoard.pictograms.isNotEmpty
+                                                ? $colorButtonDisable
+                                                : $colorSuccess,
+                                        loadingColor: $colorBlueGeneral,
+                                        duration: 2500,
+                                        radius: 20,
+                                        onConfirm: () async {
+                                          if (stateProfile.permmisions!
+                                              .contains(
+                                                  $verifyActivityAnswer)) {
+                                            if (stateBoard
+                                                .pictograms.isNotEmpty) {
+                                              String words = stateBoard
+                                                  .pictograms
+                                                  .map((item) => item.name)
+                                                  .toList()
+                                                  .join(' ');
+                                              speak(words);
+                                              Future.delayed(
+                                                  const Duration(
+                                                      milliseconds: 3000),
+                                                  () {});
+                                              if (await notifierBoard
+                                                  .checkAnswer()) {
+                                                notifierBoard
+                                                    .clearPictogramSolution();
+                                                notifierPictograms
+                                                    .setPictogramsPatients();
+                                                if (context.mounted) {
+                                                  showToast(
+                                                    context: context,
+                                                    isError: false,
+                                                  );
+                                                }
+                                              } else {
+                                                if (context.mounted) {
+                                                  showToast(
+                                                    context: context,
+                                                    isError: true,
+                                                  );
+                                                }
                                               }
                                             } else {
-                                              if (context.mounted) {
-                                                showToast(
-                                                  context: context,
-                                                  isError: true,
-                                                );
-                                              }
+                                              toastAlert(
+                                                iconAlert:
+                                                    const Icon(Icons.info),
+                                                context: context,
+                                                title: S.current.Aviso,
+                                                description: S.current
+                                                    .Debe_seleccionar_al_menos_un_pictograma_para_la_solucion,
+                                                typeAlert:
+                                                    ToastificationType.info,
+                                              );
                                             }
                                           } else {
                                             toastAlert(
                                               iconAlert: const Icon(Icons.info),
                                               context: context,
-                                              title: S.current.Aviso,
+                                              title: S.current.No_autorizado,
                                               description: S.current
-                                                  .Debe_seleccionar_al_menos_un_pictograma_para_la_solucion,
+                                                  .No_cuenta_con_el_permiso_necesario,
                                               typeAlert:
                                                   ToastificationType.info,
                                             );
                                           }
-                                        } else {
-                                          toastAlert(
-                                            iconAlert: const Icon(Icons.info),
-                                            context: context,
-                                            title: S.current.No_autorizado,
-                                            description: S.current
-                                                .No_cuenta_con_el_permiso_necesario,
-                                            typeAlert: ToastificationType.info,
-                                          );
-                                        }
-                                      },
-                                      strokeWidth: 10,
-                                      width: 200,
-                                      height: 43,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          const Icon(Icons.check,
-                                              color: $colorTextWhite),
-                                          const SizedBox(width: 10),
-                                          Text(
-                                            S.current.Verificar,
-                                            style: const TextStyle(
-                                              color: $colorTextWhite,
+                                        },
+                                        strokeWidth: 10,
+                                        width: 200,
+                                        height: 43,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            const Icon(Icons.check,
+                                                color: $colorTextWhite),
+                                            const SizedBox(width: 10),
+                                            Text(
+                                              S.current.Verificar,
+                                              style: const TextStyle(
+                                                color: $colorTextWhite,
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -619,12 +844,16 @@ class BoardPageState extends ConsumerState<BoardPage> {
 Widget buildDraggableExample({
   required PictogramAchievements pictogram,
   required bool isFilterBW,
+  required Future<void> Function(String text) speak,
 }) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     children: <Widget>[
       Draggable<PictogramAchievements>(
         data: pictogram,
+        onDragStarted: () {
+          speak(pictogram.name);
+        },
         feedback: ClipRRect(
           borderRadius: BorderRadius.circular(20),
           child: SizedBox(
@@ -654,7 +883,8 @@ Widget buildDraggableExample({
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(20),
-                child: SizedBox(
+                child: Container(
+                  color: $colorTextWhite,
                   height: 125.0,
                   width: 125.0,
                   child: ColorFiltered(
@@ -667,10 +897,25 @@ Widget buildDraggableExample({
                   ),
                 ),
               ),
-              Text(
-                pictogram.name,
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.center,
+              Container(
+                margin: const EdgeInsets.only(top: 5),
+                child: Tooltip(
+                  // Muestra el nombre completo
+                  message: pictogram.name,
+                  // Espera antes de mostrarse
+                  waitDuration: const Duration(
+                    milliseconds: 100,
+                  ),
+                  // Tiempo visible
+                  showDuration: const Duration(
+                    seconds: 2,
+                  ),
+                  child: Text(
+                    pictogram.name,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
               ),
             ],
           ),

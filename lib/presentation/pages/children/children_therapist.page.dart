@@ -172,97 +172,89 @@ class ChildrenTherapistPageState extends ConsumerState<ChildrenTherapistPage> {
       ),
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 7.5),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Stack(
           children: [
-            const SizedBox(height: 10),
-            Expanded(
-              child: Stack(
-                children: [
-                  if (stateWacthChildren.paginateChildren[$indexPage] != 1)
-                    SizedBox.expand(
-                      child: stateWacthChildren.children.isNotEmpty
-                          ? ListView.builder(
-                              controller: scrollController,
-                              itemCount: stateChildren.children.length,
-                              itemBuilder: (context, index) {
-                                return ListTileCustom(
-                                  title: stateChildren.children[index].fullName,
-                                  colorTitle: true,
-                                  styleTitle: FontWeight.bold,
-                                  subTitle: RichText(
-                                    text: TextSpan(
-                                      style: const TextStyle(
-                                        color: $colorTextBlack,
-                                        fontSize: 13,
-                                      ),
-                                      text:
-                                          '${stateChildren.children[index].age} ${S.current.Anos}\n${S.current.Fase}: ${stateChildren.children[index].currentPhase.name}',
-                                    ),
-                                  ),
-                                  image: stateChildren.children[index].imageUrl,
-                                  iconButton: MenuItems(
-                                    itemObject: CatalogObject(
-                                      id: stateChildren.children[index].id,
-                                      name: stateChildren
-                                          .children[index].fullName,
-                                      description: '',
-                                    ),
-                                    menuItems: menuPacientTherapist,
-                                  ),
-                                  onTap: () {
-                                    context.pushNamed($child, pathParameters: {
-                                      $idChild: stateChildren.children[index].id
-                                          .toString()
-                                    }, extra: {
-                                      $isTutor: false
-                                    });
-                                  },
-                                );
-                              },
-                            )
-                          : SvgPicture.asset(fit: BoxFit.contain, $noData),
-                    ),
-                  if (stateWacthChildren.isLoading == true &&
-                      stateWacthChildren.paginateChildren[$indexPage] != 1)
-                    const Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Padding(
-                        padding: EdgeInsets.all(16),
-                        child: CircularProgressIndicator(),
-                      ),
-                    ),
-                  // 🔄 LOADING
-                  if (stateWacthChildren.paginateChildren[$indexPage] == 1) ...[
-                    const Opacity(
-                      opacity: 0.5,
-                      child: ModalBarrier(
-                          dismissible: false, color: $colorTransparent),
-                    ),
-                    Center(
-                      child: stateWacthChildren.isErrorInitial == true
-                          ? SvgPicture.asset(fit: BoxFit.contain, $noData)
-                          : Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const CircularProgressIndicator(),
-                                const SizedBox(height: 25),
-                                Text(
-                                  S.current.Cargando,
-                                  style: const TextStyle(
-                                    color: $colorButtonDisable,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    decoration: TextDecoration.none,
-                                  ),
+            if (stateWacthChildren.paginateChildren[$indexPage] != 1)
+              Container(
+                child: stateWacthChildren.children.isNotEmpty
+                    ? ListView.builder(
+                        padding: const EdgeInsets.symmetric(vertical: 15),
+                        controller: scrollController,
+                        itemCount: stateChildren.children.length,
+                        itemBuilder: (context, index) {
+                          return ListTileCustom(
+                            title: stateChildren.children[index].fullName,
+                            colorTitle: true,
+                            styleTitle: FontWeight.bold,
+                            subTitle: RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  color: $colorTextBlack,
+                                  fontSize: 13,
                                 ),
-                              ],
+                                text:
+                                    '${stateChildren.children[index].age} ${S.current.Anos}\n${S.current.Fase}: ${stateChildren.children[index].currentPhase.name}',
+                              ),
                             ),
-                    ),
-                  ],
-                ],
+                            image: stateChildren.children[index].imageUrl,
+                            iconButton: MenuItems(
+                              itemObject: CatalogObject(
+                                id: stateChildren.children[index].id,
+                                name: stateChildren.children[index].fullName,
+                                description: '',
+                              ),
+                              menuItems: menuPacientTherapist,
+                            ),
+                            onTap: () {
+                              context.pushNamed($child, pathParameters: {
+                                $idChild:
+                                    stateChildren.children[index].id.toString()
+                              }, extra: {
+                                $isTutor: false
+                              });
+                            },
+                          );
+                        },
+                      )
+                    : SvgPicture.asset(fit: BoxFit.contain, $noData),
               ),
-            ),
+            if (stateWacthChildren.isLoading == true &&
+                stateWacthChildren.paginateChildren[$indexPage] != 1)
+              const Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: EdgeInsets.all(16),
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+            // 🔄 LOADING
+            if (stateWacthChildren.paginateChildren[$indexPage] == 1) ...[
+              const Opacity(
+                opacity: 0.5,
+                child:
+                    ModalBarrier(dismissible: false, color: $colorTransparent),
+              ),
+              Center(
+                child: stateWacthChildren.isErrorInitial == true
+                    ? SvgPicture.asset(fit: BoxFit.contain, $noData)
+                    : Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const CircularProgressIndicator(),
+                          const SizedBox(height: 25),
+                          Text(
+                            S.current.Cargando,
+                            style: const TextStyle(
+                              color: $colorButtonDisable,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.none,
+                            ),
+                          ),
+                        ],
+                      ),
+              ),
+            ],
           ],
         ),
       ),

@@ -744,7 +744,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                 Text(
                   S.current.Cargando,
                   style: const TextStyle(
-                    color: Colors.white,
+                    color: $colorTextWhite,
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     decoration: TextDecoration.none,

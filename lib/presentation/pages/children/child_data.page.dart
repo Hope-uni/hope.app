@@ -568,11 +568,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
                       ),
                     ),
                     Container(
-                      margin: const EdgeInsets.only(
-                        left: 10,
-                        right: 10,
-                        top: 15,
-                      ),
+                      margin: const EdgeInsets.only(left: 10, right: 10),
                       child: _observationsChild(ref: ref),
                     ),
                   ],
@@ -1536,8 +1532,11 @@ List<Widget> _activities({
           colorTitle: true,
           styleTitle: FontWeight.bold,
           noImage: true,
-          colorText: $colorTextWhite,
-          colorItemSelect: $colorBlueGeneral,
+          colorText: stateChildCurrentActivity != null
+              ? $colorBlueGeneral
+              : $colorTextWhite,
+          colorItemSelect:
+              stateChildCurrentActivity != null ? null : $colorBlueGeneral,
           subTitle: stateChildCurrentActivity != null
               ? Column(
                   children: [
@@ -1595,6 +1594,7 @@ List<Widget> _activities({
     Expanded(
       child: stateChildActivities != null
           ? ListView.builder(
+              padding: const EdgeInsets.symmetric(vertical: 15),
               itemCount: stateChildActivities.length + 1,
               itemBuilder: (context, index) {
                 if (index < stateChildActivities.length) {
@@ -1629,6 +1629,7 @@ Widget _observationsChild({
   final stateChildObservations = ref.watch(childProvider).child!.observations;
   return stateChildObservations != null
       ? ListView.builder(
+          padding: const EdgeInsets.symmetric(vertical: 15),
           itemCount: stateChildObservations.length + 1,
           itemBuilder: (context, index) {
             if (index < stateChildObservations.length) {

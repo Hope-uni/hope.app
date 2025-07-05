@@ -26,7 +26,7 @@ class ImageLoad extends StatelessWidget {
                 context: context,
                 builder: (BuildContext context) {
                   return Dialog(
-                    backgroundColor: Colors.transparent,
+                    backgroundColor: $colorTransparent,
                     child: Container(
                       height: isError == true ? 200 : null,
                       width: isError == true ? 200 : null,
@@ -35,13 +35,13 @@ class ImageLoad extends StatelessWidget {
                         border: urlImage != null && urlImage!.isNotEmpty
                             ? Border.all(
                                 color: isError == true
-                                    ? Colors.transparent
+                                    ? $colorTransparent
                                     : $colorTextBlack,
                                 width: 0.5)
                             : null,
                         color: urlImage != null && urlImage!.isNotEmpty
                             ? (isError == true
-                                ? Colors.transparent
+                                ? $colorTransparent
                                 : $colorTextWhite)
                             : null,
                       ),

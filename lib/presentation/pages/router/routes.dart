@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hope_app/infrastructure/infrastructure.dart';
@@ -177,7 +178,14 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             return '/dashboard';
           }
 
-          if (verified == true && roles.contains($paciente)) return '/board';
+          if (verified == true && roles.contains($paciente)) {
+            SystemChrome.setPreferredOrientations([
+              DeviceOrientation.landscapeLeft,
+              DeviceOrientation.landscapeRight,
+            ]);
+            SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+            return '/board';
+          }
 
           if (roles.contains($admin)) return '/login';
         }
