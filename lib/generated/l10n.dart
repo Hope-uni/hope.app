@@ -1618,21 +1618,21 @@ class S {
     );
   }
 
-  /// `Si el nombre del pictograma no se muestra completo, puede:`
+  /// `Si el nombre del pictograma no se muestra completo, puede`
   String get Si_el_nombre_del_pictograma_no_se_muestra_completo_puede {
     return Intl.message(
-      'Si el nombre del pictograma no se muestra completo, puede:',
+      'Si el nombre del pictograma no se muestra completo, puede',
       name: 'Si_el_nombre_del_pictograma_no_se_muestra_completo_puede',
       desc: '',
       args: [],
     );
   }
 
-  /// `• Mantener el dedo sobre el nombre durante 1 segundo para verlo completo.`
+  /// `• Mantener el dedo sobre el nombre durante 1 segundo para verlo completo`
   String
   get Mantener_el_dedo_sobre_el_nombre_durante_1_segundo_para_verlo_completo {
     return Intl.message(
-      '• Mantener el dedo sobre el nombre durante 1 segundo para verlo completo.',
+      '• Mantener el dedo sobre el nombre durante 1 segundo para verlo completo',
       name:
           'Mantener_el_dedo_sobre_el_nombre_durante_1_segundo_para_verlo_completo',
       desc: '',
@@ -1640,30 +1640,30 @@ class S {
     );
   }
 
-  /// `• Hacer clic en el botón de editar.`
+  /// `• Hacer clic en el botón de editar`
   String get Hacer_clic_en_el_boton_de_editar {
     return Intl.message(
-      '• Hacer clic en el botón de editar.',
+      '• Hacer clic en el botón de editar',
       name: 'Hacer_clic_en_el_boton_de_editar',
       desc: '',
       args: [],
     );
   }
 
-  /// `Para ver la imagen con más detalle:`
+  /// `Para ver la imagen con más detalle`
   String get Para_ver_la_imagen_con_mas_detalle {
     return Intl.message(
-      'Para ver la imagen con más detalle:',
+      'Para ver la imagen con más detalle',
       name: 'Para_ver_la_imagen_con_mas_detalle',
       desc: '',
       args: [],
     );
   }
 
-  /// `• Hacer doble clic sobre la imagen.`
+  /// `• Hacer doble clic sobre la imagen`
   String get Hacer_doble_clic_sobre_la_imagen {
     return Intl.message(
-      '• Hacer doble clic sobre la imagen.',
+      '• Hacer doble clic sobre la imagen',
       name: 'Hacer_doble_clic_sobre_la_imagen',
       desc: '',
       args: [],
@@ -1732,10 +1732,10 @@ class S {
     );
   }
 
-  /// `Para reordenar la solución:`
+  /// `Para reordenar la solución`
   String get Para_reordenar_la_solucion {
     return Intl.message(
-      'Para reordenar la solución:',
+      'Para reordenar la solución',
       name: 'Para_reordenar_la_solucion',
       desc: '',
       args: [],
@@ -2020,10 +2020,10 @@ class S {
     );
   }
 
-  /// `Para ver la foto de perfil de los pacientes con más detalle:`
+  /// `Para ver la foto de perfil de los pacientes con más detalle`
   String get Para_ver_la_foto_de_perfil_de_los_pacientes_con_mas_detalle {
     return Intl.message(
-      'Para ver la foto de perfil de los pacientes con más detalle:',
+      'Para ver la foto de perfil de los pacientes con más detalle',
       name: 'Para_ver_la_foto_de_perfil_de_los_pacientes_con_mas_detalle',
       desc: '',
       args: [],
@@ -2112,10 +2112,10 @@ class S {
     );
   }
 
-  /// `Para quitar asignación de actividad a los pacientes:`
+  /// `Para quitar asignación de actividad a los pacientes`
   String get Para_quitar_asignacion_de_actividad_a_los_pacientes {
     return Intl.message(
-      'Para quitar asignación de actividad a los pacientes:',
+      'Para quitar asignación de actividad a los pacientes',
       name: 'Para_quitar_asignacion_de_actividad_a_los_pacientes',
       desc: '',
       args: [],
@@ -2134,20 +2134,20 @@ class S {
     );
   }
 
-  /// `Para ver la foto de perfil con más detalle:`
+  /// `Para ver la foto de perfil con más detalle`
   String get Para_ver_la_foto_de_perfil_con_mas_detalle {
     return Intl.message(
-      'Para ver la foto de perfil con más detalle:',
+      'Para ver la foto de perfil con más detalle',
       name: 'Para_ver_la_foto_de_perfil_con_mas_detalle',
       desc: '',
       args: [],
     );
   }
 
-  /// `Pestañas de información:`
+  /// `Pestañas de información`
   String get Pestanas_de_informacion {
     return Intl.message(
-      'Pestañas de información:',
+      'Pestañas de información',
       name: 'Pestanas_de_informacion',
       desc: '',
       args: [],
@@ -2176,10 +2176,10 @@ class S {
     );
   }
 
-  /// `Menú de opciones:`
+  /// `Menú de opciones`
   String get Menu_de_opciones {
     return Intl.message(
-      'Menú de opciones:',
+      'Menú de opciones',
       name: 'Menu_de_opciones',
       desc: '',
       args: [],
@@ -2198,30 +2198,30 @@ class S {
     );
   }
 
-  /// `Para ver el detalle del paciente:`
+  /// `Para ver el detalle del paciente`
   String get Para_ver_el_detalle_del_paciente {
     return Intl.message(
-      'Para ver el detalle del paciente:',
+      'Para ver el detalle del paciente',
       name: 'Para_ver_el_detalle_del_paciente',
       desc: '',
       args: [],
     );
   }
 
-  /// `Para ver el detalle del/la niñ@:`
+  /// `Para ver el detalle del/la niñ@`
   String get Para_ver_el_detalle_del_la_nino {
     return Intl.message(
-      'Para ver el detalle del/la niñ@:',
+      'Para ver el detalle del/la niñ@',
       name: 'Para_ver_el_detalle_del_la_nino',
       desc: '',
       args: [],
     );
   }
 
-  /// `Para ver la foto de perfil de los niños asignados con más detalle:`
+  /// `Para ver la foto de perfil de los niños asignados con más detalle`
   String get Para_ver_la_foto_de_perfil_de_los_ninos_asignados_con_mas_detalle {
     return Intl.message(
-      'Para ver la foto de perfil de los niños asignados con más detalle:',
+      'Para ver la foto de perfil de los niños asignados con más detalle',
       name: 'Para_ver_la_foto_de_perfil_de_los_ninos_asignados_con_mas_detalle',
       desc: '',
       args: [],
@@ -2348,10 +2348,10 @@ class S {
     );
   }
 
-  /// `Para asignar un logro:`
+  /// `Para asignar un logro`
   String get Para_asignar_un_logro {
     return Intl.message(
-      'Para asignar un logro:',
+      'Para asignar un logro',
       name: 'Para_asignar_un_logro',
       desc: '',
       args: [],
@@ -2368,10 +2368,10 @@ class S {
     );
   }
 
-  /// `Si el nombre del logro no se muestra completo, puede:`
+  /// `Si el nombre del logro no se muestra completo, puede`
   String get Si_el_nombre_del_logro_no_se_muestra_completo_puede {
     return Intl.message(
-      'Si el nombre del logro no se muestra completo, puede:',
+      'Si el nombre del logro no se muestra completo, puede',
       name: 'Si_el_nombre_del_logro_no_se_muestra_completo_puede',
       desc: '',
       args: [],
@@ -2519,21 +2519,21 @@ class S {
     );
   }
 
-  /// `Si el título de la pantalla no se muestra completo, puede:`
+  /// `Si el título de la pantalla no se muestra completo, puede`
   String get Si_el_titulo_de_la_pantalla_no_se_muestra_completo_puede {
     return Intl.message(
-      'Si el título de la pantalla no se muestra completo, puede:',
+      'Si el título de la pantalla no se muestra completo, puede',
       name: 'Si_el_titulo_de_la_pantalla_no_se_muestra_completo_puede',
       desc: '',
       args: [],
     );
   }
 
-  /// `• Mantener el dedo sobre el título durante 1 segundo para verlo completo.`
+  /// `• Mantener el dedo sobre el título durante 1 segundo para verlo completo`
   String
   get Mantener_el_dedo_sobre_el_titulo_durante_1_segundo_para_verlo_completo {
     return Intl.message(
-      '• Mantener el dedo sobre el título durante 1 segundo para verlo completo.',
+      '• Mantener el dedo sobre el título durante 1 segundo para verlo completo',
       name:
           'Mantener_el_dedo_sobre_el_titulo_durante_1_segundo_para_verlo_completo',
       desc: '',
@@ -2546,6 +2546,60 @@ class S {
     return Intl.message(
       'Observación creada',
       name: 'Observacion_creada',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Si algún texto no se muestra completo`
+  String get Si_algun_texto_no_se_muestra_completo {
+    return Intl.message(
+      'Si algún texto no se muestra completo',
+      name: 'Si_algun_texto_no_se_muestra_completo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Mantener el dedo sobre el texto durante 1 segundo para verlo completo`
+  String
+  get Mantener_el_dedo_sobre_el_texto_durante_1_segundo_para_verlo_completo {
+    return Intl.message(
+      '• Mantener el dedo sobre el texto durante 1 segundo para verlo completo',
+      name:
+          'Mantener_el_dedo_sobre_el_texto_durante_1_segundo_para_verlo_completo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Para verificar la actividad o cerrar sesión`
+  String get Para_verificar_la_actividad_o_cerrar_sesion {
+    return Intl.message(
+      'Para verificar la actividad o cerrar sesión',
+      name: 'Para_verificar_la_actividad_o_cerrar_sesion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Debe presionar el botón correspondiente durante 3 segundos para realizar la acción`
+  String
+  get Debe_presionar_el_boton_correspondiente_durante_tres_segundos_para_realizar_la_accion {
+    return Intl.message(
+      '• Debe presionar el botón correspondiente durante 3 segundos para realizar la acción',
+      name:
+          'Debe_presionar_el_boton_correspondiente_durante_tres_segundos_para_realizar_la_accion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Descripción de la actividad`
+  String get Descripcion_de_la_actividad {
+    return Intl.message(
+      'Descripción de la actividad',
+      name: 'Descripcion_de_la_actividad',
       desc: '',
       args: [],
     );
