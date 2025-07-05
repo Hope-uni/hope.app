@@ -87,7 +87,13 @@ class ImageListVIewState extends ConsumerState<ImageListVIew> {
               : ReorderableListView.builder(
                   itemBuilder: (context, index) {
                     return Container(
-                      margin: const EdgeInsets.only(left: 10),
+                      margin: EdgeInsets.only(
+                        left: 10,
+                        right: widget.backgroundLine == true &&
+                                widget.images.length == index + 1
+                            ? 200
+                            : 0,
+                      ),
                       key: ValueKey(widget.images[index].id),
                       width: 125,
                       child: Column(
@@ -170,7 +176,7 @@ class ImageListVIewState extends ConsumerState<ImageListVIew> {
                   scrollDirection: Axis.horizontal,
                   itemCount: widget.images.length,
                   proxyDecorator: (child, index, animation) => Material(
-                    color: Colors.transparent,
+                    color: $colorTransparent,
                     child: child,
                   ),
                   onReorder: widget.onReorder ?? (oldIndex, newIndex) {},

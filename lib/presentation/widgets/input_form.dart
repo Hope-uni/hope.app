@@ -69,7 +69,7 @@ class _InputFormState extends State<InputForm> {
   bool _hasStartedTyping = false;
   List<TextInputFormatter>? inputFormatters;
 
-  Color _coloLabel = Colors.black;
+  Color _coloLabel = $colorTextBlack;
 
   final FocusNode _focus = FocusNode();
 
@@ -80,7 +80,8 @@ class _InputFormState extends State<InputForm> {
         widget.controllerExt ?? TextEditingController(text: widget.value);
     if (widget.onSearch != null) _controller.addListener(_onSearchTextChanged);
 
-    _coloLabel = _controller.text.isNotEmpty ? Colors.black : $hintColorInput;
+    _coloLabel =
+        _controller.text.isNotEmpty ? $colorTextBlack : $hintColorInput;
     _focus.addListener(onChageColorLabel);
 
     // Solo un tipo de inputFormatter será aplicado
@@ -114,10 +115,10 @@ class _InputFormState extends State<InputForm> {
 
   onChageColorLabel() {
     if (_focus.hasFocus) {
-      setState(() => _coloLabel = Colors.black);
+      setState(() => _coloLabel = $colorTextBlack);
     } else {
       if (_controller.text.isNotEmpty && _controller.text != "") {
-        _coloLabel = Colors.black;
+        _coloLabel = $colorTextBlack;
       } else {
         setState(() => _coloLabel = $hintColorInput);
       }
