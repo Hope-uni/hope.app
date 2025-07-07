@@ -64,6 +64,7 @@ class BoardPageState extends ConsumerState<BoardPage> {
       Future.microtask(() async {
         final notifierPictograms = ref.read(pictogramsProvider.notifier);
         final notifierBoard = ref.read(boardProvider.notifier);
+        final stateBoard = ref.read(boardProvider);
         await notifierPictograms.getPictogramsPatient();
         await notifierBoard.getPatientActivity();
 
@@ -80,6 +81,7 @@ class BoardPageState extends ConsumerState<BoardPage> {
                 statePictograms.paginatePictograms[$indexPage]! <=
                     statePictograms.paginatePictograms[$pageCount]!) {
               await notifierPictograms.getPictogramsPatient(
+                  pictogramsSolution: stateBoard.pictograms,
                   idCategory: indexSeleccionado != null
                       ? statePictograms
                           .categoryPictograms[indexSeleccionado!].id
@@ -261,10 +263,12 @@ class BoardPageState extends ConsumerState<BoardPage> {
                         ? Text(
                             '${S.current.Ultima_actividad_terminada}: ${stateBoard.patientActivity!.latestCompletedActivity!.name}',
                             maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
                           )
                         : Text(
                             '${S.current.Actividad_actual}: ${stateBoard.patientActivity!.currentActivity!.name}',
                             maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
                           ),
                   ),
                   const Spacer(),
@@ -402,7 +406,7 @@ class BoardPageState extends ConsumerState<BoardPage> {
                                 children: [
                                   if (statePictograms.pictograms.isEmpty ==
                                           false &&
-                                      statePictograms.isLoading == false)
+                                      statePictograms.isNewFilter != true)
                                     GridView.builder(
                                       controller: scrollController,
                                       itemCount:
@@ -849,7 +853,8 @@ Widget buildDraggableExample({
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     children: <Widget>[
-      Draggable<PictogramAchievements>(
+      LongPressDraggable<PictogramAchievements>(
+        delay: const Duration(milliseconds: 150),
         data: pictogram,
         onDragStarted: () {
           speak(pictogram.name);

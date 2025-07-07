@@ -49,7 +49,11 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
       isFilter = false;
     }
 
-    state = state.copyWith(isLoading: true);
+    state = state.copyWith(
+      isLoading: true,
+      isNewFilter: idCategory != categoryId ? true : false,
+    );
+
     categoryId = idCategory;
     pictogramName = namePictogram;
   }
@@ -74,6 +78,7 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
           indexPage == 1 ? categoryPictograms ?? [] : state.categoryPictograms,
       isLoading: false,
       isErrorInitial: false,
+      isNewFilter: false,
     );
   }
 
@@ -277,6 +282,7 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
 class PictogramsState {
   final List<PictogramAchievements> pictograms;
   final List<Category> categoryPictograms;
+  final bool? isNewFilter;
   final bool? isLoading;
   final String? errorMessageApi;
   final bool? isErrorInitial;
@@ -287,6 +293,7 @@ class PictogramsState {
     this.categoryPictograms = const [],
     this.paginatePictograms = const {$indexPage: 1, $pageCount: 0},
     this.isLoading = true,
+    this.isNewFilter,
     this.isErrorInitial = false,
     this.errorMessageApi,
   });
@@ -296,6 +303,7 @@ class PictogramsState {
     List<Category>? categoryPictograms,
     Map<String, int>? paginatePictograms,
     bool? isLoading,
+    bool? isNewFilter,
     bool? isErrorInitial,
     String? errorMessageApi,
   }) =>
@@ -307,6 +315,7 @@ class PictogramsState {
             : errorMessageApi ?? this.errorMessageApi,
         isLoading: isLoading ?? this.isLoading,
         isErrorInitial: isErrorInitial ?? this.isErrorInitial,
+        isNewFilter: isNewFilter ?? this.isNewFilter,
         paginatePictograms: paginatePictograms ?? this.paginatePictograms,
       );
 }
