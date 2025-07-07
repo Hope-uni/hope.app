@@ -177,13 +177,7 @@ class ImageListVIewState extends ConsumerState<ImageListVIew> {
               : ReorderableListView.builder(
                   itemBuilder: (context, index) {
                     return Container(
-                      margin: EdgeInsets.only(
-                        left: 10,
-                        right: widget.backgroundLine == true &&
-                                widget.images.length == index + 1
-                            ? 200
-                            : 0,
-                      ),
+                      margin: const EdgeInsets.only(left: 10),
                       key: ValueKey(widget.images[index].id),
                       width: 125,
                       child: Column(
@@ -249,11 +243,15 @@ class ImageListVIewState extends ConsumerState<ImageListVIew> {
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20),
                                       border: Border.all(
-                                          color: $colorTextBlack, width: 0.5),
+                                        color: $colorTextBlack,
+                                        width: 0.5,
+                                      ),
                                       color: $colorTextWhite,
                                     ),
                                     margin: const EdgeInsets.symmetric(
-                                        horizontal: 7, vertical: 10),
+                                      horizontal: 7,
+                                      vertical: 10,
+                                    ),
                                     child: dragPictogram != null &&
                                             dragPictogram!.id ==
                                                 widget.images[index].id
@@ -321,10 +319,22 @@ class ImageListVIewState extends ConsumerState<ImageListVIew> {
                   },
                   scrollDirection: Axis.horizontal,
                   itemCount: widget.images.length,
-                  proxyDecorator: (child, index, animation) => Material(
-                    color: $colorTransparent,
-                    child: child,
-                  ),
+                  proxyDecorator: (child, index, animation) {
+                    return AnimatedBuilder(
+                      animation: animation,
+                      builder: (context, child) {
+                        final scale = 1.0 + (0.4 * animation.value);
+                        return Transform.scale(
+                          scale: scale,
+                          child: Material(
+                            color: $colorTransparent,
+                            child: child,
+                          ),
+                        );
+                      },
+                      child: child,
+                    );
+                  },
                   onReorder: widget.onReorder ?? (oldIndex, newIndex) {},
                   scrollController: widget.controller,
                   buildDefaultDragHandles: widget.isReorder!,

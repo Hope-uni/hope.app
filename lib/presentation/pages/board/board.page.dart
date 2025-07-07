@@ -20,6 +20,7 @@ class BoardPage extends ConsumerStatefulWidget {
 
 class BoardPageState extends ConsumerState<BoardPage> {
   final scrollController = ScrollController();
+  final scrollControllerList = ScrollController();
 
   bool _initialized = false;
   bool _initializedWidgetsBinding = false;
@@ -36,11 +37,13 @@ class BoardPageState extends ConsumerState<BoardPage> {
   void initState() {
     super.initState();
     // Establecer la orientación por defecto como horizontal para el tablero de comunicacion
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.landscapeRight,
-    ]);
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.landscapeLeft,
+        DeviceOrientation.landscapeRight,
+      ]);
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    });
   }
 
   @override
@@ -51,6 +54,7 @@ class BoardPageState extends ConsumerState<BoardPage> {
       overlays: SystemUiOverlay.values,
     );
     scrollController.dispose();
+    scrollControllerList.dispose();
     super.dispose();
   }
 
@@ -158,6 +162,22 @@ class BoardPageState extends ConsumerState<BoardPage> {
         );
 
         notifierBoard.updateResponse();
+      }
+    });
+
+    ref.listen<BoardState>(boardProvider, (previous, next) {
+      if (previous == null ||
+          next.pictograms.length > previous.pictograms.length) {
+        // Se ha agregado un nuevo pictograma
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (scrollControllerList.hasClients) {
+            scrollControllerList.animateTo(
+              scrollControllerList.position.maxScrollExtent,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeOut,
+            );
+          }
+        });
       }
     });
 
@@ -659,6 +679,7 @@ class BoardPageState extends ConsumerState<BoardPage> {
                                     images: stateBoard.pictograms,
                                     backgroundLine: true,
                                     isFilterBW: _isMonochrome,
+                                    controller: scrollControllerList,
                                     isDecoration: false,
                                     isSelect: false,
                                     isReorder: true,

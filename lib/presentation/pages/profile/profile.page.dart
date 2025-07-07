@@ -1,6 +1,7 @@
 import 'dart:io' show File;
 import 'package:clearable_dropdown/clearable_dropdown.dart' as clearable;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:hope_app/generated/l10n.dart';
@@ -40,6 +41,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
   @override
   void initState() {
     super.initState();
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (mounted) {
         ref.read(profileProvider.notifier).restoredState();
