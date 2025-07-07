@@ -251,27 +251,27 @@ class BoardPageState extends ConsumerState<BoardPage> {
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Tooltip(
-                    // Muestra el nombre completo
-                    message: stateBoard.patientActivity!.currentActivity == null
-                        ? '${S.current.Ultima_actividad_terminada}: ${stateBoard.patientActivity!.latestCompletedActivity!.name}'
-                        : '${S.current.Actividad_actual}: ${stateBoard.patientActivity!.currentActivity!.name}',
-                    waitDuration: const Duration(
-                        milliseconds: 100), // Espera antes de mostrarse
-                    showDuration: const Duration(seconds: 2), // Tiempo visible
-                    child: stateBoard.patientActivity!.currentActivity == null
-                        ? Text(
-                            '${S.current.Ultima_actividad_terminada}: ${stateBoard.patientActivity!.latestCompletedActivity!.name}',
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          )
-                        : Text(
-                            '${S.current.Actividad_actual}: ${stateBoard.patientActivity!.currentActivity!.name}',
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
+                  Expanded(
+                    child: Tooltip(
+                      message: stateBoard.patientActivity!.currentActivity ==
+                              null
+                          ? '${S.current.Ultima_actividad_terminada}: ${stateBoard.patientActivity!.latestCompletedActivity!.name}'
+                          : '${S.current.Actividad_actual}: ${stateBoard.patientActivity!.currentActivity!.name}',
+                      waitDuration: const Duration(milliseconds: 100),
+                      showDuration: const Duration(seconds: 2),
+                      child: stateBoard.patientActivity!.currentActivity == null
+                          ? Text(
+                              '${S.current.Ultima_actividad_terminada}: ${stateBoard.patientActivity!.latestCompletedActivity!.name}',
+                              overflow: TextOverflow.ellipsis,
+                            )
+                          : Text(
+                              '${S.current.Actividad_actual}: ${stateBoard.patientActivity!.currentActivity!.name}',
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                    ),
                   ),
-                  const Spacer(),
+                  if (stateBoard.patientActivity!.currentActivity != null)
+                    const Spacer(),
                   if (stateBoard.patientActivity!.currentActivity != null)
                     Text(
                       '${stateBoard.patientActivity!.currentActivity!.satisfactoryAttempts}/${stateBoard.patientActivity!.currentActivity!.satisfactoryPoints}',
@@ -662,6 +662,14 @@ class BoardPageState extends ConsumerState<BoardPage> {
                                     isDecoration: false,
                                     isSelect: false,
                                     isReorder: true,
+                                    onTapSound: speak,
+                                    onDragDeleted: (pictogram) {
+                                      notifierBoard.deletePictogram(
+                                          pictogram: pictogram);
+
+                                      notifierPictograms.addPictogram(
+                                          pictogram: pictogram);
+                                    },
                                     onReorder:
                                         notifierBoard.onChangeOrderSolution,
                                   ),
@@ -777,13 +785,29 @@ class BoardPageState extends ConsumerState<BoardPage> {
                           );
                         },
                         onAcceptWithDetails:
-                            (DragTargetDetails<PictogramAchievements> details) {
+                            (DragTargetDetails<PictogramAchievements>
+                                details) async {
                           notifierBoard.addPictogramSolution(
                               newPictogram: details.data);
 
                           notifierPictograms.deletePictogram(
                             idPictogram: details.data.id,
                           );
+
+                          if (statePictograms.pictograms.length < 19 &&
+                              statePictograms.paginatePictograms[$indexPage]! >
+                                  1 &&
+                              statePictograms.paginatePictograms[$indexPage]! <=
+                                  statePictograms
+                                      .paginatePictograms[$pageCount]!) {
+                            await notifierPictograms.getPictogramsPatient(
+                                pictogramsSolution: stateBoard.pictograms,
+                                idCategory: indexSeleccionado != null
+                                    ? statePictograms
+                                        .categoryPictograms[indexSeleccionado!]
+                                        .id
+                                    : null);
+                          }
                         },
                       ),
                     ],
@@ -856,12 +880,11 @@ Widget buildDraggableExample({
       LongPressDraggable<PictogramAchievements>(
         delay: const Duration(milliseconds: 150),
         data: pictogram,
-        onDragStarted: () {
-          speak(pictogram.name);
-        },
+        onDragStarted: () => speak(pictogram.name),
         feedback: ClipRRect(
           borderRadius: BorderRadius.circular(20),
-          child: SizedBox(
+          child: Container(
+            color: $colorTextWhite,
             height: 200.0,
             width: 200.0,
             child: ColorFiltered(

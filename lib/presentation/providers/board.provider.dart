@@ -108,9 +108,13 @@ class BoardNotifier extends StateNotifier<BoardState> {
     state = state.copyWith(pictograms: state.pictograms);
   }
 
-  void clearPictogramSolution() {
-    state = state.copyWith(pictograms: []);
+  void deletePictogram({required PictogramAchievements pictogram}) {
+    final List<PictogramAchievements> newSolution = List.from(state.pictograms);
+    newSolution.removeWhere((item) => item.id == pictogram.id);
+    state = state.copyWith(pictograms: newSolution);
   }
+
+  void clearPictogramSolution() => state = state.copyWith(pictograms: []);
 
   void updateResponse() {
     state = state.copyWith(

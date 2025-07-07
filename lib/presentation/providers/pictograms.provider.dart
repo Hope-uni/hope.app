@@ -267,6 +267,14 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
     state = state.copyWith(pictograms: listPictogram);
   }
 
+  void addPictogram({required PictogramAchievements pictogram}) {
+    List<PictogramAchievements> listPictogram = List.from(state.pictograms);
+    listPictogram.add(pictogram);
+    listPictogram
+        .sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+    state = state.copyWith(pictograms: listPictogram);
+  }
+
   void updateCustomPictogram({required PictogramAchievements pictogram}) {
     List<PictogramAchievements> listPictogram = state.pictograms;
     final index = listPictogram.indexWhere((item) => item.id == pictogram.id);

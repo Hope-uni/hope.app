@@ -16,6 +16,7 @@ const Color $colorTextWhite = Colors.white;
 
 const Color $colorAlert = Colors.yellowAccent;
 const Color $colorError = Colors.redAccent;
+const Color $colorDelete = Color.fromARGB(169, 244, 67, 54);
 const Color $colorSuccess = Color.fromARGB(255, 11, 123, 5);
 const Color $colorPrimary = Colors.blue;
 final Color $colorPrimary50 = Colors.blue[50]!;
