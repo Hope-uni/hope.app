@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/heart_circle_background.dart';
@@ -13,16 +12,10 @@ class SplashScreenPage extends StatefulWidget {
 
 class SplashScreenPageState extends State<SplashScreenPage> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: $colorBlueGeneral, // Cambia el color de fondo
+      backgroundColor: $colorBlueGeneral,
       body: Container(
         height: size.height,
         width: size.width,

@@ -49,5 +49,6 @@ class MePermissionsMapper {
         "age": profile.age,
         "imageUrl": profile.imageUrl,
         "gender": profile.gender,
+        "isMonochrome": profile.isMonochrome,
       };
 }
