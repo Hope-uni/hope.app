@@ -388,6 +388,25 @@ class BoardPageState extends ConsumerState<BoardPage> {
                                       const SizedBox(height: 10),
                                       Text(S.current
                                           .Mantener_el_dedo_sobre_el_texto_durante_1_segundo_para_verlo_completo),
+                                      const SizedBox(height: 30),
+                                      Text(
+                                        S.current
+                                            .En_el_tablero_puede_realizar_las_siguientes_acciones,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Text(S.current
+                                          .Agregar_un_pictograma_a_la_solucion_presionando_la_imagen_por_un_segundo_y_luego_desplazandola_a_la_zona_de_la_solucion),
+                                      const SizedBox(height: 10),
+                                      Text(S.current
+                                          .Reordenar_la_solucion_presionando_la_imagen_por_un_segundo_y_moviendola_horizontalmente_hasta_el_lugar_correcto),
+                                      const SizedBox(height: 10),
+                                      Text(S.current
+                                          .Eliminar_un_pictograma_de_forma_individual_presionando_la_imagen_y_desplazandola_verticalmente_fuera_del_area_de_la_solucion),
+                                      const SizedBox(height: 10),
+                                      Text(S.current
+                                          .Presionar_una_imagen_de_la_solucion_para_reproducir_su_sonido_de_forma_individual),
                                     ],
                                   ),
                                 ),

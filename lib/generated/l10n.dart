@@ -430,20 +430,20 @@ class S {
     return Intl.message('Cámara', name: 'Camara', desc: '', args: []);
   }
 
-  /// `Lo sentimos, ha ocurrido un error al procesar tu solicitud. Por favor, intenta nuevamente más tarde.`
+  /// `Lo sentimos, ha ocurrido un error al procesar tu solicitud. Por favor, intenta nuevamente más tarde`
   String get Error_solicitud {
     return Intl.message(
-      'Lo sentimos, ha ocurrido un error al procesar tu solicitud. Por favor, intenta nuevamente más tarde.',
+      'Lo sentimos, ha ocurrido un error al procesar tu solicitud. Por favor, intenta nuevamente más tarde',
       name: 'Error_solicitud',
       desc: '',
       args: [],
     );
   }
 
-  /// `Lamentablemente, ocurrió un error inesperado. Por favor, intenta nuevamente más tarde.`
+  /// `Lamentablemente, ocurrió un error inesperado. Por favor, intenta nuevamente más tarde`
   String get Error_inesperado {
     return Intl.message(
-      'Lamentablemente, ocurrió un error inesperado. Por favor, intenta nuevamente más tarde.',
+      'Lamentablemente, ocurrió un error inesperado. Por favor, intenta nuevamente más tarde',
       name: 'Error_inesperado',
       desc: '',
       args: [],
@@ -590,11 +590,11 @@ class S {
     return Intl.message('Tutor', name: 'Tutor', desc: '', args: []);
   }
 
-  /// `Contacto tutor`
-  String get Contacto_tutor {
+  /// `Celular tutor`
+  String get Celular_tutor {
     return Intl.message(
-      'Contacto tutor',
-      name: 'Contacto_tutor',
+      'Celular tutor',
+      name: 'Celular_tutor',
       desc: '',
       args: [],
     );
@@ -605,11 +605,11 @@ class S {
     return Intl.message('Terapeuta', name: 'Terapeuta', desc: '', args: []);
   }
 
-  /// `Contacto terapeuta`
-  String get Contacto_terapeuta {
+  /// `Celular terapeuta`
+  String get Celular_terapeuta {
     return Intl.message(
-      'Contacto terapeuta',
-      name: 'Contacto_terapeuta',
+      'Celular terapeuta',
+      name: 'Celular_terapeuta',
       desc: '',
       args: [],
     );
@@ -1956,10 +1956,10 @@ class S {
     );
   }
 
-  /// `Para ver el detalle de la actividad:`
+  /// `Para ver el detalle de la actividad`
   String get Para_ver_el_detalle_de_la_actividad {
     return Intl.message(
-      'Para ver el detalle de la actividad:',
+      'Para ver el detalle de la actividad',
       name: 'Para_ver_el_detalle_de_la_actividad',
       desc: '',
       args: [],
@@ -1976,10 +1976,10 @@ class S {
     );
   }
 
-  /// `Para crear actividades:`
+  /// `Para crear actividades`
   String get Para_crear_actividades {
     return Intl.message(
-      'Para crear actividades:',
+      'Para crear actividades',
       name: 'Para_crear_actividades',
       desc: '',
       args: [],
@@ -1998,10 +1998,10 @@ class S {
     );
   }
 
-  /// `Acciones en el listado de pictogramas:`
+  /// `Acciones en el listado de pictogramas`
   String get Acciones_en_el_listado_de_pictogramas {
     return Intl.message(
-      'Acciones en el listado de pictogramas:',
+      'Acciones en el listado de pictogramas',
       name: 'Acciones_en_el_listado_de_pictogramas',
       desc: '',
       args: [],
@@ -2030,10 +2030,10 @@ class S {
     );
   }
 
-  /// `Flujo para asignación de actividad:`
+  /// `Flujo para asignación de actividad`
   String get Flujo_para_asignacion_de_actividad {
     return Intl.message(
-      'Flujo para asignación de actividad:',
+      'Flujo para asignación de actividad',
       name: 'Flujo_para_asignacion_de_actividad',
       desc: '',
       args: [],
@@ -2166,10 +2166,10 @@ class S {
     );
   }
 
-  /// `Para ver los logros con más detalle:`
+  /// `Para ver los logros con más detalle`
   String get Para_ver_los_logros_con_mas_detalle {
     return Intl.message(
-      'Para ver los logros con más detalle:',
+      'Para ver los logros con más detalle',
       name: 'Para_ver_los_logros_con_mas_detalle',
       desc: '',
       args: [],
@@ -2600,6 +2600,64 @@ class S {
     return Intl.message(
       'Descripción de la actividad',
       name: 'Descripcion_de_la_actividad',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `En el tablero puede realizar las siguientes acciones`
+  String get En_el_tablero_puede_realizar_las_siguientes_acciones {
+    return Intl.message(
+      'En el tablero puede realizar las siguientes acciones',
+      name: 'En_el_tablero_puede_realizar_las_siguientes_acciones',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Agregar un pictograma a la solución presionando la imagen por 1 segundo y luego desplazándola a la zona de la solución`
+  String
+  get Agregar_un_pictograma_a_la_solucion_presionando_la_imagen_por_un_segundo_y_luego_desplazandola_a_la_zona_de_la_solucion {
+    return Intl.message(
+      '• Agregar un pictograma a la solución presionando la imagen por 1 segundo y luego desplazándola a la zona de la solución',
+      name:
+          'Agregar_un_pictograma_a_la_solucion_presionando_la_imagen_por_un_segundo_y_luego_desplazandola_a_la_zona_de_la_solucion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Reordenar la solución presionando la imagen por 1 segundo y moviéndola horizontalmente hasta el lugar correcto`
+  String
+  get Reordenar_la_solucion_presionando_la_imagen_por_un_segundo_y_moviendola_horizontalmente_hasta_el_lugar_correcto {
+    return Intl.message(
+      '• Reordenar la solución presionando la imagen por 1 segundo y moviéndola horizontalmente hasta el lugar correcto',
+      name:
+          'Reordenar_la_solucion_presionando_la_imagen_por_un_segundo_y_moviendola_horizontalmente_hasta_el_lugar_correcto',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Eliminar un pictograma de forma individual presionando la imagen y desplazándola verticalmente fuera del área de la solución`
+  String
+  get Eliminar_un_pictograma_de_forma_individual_presionando_la_imagen_y_desplazandola_verticalmente_fuera_del_area_de_la_solucion {
+    return Intl.message(
+      '• Eliminar un pictograma de forma individual presionando la imagen y desplazándola verticalmente fuera del área de la solución',
+      name:
+          'Eliminar_un_pictograma_de_forma_individual_presionando_la_imagen_y_desplazandola_verticalmente_fuera_del_area_de_la_solucion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Presionar una imagen de la solución para reproducir su sonido de forma individual`
+  String
+  get Presionar_una_imagen_de_la_solucion_para_reproducir_su_sonido_de_forma_individual {
+    return Intl.message(
+      '• Presionar una imagen de la solución para reproducir su sonido de forma individual',
+      name:
+          'Presionar_una_imagen_de_la_solucion_para_reproducir_su_sonido_de_forma_individual',
       desc: '',
       args: [],
     );
