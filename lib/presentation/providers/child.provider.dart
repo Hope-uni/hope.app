@@ -210,9 +210,12 @@ class ChildNotifier extends StateNotifier<ChildState> {
     Child updatedChild = state.child!;
 
     updatedChild = state.child!.copyWith(
-      currentPhase: newPhase.currentPhase,
-      progress: newPhase.progress,
-    );
+        currentPhase: newPhase.currentPhase,
+        progress: newPhase.progress,
+        achievements: [
+          newPhase.achievement,
+          ...updatedChild.achievements ?? []
+        ]);
     state = state.copyWith(child: updatedChild);
   }
 
