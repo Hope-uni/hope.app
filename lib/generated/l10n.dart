@@ -685,11 +685,11 @@ class S {
     );
   }
 
-  /// `Quitar actividad`
-  String get Quitar_actividad {
+  /// `Desasignar actividad`
+  String get Desasignar_actividad {
     return Intl.message(
-      'Quitar actividad',
-      name: 'Quitar_actividad',
+      'Desasignar actividad',
+      name: 'Desasignar_actividad',
       desc: '',
       args: [],
     );
@@ -989,11 +989,11 @@ class S {
     );
   }
 
-  /// `Quitar actividad a los niños`
-  String get Quitar_actividad_a_los_ninos {
+  /// `Desasignar actividad a los niños`
+  String get Desasignar_actividad_a_los_ninos {
     return Intl.message(
-      'Quitar actividad a los niños',
-      name: 'Quitar_actividad_a_los_ninos',
+      'Desasignar actividad a los niños',
+      name: 'Desasignar_actividad_a_los_ninos',
       desc: '',
       args: [],
     );
@@ -1064,21 +1064,11 @@ class S {
     );
   }
 
-  /// `Quitar asignación de actividad`
-  String get Quitar_asignacion_de_actividad {
+  /// `¿Está seguro de desasignar la actividad {nameActivity}?`
+  String Esta_seguro_de_desasignar_la_actividad(Object nameActivity) {
     return Intl.message(
-      'Quitar asignación de actividad',
-      name: 'Quitar_asignacion_de_actividad',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `¿Está seguro de quitarle la actividad {nameActivity}?`
-  String Esta_seguro_de_quitarle_la_actividad(Object nameActivity) {
-    return Intl.message(
-      '¿Está seguro de quitarle la actividad $nameActivity?',
-      name: 'Esta_seguro_de_quitarle_la_actividad',
+      '¿Está seguro de desasignar la actividad $nameActivity?',
+      name: 'Esta_seguro_de_desasignar_la_actividad',
       desc: '',
       args: [nameActivity],
     );
@@ -1089,9 +1079,14 @@ class S {
     return Intl.message('Al paciente', name: 'Al_paiente', desc: '', args: []);
   }
 
-  /// `Sí, quitar`
-  String get Si_Quitar {
-    return Intl.message('Sí, quitar', name: 'Si_Quitar', desc: '', args: []);
+  /// `Sí, desasignar`
+  String get Si_desasignar {
+    return Intl.message(
+      'Sí, desasignar',
+      name: 'Si_desasignar',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Selección de niños`
@@ -2112,23 +2107,23 @@ class S {
     );
   }
 
-  /// `Para quitar asignación de actividad a los pacientes`
-  String get Para_quitar_asignacion_de_actividad_a_los_pacientes {
+  /// `Para desasignar la actividad a los pacientes`
+  String get Para_desasignar_la_actividad_a_los_pacientes {
     return Intl.message(
-      'Para quitar asignación de actividad a los pacientes',
-      name: 'Para_quitar_asignacion_de_actividad_a_los_pacientes',
+      'Para desasignar la actividad a los pacientes',
+      name: 'Para_desasignar_la_actividad_a_los_pacientes',
       desc: '',
       args: [],
     );
   }
 
-  /// `• Hacer clic sobre el icono rojo del basurero al paciente que le desee quitar la actividad`
+  /// `• Hacer clic sobre el icono rojo del basurero al paciente que le desee desasignar la actividad`
   String
-  get Hacer_clic_sobre_el_icono_rojo_del_basurero_al_paciente_que_le_desee_quitar_la_actividad {
+  get Hacer_clic_sobre_el_icono_rojo_del_basurero_al_paciente_que_le_desee_desasignar_la_actividad {
     return Intl.message(
-      '• Hacer clic sobre el icono rojo del basurero al paciente que le desee quitar la actividad',
+      '• Hacer clic sobre el icono rojo del basurero al paciente que le desee desasignar la actividad',
       name:
-          'Hacer_clic_sobre_el_icono_rojo_del_basurero_al_paciente_que_le_desee_quitar_la_actividad',
+          'Hacer_clic_sobre_el_icono_rojo_del_basurero_al_paciente_que_le_desee_desasignar_la_actividad',
       desc: '',
       args: [],
     );

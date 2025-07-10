@@ -27,7 +27,7 @@ class ActivitiesPageState extends ConsumerState<ActivitiesPage> {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (mounted) {
-        ref.read(activitiesProvider.notifier).updateResponse();
+        ref.read(activitiesProvider.notifier).resetState();
       }
     });
   }
