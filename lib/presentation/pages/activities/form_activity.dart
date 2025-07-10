@@ -168,8 +168,6 @@ class FormActivityState extends ConsumerState<FormActivity> {
           typeAlert: ToastificationType.success,
         );
         notifierActivity.updateResponse();
-        ref.read(activitiesProvider.notifier).resetState();
-        ref.read(activitiesProvider.notifier).getActivities();
       }
 
       if (next.errorMessageApi != null) {

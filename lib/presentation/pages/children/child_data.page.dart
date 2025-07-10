@@ -309,13 +309,13 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
     }
 
     return PopScope(
-      onPopInvokedWithResult: (didPop, result) {
+      onPopInvokedWithResult: (didPop, result) async {
         ref.read(childrenProvider.notifier).resetState();
 
         if (widget.extra![$isTutor] == true) {
-          ref.read(childrenProvider.notifier).getChildrenTutor();
+          await ref.read(childrenProvider.notifier).getChildrenTutor();
         } else {
-          ref.read(childrenProvider.notifier).getChildrenTherapist();
+          await ref.read(childrenProvider.notifier).getChildrenTherapist();
         }
       },
       child: DefaultTabController(
@@ -977,7 +977,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
                       shape: const CircleBorder(),
                       child: const Icon(Icons.delete, color: $colorTextWhite),
                       backgroundColor: $colorError,
-                      label: S.current.Quitar_actividad,
+                      label: S.current.Desasignar_actividad,
                       visible: widget.extra![$isTutor] == false,
                       onTap: () {
                         if (stateProfile.permmisions!
@@ -995,12 +995,12 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
                           }
                           modalDialogConfirmation(
                             context: context,
-                            titleButtonConfirm: S.current.Si_Quitar,
+                            titleButtonConfirm: S.current.Si_desasignar,
                             question: RichText(
                               text: TextSpan(children: [
                                 TextSpan(
                                   text:
-                                      '${S.current.Esta_seguro_de_quitarle_la_actividad(stateChild.child!.currentActivity!.name)}\n\n',
+                                      '${S.current.Esta_seguro_de_desasignar_la_actividad(stateChild.child!.currentActivity!.name)}\n\n',
                                   style: const TextStyle(
                                     color: $colorTextBlack,
                                   ),

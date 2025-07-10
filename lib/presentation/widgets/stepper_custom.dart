@@ -10,11 +10,13 @@ class StepperCustom extends StatelessWidget {
   final Color inactiveColor;
   final double lineWidth;
   final List<String> labelSteps;
+  final bool isCompleted;
 
   const StepperCustom({
     super.key,
     required this.width,
     required this.curStep,
+    required this.isCompleted,
     required this.stepCompleteColor,
     required this.totalSteps,
     required this.inactiveColor,
@@ -96,6 +98,28 @@ class StepperCustom extends StatelessWidget {
   Widget _getInnerElementOfStepper(index) {
     var circleColor = _getCircleColor(index);
     var borderColor = _getBorderColor(index);
+
+    if (isCompleted == true) {
+      return Container(
+        width: 35.0,
+        height: 35.0,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: stepCompleteColor,
+          borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+          border: Border.all(
+            color: borderColor,
+            width: 1.0,
+          ),
+        ),
+        child: const Icon(
+          Icons.check,
+          color: $colorTextWhite,
+          size: 16.0,
+        ),
+      );
+    }
+
     if (index + 1 < curStep) {
       return Container(
         width: 35.0,
