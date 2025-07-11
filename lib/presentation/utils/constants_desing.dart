@@ -32,8 +32,6 @@ const TextStyle $fontFamilyPoppins = TextStyle(fontFamily: 'Poppins');
 const Color $colorUnSelectTabBar = Color.fromARGB(255, 0, 0, 0);
 const Color $colorIndicadorTabBar = Color.fromARGB(255, 255, 78, 0);
 
-const Color $colorRowTable = Color.fromARGB(40, 130, 178, 255);
-
 const Color $colorBackgroundPages = Color.fromARGB(255, 253, 251, 255);
 
 final Color $colorShadow = Colors.black.withValues(alpha: 0.3);
@@ -50,4 +48,3 @@ const String $iconAgain = 'assets/img/iconAgain.png';
 const String $success = 'assets/img/success.png';
 const String $backgroundDrawerheader =
     'assets/img/background-drawer-header.png';
-const String $congratulation = '🥳';

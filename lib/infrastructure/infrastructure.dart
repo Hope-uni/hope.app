@@ -48,6 +48,7 @@ export 'mappers/role.mapper.dart';
 export 'mappers/rol.mapper.dart';
 export 'mappers/current_completed_activity.mapper.dart';
 export 'mappers/patient_activity.mapper.dart';
+export 'mappers/user.mapper.dart';
 
 export 'errors/custom_errors.dart';
 export 'errors/error_handler.dart';

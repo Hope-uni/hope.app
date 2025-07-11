@@ -17,15 +17,10 @@ class ActivityMapper {
         description: json["description"],
         satisfactoryPoints: json["satisfactoryPoints"],
         phase: CatalogoObjectMapper.catalogObjectfromJson(json["phase"]),
-        user: fromJsonUser(json["user"]),
+        user: UserMapper.fromJsonUser(json["user"]),
         activitySolution: List<PictogramAchievements>.from(
             json["activitySolution"]
                 .map((x) => PictogramsMapper.pictogramAchievementsfromJson(x))),
         assignments: [],
-      );
-
-  static fromJsonUser(Map<String, dynamic> json) => User(
-        id: json["id"],
-        username: json["username"],
       );
 }

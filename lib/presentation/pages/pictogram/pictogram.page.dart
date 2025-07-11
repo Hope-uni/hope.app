@@ -97,10 +97,8 @@ class PictogramPage extends StatelessWidget {
           ),
         ],
         title: Tooltip(
-          message:
-              S.current.Pictogramas_generales, // Muestra el nombre completo
-          waitDuration:
-              const Duration(milliseconds: 100), // Espera antes de mostrarse
+          message: S.current.Pictogramas_generales,
+          waitDuration: const Duration(milliseconds: 100),
           showDuration: const Duration(seconds: 2), // Tiempo visible
           child: Text(S.current.Pictogramas_generales),
         ),

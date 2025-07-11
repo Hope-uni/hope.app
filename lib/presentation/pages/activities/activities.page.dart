@@ -6,6 +6,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hope_app/domain/domain.dart';
 import 'package:hope_app/generated/l10n.dart';
+import 'package:hope_app/infrastructure/repositories/key_value_storage.repository.impl.dart'
+    show KeyValueStorageRepositoryImpl;
 import 'package:hope_app/presentation/providers/providers.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
@@ -20,7 +22,9 @@ class ActivitiesPage extends ConsumerStatefulWidget {
 
 class ActivitiesPageState extends ConsumerState<ActivitiesPage> {
   final scrollController = ScrollController();
-
+  final KeyValueStorageRepositoryImpl storageProfile =
+      KeyValueStorageRepositoryImpl();
+  int? idUser;
   @override
   void initState() {
     super.initState();
@@ -28,6 +32,7 @@ class ActivitiesPageState extends ConsumerState<ActivitiesPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (mounted) {
         ref.read(activitiesProvider.notifier).resetState();
+        idUser = await storageProfile.getValueStorage<int>($idUser);
       }
     });
   }
@@ -69,6 +74,7 @@ class ActivitiesPageState extends ConsumerState<ActivitiesPage> {
     final stateActivity = ref.watch(activityProvider);
     final stateActivities = ref.read(activitiesProvider);
     final stateWacthActivities = ref.watch(activitiesProvider);
+    final profileState = ref.read(profileProvider);
 
     ref.listen(activitiesProvider, (previous, next) {
       if (next.errorMessageApi != null) {
@@ -202,7 +208,6 @@ class ActivitiesPageState extends ConsumerState<ActivitiesPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const SizedBox(height: 10),
                 Expanded(
                   child: Stack(
                     children: [
@@ -211,6 +216,7 @@ class ActivitiesPageState extends ConsumerState<ActivitiesPage> {
                         SizedBox.expand(
                           child: stateWacthActivities.activities.isNotEmpty
                               ? ListView.builder(
+                                  padding: const EdgeInsets.only(top: 10),
                                   controller: scrollController,
                                   itemCount:
                                       stateActivities.activities.length + 1,
@@ -219,7 +225,86 @@ class ActivitiesPageState extends ConsumerState<ActivitiesPage> {
                                         stateActivities.activities.length) {
                                       final item =
                                           stateActivities.activities[index];
+
+                                      if (index == 0) {
+                                        return Column(
+                                          children: [
+                                            Container(
+                                                margin:
+                                                    const EdgeInsets.symmetric(
+                                                  vertical: 10,
+                                                  horizontal: 15,
+                                                ),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    const Text(
+                                                      'Actividades Propias',
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                      ),
+                                                    ),
+                                                    const SizedBox(width: 5),
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                        color: $colorPrimary50,
+                                                        border: Border.all(
+                                                          width: 0.5,
+                                                        ),
+                                                      ),
+                                                      width: 20,
+                                                      height: 20,
+                                                    ),
+                                                  ],
+                                                )),
+                                            ListTileCustom(
+                                                colorItemSelect:
+                                                    idUser == item.user.id
+                                                        ? $colorPrimary50
+                                                        : null,
+                                                title: item.name,
+                                                colorTitle: true,
+                                                styleTitle: FontWeight.bold,
+                                                subTitle: RichText(
+                                                  text: TextSpan(
+                                                      style: const TextStyle(
+                                                        color: $colorTextBlack,
+                                                        fontSize: 13,
+                                                      ),
+                                                      text:
+                                                          '${S.current.Fase}: ${item.phase.name}\n${S.current.Puntos_requeridos}: ${item.satisfactoryPoints}\nPacientes asignados: ${item.assignments == null ? 0 : item.assignments!.length}'),
+                                                ),
+                                                iconButton: MenuItems(
+                                                  itemObject: CatalogObject(
+                                                    id: stateActivities
+                                                        .activities[index].id,
+                                                    name: stateActivities
+                                                        .activities[index].name,
+                                                    description: '',
+                                                  ),
+                                                  menuItems: menuActivity,
+                                                ),
+                                                noImage: true,
+                                                onTap: () {
+                                                  context.pushNamed(
+                                                    $activity,
+                                                    pathParameters: {
+                                                      $idActivity:
+                                                          item.id.toString()
+                                                    },
+                                                  );
+                                                }),
+                                          ],
+                                        );
+                                      }
+
                                       return ListTileCustom(
+                                          colorItemSelect:
+                                              idUser == item.user.id
+                                                  ? $colorPrimary50
+                                                  : null,
                                           title: item.name,
                                           colorTitle: true,
                                           styleTitle: FontWeight.bold,
@@ -314,8 +399,23 @@ class ActivitiesPageState extends ConsumerState<ActivitiesPage> {
                       foregroundColor: $colorTextWhite,
                       elevation: 8.0,
                       shape: const CircleBorder(),
-                      onOpen: () => context.push('/newActivity'),
-                    ),
+                      onOpen: () {
+                        if (profileState.permmisions!
+                            .contains($createActivity)) {
+                          context.push('/newActivity');
+                        } else {
+                          if (context.mounted) {
+                            toastAlert(
+                              iconAlert: const Icon(Icons.info),
+                              context: context,
+                              title: S.current.No_autorizado,
+                              description:
+                                  S.current.No_cuenta_con_el_permiso_necesario,
+                              typeAlert: ToastificationType.info,
+                            );
+                          }
+                        }
+                      }),
           drawer: const SideMenu(),
         ),
         if (stateActivity.isLoading == true)

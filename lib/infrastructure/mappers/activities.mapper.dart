@@ -8,6 +8,7 @@ class ActivitiesMapper {
         description: json["description"],
         satisfactoryPoints: json["satisfactoryPoints"],
         phase: CatalogoObjectMapper.catalogObjectfromJson(json["phase"]),
+        user: UserMapper.fromJsonUser(json["user"]),
         assignments: json["assignments"] == null
             ? null
             : List<int>.from(json["assignments"].map((x) => x)).toList(),

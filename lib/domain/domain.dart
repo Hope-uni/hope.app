@@ -21,6 +21,7 @@ export 'entities/monochrome.entities.dart';
 export 'entities/rol.entities.dart';
 export 'entities/current_completed_activity.entities.dart';
 export 'entities/patient_activity.entities.dart';
+export 'entities/user.entities.dart';
 
 export 'datasources/auth.datasource.dart';
 export 'repositories/auth.repository.dart';
