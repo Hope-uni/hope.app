@@ -83,7 +83,6 @@ class _InputFormState extends State<InputForm> {
     _coloLabel =
         _controller.text.isNotEmpty ? $colorTextBlack : $hintColorInput;
     _focus.addListener(onChageColorLabel);
-
     // Solo un tipo de inputFormatter será aplicado
     if (widget.isNumber == true) {
       inputFormatters = [FilteringTextInputFormatter.digitsOnly];
@@ -122,6 +121,7 @@ class _InputFormState extends State<InputForm> {
       } else {
         setState(() => _coloLabel = $hintColorInput);
       }
+      _hasStartedTyping = false;
     }
   }
 

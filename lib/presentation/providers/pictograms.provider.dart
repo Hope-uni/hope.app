@@ -300,7 +300,7 @@ class PictogramsState {
     this.pictograms = const [],
     this.categoryPictograms = const [],
     this.paginatePictograms = const {$indexPage: 1, $pageCount: 0},
-    this.isLoading = true,
+    this.isLoading = false,
     this.isNewFilter,
     this.isErrorInitial = false,
     this.errorMessageApi,

@@ -13,10 +13,8 @@ class CustomPictogramasPage extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Tooltip(
-          message: S
-              .current.Pictogramas_personalizados, // Muestra el nombre completo
-          waitDuration:
-              const Duration(milliseconds: 100), // Espera antes de mostrarse
+          message: S.current.Pictogramas_personalizados,
+          waitDuration: const Duration(milliseconds: 100),
           showDuration: const Duration(seconds: 2), // Tiempo visible
           child: Text(S.current.Pictogramas_personalizados),
         ),
