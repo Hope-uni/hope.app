@@ -110,7 +110,7 @@ class ChildrenDataSourceImpl extends ChildrenDataSource {
       final response =
           await dioServices.dio.post('/observation/id-patient', data: {
         $patientId: idChild,
-        $descriptionChild: description,
+        $descriptionChild: description.trim(),
       });
 
       final responseObservation =

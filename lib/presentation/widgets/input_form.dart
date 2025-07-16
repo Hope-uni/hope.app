@@ -69,7 +69,7 @@ class _InputFormState extends State<InputForm> {
   bool _hasStartedTyping = false;
   List<TextInputFormatter>? inputFormatters;
 
-  Color _coloLabel = Colors.black;
+  Color _coloLabel = $colorTextBlack;
 
   final FocusNode _focus = FocusNode();
 
@@ -80,11 +80,9 @@ class _InputFormState extends State<InputForm> {
         widget.controllerExt ?? TextEditingController(text: widget.value);
     if (widget.onSearch != null) _controller.addListener(_onSearchTextChanged);
 
-    _coloLabel = _controller.text.isNotEmpty
-        ? Colors.black
-        : const Color.fromARGB(255, 134, 134, 134);
-    _focus.addListener(onChageColorLabel);
-
+    _coloLabel =
+        _controller.text.isNotEmpty ? $colorTextBlack : $hintColorInput;
+    _focus.addListener(_onChageColorLabel);
     // Solo un tipo de inputFormatter será aplicado
     if (widget.isNumber == true) {
       inputFormatters = [FilteringTextInputFormatter.digitsOnly];
@@ -101,19 +99,61 @@ class _InputFormState extends State<InputForm> {
         )
       ];
     } else {
-      inputFormatters = null; // o una lista vacía si prefieres evitar nulls
+      // Impide escribir dos espacios seguidos
+      inputFormatters = [
+        TextInputFormatter.withFunction((oldValue, newValue) {
+          final text = newValue.text;
+          // Usa una expresión regular para encontrar todas las secuencias de 2 o más espacios
+          final matches = RegExp(r'\s{2,}').allMatches(text);
+
+          if (matches.isEmpty) {
+            // Si no hay dobles espacios, retorna el valor sin cambios
+            return newValue;
+          }
+
+          final StringBuffer buffer = StringBuffer();
+          int cursorOffset = newValue.selection.baseOffset;
+          int lastMatchEnd = 0;
+
+          for (final match in matches) {
+            buffer.write(text.substring(lastMatchEnd, match.start));
+            buffer.write(
+                ' '); // Reemplaza los espacios múltiples con un solo espacio
+
+            // Ajusta la posición del cursor si está dentro o después de los espacios eliminados
+            if (cursorOffset > match.start) {
+              final spacesRemoved =
+                  match.end - match.start - 1; // Cuántos espacios se eliminaron
+              cursorOffset -= spacesRemoved;
+            }
+            lastMatchEnd = match.end;
+          }
+          buffer.write(text.substring(lastMatchEnd));
+
+          final fixedText = buffer.toString();
+
+          // Asegúrate de que el cursor no vaya más allá del final del nuevo texto
+          cursorOffset = cursorOffset.clamp(0, fixedText.length);
+
+          return TextEditingValue(
+            text: fixedText,
+            selection: TextSelection.collapsed(offset: cursorOffset),
+          );
+        })
+      ];
     }
   }
 
-  onChageColorLabel() {
+  void _onChageColorLabel() {
     if (_focus.hasFocus) {
-      setState(() {
-        _coloLabel = Colors.black;
-      });
+      setState(() => _coloLabel = $colorTextBlack);
     } else {
-      _coloLabel = _controller.text.isNotEmpty
-          ? Colors.black
-          : const Color.fromARGB(255, 134, 134, 134);
+      if (_controller.text.isNotEmpty && _controller.text != "") {
+        _coloLabel = $colorTextBlack;
+      } else {
+        setState(() => _coloLabel = $hintColorInput);
+      }
+      _hasStartedTyping = false;
     }
   }
 
@@ -128,6 +168,7 @@ class _InputFormState extends State<InputForm> {
 
     // Creamos un nuevo timer que espere 600ms después de que el usuario haya dejado de escribir
     _debounceTimer = Timer(const Duration(milliseconds: 600), () {
+      if (!mounted) return;
       if (widget.onSearch != null) widget.onSearch!.call();
     });
   }
@@ -149,11 +190,15 @@ class _InputFormState extends State<InputForm> {
 
   @override
   void dispose() {
-    super.dispose();
-    if (widget.onSearch != null) _controller.dispose();
-    _debounceTimer?.cancel();
+    _debounceTimer?.cancel(); // ✅ Primero cancela el timer
+    if (widget.controllerExt == null) {
+      _controller.removeListener(_onSearchTextChanged); // ✅ Muy importante
+    }
     _focus.dispose();
+
+    // Evita llamar dispose() dos veces
     if (widget.controllerExt == null) _controller.dispose();
+    super.dispose(); // ✅ Llama al final
   }
 
   @override
@@ -181,14 +226,17 @@ class _InputFormState extends State<InputForm> {
             : TextInputType.emailAddress,
         onTap: widget.onTap,
         decoration: InputDecoration(
-          label: Text(
-            widget.label ?? '',
-            style: TextStyle(color: _coloLabel),
-          ),
+          label: widget.label != null
+              ? Text(
+                  widget.label!,
+                  style: TextStyle(color: _coloLabel),
+                )
+              : null,
           suffixIcon: widget.suffixIcon,
           errorText: widget.errorText,
           errorMaxLines: 3,
           hintText: widget.hint,
+          hintStyle: const TextStyle(color: $hintColorInput),
           filled: widget.colorFilled != null ? true : false,
           fillColor: widget.colorFilled,
           labelStyle: const TextStyle(color: $colorTextBlack),
