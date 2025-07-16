@@ -5,6 +5,7 @@ const String $toast = "toast";
 const String $token = "token";
 const String $refreshToken = "refreshToken";
 const String $permissions = "permissions";
+const String $idUser = "id";
 const String $userName = "userName";
 const String $email = "email";
 const String $profile = "profile";

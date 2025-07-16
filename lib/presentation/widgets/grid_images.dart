@@ -23,7 +23,9 @@ class GridImages extends ConsumerStatefulWidget {
 }
 
 class GridImagesState extends ConsumerState<GridImages> {
-  final scrollController = ScrollController();
+  final ScrollController scrollController = ScrollController();
+  final TextEditingController searchController = TextEditingController();
+
   String? namePicto;
   int? idCategory;
   bool showErrorPermission = false;
@@ -44,6 +46,7 @@ class GridImagesState extends ConsumerState<GridImages> {
   @override
   void dispose() {
     scrollController.dispose();
+    searchController.dispose();
     super.dispose();
   }
 
@@ -77,9 +80,14 @@ class GridImagesState extends ConsumerState<GridImages> {
             if (widget.isCustomized) {
               await notifierPictograms.getCustomPictograms(
                 idChild: widget.idChild,
+                namePictogram: namePicto,
+                idCategory: idCategory,
               );
             } else {
-              await notifierPictograms.getPictograms();
+              await notifierPictograms.getPictograms(
+                namePictogram: namePicto,
+                idCategory: idCategory,
+              );
             }
           }
         }
@@ -183,6 +191,9 @@ class GridImagesState extends ConsumerState<GridImages> {
               children: [
                 const SizedBox(height: 20),
                 clearable.ClearableDropdown(
+                  enable: widget.isCustomized == true
+                      ? statePictograms.pictograms.isNotEmpty
+                      : true,
                   helperText: ' ',
                   listItems: statePictograms.categoryPictograms
                       .map((item) => clearable.CatalogObject(
@@ -204,19 +215,28 @@ class GridImagesState extends ConsumerState<GridImages> {
                     }
                     idCategory = int.parse(value);
                   },
-                  onDeleteSelection: () {
+                  onDeleteSelection: () async {
                     idCategory = null;
-                    notifierPictograms.resetFilters(
+                    if (widget.isCustomized == true) {
+                      await notifierPictograms.getCustomPictograms(
+                        idChild: widget.idChild,
+                        idCategory: null,
+                        namePictogram: namePicto,
+                      );
+                    } else {}
+                    await notifierPictograms.getPictograms(
+                      idCategory: null,
                       namePictogram: namePicto,
-                      isCustom: widget.isCustomized,
-                      idChild: widget.idChild,
                     );
                   },
                 ),
                 InputForm(
+                  enable: widget.isCustomized == true
+                      ? statePictograms.pictograms.isNotEmpty
+                      : true,
                   hint: S.current.Busqueda_por_nombre,
                   value: '',
-                  enable: true,
+                  controllerExt: searchController,
                   onSearch: () async {
                     if (widget.isCustomized) {
                       await notifierPictograms.getCustomPictograms(
@@ -231,6 +251,29 @@ class GridImagesState extends ConsumerState<GridImages> {
                       );
                     }
                   },
+                  suffixIcon: searchController.text.isNotEmpty
+                      ? GestureDetector(
+                          onTap: () async {
+                            namePicto = null;
+                            searchController.clear();
+                            if (widget.isCustomized == true) {
+                              await notifierPictograms.getCustomPictograms(
+                                idChild: widget.idChild,
+                                idCategory: idCategory,
+                                namePictogram: null,
+                              );
+                            } else {}
+                            await notifierPictograms.getPictograms(
+                              idCategory: idCategory,
+                              namePictogram: null,
+                            );
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.only(right: 10),
+                            child: const Icon(Icons.clear),
+                          ),
+                        )
+                      : null,
                   onChanged: (String value) {
                     namePicto = value.isNotEmpty ? value : null;
                   },
@@ -369,8 +412,7 @@ class _ImageGrid extends StatelessWidget {
         margin: const EdgeInsets.only(top: 10),
         child: Tooltip(
           message: pictogram.name, // Muestra el nombre completo
-          waitDuration:
-              const Duration(milliseconds: 100), // Espera antes de mostrarse
+          waitDuration: const Duration(milliseconds: 100),
           showDuration: const Duration(seconds: 2), // Tiempo visible
           child: Text(
             pictogram.name,
@@ -385,10 +427,10 @@ class _ImageGrid extends StatelessWidget {
           Visibility(
             visible: !isCustomized,
             child: IconButton(
-              onPressed: () => {
+              onPressed: () async => {
                 if (profileState.permmisions!.contains($createCustomPictogram))
                   {
-                    _dialogImage(
+                    await _dialogImage(
                       context: context,
                       pictogram: pictogram,
                       isCreate: true,
@@ -412,10 +454,10 @@ class _ImageGrid extends StatelessWidget {
           Visibility(
             visible: isCustomized,
             child: IconButton(
-              onPressed: () => {
+              onPressed: () async => {
                 if (profileState.permmisions!.contains($updateCustomPictogram))
                   {
-                    _dialogImage(
+                    await _dialogImage(
                       context: context,
                       pictogram: pictogram,
                       isCreate: false,
@@ -442,10 +484,10 @@ class _ImageGrid extends StatelessWidget {
               builder: (context, ref, child) {
                 return IconButton(
                   tooltip: S.current.Eliminar,
-                  onPressed: () {
+                  onPressed: () async {
                     if (profileState.permmisions!
                         .contains($deleteCustomPictogram)) {
-                      _dialogConfirmation(
+                      await _dialogConfirmation(
                         context: context,
                         pictogram: pictogram,
                         ref: ref,
@@ -477,8 +519,9 @@ Future<void> _dialogImage({
   required PictogramAchievements pictogram,
   required bool isCreate,
 }) {
-  final image = CameraGalleryDataSourceImpl();
+  final CameraGalleryDataSourceImpl image = CameraGalleryDataSourceImpl();
   bool isdisable = false;
+  bool isClickPhoto = false;
   String? imagePathCel;
 
   return showDialog<void>(
@@ -498,21 +541,25 @@ Future<void> _dialogImage({
               final stateCustomPicto = ref.watch(customPictogramProvider);
 
               Future<void> selectImage() async {
+                setState(() => isClickPhoto = true);
                 final String? imagePath = await image.selectImage();
                 if (imagePath != null) {
                   final file = File(imagePath);
                   ref.read(customPictogramProvider.notifier).updateImage(file);
                   setState(() => imagePathCel = imagePath);
                 }
+                setState(() => isClickPhoto = false);
               }
 
               Future<void> takePhoto() async {
+                setState(() => isClickPhoto = true);
                 final String? imagePath = await image.takePhoto();
                 if (imagePath != null) {
                   final file = File(imagePath);
                   ref.read(customPictogramProvider.notifier).updateImage(file);
                   setState(() => imagePathCel = imagePath);
                 }
+                setState(() => isClickPhoto = false);
               }
 
               if (stateCustomPicto.pictogram == null) {
@@ -578,9 +625,11 @@ Future<void> _dialogImage({
                     ),
                     titlePadding: EdgeInsets.zero,
                     insetPadding: EdgeInsets.zero,
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 22,
-                      vertical: 5,
+                    contentPadding: const EdgeInsets.only(
+                      left: 22,
+                      top: 10,
+                      bottom: 0,
+                      right: 22,
                     ),
                     content: SizedBox(
                       width: 275,
@@ -589,17 +638,21 @@ Future<void> _dialogImage({
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              mainAxisAlignment: isdisable == false
+                                  ? MainAxisAlignment.spaceEvenly
+                                  : MainAxisAlignment.center,
                               children: [
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(20),
                                   child: Container(
-                                    height: 180,
-                                    width: 180,
+                                    height: 200,
+                                    width: 200,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20),
                                       border: Border.all(
-                                          color: $colorTextBlack, width: 0.5),
+                                        color: $colorTextBlack,
+                                        width: 0.5,
+                                      ),
                                       color: $colorTextWhite,
                                     ),
                                     child: ImageLoad(
@@ -610,26 +663,31 @@ Future<void> _dialogImage({
                                     ),
                                   ),
                                 ),
-                                const SizedBox(width: 20),
-                                SizedBox(
-                                  height: 200,
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      IconButton(
+                                SizedBox(width: isdisable == false ? 20 : 0),
+                                Visibility(
+                                  visible: isdisable == false ? true : false,
+                                  child: SizedBox(
+                                    height: 200,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        IconButton(
                                           onPressed: () async {
                                             await selectImage();
                                           },
-                                          icon: const Icon(Icons.photo)),
-                                      Text(S.current.Galeria),
-                                      IconButton(
+                                          icon: const Icon(Icons.photo),
+                                        ),
+                                        Text(S.current.Galeria),
+                                        IconButton(
                                           onPressed: () async {
                                             await takePhoto();
                                           },
-                                          icon: const Icon(Icons.add_a_photo)),
-                                      Text(S.current.Camara),
-                                    ],
+                                          icon: const Icon(Icons.add_a_photo),
+                                        ),
+                                        Text(S.current.Camara),
+                                      ],
+                                    ),
                                   ),
                                 )
                               ],
@@ -646,6 +704,7 @@ Future<void> _dialogImage({
                               onChanged: (value) {
                                 notifierCustomPicto.updateName(value);
                               },
+                              marginBottom: 0,
                               errorText:
                                   stateCustomPicto.validationErrors[$name],
                             ),
@@ -653,8 +712,16 @@ Future<void> _dialogImage({
                         ),
                       ),
                     ),
+                    actionsPadding: EdgeInsets.only(
+                      left: 22,
+                      top: isdisable == false ? 5 : 0,
+                      bottom: 10,
+                      right: 22,
+                    ),
                     actions: <Widget>[
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Expanded(
                             child: ButtonTextIcon(
@@ -665,6 +732,7 @@ Future<void> _dialogImage({
                               buttonColor: $colorError,
                               onClic: () {
                                 Navigator.of(context).pop();
+                                notifierCustomPicto.restoredState();
                               },
                             ),
                           ),
@@ -685,6 +753,14 @@ Future<void> _dialogImage({
                                         .createCustomPictogram();
 
                                     setState(() {});
+                                  } else {
+                                    toastAlert(
+                                      context: context,
+                                      title: S.current.Aviso,
+                                      description: S.current
+                                          .No_se_han_realizados_cambios_en_el_formulario,
+                                      typeAlert: ToastificationType.info,
+                                    );
                                   }
                                 },
                               ),
@@ -702,6 +778,14 @@ Future<void> _dialogImage({
                                         ?.unfocus();
                                     await notifierCustomPicto
                                         .updateCustomPictogram();
+                                  } else {
+                                    toastAlert(
+                                      context: context,
+                                      title: S.current.Aviso,
+                                      description: S.current
+                                          .No_se_han_realizados_cambios_en_el_formulario,
+                                      typeAlert: ToastificationType.info,
+                                    );
                                   }
                                 },
                               ),
@@ -710,13 +794,15 @@ Future<void> _dialogImage({
                       ),
                     ],
                   ),
-                  if (stateCustomPicto.isLoading == true)
+                  if (stateCustomPicto.isLoading == true ||
+                      isClickPhoto == true)
                     const Opacity(
                       opacity: 0.5,
                       child: ModalBarrier(
                           dismissible: false, color: $colorTextBlack),
                     ),
-                  if (stateCustomPicto.isLoading == true)
+                  if (stateCustomPicto.isLoading == true ||
+                      isClickPhoto == true)
                     Center(
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -779,10 +865,10 @@ Future<void> _dialogConfirmation({
     titleButtonConfirm: S.current.Si_Eliminar,
     onClic: () async {
       selectedDelete.state = true;
-      await ref.read(customPictogramProvider.notifier).deleteCustomPictogram();
       if (context.mounted) {
         Navigator.of(context).pop();
       }
+      await ref.read(customPictogramProvider.notifier).deleteCustomPictogram();
       selectedDelete.state = false;
     },
   );

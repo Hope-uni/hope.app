@@ -29,7 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "¿Está seguro de avanzar de fase a ${nameChild}?";
 
   static String m3(nameActivity) =>
-      "¿Está seguro de quitarle la actividad ${nameActivity}?";
+      "¿Está seguro de desasignar la actividad ${nameActivity}?";
 
   static String m4(namePictogram) =>
       "Se actualizó correctamente el pictograma personalizado: ${namePictogram}";
@@ -46,7 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "Acciones_en_el_listado_de_pictogramas":
         MessageLookupByLibrary.simpleMessage(
-          "Acciones en el listado de pictogramas:",
+          "Acciones en el listado de pictogramas",
         ),
     "Actividad": MessageLookupByLibrary.simpleMessage("Actividad"),
     "Actividad_actual": MessageLookupByLibrary.simpleMessage(
@@ -85,6 +85,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Agregar_pictograma": MessageLookupByLibrary.simpleMessage(
       "Agregar pictograma",
     ),
+    "Agregar_un_pictograma_a_la_solucion_presionando_la_imagen_por_un_segundo_y_luego_desplazandola_a_la_zona_de_la_solucion":
+        MessageLookupByLibrary.simpleMessage(
+          "• Agregar un pictograma a la solución presionando la imagen por 1 segundo y luego desplazándola a la zona de la solución",
+        ),
     "Al_paiente": MessageLookupByLibrary.simpleMessage("Al paciente"),
     "Anadir_nuevo_pictograma_personalizado":
         MessageLookupByLibrary.simpleMessage(
@@ -141,6 +145,10 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Cedula": MessageLookupByLibrary.simpleMessage("Cédula"),
     "Celular": MessageLookupByLibrary.simpleMessage("Celular"),
+    "Celular_terapeuta": MessageLookupByLibrary.simpleMessage(
+      "Celular terapeuta",
+    ),
+    "Celular_tutor": MessageLookupByLibrary.simpleMessage("Celular tutor"),
     "Cerrar": MessageLookupByLibrary.simpleMessage("Cerrar"),
     "Cerrar_sesion": MessageLookupByLibrary.simpleMessage("Cerrar sesión"),
     "Configuracion": MessageLookupByLibrary.simpleMessage("Configuración"),
@@ -148,10 +156,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "Confirmar_nueva_contrasena": MessageLookupByLibrary.simpleMessage(
       "Confirmar nueva contraseña",
     ),
-    "Contacto_terapeuta": MessageLookupByLibrary.simpleMessage(
-      "Contacto terapeuta",
-    ),
-    "Contacto_tutor": MessageLookupByLibrary.simpleMessage("Contacto tutor"),
     "Contrasena": MessageLookupByLibrary.simpleMessage("Contraseña"),
     "Contrasena_actual": MessageLookupByLibrary.simpleMessage(
       "Contraseña actual",
@@ -196,6 +200,12 @@ class MessageLookup extends MessageLookupByLibrary {
           "Debe seleccionar una fase para la actividad",
         ),
     "Derechos_reservados": m0,
+    "Desasignar_actividad": MessageLookupByLibrary.simpleMessage(
+      "Desasignar actividad",
+    ),
+    "Desasignar_actividad_a_los_ninos": MessageLookupByLibrary.simpleMessage(
+      "Desasignar actividad a los niños",
+    ),
     "Descripcion": MessageLookupByLibrary.simpleMessage("Descripción"),
     "Descripcion_de_la_actividad": MessageLookupByLibrary.simpleMessage(
       "Descripción de la actividad",
@@ -295,6 +305,14 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "Eliminar actividad asignada del niño",
         ),
+    "Eliminar_un_pictograma_de_forma_individual_presionando_la_imagen_y_desplazandola_verticalmente_fuera_del_area_de_la_solucion":
+        MessageLookupByLibrary.simpleMessage(
+          "• Eliminar un pictograma de forma individual presionando la imagen y desplazándola verticalmente fuera del área de la solución",
+        ),
+    "En_el_tablero_puede_realizar_las_siguientes_acciones":
+        MessageLookupByLibrary.simpleMessage(
+          "En el tablero puede realizar las siguientes acciones",
+        ),
     "Entrar": MessageLookupByLibrary.simpleMessage("Entrar"),
     "Enviar_correo": MessageLookupByLibrary.simpleMessage("Enviar correo"),
     "Error": MessageLookupByLibrary.simpleMessage("Error"),
@@ -302,13 +320,13 @@ class MessageLookup extends MessageLookupByLibrary {
       "Error al actualizar los permisos",
     ),
     "Error_inesperado": MessageLookupByLibrary.simpleMessage(
-      "Lamentablemente, ocurrió un error inesperado. Por favor, intenta nuevamente más tarde.",
+      "Lamentablemente, ocurrió un error inesperado. Por favor, intenta nuevamente más tarde",
     ),
     "Error_no_controlado": MessageLookupByLibrary.simpleMessage(
       "Error no controlado",
     ),
     "Error_solicitud": MessageLookupByLibrary.simpleMessage(
-      "Lo sentimos, ha ocurrido un error al procesar tu solicitud. Por favor, intenta nuevamente más tarde.",
+      "Lo sentimos, ha ocurrido un error al procesar tu solicitud. Por favor, intenta nuevamente más tarde",
     ),
     "Esta_Seguro_de_actualizar_los_datos": MessageLookupByLibrary.simpleMessage(
       "¿Está seguro de actualizar los datos?",
@@ -322,11 +340,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "Esta_seguro_de_crear_la_actividad": MessageLookupByLibrary.simpleMessage(
       "¿Está seguro de crear la actividad?",
     ),
+    "Esta_seguro_de_desasignar_la_actividad": m3,
     "Esta_seguro_de_eliminar_permanentemente_la_actividad":
         MessageLookupByLibrary.simpleMessage(
           "¿Está seguro de eliminar permanentemente la actividad?",
         ),
-    "Esta_seguro_de_quitarle_la_actividad": m3,
     "Esta_seguro_de_salir_de_la_creacion_de_la_actividad":
         MessageLookupByLibrary.simpleMessage(
           "¿Está seguro de salir de la creación de la actividad?",
@@ -352,7 +370,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Fecha de nacimiento",
     ),
     "Flujo_para_asignacion_de_actividad": MessageLookupByLibrary.simpleMessage(
-      "Flujo para asignación de actividad:",
+      "Flujo para asignación de actividad",
     ),
     "Galeria": MessageLookupByLibrary.simpleMessage("Galería"),
     "Grado_de_autismo_actual": MessageLookupByLibrary.simpleMessage(
@@ -369,9 +387,9 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "• Hacer clic sobre el botón verde en la parte inferior derecha de la pantalla",
         ),
-    "Hacer_clic_sobre_el_icono_rojo_del_basurero_al_paciente_que_le_desee_quitar_la_actividad":
+    "Hacer_clic_sobre_el_icono_rojo_del_basurero_al_paciente_que_le_desee_desasignar_la_actividad":
         MessageLookupByLibrary.simpleMessage(
-          "• Hacer clic sobre el icono rojo del basurero al paciente que le desee quitar la actividad",
+          "• Hacer clic sobre el icono rojo del basurero al paciente que le desee desasignar la actividad",
         ),
     "Hacer_clic_sobre_el_registro_deseado":
         MessageLookupByLibrary.simpleMessage(
@@ -555,8 +573,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "Para asignar un logro",
     ),
     "Para_crear_actividades": MessageLookupByLibrary.simpleMessage(
-      "Para crear actividades:",
+      "Para crear actividades",
     ),
+    "Para_desasignar_la_actividad_a_los_pacientes":
+        MessageLookupByLibrary.simpleMessage(
+          "Para desasignar la actividad a los pacientes",
+        ),
     "Para_finalizar_asignacion_hacer_clic_sobre_el_boton_en_la_esquina_inferior_derecha_y_seleccionar_la_opcion_de_guardar":
         MessageLookupByLibrary.simpleMessage(
           "• Para finalizar asignación, hacer clic sobre el botón en la esquina inferior derecha y seleccionar la opción de guardar",
@@ -564,10 +586,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "Para_listar_los_pacientes_disponibles_se_aplican_los_siguientes_filtros":
         MessageLookupByLibrary.simpleMessage(
           "Para listar los pacientes disponibles, se aplican los siguientes filtros",
-        ),
-    "Para_quitar_asignacion_de_actividad_a_los_pacientes":
-        MessageLookupByLibrary.simpleMessage(
-          "Para quitar asignación de actividad a los pacientes",
         ),
     "Para_reordenar_la_solucion": MessageLookupByLibrary.simpleMessage(
       "Para reordenar la solución",
@@ -577,7 +595,7 @@ class MessageLookup extends MessageLookupByLibrary {
           "• Para saber que acciones puede realizar en el registro, dar clic en el botón inferior a la derecha de la pantalla",
         ),
     "Para_ver_el_detalle_de_la_actividad": MessageLookupByLibrary.simpleMessage(
-      "Para ver el detalle de la actividad:",
+      "Para ver el detalle de la actividad",
     ),
     "Para_ver_el_detalle_del_la_nino": MessageLookupByLibrary.simpleMessage(
       "Para ver el detalle del/la niñ@",
@@ -601,7 +619,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Para ver la imagen con más detalle",
     ),
     "Para_ver_los_logros_con_mas_detalle": MessageLookupByLibrary.simpleMessage(
-      "Para ver los logros con más detalle:",
+      "Para ver los logros con más detalle",
     ),
     "Para_verificar_la_actividad_asignada_a_un_paciente":
         MessageLookupByLibrary.simpleMessage(
@@ -630,6 +648,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Pictogramas_personalizados_del_nino": MessageLookupByLibrary.simpleMessage(
       "Pictogramas personalizados del niño",
     ),
+    "Presionar_una_imagen_de_la_solucion_para_reproducir_su_sonido_de_forma_individual":
+        MessageLookupByLibrary.simpleMessage(
+          "• Presionar una imagen de la solución para reproducir su sonido de forma individual",
+        ),
     "Primer_apellido": MessageLookupByLibrary.simpleMessage("Primer Apellido"),
     "Primer_nombre": MessageLookupByLibrary.simpleMessage("Primer Nombre"),
     "Progreso": MessageLookupByLibrary.simpleMessage("Progreso"),
@@ -646,17 +668,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "Puntos_requeridos": MessageLookupByLibrary.simpleMessage(
       "Puntos requeridos",
     ),
-    "Quitar_actividad": MessageLookupByLibrary.simpleMessage(
-      "Quitar actividad",
-    ),
-    "Quitar_actividad_a_los_ninos": MessageLookupByLibrary.simpleMessage(
-      "Quitar actividad a los niños",
-    ),
-    "Quitar_asignacion_de_actividad": MessageLookupByLibrary.simpleMessage(
-      "Quitar asignación de actividad",
-    ),
     "Recortar_imagen": MessageLookupByLibrary.simpleMessage("Recortar imagen"),
     "Regresar": MessageLookupByLibrary.simpleMessage("Regresar"),
+    "Reordenar_la_solucion_presionando_la_imagen_por_un_segundo_y_moviendola_horizontalmente_hasta_el_lugar_correcto":
+        MessageLookupByLibrary.simpleMessage(
+          "• Reordenar la solución presionando la imagen por 1 segundo y moviéndola horizontalmente hasta el lugar correcto",
+        ),
     "Restablecer_contrasena": MessageLookupByLibrary.simpleMessage(
       "Restablecer contraseña",
     ),
@@ -717,7 +734,6 @@ class MessageLookup extends MessageLookupByLibrary {
         ),
     "Sexo": MessageLookupByLibrary.simpleMessage("Sexo"),
     "Si_Eliminar": MessageLookupByLibrary.simpleMessage("Sí, eliminar"),
-    "Si_Quitar": MessageLookupByLibrary.simpleMessage("Sí, quitar"),
     "Si_actualizar": MessageLookupByLibrary.simpleMessage("Sí, actualizar"),
     "Si_algun_texto_no_se_muestra_completo":
         MessageLookupByLibrary.simpleMessage(
@@ -726,6 +742,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Si_asignar": MessageLookupByLibrary.simpleMessage("Sí, asignar"),
     "Si_avanzar": MessageLookupByLibrary.simpleMessage("Sí, avanzar"),
     "Si_cambiar": MessageLookupByLibrary.simpleMessage("Sí, cambiar"),
+    "Si_desasignar": MessageLookupByLibrary.simpleMessage("Sí, desasignar"),
     "Si_desea_agregar_un_pictograma_a_la_solucion_debe_hacer_clic_una_vez_sobre_la_imagen_y_se_agregara_automaticamente":
         MessageLookupByLibrary.simpleMessage(
           "• Si desea agregar un pictograma a la solución, debe hacer clic una vez sobre la imagen y se agregará automáticamente",
