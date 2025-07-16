@@ -19,7 +19,7 @@ Este proyecto tiene como objetivo principal desarrollar una aplicacion movil par
 
 **Objetivos del Sistema:**
 
-1. **Gestión de Niños/Pacientes:**Poder visualizar el listado de pacientes asignado a los tutores y terapeutas , asi como poder ver la informacion de los niños asignados y en el caso del tutor podra crear pictogramas personalizados para los pacientes asignados
+1. **Gestión de Niños/Pacientes:** Poder visualizar el listado de pacientes asignado a los tutores y terapeutas , asi como poder ver la informacion de los niños asignados y en el caso del tutor podra crear pictogramas personalizados para los pacientes asignados
 2. **Gestion de informacion personal:** Poder ver y editar la informacion personal del tutor o terapeuta.
 3. **Gestion de tablero PECS:** El niño/paciente podra crear oraciones utilizando el tablero de la metodologia PECS arrastrando pictogramas a la zona de oracion y de igual manera cambiar la categoria de pictogramas.
 4. **Gestión de actividades:** El terapeuta podra ver la informacion de la actividad como crear y asignar actividades específicas a los niños, alineadas con la metodología PECS, de igual manera eliminar las actividades o quitar la asignacion a los niños.
