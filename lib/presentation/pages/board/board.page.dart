@@ -55,6 +55,7 @@ class BoardPageState extends ConsumerState<BoardPage> {
     );
     scrollController.dispose();
     scrollControllerList.dispose();
+    flutterTts.stop();
     super.dispose();
   }
 
@@ -65,42 +66,47 @@ class BoardPageState extends ConsumerState<BoardPage> {
     if (!_initialized) {
       _initialized = true;
 
-      Future.microtask(() async {
-        final notifierPictograms = ref.read(pictogramsProvider.notifier);
-        final notifierBoard = ref.read(boardProvider.notifier);
-        final stateBoard = ref.read(boardProvider);
-        await notifierPictograms.getPictogramsPatient();
-        await notifierBoard.getPatientActivity();
+      Future.microtask(
+        () async {
+          final notifierPictograms = ref.read(pictogramsProvider.notifier);
+          final notifierBoard = ref.read(boardProvider.notifier);
+          final stateBoard = ref.read(boardProvider);
+          await notifierPictograms.getPictogramsPatient();
+          await notifierBoard.getPatientActivity();
 
-        _isMonochrome =
-            ref.read(profileProvider).profile!.isMonochrome ?? false;
+          _isMonochrome =
+              ref.read(profileProvider).profile!.isMonochrome ?? false;
 
-        scrollController.addListener(() async {
-          final statePictograms = ref.read(pictogramsProvider);
+          scrollController.addListener(
+            () async {
+              final statePictograms = ref.read(pictogramsProvider);
 
-          if ((scrollController.position.pixels + 50) >=
-                  scrollController.position.maxScrollExtent &&
-              statePictograms.isLoading == false) {
-            if (statePictograms.paginatePictograms[$indexPage]! > 1 &&
-                statePictograms.paginatePictograms[$indexPage]! <=
-                    statePictograms.paginatePictograms[$pageCount]!) {
-              await notifierPictograms.getPictogramsPatient(
-                  pictogramsSolution: stateBoard.pictograms,
-                  idCategory: indexSeleccionado != null
-                      ? statePictograms
-                          .categoryPictograms[indexSeleccionado!].id
-                      : null);
-            }
-          }
-        });
-      });
+              if ((scrollController.position.pixels + 50) >=
+                      scrollController.position.maxScrollExtent &&
+                  statePictograms.isLoading == false) {
+                if (statePictograms.paginatePictograms[$indexPage]! > 1 &&
+                    statePictograms.paginatePictograms[$indexPage]! <=
+                        statePictograms.paginatePictograms[$pageCount]!) {
+                  await notifierPictograms.getPictogramsPatient(
+                    pictogramsSolution: stateBoard.pictograms,
+                    idCategory: indexSeleccionado != null
+                        ? statePictograms
+                            .categoryPictograms[indexSeleccionado!].id
+                        : null,
+                  );
+                }
+              }
+            },
+          );
+        },
+      );
     }
   }
 
   Future<void> initTTS() async {
     await flutterTts.setLanguage("es-ES");
     await flutterTts.setPitch(1.0);
-    await flutterTts.awaitSpeakCompletion(true);
+    await flutterTts.awaitSpeakCompletion(false);
 
     // Verificamos si el motor está disponible
     var available = await flutterTts.isLanguageAvailable("es-ES");
@@ -115,6 +121,7 @@ class BoardPageState extends ConsumerState<BoardPage> {
     if (engines == null || engines.isEmpty) return;
 
     if (isTtsReady) {
+      await flutterTts.stop();
       await flutterTts.speak(text);
     }
   }
@@ -388,6 +395,25 @@ class BoardPageState extends ConsumerState<BoardPage> {
                                       const SizedBox(height: 10),
                                       Text(S.current
                                           .Mantener_el_dedo_sobre_el_texto_durante_1_segundo_para_verlo_completo),
+                                      const SizedBox(height: 30),
+                                      Text(
+                                        S.current
+                                            .En_el_tablero_puede_realizar_las_siguientes_acciones,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Text(S.current
+                                          .Agregar_un_pictograma_a_la_solucion_presionando_la_imagen_por_un_segundo_y_luego_desplazandola_a_la_zona_de_la_solucion),
+                                      const SizedBox(height: 10),
+                                      Text(S.current
+                                          .Reordenar_la_solucion_presionando_la_imagen_por_un_segundo_y_moviendola_horizontalmente_hasta_el_lugar_correcto),
+                                      const SizedBox(height: 10),
+                                      Text(S.current
+                                          .Eliminar_un_pictograma_de_forma_individual_presionando_la_imagen_y_desplazandola_verticalmente_fuera_del_area_de_la_solucion),
+                                      const SizedBox(height: 10),
+                                      Text(S.current
+                                          .Presionar_una_imagen_de_la_solucion_para_reproducir_su_sonido_de_forma_individual),
                                     ],
                                   ),
                                 ),

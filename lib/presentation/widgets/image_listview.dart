@@ -201,42 +201,51 @@ class ImageListVIewState extends ConsumerState<ImageListVIew> {
                                             }
                                           }
                                         : null,
-                                onPanStart: (details) {
-                                  setState(() {
-                                    dragPictogram = widget.images[index];
-                                  });
-                                  _dragOffset = details.globalPosition;
-                                  _startDragging(
-                                      widget.images[index], _dragOffset);
-                                },
-                                onPanUpdate: (details) {
-                                  _updateDragging(details.globalPosition);
-                                },
-                                onPanEnd: (details) {
-                                  _stopDragging();
+                                onPanStart: widget.onDragDeleted == null
+                                    ? null
+                                    : (details) {
+                                        setState(() {
+                                          dragPictogram = widget.images[index];
+                                        });
+                                        _dragOffset = details.globalPosition;
+                                        _startDragging(
+                                            widget.images[index], _dragOffset);
+                                      },
+                                onPanUpdate: widget.onDragDeleted == null
+                                    ? null
+                                    : (details) {
+                                        _updateDragging(details.globalPosition);
+                                      },
+                                onPanEnd: widget.onDragDeleted == null
+                                    ? null
+                                    : (details) {
+                                        _stopDragging();
 
-                                  final parentBox = _parentKey.currentContext
-                                      ?.findRenderObject() as RenderBox?;
-                                  if (parentBox != null) {
-                                    final parentPosition =
-                                        parentBox.localToGlobal(Offset.zero);
-                                    final parentSize = parentBox.size;
-                                    final parentRect = Rect.fromLTWH(
-                                      parentPosition.dx,
-                                      parentPosition.dy,
-                                      parentSize.width,
-                                      parentSize.height,
-                                    );
+                                        final parentBox = _parentKey
+                                            .currentContext
+                                            ?.findRenderObject() as RenderBox?;
+                                        if (parentBox != null) {
+                                          final parentPosition = parentBox
+                                              .localToGlobal(Offset.zero);
+                                          final parentSize = parentBox.size;
+                                          final parentRect = Rect.fromLTWH(
+                                            parentPosition.dx,
+                                            parentPosition.dy,
+                                            parentSize.width,
+                                            parentSize.height,
+                                          );
 
-                                    // Verificamos si la última posición conocida del drag está dentro del rectángulo padre
-                                    if (!parentRect.contains(_dragOffset)) {
-                                      widget.onDragDeleted!(dragPictogram!);
-                                    }
-                                    setState(() {
-                                      dragPictogram = null;
-                                    });
-                                  }
-                                },
+                                          // Verificamos si la última posición conocida del drag está dentro del rectángulo padre
+                                          if (!parentRect
+                                              .contains(_dragOffset)) {
+                                            widget
+                                                .onDragDeleted!(dragPictogram!);
+                                          }
+                                          setState(() {
+                                            dragPictogram = null;
+                                          });
+                                        }
+                                      },
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(20),
                                   child: Container(
