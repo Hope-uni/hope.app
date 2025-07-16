@@ -245,19 +245,6 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
     state = state.copyWith(categoryPictograms: categoryPictograms);
   }
 
-  void resetFilters({
-    required String? namePictogram,
-    required bool isCustom,
-    required int? idChild,
-  }) {
-    state = state.copyWith(paginatePictograms: {$indexPage: 1, $pageCount: 0});
-    if (isCustom) {
-      getCustomPictograms(idChild: idChild!, namePictogram: namePictogram);
-    } else {
-      getPictograms(namePictogram: namePictogram);
-    }
-  }
-
   void updateResponse() => state = state.copyWith(errorMessageApi: '');
 
   void deletePictogram({required int idPictogram}) {
@@ -300,7 +287,7 @@ class PictogramsState {
     this.pictograms = const [],
     this.categoryPictograms = const [],
     this.paginatePictograms = const {$indexPage: 1, $pageCount: 0},
-    this.isLoading = true,
+    this.isLoading = false,
     this.isNewFilter,
     this.isErrorInitial = false,
     this.errorMessageApi,

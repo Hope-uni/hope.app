@@ -317,12 +317,11 @@ class FormActivityState extends ConsumerState<FormActivity> {
                         );
                         idCategory = int.parse(value);
                       },
-                      onDeleteSelection: () {
+                      onDeleteSelection: () async {
                         idCategory = null;
-                        notifierPictograms.resetFilters(
+                        await notifierPictograms.getPictograms(
+                          idCategory: null,
                           namePictogram: namePicto,
-                          isCustom: false,
-                          idChild: null,
                         );
                       },
                     ),
@@ -339,13 +338,12 @@ class FormActivityState extends ConsumerState<FormActivity> {
                       },
                       suffixIcon: searchController.text.isNotEmpty
                           ? GestureDetector(
-                              onTap: () {
+                              onTap: () async {
                                 namePicto = null;
                                 searchController.clear();
-                                notifierPictograms.resetFilters(
+                                await notifierPictograms.getPictograms(
+                                  idCategory: idCategory,
                                   namePictogram: null,
-                                  isCustom: false,
-                                  idChild: null,
                                 );
                               },
                               child: Container(
