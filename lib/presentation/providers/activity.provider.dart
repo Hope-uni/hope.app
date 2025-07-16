@@ -137,8 +137,8 @@ class ActivityNotifier extends StateNotifier<ActivityState> {
         if (newValue.isNotEmpty &&
             newValue.split(',').map(int.parse).toList().length < 31) {
           newValidationErrors.remove($pictogramSentence);
+          pictograms = newValue.split(',').map(int.parse).toList();
         }
-        pictograms = newValue.split(',').map(int.parse).toList();
         activity = state.activity!.copyWith(pictogramSentence: pictograms);
         break;
 
@@ -180,7 +180,7 @@ class ActivityNotifier extends StateNotifier<ActivityState> {
       errors[$pictogramSentence] =
           S.current.Debe_seleccionar_al_menos_un_pictograma_para_la_solucion;
     } else {
-      if (state.activity!.pictogramSentence.length > 32) {
+      if (state.activity!.pictogramSentence.length > 31) {
         errors[$pictogramSentence] =
             S.current.El_limite_de_pictogramas_para_la_solucion_es_de_treinta;
       }

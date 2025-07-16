@@ -305,9 +305,7 @@ class _ButtonLogin extends ConsumerWidget {
           ),
         ),
         child: Text(
-          loginProvider.isFormPosted
-              ? S.current.Cargando
-              : S.current.Iniciar_sesion,
+          loginProvider.isFormPosted ? S.current.Cargando : S.current.Entrar,
         ),
       ),
     );

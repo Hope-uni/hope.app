@@ -55,6 +55,7 @@ class BoardPageState extends ConsumerState<BoardPage> {
     );
     scrollController.dispose();
     scrollControllerList.dispose();
+    flutterTts.stop();
     super.dispose();
   }
 
@@ -65,42 +66,47 @@ class BoardPageState extends ConsumerState<BoardPage> {
     if (!_initialized) {
       _initialized = true;
 
-      Future.microtask(() async {
-        final notifierPictograms = ref.read(pictogramsProvider.notifier);
-        final notifierBoard = ref.read(boardProvider.notifier);
-        final stateBoard = ref.read(boardProvider);
-        await notifierPictograms.getPictogramsPatient();
-        await notifierBoard.getPatientActivity();
+      Future.microtask(
+        () async {
+          final notifierPictograms = ref.read(pictogramsProvider.notifier);
+          final notifierBoard = ref.read(boardProvider.notifier);
+          final stateBoard = ref.read(boardProvider);
+          await notifierPictograms.getPictogramsPatient();
+          await notifierBoard.getPatientActivity();
 
-        _isMonochrome =
-            ref.read(profileProvider).profile!.isMonochrome ?? false;
+          _isMonochrome =
+              ref.read(profileProvider).profile!.isMonochrome ?? false;
 
-        scrollController.addListener(() async {
-          final statePictograms = ref.read(pictogramsProvider);
+          scrollController.addListener(
+            () async {
+              final statePictograms = ref.read(pictogramsProvider);
 
-          if ((scrollController.position.pixels + 50) >=
-                  scrollController.position.maxScrollExtent &&
-              statePictograms.isLoading == false) {
-            if (statePictograms.paginatePictograms[$indexPage]! > 1 &&
-                statePictograms.paginatePictograms[$indexPage]! <=
-                    statePictograms.paginatePictograms[$pageCount]!) {
-              await notifierPictograms.getPictogramsPatient(
-                  pictogramsSolution: stateBoard.pictograms,
-                  idCategory: indexSeleccionado != null
-                      ? statePictograms
-                          .categoryPictograms[indexSeleccionado!].id
-                      : null);
-            }
-          }
-        });
-      });
+              if ((scrollController.position.pixels + 50) >=
+                      scrollController.position.maxScrollExtent &&
+                  statePictograms.isLoading == false) {
+                if (statePictograms.paginatePictograms[$indexPage]! > 1 &&
+                    statePictograms.paginatePictograms[$indexPage]! <=
+                        statePictograms.paginatePictograms[$pageCount]!) {
+                  await notifierPictograms.getPictogramsPatient(
+                    pictogramsSolution: stateBoard.pictograms,
+                    idCategory: indexSeleccionado != null
+                        ? statePictograms
+                            .categoryPictograms[indexSeleccionado!].id
+                        : null,
+                  );
+                }
+              }
+            },
+          );
+        },
+      );
     }
   }
 
   Future<void> initTTS() async {
     await flutterTts.setLanguage("es-ES");
     await flutterTts.setPitch(1.0);
-    await flutterTts.awaitSpeakCompletion(true);
+    await flutterTts.awaitSpeakCompletion(false);
 
     // Verificamos si el motor está disponible
     var available = await flutterTts.isLanguageAvailable("es-ES");
@@ -115,6 +121,7 @@ class BoardPageState extends ConsumerState<BoardPage> {
     if (engines == null || engines.isEmpty) return;
 
     if (isTtsReady) {
+      await flutterTts.stop();
       await flutterTts.speak(text);
     }
   }
