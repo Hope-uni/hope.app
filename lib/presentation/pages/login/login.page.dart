@@ -28,7 +28,7 @@ class LoginPageState extends ConsumerState<LoginPage> {
       overlays: SystemUiOverlay.values,
     );
     SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
+      const SystemUiOverlayStyle(statusBarColor: $colorTransparent),
     );
     _passwordFocusNode.addListener(_onFocusChange);
   }
@@ -305,9 +305,7 @@ class _ButtonLogin extends ConsumerWidget {
           ),
         ),
         child: Text(
-          loginProvider.isFormPosted
-              ? S.current.Cargando
-              : S.current.Iniciar_sesion,
+          loginProvider.isFormPosted ? S.current.Cargando : S.current.Entrar,
         ),
       ),
     );

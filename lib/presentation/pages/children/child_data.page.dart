@@ -25,6 +25,7 @@ class ChildDataPage extends ConsumerStatefulWidget {
 
 class ChildDataPageState extends ConsumerState<ChildDataPage>
     with SingleTickerProviderStateMixin {
+  bool isClickPhoto = false;
   bool enableInput = false;
   bool clickSave = false;
   bool _showRightArrow = true;
@@ -34,6 +35,8 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
   final ScrollController _scrollController = ScrollController();
   final ScrollController _scrollControllerObservations = ScrollController();
   late final TextEditingController controllerDate = TextEditingController();
+
+  final CameraGalleryDataSourceImpl image = CameraGalleryDataSourceImpl();
 
   final Map<String, FocusNode> focusNodes = {
     $userNameProfile: FocusNode(),
@@ -63,6 +66,22 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
         });
       }
     });
+
+    _tabController.addListener(
+      () {
+        // Evita scroll mientras aún se anima
+        if (_tabController.indexIsChanging) return;
+        // Esperar un frame para asegurar que el Tab esté renderizado
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _scrollToSelectedTab(_tabController.index);
+        });
+      },
+    );
+
+    Future.microtask(() async {
+      final notifierChild = ref.read(childProvider.notifier);
+      await notifierChild.getChild(idChild: widget.idChild);
+    });
   }
 
   @override
@@ -77,11 +96,27 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
   @override
   Future<void> didChangeDependencies() async {
     super.didChangeDependencies();
+  }
 
-    Future.microtask(() async {
-      final notifierChild = ref.read(childProvider.notifier);
-      await notifierChild.getChild(idChild: widget.idChild);
-    });
+  void _scrollToSelectedTab(int tabIndex) {
+    // Calcula la posición del tab que quieres mostrar
+    // Puedes ajustar este valor si tus tabs son más grandes o más pequeños
+    const double tabWidth = 150;
+    final double offset = (tabIndex * tabWidth) -
+        (MediaQuery.of(context).size.width / 2) +
+        (tabWidth / 2);
+
+    // Asegura que el scroll esté dentro de los límites
+    final double scrollOffset = offset.clamp(
+      _scrollController.position.minScrollExtent,
+      _scrollController.position.maxScrollExtent,
+    );
+
+    _scrollController.animateTo(
+      scrollOffset,
+      duration: const Duration(milliseconds: 200),
+      curve: Curves.easeInOut,
+    );
   }
 
   @override
@@ -217,6 +252,30 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
           stateChild.child!.birthday.split('-').reversed.join('-');
     }
 
+    Future<void> selectImage() async {
+      setState(() => isClickPhoto = true);
+      final String? imagePath = await image.selectImage();
+      if (imagePath != null) {
+        final file = File(imagePath);
+
+        notifierChild.updateImage(imageFile: file);
+        notifierChild.updateimagePath(path: imagePath);
+      }
+      setState(() => isClickPhoto = false);
+    }
+
+    Future<void> takePhoto() async {
+      setState(() => isClickPhoto = true);
+      final String? imagePath = await image.takePhoto();
+      if (imagePath != null) {
+        final file = File(imagePath);
+
+        notifierChild.updateImage(imageFile: file);
+        notifierChild.updateimagePath(path: imagePath);
+      }
+      setState(() => isClickPhoto = false);
+    }
+
     Future<void> selectDate(BuildContext context, String dateValue) async {
       final DateTime now = DateTime.now();
 
@@ -250,13 +309,13 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
     }
 
     return PopScope(
-      onPopInvokedWithResult: (didPop, result) {
+      onPopInvokedWithResult: (didPop, result) async {
         ref.read(childrenProvider.notifier).resetState();
 
         if (widget.extra![$isTutor] == true) {
-          ref.read(childrenProvider.notifier).getChildrenTutor();
+          await ref.read(childrenProvider.notifier).getChildrenTutor();
         } else {
-          ref.read(childrenProvider.notifier).getChildrenTherapist();
+          await ref.read(childrenProvider.notifier).getChildrenTherapist();
         }
       },
       child: DefaultTabController(
@@ -264,7 +323,14 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
         length: 5,
         child: Scaffold(
           appBar: AppBar(
-              title: Text(S.current.Informacion_del_nino),
+              title: Tooltip(
+                message: S
+                    .current.Informacion_del_nino, // Muestra el nombre completo
+                waitDuration: const Duration(
+                    milliseconds: 100), // Espera antes de mostrarse
+                showDuration: const Duration(seconds: 2), // Tiempo visible
+                child: Text(S.current.Informacion_del_nino),
+              ),
               actions: [
                 Container(
                   margin: const EdgeInsets.only(right: 15),
@@ -344,6 +410,18 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
                                       S.current
                                           .Para_saber_que_acciones_puede_realizar_en_el_registro_dar_clic_en_el_boton_inferior_a_la_derecha_de_la_pantalla,
                                     ),
+                                    const SizedBox(height: 30),
+                                    Text(
+                                      S.current
+                                          .Si_el_titulo_de_la_pantalla_no_se_muestra_completo_puede,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Text(
+                                      S.current
+                                          .Mantener_el_dedo_sobre_el_titulo_durante_1_segundo_para_verlo_completo,
+                                    ),
                                   ],
                                 ),
                               ),
@@ -363,47 +441,55 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
                       SingleChildScrollView(
                         controller: _scrollController,
                         scrollDirection: Axis.horizontal,
-                        child: TabBar(
-                          controller: _tabController,
-                          tabAlignment: TabAlignment.center,
-                          isScrollable: true,
-                          tabs: <Widget>[
-                            Tab(
-                              icon: const Icon(Icons.face_6),
-                              child: Text(
-                                S.current.Informacion_personal,
-                                textAlign: TextAlign.center,
+                        child: AbsorbPointer(
+                          absorbing: enableInput,
+                          child: TabBar(
+                            onTap: (value) {
+                              setState(() {
+                                FocusManager.instance.primaryFocus?.unfocus();
+                              });
+                            },
+                            controller: _tabController,
+                            tabAlignment: TabAlignment.center,
+                            isScrollable: true,
+                            tabs: <Widget>[
+                              Tab(
+                                icon: const Icon(Icons.face_6),
+                                child: Text(
+                                  S.current.Informacion_personal,
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
-                            ),
-                            Tab(
-                              icon: const Icon(Icons.description),
-                              child: Text(
-                                S.current.Informacion_general,
-                                textAlign: TextAlign.center,
+                              Tab(
+                                icon: const Icon(Icons.description),
+                                child: Text(
+                                  S.current.Informacion_general,
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
-                            ),
-                            Tab(
-                              icon: const Icon(Icons.pie_chart),
-                              child: Text(
-                                S.current.Informacion_del_progreso,
-                                textAlign: TextAlign.center,
+                              Tab(
+                                icon: const Icon(Icons.pie_chart),
+                                child: Text(
+                                  S.current.Informacion_del_progreso,
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
-                            ),
-                            Tab(
-                              icon: const Icon(Icons.analytics_outlined),
-                              child: Text(
-                                S.current.Actividades,
-                                textAlign: TextAlign.center,
+                              Tab(
+                                icon: const Icon(Icons.analytics_outlined),
+                                child: Text(
+                                  S.current.Actividades,
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
-                            ),
-                            Tab(
-                              icon: const Icon(Icons.remove_red_eye_sharp),
-                              child: Text(
-                                S.current.Observaciones,
-                                textAlign: TextAlign.center,
+                              Tab(
+                                icon: const Icon(Icons.remove_red_eye_sharp),
+                                child: Text(
+                                  S.current.Observaciones,
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                       // Mostrar flechas si hay más contenido por ver
@@ -437,6 +523,8 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
             children: [
               if (stateChild.isLoading == false && stateChild.isError == false)
                 TabBarView(
+                  physics:
+                      enableInput ? const NeverScrollableScrollPhysics() : null,
                   controller: _tabController,
                   children: <Widget>[
                     GestureDetector(
@@ -457,6 +545,8 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
                                 context: context,
                                 ref: ref,
                                 clickSave: clickSave,
+                                selectImage: selectImage,
+                                takePhoto: takePhoto,
                                 focusNodes: focusNodes,
                                 controllerDate: controllerDate,
                                 selectDate: selectDate,
@@ -517,11 +607,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
                       ),
                     ),
                     Container(
-                      margin: const EdgeInsets.only(
-                        left: 10,
-                        right: 10,
-                        top: 15,
-                      ),
+                      margin: const EdgeInsets.only(left: 10, right: 10),
                       child: _observationsChild(ref: ref),
                     ),
                   ],
@@ -556,7 +642,8 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
                 ),
               if (stateChild.isUpdateData == true ||
                   statePhases.isLoading == true ||
-                  stateActivity.isLoading == true)
+                  stateActivity.isLoading == true ||
+                  isClickPhoto == true)
                 Stack(
                   children: [
                     const Opacity(
@@ -605,6 +692,11 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
                   animationCurve: Curves.easeInOut,
                   isOpenOnStart: false,
                   shape: const CircleBorder(),
+                  onOpen: () {
+                    setState(() {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                    });
+                  },
                   children: [
                     SpeedDialChild(
                       visible: !enableInput && widget.extra![$isTutor] == true,
@@ -618,7 +710,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
                           setState(() {
                             _tabController.animateTo(
                               0,
-                              duration: const Duration(seconds: 1),
+                              duration: const Duration(milliseconds: 1500),
                               curve: Curves.bounceIn,
                             );
                             enableInput = true;
@@ -716,6 +808,13 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
                       visible: widget.extra![$isTutor] == false,
                       onTap: () {
                         if (stateProfile.permmisions!.contains($advancePhase)) {
+                          setState(() {
+                            _tabController.animateTo(
+                              2,
+                              duration: const Duration(milliseconds: 1500),
+                              curve: Curves.bounceIn,
+                            );
+                          });
                           modalDialogConfirmation(
                             context: context,
                             titleButtonConfirm: S.current.Si_avanzar,
@@ -777,6 +876,13 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
                       onTap: () {
                         if (stateProfile.permmisions!
                             .contains($addObservation)) {
+                          setState(() {
+                            _tabController.animateTo(
+                              4,
+                              duration: const Duration(milliseconds: 1500),
+                              curve: Curves.bounceIn,
+                            );
+                          });
                           modalObservation(
                             context: context,
                             dataChild: CatalogObject(
@@ -810,6 +916,13 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
                       onTap: () {
                         if (stateProfile.permmisions!
                             .contains($changeMonochrome)) {
+                          setState(() {
+                            _tabController.animateTo(
+                              1,
+                              duration: const Duration(milliseconds: 1500),
+                              curve: Curves.bounceIn,
+                            );
+                          });
                           modalDialogConfirmation(
                             context: context,
                             titleButtonConfirm: S.current.Si_cambiar,
@@ -864,7 +977,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
                       shape: const CircleBorder(),
                       child: const Icon(Icons.delete, color: $colorTextWhite),
                       backgroundColor: $colorError,
-                      label: S.current.Quitar_actividad,
+                      label: S.current.Desasignar_actividad,
                       visible: widget.extra![$isTutor] == false,
                       onTap: () {
                         if (stateProfile.permmisions!
@@ -873,7 +986,7 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
                             toastAlert(
                               iconAlert: const Icon(Icons.info),
                               context: context,
-                              title: S.current.No_autorizado,
+                              title: S.current.Aviso,
                               description: S.current
                                   .El_paciente_no_tiene_actividad_asignada_actualmente,
                               typeAlert: ToastificationType.info,
@@ -882,12 +995,12 @@ class ChildDataPageState extends ConsumerState<ChildDataPage>
                           }
                           modalDialogConfirmation(
                             context: context,
-                            titleButtonConfirm: S.current.Si_Quitar,
+                            titleButtonConfirm: S.current.Si_desasignar,
                             question: RichText(
                               text: TextSpan(children: [
                                 TextSpan(
                                   text:
-                                      '${S.current.Esta_seguro_de_quitarle_la_actividad(stateChild.child!.currentActivity!.name)}\n\n',
+                                      '${S.current.Esta_seguro_de_desasignar_la_actividad(stateChild.child!.currentActivity!.name)}\n\n',
                                   style: const TextStyle(
                                     color: $colorTextBlack,
                                   ),
@@ -943,33 +1056,13 @@ List<Widget> _childPersonalData({
   required WidgetRef ref,
   required bool clickSave,
   required Map<String, FocusNode> focusNodes,
+  required Function selectImage,
+  required Function takePhoto,
   required TextEditingController controllerDate,
   required Function(BuildContext context, String dateValue) selectDate,
 }) {
-  final CameraGalleryDataSourceImpl image = CameraGalleryDataSourceImpl();
-
   final stateChild = ref.watch(childProvider);
   final notifierChild = ref.read(childProvider.notifier);
-
-  Future<void> selectImage() async {
-    final String? imagePath = await image.selectImage();
-    if (imagePath != null) {
-      final file = File(imagePath);
-
-      notifierChild.updateImage(imageFile: file);
-      notifierChild.updateimagePath(path: imagePath);
-    }
-  }
-
-  Future<void> takePhoto() async {
-    final String? imagePath = await image.takePhoto();
-    if (imagePath != null) {
-      final file = File(imagePath);
-
-      notifierChild.updateImage(imageFile: file);
-      notifierChild.updateimagePath(path: imagePath);
-    }
-  }
 
   return [
     Container(
@@ -1236,13 +1329,13 @@ List<Widget> _generalInformation({
       enable: false,
     ),
     InputForm(
-      label: S.current.Contacto_tutor,
-      value: stateChild.child!.tutor.telephone ?? '',
+      label: S.current.Celular_tutor,
+      value: stateChild.child!.tutor.phoneNumber,
       enable: false,
     ),
     InputForm(
       label: S.current.Telefono_de_casa,
-      value: stateChild.child!.tutor.phoneNumber,
+      value: stateChild.child!.tutor.telephone ?? '',
       enable: false,
     ),
     InputForm(
@@ -1253,7 +1346,7 @@ List<Widget> _generalInformation({
       enable: false,
     ),
     InputForm(
-      label: S.current.Contacto_terapeuta,
+      label: S.current.Celular_terapeuta,
       value: stateChild.child!.therapist != null
           ? stateChild.child!.therapist!.phoneNumber
           : '-',
@@ -1283,7 +1376,9 @@ List<Widget> _childProgressData({
                 children: [
                   Container(
                     margin: const EdgeInsets.symmetric(
-                        horizontal: 13, vertical: 20),
+                      horizontal: 13,
+                      vertical: 20,
+                    ),
                     alignment: Alignment.topCenter,
                     child: Text(
                       S.current.Progreso_general_de_las_fase,
@@ -1330,7 +1425,10 @@ List<Widget> _childProgressData({
                       vertical: 20,
                     ),
                     alignment: Alignment.topCenter,
-                    child: Text(S.current.progreso_de_fase_Actual),
+                    child: Text(
+                      S.current.progreso_de_fase_Actual,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                   SizedBox(
                     height: 100,
@@ -1459,6 +1557,11 @@ List<Widget> _activities({
           colorTitle: true,
           styleTitle: FontWeight.bold,
           noImage: true,
+          colorText: stateChildCurrentActivity != null
+              ? $colorBlueGeneral
+              : $colorTextWhite,
+          colorItemSelect:
+              stateChildCurrentActivity != null ? null : $colorBlueGeneral,
           subTitle: stateChildCurrentActivity != null
               ? Column(
                   children: [
@@ -1504,18 +1607,19 @@ List<Widget> _activities({
                     const SizedBox(height: 5),
                   ],
                 )
-              : const Text('-'),
+              : null,
         )
       ],
     ),
     Container(
-      margin: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
+      margin: const EdgeInsets.only(left: 13, right: 13, top: 10, bottom: 5),
       alignment: Alignment.centerLeft,
       child: Text(S.current.Actividades_terminadas),
     ),
     Expanded(
       child: stateChildActivities != null
           ? ListView.builder(
+              padding: const EdgeInsets.symmetric(vertical: 10),
               itemCount: stateChildActivities.length + 1,
               itemBuilder: (context, index) {
                 if (index < stateChildActivities.length) {
@@ -1550,6 +1654,7 @@ Widget _observationsChild({
   final stateChildObservations = ref.watch(childProvider).child!.observations;
   return stateChildObservations != null
       ? ListView.builder(
+          padding: const EdgeInsets.symmetric(vertical: 15),
           itemCount: stateChildObservations.length + 1,
           itemBuilder: (context, index) {
             if (index < stateChildObservations.length) {

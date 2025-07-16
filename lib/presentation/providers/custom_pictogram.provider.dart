@@ -22,6 +22,8 @@ class CustomPictogramNotifier extends StateNotifier<CustomPictogramState> {
   final PictogramsRepositoyImpl pictogramsRepository;
   final PictogramsNotifier notifierPictograms;
 
+  CustomPictogramState? stateCustomPictogram;
+
   CustomPictogramNotifier({
     required this.pictogramsRepository,
     required this.notifierPictograms,
@@ -34,6 +36,8 @@ class CustomPictogramNotifier extends StateNotifier<CustomPictogramState> {
       final response = await pictogramsRepository.createCustomPictogram(
         customPictogram: customPicto,
       );
+
+      stateCustomPictogram = null;
 
       state = state.copyWith(
         isLoading: false,
@@ -85,7 +89,7 @@ class CustomPictogramNotifier extends StateNotifier<CustomPictogramState> {
     try {
       final pictogram = await pictogramsRepository.updateCustomPictograms(
         pictogram: CustomPictogram(
-          name: state.pictogram!.name,
+          name: state.pictogram!.name.trim(),
           imageUrl: state.pictogram!.imageUrl,
           patientId: state.idChild,
         ),
@@ -114,7 +118,7 @@ class CustomPictogramNotifier extends StateNotifier<CustomPictogramState> {
   CustomPictogram _setCustomPictogram() {
     final customPictogram = CustomPictogram(
       imageUrl: state.pictogram!.imageUrl,
-      name: state.pictogram!.name,
+      name: state.pictogram!.name.trim(),
       patientId: state.idChild,
       pictogramId: state.pictogram!.id,
     );
@@ -124,6 +128,7 @@ class CustomPictogramNotifier extends StateNotifier<CustomPictogramState> {
 
   void loadCustomPictogram({required PictogramAchievements pictogram}) {
     state = state.copyWith(pictogram: pictogram);
+    stateCustomPictogram = state;
   }
 
   void updateRequest() {
@@ -137,6 +142,10 @@ class CustomPictogramNotifier extends StateNotifier<CustomPictogramState> {
   }
 
   bool checkFields() {
+    if (!_validateChanges()) {
+      return false;
+    }
+
     Map<String, String?> errors = {};
 
     if (state.pictogram!.name.isEmpty) {
@@ -183,6 +192,17 @@ class CustomPictogramNotifier extends StateNotifier<CustomPictogramState> {
     if (currentPictogram == null) return;
     final updateImage = currentPictogram.copyWith(imageUrl: imageFile.path);
     state = state.copyWith(pictogram: updateImage);
+  }
+
+  bool _validateChanges() {
+    return stateCustomPictogram!.pictogram == state.pictogram ? false : true;
+  }
+
+  void restoredState() {
+    if (stateCustomPictogram != null) {
+      state = stateCustomPictogram!;
+      stateCustomPictogram = null;
+    }
   }
 }
 

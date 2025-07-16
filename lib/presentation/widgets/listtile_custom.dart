@@ -6,6 +6,7 @@ class ListTileCustom extends StatelessWidget {
   final String title;
   final Widget? iconButton;
   final Color? colorItemSelect;
+  final Color? colorText;
   final String? image;
   final bool? noImage;
   final Widget? subTitle;
@@ -18,6 +19,7 @@ class ListTileCustom extends StatelessWidget {
     required this.title,
     this.iconButton,
     this.colorItemSelect,
+    this.colorText,
     this.image,
     this.noImage = false,
     this.subTitle,
@@ -55,14 +57,17 @@ class ListTileCustom extends StatelessWidget {
                   child: ImageLoad(urlImage: image),
                 ),
               )
-            : Container(width: 3, color: $colorBlueGeneral),
+            : Container(width: 3, color: colorText ?? $colorBlueGeneral),
         title: Container(
           padding: EdgeInsets.only(right: noImage == false ? 0 : 25),
-          child: Text(title,
-              maxLines: 2,
-              style: TextStyle(
-                  fontWeight: styleTitle,
-                  color: colorTitle == true ? $colorBlueGeneral : null)),
+          child: Text(
+            title,
+            maxLines: 2,
+            style: TextStyle(
+              fontWeight: styleTitle,
+              color: colorTitle == true ? colorText ?? $colorBlueGeneral : null,
+            ),
+          ),
         ),
         subtitle: subTitle != null
             ? Container(
