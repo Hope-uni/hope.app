@@ -177,7 +177,9 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             return '/dashboard';
           }
 
-          if (verified == true && roles.contains($paciente)) return '/board';
+          if (verified == true && roles.contains($paciente)) {
+            return '/board';
+          }
 
           if (roles.contains($admin)) return '/login';
         }

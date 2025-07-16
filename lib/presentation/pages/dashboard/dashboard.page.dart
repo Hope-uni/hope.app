@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hope_app/generated/l10n.dart';
@@ -18,6 +19,7 @@ class DashboardPageState extends ConsumerState<DashboardPage> {
   @override
   void initState() {
     super.initState();
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     // Llama a la función para verificar la keyStorage al cargar la página
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final bool? verified = await KeyValueStorageRepositoryImpl()

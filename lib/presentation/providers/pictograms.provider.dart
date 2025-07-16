@@ -49,7 +49,11 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
       isFilter = false;
     }
 
-    state = state.copyWith(isLoading: true);
+    state = state.copyWith(
+      isLoading: true,
+      isNewFilter: idCategory != categoryId ? true : false,
+    );
+
     categoryId = idCategory;
     pictogramName = namePictogram;
   }
@@ -74,6 +78,7 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
           indexPage == 1 ? categoryPictograms ?? [] : state.categoryPictograms,
       isLoading: false,
       isErrorInitial: false,
+      isNewFilter: false,
     );
   }
 
@@ -154,7 +159,10 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
     }
   }
 
-  Future<void> getPictogramsPatient({int? idCategory}) async {
+  Future<void> getPictogramsPatient({
+    int? idCategory,
+    List<PictogramAchievements>? pictogramsSolution,
+  }) async {
     if (!profileState.permmisions!.contains($listCustomPictogram)) {
       _onlyGetCateories();
       state = state.copyWith(isLoading: false);
@@ -174,16 +182,27 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
         categoryPictograms = await getCategoryPictograms();
       }
 
-      _updatePictograms(
-        indexPage: indexPage,
-        pageCount: pictogramsPatient.paginate!.pageCount,
-        categoryPictograms: categoryPictograms,
-        pictogramData: pictogramsPatient.data,
-      );
+      // Lista original desde el backend
+      List<PictogramAchievements> pictogramList = pictogramsPatient.data ?? [];
 
       pictogramsOriginals = indexPage == 1
           ? pictogramsPatient.data ?? []
           : [...pictogramsOriginals, ...pictogramsPatient.data!];
+
+      if (pictogramsSolution != null && pictogramsSolution.isNotEmpty) {
+        final idsToExclude = pictogramsSolution.map((e) => e.id).toSet();
+
+        pictogramList = pictogramList
+            .where((picto) => !idsToExclude.contains(picto.id))
+            .toList();
+      }
+
+      _updatePictograms(
+        indexPage: indexPage,
+        pageCount: pictogramsPatient.paginate!.pageCount,
+        categoryPictograms: categoryPictograms,
+        pictogramData: pictogramList,
+      );
     } on CustomError catch (e) {
       if (indexPage == 1) state = state.copyWith(isErrorInitial: true);
       state = state.copyWith(errorMessageApi: e.message, isLoading: false);
@@ -226,25 +245,20 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
     state = state.copyWith(categoryPictograms: categoryPictograms);
   }
 
-  void resetFilters({
-    required String? namePictogram,
-    required bool isCustom,
-    required int? idChild,
-  }) {
-    state = state.copyWith(paginatePictograms: {$indexPage: 1, $pageCount: 0});
-    if (isCustom) {
-      getCustomPictograms(idChild: idChild!, namePictogram: namePictogram);
-    } else {
-      getPictograms(namePictogram: namePictogram);
-    }
-  }
-
   void updateResponse() => state = state.copyWith(errorMessageApi: '');
 
   void deletePictogram({required int idPictogram}) {
     List<PictogramAchievements> listPictogram = List.from(state.pictograms);
     listPictogram.removeWhere((item) => item.id == idPictogram);
 
+    state = state.copyWith(pictograms: listPictogram);
+  }
+
+  void addPictogram({required PictogramAchievements pictogram}) {
+    List<PictogramAchievements> listPictogram = List.from(state.pictograms);
+    listPictogram.add(pictogram);
+    listPictogram
+        .sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
     state = state.copyWith(pictograms: listPictogram);
   }
 
@@ -263,6 +277,7 @@ class PictogramsNotifier extends StateNotifier<PictogramsState> {
 class PictogramsState {
   final List<PictogramAchievements> pictograms;
   final List<Category> categoryPictograms;
+  final bool? isNewFilter;
   final bool? isLoading;
   final String? errorMessageApi;
   final bool? isErrorInitial;
@@ -272,7 +287,8 @@ class PictogramsState {
     this.pictograms = const [],
     this.categoryPictograms = const [],
     this.paginatePictograms = const {$indexPage: 1, $pageCount: 0},
-    this.isLoading = true,
+    this.isLoading = false,
+    this.isNewFilter,
     this.isErrorInitial = false,
     this.errorMessageApi,
   });
@@ -282,6 +298,7 @@ class PictogramsState {
     List<Category>? categoryPictograms,
     Map<String, int>? paginatePictograms,
     bool? isLoading,
+    bool? isNewFilter,
     bool? isErrorInitial,
     String? errorMessageApi,
   }) =>
@@ -293,6 +310,7 @@ class PictogramsState {
             : errorMessageApi ?? this.errorMessageApi,
         isLoading: isLoading ?? this.isLoading,
         isErrorInitial: isErrorInitial ?? this.isErrorInitial,
+        isNewFilter: isNewFilter ?? this.isNewFilter,
         paginatePictograms: paginatePictograms ?? this.paginatePictograms,
       );
 }

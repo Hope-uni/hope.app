@@ -13,7 +13,6 @@ class ImageListVIew extends ConsumerStatefulWidget {
   final bool? backgroundLine;
   final bool? isFilterBW;
   final bool? isReorder;
-  final bool? isTap;
   final bool? isMarginLeft;
 
   final Icon? iconSelect;
@@ -26,8 +25,10 @@ class ImageListVIew extends ConsumerStatefulWidget {
   final List<PictogramAchievements> images;
   final List<PictogramAchievements>? newImages;
 
-  final void Function(PictogramAchievements)? onTap;
+  final void Function(PictogramAchievements)? onTapAdd;
+  final void Function(String)? onTapSound;
   final void Function(PictogramAchievements)? onPressed;
+  final void Function(PictogramAchievements idPictogram)? onDragDeleted;
   final void Function(int, int)? onReorder;
 
   const ImageListVIew({
@@ -38,14 +39,15 @@ class ImageListVIew extends ConsumerStatefulWidget {
     this.backgroundDecoration,
     this.backgroundLine,
     this.newImages,
-    this.onTap,
+    this.onTapAdd,
+    this.onTapSound,
     this.onPressed,
+    this.onDragDeleted,
     this.onReorder,
     this.isShowSvg = false,
     this.isMarginLeft = true,
     this.isFilterBW = false,
     this.isReorder = false,
-    this.isTap = false,
     this.isSelect = false,
     required this.images,
     required this.isDecoration,
@@ -56,9 +58,97 @@ class ImageListVIew extends ConsumerStatefulWidget {
 }
 
 class ImageListVIewState extends ConsumerState<ImageListVIew> {
+  OverlayEntry? _draggingOverlay;
+  Offset _dragOffset = Offset.zero;
+  PictogramAchievements? dragPictogram;
+  bool isDelete = false;
+
+  final GlobalKey _parentKey = GlobalKey();
+  void _stopDragging() {
+    _draggingOverlay?.remove();
+    _draggingOverlay = null;
+  }
+
+  void _updateDragging(Offset position) {
+    _dragOffset = position;
+    // Esto forzará que el builder se ejecute otra vez
+    _draggingOverlay?.markNeedsBuild();
+
+    final parentBox =
+        _parentKey.currentContext?.findRenderObject() as RenderBox?;
+    if (parentBox != null) {
+      final parentPosition = parentBox.localToGlobal(Offset.zero);
+      final parentSize = parentBox.size;
+      final parentRect = Rect.fromLTWH(
+        parentPosition.dx,
+        parentPosition.dy,
+        parentSize.width,
+        parentSize.height,
+      );
+
+      // Verificamos si la última posición conocida del drag está dentro del rectángulo padre
+      if (!parentRect.contains(_dragOffset)) {
+        isDelete = true;
+      } else {
+        isDelete = false;
+      }
+    }
+  }
+
+  void _startDragging(PictogramAchievements pictogram, Offset position) {
+    _dragOffset = position;
+
+    _draggingOverlay = OverlayEntry(
+      builder: (context) => Positioned(
+        left: _dragOffset.dx,
+        top: _dragOffset.dy,
+        child: Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: $colorTextWhite,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: SizedBox(
+                  height: 150,
+                  width: 150,
+                  child: ColorFiltered(
+                    colorFilter: ColorFilterExt.preset(
+                      widget.isFilterBW == true
+                          ? ColorFiltersPreset.inkwell()
+                          : ColorFiltersPreset.none(),
+                    ),
+                    child: ImageLoad(urlImage: pictogram.imageUrl),
+                  ),
+                ),
+              ),
+            ),
+            if (isDelete)
+              Container(
+                decoration: BoxDecoration(
+                  color: $colorDelete,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                height: 150,
+                width: 150,
+                child: const Center(
+                  child: Icon(Icons.delete, size: 30, color: $colorTextWhite),
+                ),
+              )
+          ],
+        ),
+      ),
+    );
+
+    Overlay.of(context).insert(_draggingOverlay!);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
+      key: _parentKey,
       margin: EdgeInsets.only(
         left: widget.isMarginLeft! == true ? 15 : 0,
         right: 15,
@@ -97,39 +187,108 @@ class ImageListVIewState extends ConsumerState<ImageListVIew> {
                             alignment: Alignment.topRight,
                             children: [
                               GestureDetector(
-                                onTap: widget.isTap == true
-                                    ? () {
-                                        if (!widget.newImages!
-                                            .map((item) => item.id)
-                                            .contains(
-                                                widget.images[index].id)) {
-                                          widget.onTap!(widget.images[index]);
+                                onTap: widget.onTapSound != null
+                                    ? () => widget
+                                        .onTapSound!(widget.images[index].name)
+                                    : widget.onTapAdd != null
+                                        ? () {
+                                            if (!widget.newImages!
+                                                .map((item) => item.id)
+                                                .contains(
+                                                    widget.images[index].id)) {
+                                              widget.onTapAdd!(
+                                                  widget.images[index]);
+                                            }
+                                          }
+                                        : null,
+                                onPanStart: widget.onDragDeleted == null
+                                    ? null
+                                    : (details) {
+                                        setState(() {
+                                          dragPictogram = widget.images[index];
+                                        });
+                                        _dragOffset = details.globalPosition;
+                                        _startDragging(
+                                            widget.images[index], _dragOffset);
+                                      },
+                                onPanUpdate: widget.onDragDeleted == null
+                                    ? null
+                                    : (details) {
+                                        _updateDragging(details.globalPosition);
+                                      },
+                                onPanEnd: widget.onDragDeleted == null
+                                    ? null
+                                    : (details) {
+                                        _stopDragging();
+
+                                        final parentBox = _parentKey
+                                            .currentContext
+                                            ?.findRenderObject() as RenderBox?;
+                                        if (parentBox != null) {
+                                          final parentPosition = parentBox
+                                              .localToGlobal(Offset.zero);
+                                          final parentSize = parentBox.size;
+                                          final parentRect = Rect.fromLTWH(
+                                            parentPosition.dx,
+                                            parentPosition.dy,
+                                            parentSize.width,
+                                            parentSize.height,
+                                          );
+
+                                          // Verificamos si la última posición conocida del drag está dentro del rectángulo padre
+                                          if (!parentRect
+                                              .contains(_dragOffset)) {
+                                            widget
+                                                .onDragDeleted!(dragPictogram!);
+                                          }
+                                          setState(() {
+                                            dragPictogram = null;
+                                          });
                                         }
-                                      }
-                                    : null,
+                                      },
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(20),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20),
                                       border: Border.all(
-                                          color: $colorTextBlack, width: 0.5),
+                                        color: $colorTextBlack,
+                                        width: 0.5,
+                                      ),
                                       color: $colorTextWhite,
                                     ),
                                     margin: const EdgeInsets.symmetric(
-                                        horizontal: 7, vertical: 10),
-                                    child: ColorFiltered(
-                                      colorFilter: ColorFilterExt.preset(
-                                          widget.isFilterBW == true
-                                              ? ColorFiltersPreset.inkwell()
-                                              : ColorFiltersPreset.none()),
-                                      child: SizedBox(
-                                          height: 100,
-                                          width: 100,
-                                          child: ImageLoad(
-                                              urlImage: widget
-                                                  .images[index].imageUrl)),
+                                      horizontal: 7,
+                                      vertical: 10,
                                     ),
+                                    child: dragPictogram != null &&
+                                            dragPictogram!.id ==
+                                                widget.images[index].id
+                                        ? Container(
+                                            height: 100,
+                                            width: 100,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              color: $colorButtonDisable
+                                                  .withValues(alpha: 0.25),
+                                            ),
+                                          )
+                                        : ColorFiltered(
+                                            colorFilter: ColorFilterExt.preset(
+                                                widget.isFilterBW == true
+                                                    ? ColorFiltersPreset
+                                                        .inkwell()
+                                                    : ColorFiltersPreset
+                                                        .none()),
+                                            child: SizedBox(
+                                                height: 100,
+                                                width: 100,
+                                                child: ImageLoad(
+                                                    urlImage: widget
+                                                        .images[index]
+                                                        .imageUrl)),
+                                          ),
                                   ),
                                 ),
                               ),
@@ -169,10 +328,22 @@ class ImageListVIewState extends ConsumerState<ImageListVIew> {
                   },
                   scrollDirection: Axis.horizontal,
                   itemCount: widget.images.length,
-                  proxyDecorator: (child, index, animation) => Material(
-                    color: Colors.transparent,
-                    child: child,
-                  ),
+                  proxyDecorator: (child, index, animation) {
+                    return AnimatedBuilder(
+                      animation: animation,
+                      builder: (context, child) {
+                        final scale = 1.0 + (0.4 * animation.value);
+                        return Transform.scale(
+                          scale: scale,
+                          child: Material(
+                            color: $colorTransparent,
+                            child: child,
+                          ),
+                        );
+                      },
+                      child: child,
+                    );
+                  },
                   onReorder: widget.onReorder ?? (oldIndex, newIndex) {},
                   scrollController: widget.controller,
                   buildDefaultDragHandles: widget.isReorder!,

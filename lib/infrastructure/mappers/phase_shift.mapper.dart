@@ -6,5 +6,7 @@ class PhaseShiftMapper {
         currentPhase:
             CatalogoObjectMapper.catalogObjectfromJson(json["currentPhase"]),
         progress: ProgressMapper.progressfromJson(json["progress"]),
+        achievement:
+            PictogramsMapper.pictogramAchievementsfromJson(json["achievement"]),
       );
 }

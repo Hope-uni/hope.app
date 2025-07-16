@@ -168,8 +168,6 @@ class FormActivityState extends ConsumerState<FormActivity> {
           typeAlert: ToastificationType.success,
         );
         notifierActivity.updateResponse();
-        ref.read(activitiesProvider.notifier).resetState();
-        ref.read(activitiesProvider.notifier).getActivities();
       }
 
       if (next.errorMessageApi != null) {
@@ -319,12 +317,11 @@ class FormActivityState extends ConsumerState<FormActivity> {
                         );
                         idCategory = int.parse(value);
                       },
-                      onDeleteSelection: () {
+                      onDeleteSelection: () async {
                         idCategory = null;
-                        notifierPictograms.resetFilters(
+                        await notifierPictograms.getPictograms(
+                          idCategory: null,
                           namePictogram: namePicto,
-                          isCustom: false,
-                          idChild: null,
                         );
                       },
                     ),
@@ -341,13 +338,12 @@ class FormActivityState extends ConsumerState<FormActivity> {
                       },
                       suffixIcon: searchController.text.isNotEmpty
                           ? GestureDetector(
-                              onTap: () {
+                              onTap: () async {
                                 namePicto = null;
                                 searchController.clear();
-                                notifierPictograms.resetFilters(
+                                await notifierPictograms.getPictograms(
+                                  idCategory: idCategory,
                                   namePictogram: null,
-                                  isCustom: false,
-                                  idChild: null,
                                 );
                               },
                               child: Container(
@@ -401,8 +397,7 @@ class FormActivityState extends ConsumerState<FormActivity> {
                             isShowSvg: true,
                             isSelect: true,
                             controller: scrollController,
-                            onTap: onPictogramSelected,
-                            isTap: true,
+                            onTapAdd: onPictogramSelected,
                             onPressed: deletePictogramSelected,
                           ),
                     const SizedBox(height: 14.5),
