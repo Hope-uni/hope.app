@@ -82,7 +82,7 @@ class _InputFormState extends State<InputForm> {
 
     _coloLabel =
         _controller.text.isNotEmpty ? $colorTextBlack : $hintColorInput;
-    _focus.addListener(onChageColorLabel);
+    _focus.addListener(_onChageColorLabel);
     // Solo un tipo de inputFormatter será aplicado
     if (widget.isNumber == true) {
       inputFormatters = [FilteringTextInputFormatter.digitsOnly];
@@ -102,17 +102,49 @@ class _InputFormState extends State<InputForm> {
       // Impide escribir dos espacios seguidos
       inputFormatters = [
         TextInputFormatter.withFunction((oldValue, newValue) {
-          final fixedText = newValue.text.replaceAll(RegExp(r'\s{2,}'), ' ');
+          final text = newValue.text;
+          // Usa una expresión regular para encontrar todas las secuencias de 2 o más espacios
+          final matches = RegExp(r'\s{2,}').allMatches(text);
+
+          if (matches.isEmpty) {
+            // Si no hay dobles espacios, retorna el valor sin cambios
+            return newValue;
+          }
+
+          final StringBuffer buffer = StringBuffer();
+          int cursorOffset = newValue.selection.baseOffset;
+          int lastMatchEnd = 0;
+
+          for (final match in matches) {
+            buffer.write(text.substring(lastMatchEnd, match.start));
+            buffer.write(
+                ' '); // Reemplaza los espacios múltiples con un solo espacio
+
+            // Ajusta la posición del cursor si está dentro o después de los espacios eliminados
+            if (cursorOffset > match.start) {
+              final spacesRemoved =
+                  match.end - match.start - 1; // Cuántos espacios se eliminaron
+              cursorOffset -= spacesRemoved;
+            }
+            lastMatchEnd = match.end;
+          }
+          buffer.write(text.substring(lastMatchEnd));
+
+          final fixedText = buffer.toString();
+
+          // Asegúrate de que el cursor no vaya más allá del final del nuevo texto
+          cursorOffset = cursorOffset.clamp(0, fixedText.length);
+
           return TextEditingValue(
             text: fixedText,
-            selection: TextSelection.collapsed(offset: fixedText.length),
+            selection: TextSelection.collapsed(offset: cursorOffset),
           );
         })
       ];
     }
   }
 
-  onChageColorLabel() {
+  void _onChageColorLabel() {
     if (_focus.hasFocus) {
       setState(() => _coloLabel = $colorTextBlack);
     } else {

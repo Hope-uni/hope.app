@@ -215,12 +215,18 @@ class GridImagesState extends ConsumerState<GridImages> {
                     }
                     idCategory = int.parse(value);
                   },
-                  onDeleteSelection: () {
+                  onDeleteSelection: () async {
                     idCategory = null;
-                    notifierPictograms.resetFilters(
+                    if (widget.isCustomized == true) {
+                      await notifierPictograms.getCustomPictograms(
+                        idChild: widget.idChild,
+                        idCategory: null,
+                        namePictogram: namePicto,
+                      );
+                    } else {}
+                    await notifierPictograms.getPictograms(
+                      idCategory: null,
                       namePictogram: namePicto,
-                      isCustom: widget.isCustomized,
-                      idChild: widget.idChild,
                     );
                   },
                 ),
@@ -247,13 +253,19 @@ class GridImagesState extends ConsumerState<GridImages> {
                   },
                   suffixIcon: searchController.text.isNotEmpty
                       ? GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             namePicto = null;
                             searchController.clear();
-                            notifierPictograms.resetFilters(
+                            if (widget.isCustomized == true) {
+                              await notifierPictograms.getCustomPictograms(
+                                idChild: widget.idChild,
+                                idCategory: idCategory,
+                                namePictogram: null,
+                              );
+                            } else {}
+                            await notifierPictograms.getPictograms(
+                              idCategory: idCategory,
                               namePictogram: null,
-                              isCustom: widget.isCustomized,
-                              idChild: widget.idChild,
                             );
                           },
                           child: Container(
@@ -853,10 +865,10 @@ Future<void> _dialogConfirmation({
     titleButtonConfirm: S.current.Si_Eliminar,
     onClic: () async {
       selectedDelete.state = true;
-      await ref.read(customPictogramProvider.notifier).deleteCustomPictogram();
       if (context.mounted) {
         Navigator.of(context).pop();
       }
+      await ref.read(customPictogramProvider.notifier).deleteCustomPictogram();
       selectedDelete.state = false;
     },
   );
