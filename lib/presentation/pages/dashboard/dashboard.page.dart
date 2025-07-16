@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hope_app/generated/l10n.dart';
@@ -18,6 +19,7 @@ class DashboardPageState extends ConsumerState<DashboardPage> {
   @override
   void initState() {
     super.initState();
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     // Llama a la función para verificar la keyStorage al cargar la página
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final bool? verified = await KeyValueStorageRepositoryImpl()
@@ -44,7 +46,16 @@ class DashboardPageState extends ConsumerState<DashboardPage> {
 
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(title: Text(S.current.Bienvenido_pagina_de_inicio)),
+      appBar: AppBar(
+        title: Tooltip(
+          message: S.current
+              .Bienvenido_pagina_de_inicio, // Muestra el nombre completo
+          waitDuration:
+              const Duration(milliseconds: 100), // Espera antes de mostrarse
+          showDuration: const Duration(seconds: 2), // Tiempo visible
+          child: Text(S.current.Bienvenido_pagina_de_inicio),
+        ),
+      ),
       body: Container(
         height: size.height,
         width: size.width,

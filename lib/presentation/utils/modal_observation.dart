@@ -27,8 +27,8 @@ modalObservation({
             if (next.isLoading == false && next.isCreate == true) {
               toastAlert(
                 context: context,
-                title: S.current.Error,
-                description: S.current.Guardado_con_exito,
+                title: S.current.Guardado_con_exito,
+                description: S.current.Observacion_creada,
                 typeAlert: ToastificationType.success,
               );
               ref.read(observationProvider.notifier).updateResponse();

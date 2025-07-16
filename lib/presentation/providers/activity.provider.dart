@@ -166,9 +166,10 @@ class ActivityNotifier extends StateNotifier<ActivityState> {
           S.current.La_descripcion_no_puede_ser_menor_a_seis_caracteres;
     }
 
-    if (state.activity!.satisfactoryPoints <= 0) {
+    if (state.activity!.satisfactoryPoints < 1 ||
+        state.activity!.satisfactoryPoints > 20) {
       errors[$satisfactoryPoints] = S.current
-          .Los_puntos_para_completar_la_actividad_no_puede_ser_cero_o_estar_vacio;
+          .Los_puntos_para_completar_la_actividad_deben_estar_entre_uno_y_veinte;
     }
 
     if (state.activity!.phaseId <= 0) {
@@ -179,7 +180,7 @@ class ActivityNotifier extends StateNotifier<ActivityState> {
       errors[$pictogramSentence] =
           S.current.Debe_seleccionar_al_menos_un_pictograma_para_la_solucion;
     } else {
-      if (state.activity!.pictogramSentence.length > 30) {
+      if (state.activity!.pictogramSentence.length > 31) {
         errors[$pictogramSentence] =
             S.current.El_limite_de_pictogramas_para_la_solucion_es_de_treinta;
       }

@@ -7,6 +7,7 @@ class Activities {
   int satisfactoryPoints;
   CatalogObject phase;
   List<int>? assignments;
+  User user;
 
   Activities({
     required this.id,
@@ -14,6 +15,7 @@ class Activities {
     required this.description,
     required this.satisfactoryPoints,
     required this.phase,
+    required this.user,
     this.assignments,
   });
 }
