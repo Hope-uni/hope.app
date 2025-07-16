@@ -46,226 +46,233 @@ class NewActivityState extends ConsumerState<NewActivityPage> {
       }
     });
 
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          FocusManager.instance.primaryFocus?.unfocus();
-        });
+    return PopScope(
+      onPopInvokedWithResult: (didPop, result) async {
+        ref.read(activitiesProvider.notifier).resetState();
+        await ref.read(activitiesProvider.notifier).getActivities();
       },
-      child: Scaffold(
-        appBar: AppBar(
-          actions: [
-            Container(
-              margin: const EdgeInsets.only(right: 15),
-              child: IconButton(
-                icon: const Icon(Icons.help),
-                onPressed: () {
-                  showDialog<void>(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Container(
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(20),
-                                topRight: Radius.circular(20)),
-                            color: $colorBlueGeneral,
-                          ),
-                          padding: const EdgeInsets.only(
-                              left: 22, top: 20, bottom: 20),
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            S.current.Ayuda,
-                            style: const TextStyle(
-                              color: $colorTextWhite,
-                              fontWeight: FontWeight.bold,
+      child: GestureDetector(
+        onTap: () {
+          setState(() {
+            FocusManager.instance.primaryFocus?.unfocus();
+          });
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            actions: [
+              Container(
+                margin: const EdgeInsets.only(right: 15),
+                child: IconButton(
+                  icon: const Icon(Icons.help),
+                  onPressed: () {
+                    showDialog<void>(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Container(
+                            decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20)),
+                              color: $colorBlueGeneral,
+                            ),
+                            padding: const EdgeInsets.only(
+                                left: 22, top: 20, bottom: 20),
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              S.current.Ayuda,
+                              style: const TextStyle(
+                                color: $colorTextWhite,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
-                        ),
-                        titlePadding: EdgeInsets.zero,
-                        content: SingleChildScrollView(
-                          child: SizedBox(
-                            width: 200,
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  S.current.Para_reordenar_la_solucion,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                const SizedBox(height: 10),
-                                Text(S.current
-                                    .Mantener_el_dedo_sobre_el_pictograma_de_la_solucion_para_poder_ordenarlo_a_su_voluntad),
-                                const SizedBox(height: 30),
-                                Text(
-                                  S.current.Para_ver_la_imagen_con_mas_detalle,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                const SizedBox(height: 10),
-                                Text(
-                                  S.current.Hacer_doble_clic_sobre_la_imagen,
-                                ),
-                                const SizedBox(height: 30),
-                                Text(
-                                  S.current
-                                      .Acciones_en_el_listado_de_pictogramas,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                const SizedBox(height: 10),
-                                Text(
-                                  S.current
-                                      .Puede_desplazarse_de_manera_horizontal_en_los_pictogramas_para_poder_ver_mas_registros,
-                                ),
-                                const SizedBox(height: 10),
-                                Text(S.current
-                                    .Si_desea_agregar_un_pictograma_a_la_solucion_debe_dar_clic_en_el_boton_verde_con_el_icono_de_listo),
-                                const SizedBox(height: 10),
-                                Text(
-                                  S.current
-                                      .Si_desea_eliminar_un_pictograma_a_la_solucion_debe_dar_clic_en_el_boton_rojo_con_el_icono_del_basurero,
-                                ),
-                                const SizedBox(height: 30),
-                                Text(
-                                  S.current
-                                      .Si_el_titulo_de_la_pantalla_no_se_muestra_completo_puede,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                const SizedBox(height: 10),
-                                Text(
-                                  S.current
-                                      .Mantener_el_dedo_sobre_el_titulo_durante_1_segundo_para_verlo_completo,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        insetPadding: EdgeInsets.zero,
-                      );
-                    },
-                  );
-                },
-              ),
-            ),
-          ],
-          title: Tooltip(
-            message: S.current.Crear_actividad, // Muestra el nombre completo
-            waitDuration:
-                const Duration(milliseconds: 100), // Espera antes de mostrarse
-            showDuration: const Duration(seconds: 2), // Tiempo visible
-            child: Text(S.current.Crear_actividad),
-          ),
-        ),
-        body: const FormActivity(),
-        floatingActionButton: statePictograms.paginatePictograms[$indexPage] ==
-                    1 ||
-                statePhases.isLoading == true
-            ? null
-            : SpeedDial(
-                icon: Icons.expand_less,
-                activeIcon: Icons.expand_more,
-                animationDuration: const Duration(milliseconds: 300),
-                spacing: 3,
-                overlayColor: $colorShadow,
-                overlayOpacity: 0.2,
-                childPadding: const EdgeInsets.all(5),
-                spaceBetweenChildren: 4,
-                elevation: 8.0,
-                animationCurve: Curves.easeInOut,
-                isOpenOnStart: false,
-                shape: const CircleBorder(),
-                onOpen: () {
-                  setState(() {
-                    FocusManager.instance.primaryFocus?.unfocus();
-                  });
-                },
-                children: [
-                  SpeedDialChild(
-                    shape: const CircleBorder(),
-                    child: const Icon(Icons.save, color: $colorTextWhite),
-                    backgroundColor: $colorSuccess,
-                    label: S.current.Guardar,
-                    onTap: () {
-                      setState(() {
-                        FocusManager.instance.primaryFocus?.unfocus();
-                      });
-                      Future.delayed(const Duration(milliseconds: 200), () {
-                        if (profileState.permmisions!
-                            .contains($createActivity)) {
-                          notifierActivity.updateIsSave(isSave: true);
-
-                          if (notifierActivity.checkFields()) {
-                            if (context.mounted) {
-                              modalDialogConfirmation(
-                                context: context,
-                                titleButtonConfirm: S.current.Si_guardar,
-                                question: RichText(
-                                  text: TextSpan(
-                                    text: S.current
-                                        .Esta_seguro_de_crear_la_actividad,
+                          titlePadding: EdgeInsets.zero,
+                          content: SingleChildScrollView(
+                            child: SizedBox(
+                              width: 200,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    S.current.Para_reordenar_la_solucion,
                                     style: const TextStyle(
-                                        fontSize: 14, color: $colorTextBlack),
+                                        fontWeight: FontWeight.bold),
                                   ),
-                                ),
-                                buttonColorConfirm: $colorSuccess,
-                                onClic: () async {
-                                  if (context.mounted) {
-                                    Navigator.of(context).pop();
-                                    await notifierActivity.createActivity();
-                                  }
-                                },
+                                  const SizedBox(height: 10),
+                                  Text(S.current
+                                      .Mantener_el_dedo_sobre_el_pictograma_de_la_solucion_para_poder_ordenarlo_a_su_voluntad),
+                                  const SizedBox(height: 30),
+                                  Text(
+                                    S.current
+                                        .Para_ver_la_imagen_con_mas_detalle,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    S.current.Hacer_doble_clic_sobre_la_imagen,
+                                  ),
+                                  const SizedBox(height: 30),
+                                  Text(
+                                    S.current
+                                        .Acciones_en_el_listado_de_pictogramas,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    S.current
+                                        .Puede_desplazarse_de_manera_horizontal_en_los_pictogramas_para_poder_ver_mas_registros,
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(S.current
+                                      .Si_desea_agregar_un_pictograma_a_la_solucion_debe_hacer_clic_una_vez_sobre_la_imagen_y_se_agregara_automaticamente),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    S.current
+                                        .Si_desea_eliminar_un_pictograma_a_la_solucion_debe_dar_clic_en_el_boton_rojo_con_el_icono_del_basurero,
+                                  ),
+                                  const SizedBox(height: 30),
+                                  Text(
+                                    S.current
+                                        .Si_el_titulo_de_la_pantalla_no_se_muestra_completo_puede,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    S.current
+                                        .Mantener_el_dedo_sobre_el_titulo_durante_1_segundo_para_verlo_completo,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          insetPadding: EdgeInsets.zero,
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
+            title: Tooltip(
+              message: S.current.Crear_actividad, // Muestra el nombre completo
+              waitDuration: const Duration(milliseconds: 100),
+              showDuration: const Duration(seconds: 2), // Tiempo visible
+              child: Text(S.current.Crear_actividad),
+            ),
+          ),
+          body: const FormActivity(),
+          floatingActionButton: statePictograms
+                          .paginatePictograms[$indexPage] ==
+                      1 ||
+                  statePhases.isLoading == true
+              ? null
+              : SpeedDial(
+                  icon: Icons.expand_less,
+                  activeIcon: Icons.expand_more,
+                  animationDuration: const Duration(milliseconds: 300),
+                  spacing: 3,
+                  overlayColor: $colorShadow,
+                  overlayOpacity: 0.2,
+                  childPadding: const EdgeInsets.all(5),
+                  spaceBetweenChildren: 4,
+                  elevation: 8.0,
+                  animationCurve: Curves.easeInOut,
+                  isOpenOnStart: false,
+                  shape: const CircleBorder(),
+                  onOpen: () {
+                    setState(() {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                    });
+                  },
+                  children: [
+                    SpeedDialChild(
+                      shape: const CircleBorder(),
+                      child: const Icon(Icons.save, color: $colorTextWhite),
+                      backgroundColor: $colorSuccess,
+                      label: S.current.Guardar,
+                      onTap: () {
+                        setState(() {
+                          FocusManager.instance.primaryFocus?.unfocus();
+                        });
+                        Future.delayed(const Duration(milliseconds: 200), () {
+                          if (profileState.permmisions!
+                              .contains($createActivity)) {
+                            notifierActivity.updateIsSave(isSave: true);
+
+                            if (notifierActivity.checkFields()) {
+                              if (context.mounted) {
+                                modalDialogConfirmation(
+                                  context: context,
+                                  titleButtonConfirm: S.current.Si_guardar,
+                                  question: RichText(
+                                    text: TextSpan(
+                                      text: S.current
+                                          .Esta_seguro_de_crear_la_actividad,
+                                      style: const TextStyle(
+                                          fontSize: 14, color: $colorTextBlack),
+                                    ),
+                                  ),
+                                  buttonColorConfirm: $colorSuccess,
+                                  onClic: () async {
+                                    if (context.mounted) {
+                                      Navigator.of(context).pop();
+                                      await notifierActivity.createActivity();
+                                    }
+                                  },
+                                );
+                              }
+                            }
+                            notifierActivity.updateIsSave(isSave: false);
+                          } else {
+                            if (context.mounted) {
+                              toastAlert(
+                                iconAlert: const Icon(Icons.info),
+                                context: context,
+                                title: S.current.No_autorizado,
+                                description: S
+                                    .current.No_cuenta_con_el_permiso_necesario,
+                                typeAlert: ToastificationType.info,
                               );
                             }
                           }
-                          notifierActivity.updateIsSave(isSave: false);
-                        } else {
-                          if (context.mounted) {
-                            toastAlert(
-                              iconAlert: const Icon(Icons.info),
-                              context: context,
-                              title: S.current.No_autorizado,
-                              description:
-                                  S.current.No_cuenta_con_el_permiso_necesario,
-                              typeAlert: ToastificationType.info,
-                            );
-                          }
-                        }
-                      });
-                    },
-                  ),
-                  SpeedDialChild(
-                    shape: const CircleBorder(),
-                    child: const Icon(Icons.cancel, color: $colorTextWhite),
-                    backgroundColor: $colorError,
-                    label: S.current.Cancelar,
-                    onTap: () {
-                      modalDialogConfirmation(
-                        context: context,
-                        titleButtonConfirm: S.current.Si_salir,
-                        question: RichText(
-                          text: TextSpan(
-                            text: S.current
-                                .Esta_seguro_de_salir_de_la_creacion_de_la_actividad,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: $colorTextBlack,
+                        });
+                      },
+                    ),
+                    SpeedDialChild(
+                      shape: const CircleBorder(),
+                      child: const Icon(Icons.cancel, color: $colorTextWhite),
+                      backgroundColor: $colorError,
+                      label: S.current.Cancelar,
+                      onTap: () {
+                        modalDialogConfirmation(
+                          context: context,
+                          titleButtonConfirm: S.current.Si_salir,
+                          question: RichText(
+                            text: TextSpan(
+                              text: S.current
+                                  .Esta_seguro_de_salir_de_la_creacion_de_la_actividad,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                color: $colorTextBlack,
+                              ),
                             ),
                           ),
-                        ),
-                        buttonColorConfirm: $colorSuccess,
-                        onClic: () {
-                          Navigator.of(context).pop();
-                          Navigator.of(context).pop();
-                        },
-                      );
-                    },
-                  ),
-                ],
-              ),
+                          buttonColorConfirm: $colorSuccess,
+                          onClic: () {
+                            Navigator.of(context).pop();
+                            Navigator.of(context).pop();
+                          },
+                        );
+                      },
+                    ),
+                  ],
+                ),
+        ),
       ),
     );
   }

@@ -430,20 +430,20 @@ class S {
     return Intl.message('Cámara', name: 'Camara', desc: '', args: []);
   }
 
-  /// `Lo sentimos, ha ocurrido un error al procesar tu solicitud. Por favor, intenta nuevamente más tarde.`
+  /// `Lo sentimos, ha ocurrido un error al procesar tu solicitud. Por favor, intenta nuevamente más tarde`
   String get Error_solicitud {
     return Intl.message(
-      'Lo sentimos, ha ocurrido un error al procesar tu solicitud. Por favor, intenta nuevamente más tarde.',
+      'Lo sentimos, ha ocurrido un error al procesar tu solicitud. Por favor, intenta nuevamente más tarde',
       name: 'Error_solicitud',
       desc: '',
       args: [],
     );
   }
 
-  /// `Lamentablemente, ocurrió un error inesperado. Por favor, intenta nuevamente más tarde.`
+  /// `Lamentablemente, ocurrió un error inesperado. Por favor, intenta nuevamente más tarde`
   String get Error_inesperado {
     return Intl.message(
-      'Lamentablemente, ocurrió un error inesperado. Por favor, intenta nuevamente más tarde.',
+      'Lamentablemente, ocurrió un error inesperado. Por favor, intenta nuevamente más tarde',
       name: 'Error_inesperado',
       desc: '',
       args: [],
@@ -590,11 +590,11 @@ class S {
     return Intl.message('Tutor', name: 'Tutor', desc: '', args: []);
   }
 
-  /// `Contacto tutor`
-  String get Contacto_tutor {
+  /// `Celular tutor`
+  String get Celular_tutor {
     return Intl.message(
-      'Contacto tutor',
-      name: 'Contacto_tutor',
+      'Celular tutor',
+      name: 'Celular_tutor',
       desc: '',
       args: [],
     );
@@ -605,11 +605,11 @@ class S {
     return Intl.message('Terapeuta', name: 'Terapeuta', desc: '', args: []);
   }
 
-  /// `Contacto terapeuta`
-  String get Contacto_terapeuta {
+  /// `Celular terapeuta`
+  String get Celular_terapeuta {
     return Intl.message(
-      'Contacto terapeuta',
-      name: 'Contacto_terapeuta',
+      'Celular terapeuta',
+      name: 'Celular_terapeuta',
       desc: '',
       args: [],
     );
@@ -685,11 +685,11 @@ class S {
     );
   }
 
-  /// `Quitar actividad`
-  String get Quitar_actividad {
+  /// `Desasignar actividad`
+  String get Desasignar_actividad {
     return Intl.message(
-      'Quitar actividad',
-      name: 'Quitar_actividad',
+      'Desasignar actividad',
+      name: 'Desasignar_actividad',
       desc: '',
       args: [],
     );
@@ -989,11 +989,11 @@ class S {
     );
   }
 
-  /// `Quitar actividad a los niños`
-  String get Quitar_actividad_a_los_ninos {
+  /// `Desasignar actividad a los niños`
+  String get Desasignar_actividad_a_los_ninos {
     return Intl.message(
-      'Quitar actividad a los niños',
-      name: 'Quitar_actividad_a_los_ninos',
+      'Desasignar actividad a los niños',
+      name: 'Desasignar_actividad_a_los_ninos',
       desc: '',
       args: [],
     );
@@ -1064,21 +1064,11 @@ class S {
     );
   }
 
-  /// `Quitar asignación de actividad`
-  String get Quitar_asignacion_de_actividad {
+  /// `¿Está seguro de desasignar la actividad {nameActivity}?`
+  String Esta_seguro_de_desasignar_la_actividad(Object nameActivity) {
     return Intl.message(
-      'Quitar asignación de actividad',
-      name: 'Quitar_asignacion_de_actividad',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `¿Está seguro de quitarle la actividad {nameActivity}?`
-  String Esta_seguro_de_quitarle_la_actividad(Object nameActivity) {
-    return Intl.message(
-      '¿Está seguro de quitarle la actividad $nameActivity?',
-      name: 'Esta_seguro_de_quitarle_la_actividad',
+      '¿Está seguro de desasignar la actividad $nameActivity?',
+      name: 'Esta_seguro_de_desasignar_la_actividad',
       desc: '',
       args: [nameActivity],
     );
@@ -1089,9 +1079,14 @@ class S {
     return Intl.message('Al paciente', name: 'Al_paiente', desc: '', args: []);
   }
 
-  /// `Sí, quitar`
-  String get Si_Quitar {
-    return Intl.message('Sí, quitar', name: 'Si_Quitar', desc: '', args: []);
+  /// `Sí, desasignar`
+  String get Si_desasignar {
+    return Intl.message(
+      'Sí, desasignar',
+      name: 'Si_desasignar',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Selección de niños`
@@ -1618,21 +1613,21 @@ class S {
     );
   }
 
-  /// `Si el nombre del pictograma no se muestra completo, puede:`
+  /// `Si el nombre del pictograma no se muestra completo, puede`
   String get Si_el_nombre_del_pictograma_no_se_muestra_completo_puede {
     return Intl.message(
-      'Si el nombre del pictograma no se muestra completo, puede:',
+      'Si el nombre del pictograma no se muestra completo, puede',
       name: 'Si_el_nombre_del_pictograma_no_se_muestra_completo_puede',
       desc: '',
       args: [],
     );
   }
 
-  /// `• Mantener el dedo sobre el nombre durante 1 segundo para verlo completo.`
+  /// `• Mantener el dedo sobre el nombre durante 1 segundo para verlo completo`
   String
   get Mantener_el_dedo_sobre_el_nombre_durante_1_segundo_para_verlo_completo {
     return Intl.message(
-      '• Mantener el dedo sobre el nombre durante 1 segundo para verlo completo.',
+      '• Mantener el dedo sobre el nombre durante 1 segundo para verlo completo',
       name:
           'Mantener_el_dedo_sobre_el_nombre_durante_1_segundo_para_verlo_completo',
       desc: '',
@@ -1640,30 +1635,30 @@ class S {
     );
   }
 
-  /// `• Hacer clic en el botón de editar.`
+  /// `• Hacer clic en el botón de editar`
   String get Hacer_clic_en_el_boton_de_editar {
     return Intl.message(
-      '• Hacer clic en el botón de editar.',
+      '• Hacer clic en el botón de editar',
       name: 'Hacer_clic_en_el_boton_de_editar',
       desc: '',
       args: [],
     );
   }
 
-  /// `Para ver la imagen con más detalle:`
+  /// `Para ver la imagen con más detalle`
   String get Para_ver_la_imagen_con_mas_detalle {
     return Intl.message(
-      'Para ver la imagen con más detalle:',
+      'Para ver la imagen con más detalle',
       name: 'Para_ver_la_imagen_con_mas_detalle',
       desc: '',
       args: [],
     );
   }
 
-  /// `• Hacer doble clic sobre la imagen.`
+  /// `• Hacer doble clic sobre la imagen`
   String get Hacer_doble_clic_sobre_la_imagen {
     return Intl.message(
-      '• Hacer doble clic sobre la imagen.',
+      '• Hacer doble clic sobre la imagen',
       name: 'Hacer_doble_clic_sobre_la_imagen',
       desc: '',
       args: [],
@@ -1720,22 +1715,22 @@ class S {
     );
   }
 
-  /// `Los puntos para completar la actividad no puede ser cero o estar vacío`
+  /// `Los puntos para completar la actividad deben estar entre uno y veinte`
   String
-  get Los_puntos_para_completar_la_actividad_no_puede_ser_cero_o_estar_vacio {
+  get Los_puntos_para_completar_la_actividad_deben_estar_entre_uno_y_veinte {
     return Intl.message(
-      'Los puntos para completar la actividad no puede ser cero o estar vacío',
+      'Los puntos para completar la actividad deben estar entre uno y veinte',
       name:
-          'Los_puntos_para_completar_la_actividad_no_puede_ser_cero_o_estar_vacio',
+          'Los_puntos_para_completar_la_actividad_deben_estar_entre_uno_y_veinte',
       desc: '',
       args: [],
     );
   }
 
-  /// `Para reordenar la solución:`
+  /// `Para reordenar la solución`
   String get Para_reordenar_la_solucion {
     return Intl.message(
-      'Para reordenar la solución:',
+      'Para reordenar la solución',
       name: 'Para_reordenar_la_solucion',
       desc: '',
       args: [],
@@ -1956,10 +1951,10 @@ class S {
     );
   }
 
-  /// `Para ver el detalle de la actividad:`
+  /// `Para ver el detalle de la actividad`
   String get Para_ver_el_detalle_de_la_actividad {
     return Intl.message(
-      'Para ver el detalle de la actividad:',
+      'Para ver el detalle de la actividad',
       name: 'Para_ver_el_detalle_de_la_actividad',
       desc: '',
       args: [],
@@ -1976,10 +1971,10 @@ class S {
     );
   }
 
-  /// `Para crear actividades:`
+  /// `Para crear actividades`
   String get Para_crear_actividades {
     return Intl.message(
-      'Para crear actividades:',
+      'Para crear actividades',
       name: 'Para_crear_actividades',
       desc: '',
       args: [],
@@ -1998,10 +1993,10 @@ class S {
     );
   }
 
-  /// `Acciones en el listado de pictogramas:`
+  /// `Acciones en el listado de pictogramas`
   String get Acciones_en_el_listado_de_pictogramas {
     return Intl.message(
-      'Acciones en el listado de pictogramas:',
+      'Acciones en el listado de pictogramas',
       name: 'Acciones_en_el_listado_de_pictogramas',
       desc: '',
       args: [],
@@ -2020,20 +2015,20 @@ class S {
     );
   }
 
-  /// `Para ver la foto de perfil de los pacientes con más detalle:`
+  /// `Para ver la foto de perfil de los pacientes con más detalle`
   String get Para_ver_la_foto_de_perfil_de_los_pacientes_con_mas_detalle {
     return Intl.message(
-      'Para ver la foto de perfil de los pacientes con más detalle:',
+      'Para ver la foto de perfil de los pacientes con más detalle',
       name: 'Para_ver_la_foto_de_perfil_de_los_pacientes_con_mas_detalle',
       desc: '',
       args: [],
     );
   }
 
-  /// `Flujo para asignación de actividad:`
+  /// `Flujo para asignación de actividad`
   String get Flujo_para_asignacion_de_actividad {
     return Intl.message(
-      'Flujo para asignación de actividad:',
+      'Flujo para asignación de actividad',
       name: 'Flujo_para_asignacion_de_actividad',
       desc: '',
       args: [],
@@ -2088,13 +2083,13 @@ class S {
     );
   }
 
-  /// `• Si desea agregar un pictograma a la solución, debe dar clic en el botón verde con el icono de listo`
+  /// `• Si desea agregar un pictograma a la solución, debe hacer clic una vez sobre la imagen y se agregará automáticamente`
   String
-  get Si_desea_agregar_un_pictograma_a_la_solucion_debe_dar_clic_en_el_boton_verde_con_el_icono_de_listo {
+  get Si_desea_agregar_un_pictograma_a_la_solucion_debe_hacer_clic_una_vez_sobre_la_imagen_y_se_agregara_automaticamente {
     return Intl.message(
-      '• Si desea agregar un pictograma a la solución, debe dar clic en el botón verde con el icono de listo',
+      '• Si desea agregar un pictograma a la solución, debe hacer clic una vez sobre la imagen y se agregará automáticamente',
       name:
-          'Si_desea_agregar_un_pictograma_a_la_solucion_debe_dar_clic_en_el_boton_verde_con_el_icono_de_listo',
+          'Si_desea_agregar_un_pictograma_a_la_solucion_debe_hacer_clic_una_vez_sobre_la_imagen_y_se_agregara_automaticamente',
       desc: '',
       args: [],
     );
@@ -2112,42 +2107,42 @@ class S {
     );
   }
 
-  /// `Para quitar asignación de actividad a los pacientes:`
-  String get Para_quitar_asignacion_de_actividad_a_los_pacientes {
+  /// `Para desasignar la actividad a los pacientes`
+  String get Para_desasignar_la_actividad_a_los_pacientes {
     return Intl.message(
-      'Para quitar asignación de actividad a los pacientes:',
-      name: 'Para_quitar_asignacion_de_actividad_a_los_pacientes',
+      'Para desasignar la actividad a los pacientes',
+      name: 'Para_desasignar_la_actividad_a_los_pacientes',
       desc: '',
       args: [],
     );
   }
 
-  /// `• Hacer clic sobre el icono rojo del basurero al paciente que le desee quitar la actividad`
+  /// `• Hacer clic sobre el icono rojo del basurero al paciente que le desee desasignar la actividad`
   String
-  get Hacer_clic_sobre_el_icono_rojo_del_basurero_al_paciente_que_le_desee_quitar_la_actividad {
+  get Hacer_clic_sobre_el_icono_rojo_del_basurero_al_paciente_que_le_desee_desasignar_la_actividad {
     return Intl.message(
-      '• Hacer clic sobre el icono rojo del basurero al paciente que le desee quitar la actividad',
+      '• Hacer clic sobre el icono rojo del basurero al paciente que le desee desasignar la actividad',
       name:
-          'Hacer_clic_sobre_el_icono_rojo_del_basurero_al_paciente_que_le_desee_quitar_la_actividad',
+          'Hacer_clic_sobre_el_icono_rojo_del_basurero_al_paciente_que_le_desee_desasignar_la_actividad',
       desc: '',
       args: [],
     );
   }
 
-  /// `Para ver la foto de perfil con más detalle:`
+  /// `Para ver la foto de perfil con más detalle`
   String get Para_ver_la_foto_de_perfil_con_mas_detalle {
     return Intl.message(
-      'Para ver la foto de perfil con más detalle:',
+      'Para ver la foto de perfil con más detalle',
       name: 'Para_ver_la_foto_de_perfil_con_mas_detalle',
       desc: '',
       args: [],
     );
   }
 
-  /// `Pestañas de información:`
+  /// `Pestañas de información`
   String get Pestanas_de_informacion {
     return Intl.message(
-      'Pestañas de información:',
+      'Pestañas de información',
       name: 'Pestanas_de_informacion',
       desc: '',
       args: [],
@@ -2166,20 +2161,20 @@ class S {
     );
   }
 
-  /// `Para ver los logros con más detalle:`
+  /// `Para ver los logros con más detalle`
   String get Para_ver_los_logros_con_mas_detalle {
     return Intl.message(
-      'Para ver los logros con más detalle:',
+      'Para ver los logros con más detalle',
       name: 'Para_ver_los_logros_con_mas_detalle',
       desc: '',
       args: [],
     );
   }
 
-  /// `Menú de opciones:`
+  /// `Menú de opciones`
   String get Menu_de_opciones {
     return Intl.message(
-      'Menú de opciones:',
+      'Menú de opciones',
       name: 'Menu_de_opciones',
       desc: '',
       args: [],
@@ -2198,30 +2193,30 @@ class S {
     );
   }
 
-  /// `Para ver el detalle del paciente:`
+  /// `Para ver el detalle del paciente`
   String get Para_ver_el_detalle_del_paciente {
     return Intl.message(
-      'Para ver el detalle del paciente:',
+      'Para ver el detalle del paciente',
       name: 'Para_ver_el_detalle_del_paciente',
       desc: '',
       args: [],
     );
   }
 
-  /// `Para ver el detalle del/la niñ@:`
+  /// `Para ver el detalle del/la niñ@`
   String get Para_ver_el_detalle_del_la_nino {
     return Intl.message(
-      'Para ver el detalle del/la niñ@:',
+      'Para ver el detalle del/la niñ@',
       name: 'Para_ver_el_detalle_del_la_nino',
       desc: '',
       args: [],
     );
   }
 
-  /// `Para ver la foto de perfil de los niños asignados con más detalle:`
+  /// `Para ver la foto de perfil de los niños asignados con más detalle`
   String get Para_ver_la_foto_de_perfil_de_los_ninos_asignados_con_mas_detalle {
     return Intl.message(
-      'Para ver la foto de perfil de los niños asignados con más detalle:',
+      'Para ver la foto de perfil de los niños asignados con más detalle',
       name: 'Para_ver_la_foto_de_perfil_de_los_ninos_asignados_con_mas_detalle',
       desc: '',
       args: [],
@@ -2348,10 +2343,10 @@ class S {
     );
   }
 
-  /// `Para asignar un logro:`
+  /// `Para asignar un logro`
   String get Para_asignar_un_logro {
     return Intl.message(
-      'Para asignar un logro:',
+      'Para asignar un logro',
       name: 'Para_asignar_un_logro',
       desc: '',
       args: [],
@@ -2368,10 +2363,10 @@ class S {
     );
   }
 
-  /// `Si el nombre del logro no se muestra completo, puede:`
+  /// `Si el nombre del logro no se muestra completo, puede`
   String get Si_el_nombre_del_logro_no_se_muestra_completo_puede {
     return Intl.message(
-      'Si el nombre del logro no se muestra completo, puede:',
+      'Si el nombre del logro no se muestra completo, puede',
       name: 'Si_el_nombre_del_logro_no_se_muestra_completo_puede',
       desc: '',
       args: [],
@@ -2519,21 +2514,21 @@ class S {
     );
   }
 
-  /// `Si el título de la pantalla no se muestra completo, puede:`
+  /// `Si el título de la pantalla no se muestra completo, puede`
   String get Si_el_titulo_de_la_pantalla_no_se_muestra_completo_puede {
     return Intl.message(
-      'Si el título de la pantalla no se muestra completo, puede:',
+      'Si el título de la pantalla no se muestra completo, puede',
       name: 'Si_el_titulo_de_la_pantalla_no_se_muestra_completo_puede',
       desc: '',
       args: [],
     );
   }
 
-  /// `• Mantener el dedo sobre el título durante 1 segundo para verlo completo.`
+  /// `• Mantener el dedo sobre el título durante 1 segundo para verlo completo`
   String
   get Mantener_el_dedo_sobre_el_titulo_durante_1_segundo_para_verlo_completo {
     return Intl.message(
-      '• Mantener el dedo sobre el título durante 1 segundo para verlo completo.',
+      '• Mantener el dedo sobre el título durante 1 segundo para verlo completo',
       name:
           'Mantener_el_dedo_sobre_el_titulo_durante_1_segundo_para_verlo_completo',
       desc: '',
@@ -2546,6 +2541,118 @@ class S {
     return Intl.message(
       'Observación creada',
       name: 'Observacion_creada',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Si algún texto no se muestra completo`
+  String get Si_algun_texto_no_se_muestra_completo {
+    return Intl.message(
+      'Si algún texto no se muestra completo',
+      name: 'Si_algun_texto_no_se_muestra_completo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Mantener el dedo sobre el texto durante 1 segundo para verlo completo`
+  String
+  get Mantener_el_dedo_sobre_el_texto_durante_1_segundo_para_verlo_completo {
+    return Intl.message(
+      '• Mantener el dedo sobre el texto durante 1 segundo para verlo completo',
+      name:
+          'Mantener_el_dedo_sobre_el_texto_durante_1_segundo_para_verlo_completo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Para verificar la actividad o cerrar sesión`
+  String get Para_verificar_la_actividad_o_cerrar_sesion {
+    return Intl.message(
+      'Para verificar la actividad o cerrar sesión',
+      name: 'Para_verificar_la_actividad_o_cerrar_sesion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Debe presionar el botón correspondiente durante 3 segundos para realizar la acción`
+  String
+  get Debe_presionar_el_boton_correspondiente_durante_tres_segundos_para_realizar_la_accion {
+    return Intl.message(
+      '• Debe presionar el botón correspondiente durante 3 segundos para realizar la acción',
+      name:
+          'Debe_presionar_el_boton_correspondiente_durante_tres_segundos_para_realizar_la_accion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Descripción de la actividad`
+  String get Descripcion_de_la_actividad {
+    return Intl.message(
+      'Descripción de la actividad',
+      name: 'Descripcion_de_la_actividad',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `En el tablero puede realizar las siguientes acciones`
+  String get En_el_tablero_puede_realizar_las_siguientes_acciones {
+    return Intl.message(
+      'En el tablero puede realizar las siguientes acciones',
+      name: 'En_el_tablero_puede_realizar_las_siguientes_acciones',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Agregar un pictograma a la solución presionando la imagen por 1 segundo y luego desplazándola a la zona de la solución`
+  String
+  get Agregar_un_pictograma_a_la_solucion_presionando_la_imagen_por_un_segundo_y_luego_desplazandola_a_la_zona_de_la_solucion {
+    return Intl.message(
+      '• Agregar un pictograma a la solución presionando la imagen por 1 segundo y luego desplazándola a la zona de la solución',
+      name:
+          'Agregar_un_pictograma_a_la_solucion_presionando_la_imagen_por_un_segundo_y_luego_desplazandola_a_la_zona_de_la_solucion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Reordenar la solución presionando la imagen por 1 segundo y moviéndola horizontalmente hasta el lugar correcto`
+  String
+  get Reordenar_la_solucion_presionando_la_imagen_por_un_segundo_y_moviendola_horizontalmente_hasta_el_lugar_correcto {
+    return Intl.message(
+      '• Reordenar la solución presionando la imagen por 1 segundo y moviéndola horizontalmente hasta el lugar correcto',
+      name:
+          'Reordenar_la_solucion_presionando_la_imagen_por_un_segundo_y_moviendola_horizontalmente_hasta_el_lugar_correcto',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Eliminar un pictograma de forma individual presionando la imagen y desplazándola verticalmente fuera del área de la solución`
+  String
+  get Eliminar_un_pictograma_de_forma_individual_presionando_la_imagen_y_desplazandola_verticalmente_fuera_del_area_de_la_solucion {
+    return Intl.message(
+      '• Eliminar un pictograma de forma individual presionando la imagen y desplazándola verticalmente fuera del área de la solución',
+      name:
+          'Eliminar_un_pictograma_de_forma_individual_presionando_la_imagen_y_desplazandola_verticalmente_fuera_del_area_de_la_solucion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Presionar una imagen de la solución para reproducir su sonido de forma individual`
+  String
+  get Presionar_una_imagen_de_la_solucion_para_reproducir_su_sonido_de_forma_individual {
+    return Intl.message(
+      '• Presionar una imagen de la solución para reproducir su sonido de forma individual',
+      name:
+          'Presionar_una_imagen_de_la_solucion_para_reproducir_su_sonido_de_forma_individual',
       desc: '',
       args: [],
     );

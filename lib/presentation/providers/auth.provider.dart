@@ -138,6 +138,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
   Future<void> logout() async {
     _resetTokens();
     await keyValueRepository.deleteKeyStorage($userName);
+    await keyValueRepository.deleteKeyStorage($idUser);
     await keyValueRepository.deleteKeyStorage($email);
     await keyValueRepository.deleteKeyStorage($profile);
     await keyValueRepository.deleteKeyStorage($permissions);
@@ -175,6 +176,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
   }
 
   void settearDataMe({required Me me, required Token token}) async {
+    await keyValueRepository.setValueStorage<int>(me.id, $idUser);
     await keyValueRepository.setValueStorage<bool>(me.userVerified, $verified);
     await keyValueRepository.setValueStorage<String>(me.username, $userName);
     await keyValueRepository.setValueStorage<String>(me.email, $email);
