@@ -54,6 +54,10 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     final profileState = ref.watch(profileProvider);
     final profileNotifier = ref.read(profileProvider.notifier);
 
+    if (profileState.isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
     ref.listen(profileProvider, (previous, next) {
       if (next.validationErrors.isNotEmpty && clickSave) {
         String firstErrorKey = next.validationErrors.keys.first;

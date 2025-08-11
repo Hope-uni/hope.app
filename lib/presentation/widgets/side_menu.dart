@@ -122,7 +122,7 @@ class SideMenu extends ConsumerWidget {
                 ),
                 onPressed: () async {
                   //Se resetea el index del menu lateral
-                  ref.read(selectedOption.notifier).state = 0;
+                  ref.read(selectedOption.notifier).state = null;
                   await ref.read(authProvider.notifier).logout();
                 },
                 icon: const Icon(
