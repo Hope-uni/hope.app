@@ -21,6 +21,7 @@ class InputForm extends StatefulWidget {
   final bool? allCharacters;
   final bool? isNumberLetter;
   final bool? readOnly;
+  final bool? showCounterText;
 
   final Widget? suffixIcon;
 
@@ -51,6 +52,7 @@ class InputForm extends StatefulWidget {
     this.suffixIcon,
     this.errorText,
     this.onSearch,
+    this.showCounterText = true,
     this.colorFilled,
     this.controllerExt,
     this.isNumber,
@@ -243,9 +245,11 @@ class _InputFormState extends State<InputForm> {
           border: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(15)),
           ),
-          counterText: widget.maxLength != null && widget.enable
-              ? '    $textLength/ ${widget.maxLength}'
-              : ' ', //Dejar el espacio en blanco para que no se descuadre el contenido cuando no tiene counterText
+          counterText: widget.showCounterText == false
+              ? ' '
+              : widget.maxLength != null && widget.enable
+                  ? '    $textLength/ ${widget.maxLength}'
+                  : ' ', //Dejar el espacio en blanco para que no se descuadre el contenido cuando no tiene counterText
         ),
       ),
     );
