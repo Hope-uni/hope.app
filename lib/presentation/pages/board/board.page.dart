@@ -8,7 +8,6 @@ import 'package:hope_app/generated/l10n.dart';
 import 'package:hope_app/presentation/providers/providers.dart';
 import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
-import 'package:color_filter_extension/color_filter_extension.dart';
 import 'package:toastification/toastification.dart';
 
 class BoardPage extends ConsumerStatefulWidget {
@@ -935,11 +934,33 @@ Widget buildDraggableExample({
             height: 200.0,
             width: 200.0,
             child: ColorFiltered(
-              colorFilter: ColorFilterExt.preset(
-                isFilterBW
-                    ? ColorFiltersPreset.inkwell()
-                    : ColorFiltersPreset.none(),
-              ),
+              colorFilter: isFilterBW
+                  ? const ColorFilter.matrix([
+                      0.2126,
+                      0.7152,
+                      0.0722,
+                      0,
+                      0,
+                      0.2126,
+                      0.7152,
+                      0.0722,
+                      0,
+                      0,
+                      0.2126,
+                      0.7152,
+                      0.0722,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      1,
+                      0,
+                    ])
+                  : const ColorFilter.mode(
+                      Colors.transparent,
+                      BlendMode.dst,
+                    ),
               child: ImageLoad(urlImage: pictogram.imageUrl),
             ),
           ),
@@ -963,11 +984,33 @@ Widget buildDraggableExample({
                   height: 125.0,
                   width: 125.0,
                   child: ColorFiltered(
-                    colorFilter: ColorFilterExt.preset(
-                      isFilterBW
-                          ? ColorFiltersPreset.inkwell()
-                          : ColorFiltersPreset.none(),
-                    ),
+                    colorFilter: isFilterBW
+                        ? const ColorFilter.matrix([
+                            0.2126,
+                            0.7152,
+                            0.0722,
+                            0,
+                            0,
+                            0.2126,
+                            0.7152,
+                            0.0722,
+                            0,
+                            0,
+                            0.2126,
+                            0.7152,
+                            0.0722,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            1,
+                            0,
+                          ])
+                        : const ColorFilter.mode(
+                            Colors.transparent,
+                            BlendMode.dst,
+                          ),
                     child: ImageLoad(urlImage: pictogram.imageUrl),
                   ),
                 ),

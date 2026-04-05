@@ -7,7 +7,7 @@ import 'package:hope_app/presentation/utils/utils.dart';
 import 'package:hope_app/presentation/widgets/widgets.dart';
 import 'package:toastification/toastification.dart';
 
-modalPassword({
+ Future modalPassword({
   required BuildContext context,
   required bool isVerifided,
   CatalogObject? patient,

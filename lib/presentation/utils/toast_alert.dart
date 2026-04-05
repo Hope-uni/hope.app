@@ -45,7 +45,6 @@ void toastAlert(
     margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
     borderRadius: BorderRadius.circular(12),
     showProgressBar: false,
-    closeButtonShowType: CloseButtonShowType.none,
     closeOnClick: false,
     pauseOnHover: true,
     progressBarTheme: ProgressIndicatorThemeData(

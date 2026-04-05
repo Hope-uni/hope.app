@@ -95,7 +95,7 @@ class StepperCustom extends StatelessWidget {
     return list;
   }
 
-  Widget _getInnerElementOfStepper(index) {
+  Widget _getInnerElementOfStepper(int index) {
     var circleColor = _getCircleColor(index);
     var borderColor = _getBorderColor(index);
 
@@ -163,19 +163,19 @@ class StepperCustom extends StatelessWidget {
     }
   }
 
-  _getCircleColor(i) {
+  dynamic _getCircleColor(int i) {
     if (i + 1 < curStep) return stepCompleteColor;
     if (i + 1 == curStep) return currentStepColor;
     if (i + 1 > curStep) return $colorTextWhite;
   }
 
-  _getBorderColor(i) {
+  dynamic _getBorderColor(int i) {
     if (i + 1 < curStep) return stepCompleteColor;
     if (i + 1 == curStep) return currentStepColor;
     if (i + 1 > curStep) return inactiveColor;
   }
 
-  _getLineColor(i) {
+  Color _getLineColor(int i) {
     var color = curStep > i + 1
         ? $colorBlueGeneral.withValues(alpha: 0.4)
         : $colorButtonDisable;

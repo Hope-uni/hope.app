@@ -11,7 +11,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
   final keyValueRepository = KeyValueStorageRepositoryImpl();
 
   return GoRouter(
-    initialLocation: '/splash',
+    initialLocation: '/login',
     refreshListenable: goRouterNotifier,
     routes: <RouteBase>[
       GoRoute(

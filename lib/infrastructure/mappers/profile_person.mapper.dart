@@ -38,7 +38,7 @@ class ProfilePersonMapper {
         "imageUrl": profile.imageUrl
       };
 
-  static Map<String, dynamic> toJsonPatients(patients) => {
+  static Map<String, dynamic> toJsonPatients(Children patients) => {
         "userId": patients.userId,
         "id": patients.id,
         "fullName": patients.fullName,

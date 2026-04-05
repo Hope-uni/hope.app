@@ -1,4 +1,3 @@
-import 'package:color_filter_extension/color_filter_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -115,11 +114,33 @@ class ImageListVIewState extends ConsumerState<ImageListVIew> {
                   height: 150,
                   width: 150,
                   child: ColorFiltered(
-                    colorFilter: ColorFilterExt.preset(
-                      widget.isFilterBW == true
-                          ? ColorFiltersPreset.inkwell()
-                          : ColorFiltersPreset.none(),
-                    ),
+                    colorFilter: widget.isFilterBW == true
+                        ? const ColorFilter.matrix([
+                            0.2126,
+                            0.7152,
+                            0.0722,
+                            0,
+                            0,
+                            0.2126,
+                            0.7152,
+                            0.0722,
+                            0,
+                            0,
+                            0.2126,
+                            0.7152,
+                            0.0722,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            1,
+                            0,
+                          ])
+                        : const ColorFilter.mode(
+                            Colors.transparent,
+                            BlendMode.dst,
+                          ),
                     child: ImageLoad(urlImage: pictogram.imageUrl),
                   ),
                 ),
@@ -275,12 +296,34 @@ class ImageListVIewState extends ConsumerState<ImageListVIew> {
                                             ),
                                           )
                                         : ColorFiltered(
-                                            colorFilter: ColorFilterExt.preset(
+                                            colorFilter:
                                                 widget.isFilterBW == true
-                                                    ? ColorFiltersPreset
-                                                        .inkwell()
-                                                    : ColorFiltersPreset
-                                                        .none()),
+                                                    ? const ColorFilter.matrix([
+                                                        0.2126,
+                                                        0.7152,
+                                                        0.0722,
+                                                        0,
+                                                        0,
+                                                        0.2126,
+                                                        0.7152,
+                                                        0.0722,
+                                                        0,
+                                                        0,
+                                                        0.2126,
+                                                        0.7152,
+                                                        0.0722,
+                                                        0,
+                                                        0,
+                                                        0,
+                                                        0,
+                                                        0,
+                                                        1,
+                                                        0,
+                                                      ])
+                                                    : const ColorFilter.mode(
+                                                        Colors.transparent,
+                                                        BlendMode.dst,
+                                                      ),
                                             child: SizedBox(
                                                 height: 100,
                                                 width: 100,

@@ -162,7 +162,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
               iconTheme: IconThemeData(color: $colorTextWhite),
               titleTextStyle: TextStyle(color: $colorTextWhite, fontSize: 22),
             ),
-            tabBarTheme: const TabBarTheme(
+            tabBarTheme: const TabBarThemeData(
               indicatorColor: $colorIndicadorTabBar,
               labelColor: $colorTextWhite,
               unselectedLabelColor: $colorUnSelectTabBar,

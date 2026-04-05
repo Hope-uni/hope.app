@@ -46,7 +46,7 @@ class CameraGalleryDataSourceImpl extends CameraGalleryDataSource {
           lockAspectRatio: true,
           toolbarColor: $colorTextWhite,
           toolbarWidgetColor: $colorTextBlack,
-          statusBarColor: $colorTextWhite,
+          statusBarLight: true,
           initAspectRatio: CropAspectRatioPreset.square,
           hideBottomControls: true,
         ),

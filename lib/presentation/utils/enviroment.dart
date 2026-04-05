@@ -1,7 +1,7 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class Environment {
-  static initEnvitonment() async {
+  static Future initEnvitonment() async {
     await dotenv.load(fileName: ".env");
   }
 
